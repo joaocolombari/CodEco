@@ -1,0 +1,127 @@
+version: "1.0.0"
+frozen_on: "2026-10-13"
+scope: "paired comparison of decoded audio against the lossless master"
+
+input:
+  sample_rate_hz: 48000
+  channels: 1
+  duration_seconds: 4.0
+  numeric_range: [-1.0, 1.0]
+  gain_normalization_after_decode: false
+  clipping_policy: "flag and retain; do not repair"
+
+spectrogram:
+  window: hann_periodic
+  n_fft: 1024
+  win_length_samples: 1024
+  hop_length_samples: 512
+  center: false
+  padding: none
+  frequency_resolution_hz: 46.875
+  time_resolution_ms: 10.6666667
+  analysis_band_hz: [500, 24000]
+  upper_edge_inclusive: false
+  amplitude_floor: 1.0e-12
+  amplitude_dbfs_definition: "20*log10(max(2*abs(rfft(x*w))/sum(w), 1e-12)); DC and Nyquist are not doubled"
+
+spectral_diagnostics:
+  log_spectral_distance: true
+  energy_bands_hz:
+    - [0, 6000]
+    - [6000, 12000]
+    - [12000, 18000]
+    - [18000, 24000]
+  band_edge_policy: "lower inclusive, upper exclusive; Nyquist excluded"
+
+indices:
+  - id: ACI
+    status: primary
+    definition: acoustic_complexity_index
+    spectrum: magnitude
+    frequency_band_hz: [500, 24000]
+    temporal_block_seconds: 1.0
+    aggregation: "mean of the four block-level ACI values"
+    formula_note: "within each frequency bin, sum absolute differences between adjacent frames divided by summed magnitude"
+
+  - id: ADI
+    status: primary
+    definition: acoustic_diversity_index
+    spectrum: amplitude_dbfs
+    frequency_band_hz: [0, 24000]
+    band_width_hz: 1000
+    occupancy_threshold_dbfs: -50
+    aggregation: "Shannon entropy of band occupancies normalized by log(number_of_nonempty_bands)"
+    empty_case: 0.0
+
+  - id: AEI
+    status: primary
+    definition: acoustic_evenness_index
+    spectrum: amplitude_dbfs
+    frequency_band_hz: [0, 24000]
+    band_width_hz: 1000
+    occupancy_threshold_dbfs: -50
+    aggregation: "Gini coefficient of the same band occupancies used by ADI"
+    empty_case: 0.0
+
+  - id: Ht
+    status: primary_component
+    definition: temporal_entropy
+    envelope: "RMS per STFT frame"
+    aggregation: "Shannon entropy normalized by log(number_of_frames)"
+    silence_case: 0.0
+
+  - id: Hf
+    status: primary_component
+    definition: spectral_entropy
+    spectrum: power
+    frequency_band_hz: [500, 24000]
+    aggregation: "Shannon entropy of mean band power normalized by log(number_of_frequency_bins)"
+    silence_case: 0.0
+
+  - id: H
+    status: primary
+    definition: acoustic_entropy
+    formula: "Ht * Hf"
+
+  - id: BIO_2_24
+    status: primary
+    definition: bioacoustic_index
+    spectrum: mean_amplitude_dbfs
+    frequency_band_hz: [2000, 24000]
+    baseline: "minimum mean spectrum level inside the selected band"
+    aggregation: "trapezoidal integral of level above baseline over frequency in kHz"
+
+  - id: BIO_2_8
+    status: sensitivity_literature_bridge
+    definition: bioacoustic_index
+    spectrum: mean_amplitude_dbfs
+    frequency_band_hz: [2000, 8000]
+    baseline: "minimum mean spectrum level inside the selected band"
+    aggregation: "trapezoidal integral of level above baseline over frequency in kHz"
+
+  - id: NDSI_CLASSIC
+    status: sensitivity_only
+    definition: normalized_difference_soundscape_index
+    spectrum: power
+    anthropophony_band_hz: [1000, 2000]
+    biophony_band_hz: [2000, 11000]
+    formula: "(biophony - anthropophony) / (biophony + anthropophony)"
+    zero_denominator: 0.0
+
+  - id: NDSI_EXTENDED
+    status: sensitivity_only
+    definition: normalized_difference_soundscape_index
+    spectrum: power
+    anthropophony_band_hz: [1000, 2000]
+    biophony_band_hz: [2000, 24000]
+    formula: "(biophony - anthropophony) / (biophony + anthropophony)"
+    zero_denominator: 0.0
+
+reporting:
+  primary_indices: [ACI, ADI, AEI, H, BIO_2_24]
+  entropy_components_reported: [Ht, Hf]
+  sensitivity_indices: [BIO_2_8, NDSI_CLASSIC, NDSI_EXTENDED]
+  paired_effects: [signed_error, absolute_error, relative_error]
+  relative_error_denominator_floor: 1.0e-12
+  multiplicity_family: "primary indices within each corpus"
+  implementation_requirement: "one versioned implementation must be used for every codec condition and both corpora"

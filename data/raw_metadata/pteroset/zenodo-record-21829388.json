@@ -1,0 +1,31 @@
+{
+  "record_id": 21829388,
+  "doi": "10.5281/zenodo.21829388",
+  "title": "PteroSet",
+  "publication_date": "2026-08-06",
+  "license": "CC-BY-4.0",
+  "record_url": "https://zenodo.org/records/21829388",
+  "source": "Zenodo REST API response consulted on 2026-10-07",
+  "files": {
+    "PPA1.zip": {
+      "size_bytes": 15257785797,
+      "md5": "d5fce3e9d743bad4988131b57aa1c9bc"
+    },
+    "annotations_species.json": {
+      "size_bytes": 2310844,
+      "md5": "fefae0bd5b9cad4ead154ebf4dfeaf37"
+    },
+    "metadata_v2.csv": {
+      "size_bytes": 107983,
+      "md5": "23ce32af48bf7af1e90bcd6bf5a18e94"
+    },
+    "segment_manifest.csv": {
+      "size_bytes": 3203011,
+      "md5": "78f95db6260750923c1dd7b8a3b56a8e"
+    },
+    "species.csv": {
+      "size_bytes": 6630,
+      "md5": "ab0dd4b6ecfd526c749b86bd6a5e71cc"
+    }
+  }
+}

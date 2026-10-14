@@ -1,0 +1,14 @@
+# Source repositories can be recreated from data/manifest-lock-v1.json.
+external/
+
+# Audio and generated codec outputs must never enter Git.
+data/audio/
+data/derived/
+data/downloads/
+
+# Local caches and environments.
+.venv/
+__pycache__/
+*.pyc
+*.inspect.ndjson
+.DS_Store

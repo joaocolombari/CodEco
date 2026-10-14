@@ -1,0 +1,29 @@
+{
+  "verification_date": "2026-10-08",
+  "archive_relative_path": "data/downloads/pteroset/PPA1.zip",
+  "archive_bytes": 15257785797,
+  "archive_md5": "d5fce3e9d743bad4988131b57aa1c9bc",
+  "archive_sha256": "7bf3b8fdea64cae5ebbb47a951c95e25dc9dca47d55feef45be270383fb1d605",
+  "archive_matches_zenodo_record": true,
+  "wav_members": 108,
+  "verified_wav_members": 108,
+  "failed_wav_members": 0,
+  "sample_rate_counts": {
+    "192000": 108
+  },
+  "channel_counts": {
+    "1": 108
+  },
+  "bit_depth_counts": {
+    "16": 108
+  },
+  "format_code_counts": {
+    "1": 108
+  },
+  "duration_min_s": 433.0,
+  "duration_max_s": 433.0,
+  "total_uncompressed_bytes": 17957380752,
+  "all_audio_verified": true,
+  "failure_files": [],
+  "per_file_audit_relative_path": "data/audit/pteroset_ppa1_audio_files_v1.csv"
+}

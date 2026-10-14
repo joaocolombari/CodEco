@@ -1,0 +1,28 @@
+{
+  "generated_on": "2026-10-13",
+  "zenodo_parent_record": 15043892,
+  "zenodo_resolved_record": 18636037,
+  "zenodo_doi": "10.5281/zenodo.18636037",
+  "official_metadata_bytes": 15297263,
+  "official_metadata_md5": "ed85cc541da5f67bfdbfd92ce3ab9b87",
+  "official_metadata_sha256": "0a6e8d572c32c4b60258acd2b088f7acd81fd9c7b6ff2045321350c087bddad0",
+  "selected_wav_count": 15097,
+  "estimated_selected_wav_bytes": 13630324268,
+  "estimated_selected_wav_gib": 12.694229,
+  "split_archives": {
+    "Split recordings2.tar.gz": {
+      "bytes": 9084639756,
+      "md5": "4069994f8aa6602b4ac9e62b99746eb6",
+      "url": "https://zenodo.org/api/records/18636037/files/Split%20recordings2.tar.gz/content"
+    },
+    "Split recordings1.tar.gz": {
+      "bytes": 13785342839,
+      "md5": "c61086491aad58583ea2d3fba66b8d42",
+      "url": "https://zenodo.org/api/records/18636037/files/Split%20recordings1.tar.gz/content"
+    }
+  },
+  "split_archives_total_bytes": 22869982595,
+  "download_manifest_relative_path": "data/manifests/ecosoundset_download_manifest_v1.csv",
+  "download_manifest_sha256": "1cae43ada53f58f45a2298746d2faade50857f982637ec340eda06a9c4bc6745",
+  "local_execution_decision": "defer_full_download_to_easncloud_due_to_local_disk_capacity"
+}

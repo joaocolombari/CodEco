@@ -1,0 +1,564 @@
+project_name,location_id,recorder_id,audio_file,annotation_file,date_recorded,annotations,country,department,municipality,project_begin,project_end,latitude,longitude,zone,land_cover
+PPA3,P6,CSA-02,CSA-02_timelapse_20250304.wav,CSA-02_timelapse_20250304.Table.1.selections.txt,20250304,12,Colombia,Putumayo,Puerto Asis,2/28/2025,3/21/2025,0.465659836,-76.32237641,South,pastures
+PPA3,P6,CSA-02,CSA-02_timelapse_20250308.wav,CSA-02_timelapse_20250308.Table.1.selections.txt,20250308,13,Colombia,Putumayo,Puerto Asis,2/28/2025,3/21/2025,0.465659836,-76.32237641,South,pastures
+PPA3,P6,CSA-02,CSA-02_timelapse_20250309.wav,CSA-02_timelapse_20250309.Table.1.selections.txt,20250309,12,Colombia,Putumayo,Puerto Asis,2/28/2025,3/21/2025,0.465659836,-76.32237641,South,pastures
+PPA3,P6,CSA-02,CSA-02_timelapse_20250312.wav,CSA-02_timelapse_20250312.Table.1.selections.txt,20250312,25,Colombia,Putumayo,Puerto Asis,2/28/2025,3/21/2025,0.465659836,-76.32237641,South,pastures
+PPA3,P6,CSA-02,CSA-02_timelapse_20250313.wav,CSA-02_timelapse_20250313.Table.1.selections.txt,20250313,21,Colombia,Putumayo,Puerto Asis,2/28/2025,3/21/2025,0.465659836,-76.32237641,South,pastures
+PPA3,P26,G001,G001_timelapse_20250228.wav,G001_timelapse_20250228.Table.1.selections.txt,20250228,30,Colombia,Putumayo,Puerto Asis,2/27/2025,3/18/2025,0.498368748,-76.32733008,North,secondary vegetation
+PPA3,P26,G001,G001_timelapse_20250304.wav,G001_timelapse_20250304.Table.1.selections.txt,20250304,45,Colombia,Putumayo,Puerto Asis,2/27/2025,3/18/2025,0.498368748,-76.32733008,North,secondary vegetation
+PPA3,P26,G001,G001_timelapse_20250308.wav,G001_timelapse_20250308.Table.1.selections.txt,20250308,28,Colombia,Putumayo,Puerto Asis,2/27/2025,3/18/2025,0.498368748,-76.32733008,North,secondary vegetation
+PPA3,P26,G001,G001_timelapse_20250309.wav,G001_timelapse_20250309.Table.1.selections.txt,20250309,26,Colombia,Putumayo,Puerto Asis,2/27/2025,3/18/2025,0.498368748,-76.32733008,North,secondary vegetation
+PPA3,P26,G001,G001_timelapse_20250313.wav,G001_timelapse_20250313.Table.1.selections.txt,20250313,25,Colombia,Putumayo,Puerto Asis,2/27/2025,3/18/2025,0.498368748,-76.32733008,North,secondary vegetation
+PPA2,P24,G003,G003_timelapse_20241218.wav,G003_timelapse_20241218.Table.1.selections.txt,20241218,24,Colombia,Putumayo,Puerto Asis,12/16/2024,12/28/2024,0.485997145,-76.31650923,Center,dense forest
+PPA2,P24,G003,G003_timelapse_20241221.wav,G003_timelapse_20241221.Table.1.selections.txt,20241221,22,Colombia,Putumayo,Puerto Asis,12/16/2024,12/28/2024,0.485997145,-76.31650923,Center,dense forest
+PPA2,P24,G003,G003_timelapse_20241222.wav,G003_timelapse_20241222.Table.1.selections.txt,20241222,22,Colombia,Putumayo,Puerto Asis,12/16/2024,12/28/2024,0.485997145,-76.31650923,Center,dense forest
+PPA2,P5,G004,G004_timelapse_20241218.wav,G004_timelapse_20241218.Table.1.selections.txt,20241218,27,Colombia,Putumayo,Puerto Asis,12/14/2024,12/27/2024,0.496382101,-76.32560887,North,pastures
+PPA2,P5,G004,G004_timelapse_20241220.wav,G004_timelapse_20241220.Table.1.selections.txt,20241220,33,Colombia,Putumayo,Puerto Asis,12/14/2024,12/27/2024,0.496382101,-76.32560887,North,pastures
+PPA2,P5,G004,G004_timelapse_20241221.wav,G004_timelapse_20241221.Table.1.selections.txt,20241221,26,Colombia,Putumayo,Puerto Asis,12/14/2024,12/27/2024,0.496382101,-76.32560887,North,pastures
+PPA2,P5,G004,G004_timelapse_20241222.wav,G004_timelapse_20241222.Table.1.selections.txt,20241222,21,Colombia,Putumayo,Puerto Asis,12/14/2024,12/27/2024,0.496382101,-76.32560887,North,pastures
+PPA2,P5,G004,G004_timelapse_20241226.wav,G004_timelapse_20241226.Table.1.selections.txt,20241226,35,Colombia,Putumayo,Puerto Asis,12/14/2024,12/27/2024,0.496382101,-76.32560887,North,pastures
+PPA2,P36,G010,G010_timelapse_20241216.wav,G010_timelapse_20241216.Table.1.selections.txt,20241216,47,Colombia,Putumayo,Puerto Asis,12/14/2024,12/27/2024,0.499156344,-76.32286904,North,secondary vegetation
+PPA2,P36,G010,G010_timelapse_20241218.wav,G010_timelapse_20241218.Table.1.selections.txt,20241218,68,Colombia,Putumayo,Puerto Asis,12/14/2024,12/27/2024,0.499156344,-76.32286904,North,secondary vegetation
+PPA2,P36,G010,G010_timelapse_20241220.wav,G010_timelapse_20241220.Table.1.selections.txt,20241220,77,Colombia,Putumayo,Puerto Asis,12/14/2024,12/27/2024,0.499156344,-76.32286904,North,secondary vegetation
+PPA2,P36,G010,G010_timelapse_20241221.wav,G010_timelapse_20241221.Table.1.selections.txt,20241221,36,Colombia,Putumayo,Puerto Asis,12/14/2024,12/27/2024,0.499156344,-76.32286904,North,secondary vegetation
+PPA2,P36,G010,G010_timelapse_20241222.wav,G010_timelapse_20241222.Table.1.selections.txt,20241222,30,Colombia,Putumayo,Puerto Asis,12/14/2024,12/27/2024,0.499156344,-76.32286904,North,secondary vegetation
+PPA2,P36,G010,G010_timelapse_20241226.wav,G010_timelapse_20241226.Table.1.selections.txt,20241226,68,Colombia,Putumayo,Puerto Asis,12/14/2024,12/27/2024,0.499156344,-76.32286904,North,secondary vegetation
+PPA3,P20,G010,G010_timelapse_20250228.wav,G010_timelapse_20250228.Table.1.selections.txt,20250228,14,Colombia,Putumayo,Puerto Asis,2/27/2025,3/25/2025,0.483822913,-76.31895993,Center,secondary vegetation
+PPA3,P20,G010,G010_timelapse_20250304.wav,G010_timelapse_20250304.Table.1.selections.txt,20250304,24,Colombia,Putumayo,Puerto Asis,2/27/2025,3/25/2025,0.483822913,-76.31895993,Center,secondary vegetation
+PPA3,P20,G010,G010_timelapse_20250309.wav,G010_timelapse_20250309.Table.1.selections.txt,20250309,9,Colombia,Putumayo,Puerto Asis,2/27/2025,3/25/2025,0.483822913,-76.31895993,Center,secondary vegetation
+PPA3,P20,G010,G010_timelapse_20250313.wav,G010_timelapse_20250313.Table.1.selections.txt,20250313,14,Colombia,Putumayo,Puerto Asis,2/27/2025,3/25/2025,0.483822913,-76.31895993,Center,secondary vegetation
+PPA3,P20,G010,G010_timelapse_20250319.wav,G010_timelapse_20250319.Table.1.selections.txt,20250319,15,Colombia,Putumayo,Puerto Asis,2/27/2025,3/25/2025,0.483822913,-76.31895993,Center,secondary vegetation
+PPA4,P1,G010,G010_timelapse_20250622.wav,G010_timelapse_20250622.Table.1.selections.txt,20250622,17,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.501814214,-76.32395414,North,pastures
+PPA4,P1,G010,G010_timelapse_20250625.wav,G010_timelapse_20250625.Table.1.selections.txt,20250625,37,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.501814214,-76.32395414,North,pastures
+PPA4,P1,G010,G010_timelapse_20250627.wav,G010_timelapse_20250627.Table.1.selections.txt,20250627,16,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.501814214,-76.32395414,North,pastures
+PPA4,P1,G010,G010_timelapse_20250629.wav,G010_timelapse_20250629.Table.1.selections.txt,20250629,42,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.501814214,-76.32395414,North,pastures
+PPA4,P1,G010,G010_timelapse_20250630.wav,G010_timelapse_20250630.Table.1.selections.txt,20250630,15,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.501814214,-76.32395414,North,pastures
+PPA2,P25,G021,G021_timelapse_20241220.wav,G021_timelapse_20241220.Table.1.selections.txt,20241220,46,Colombia,Putumayo,Puerto Asis,12/15/2024,12/27/2024,0.481870098,-76.31957511,Center,dense forest
+PPA2,P25,G021,G021_timelapse_20241222.wav,G021_timelapse_20241222.Table.1.selections.txt,20241222,28,Colombia,Putumayo,Puerto Asis,12/15/2024,12/27/2024,0.481870098,-76.31957511,Center,dense forest
+PPA3,P10,G021,G021_timelapse_20250308.wav,G021_timelapse_20250308.Table.1.selections.txt,20250308,33,Colombia,Putumayo,Puerto Asis,3/1/2025,3/25/2025,0.480305085,-76.320154,Center,pastures
+PPA3,P10,G021,G021_timelapse_20250312.wav,G021_timelapse_20250312.Table.1.selections.txt,20250312,18,Colombia,Putumayo,Puerto Asis,3/1/2025,3/25/2025,0.480305085,-76.320154,Center,pastures
+PPA3,P10,G021,G021_timelapse_20250313.wav,G021_timelapse_20250313.Table.1.selections.txt,20250313,39,Colombia,Putumayo,Puerto Asis,3/1/2025,3/25/2025,0.480305085,-76.320154,Center,pastures
+PPA3,P10,G021,G021_timelapse_20250321.wav,G021_timelapse_20250321.Table.1.selections.txt,20250321,25,Colombia,Putumayo,Puerto Asis,3/1/2025,3/25/2025,0.480305085,-76.320154,Center,pastures
+PPA3,P10,G021,G021_timelapse_20250324.wav,G021_timelapse_20250324.Table.1.selections.txt,20250324,22,Colombia,Putumayo,Puerto Asis,3/1/2025,3/25/2025,0.480305085,-76.320154,Center,pastures
+PPA4,P18,G021,G021_timelapse_20250619.wav,G021_timelapse_20250619.Table.1.selections.txt,20250619,65,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.488871309,-76.32242715,Center,secondary vegetation
+PPA4,P18,G021,G021_timelapse_20250622.wav,G021_timelapse_20250622.Table.1.selections.txt,20250622,84,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.488871309,-76.32242715,Center,secondary vegetation
+PPA4,P18,G021,G021_timelapse_20250623.wav,G021_timelapse_20250623.Table.1.selections.txt,20250623,72,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.488871309,-76.32242715,Center,secondary vegetation
+PPA4,P18,G021,G021_timelapse_20250624.wav,G021_timelapse_20250624.Table.1.selections.txt,20250624,63,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.488871309,-76.32242715,Center,secondary vegetation
+PPA4,P18,G021,G021_timelapse_20250625.wav,G021_timelapse_20250625.Table.1.selections.txt,20250625,73,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.488871309,-76.32242715,Center,secondary vegetation
+PPA2,P30,G026,G026_timelapse_20241218.wav,G026_timelapse_20241218.Table.1.selections.txt,20241218,38,Colombia,Putumayo,Puerto Asis,12/16/2024,12/28/2024,0.483736513,-76.31671583,Center,dense forest
+PPA2,P30,G026,G026_timelapse_20241221.wav,G026_timelapse_20241221.Table.1.selections.txt,20241221,17,Colombia,Putumayo,Puerto Asis,12/16/2024,12/28/2024,0.483736513,-76.31671583,Center,dense forest
+PPA2,P30,G026,G026_timelapse_20241222.wav,G026_timelapse_20241222.Table.1.selections.txt,20241222,16,Colombia,Putumayo,Puerto Asis,12/16/2024,12/28/2024,0.483736513,-76.31671583,Center,dense forest
+PPA2,P28,G028,G028_timelapse_20241216.wav,G028_timelapse_20241216.Table.1.selections.txt,20241216,16,Colombia,Putumayo,Puerto Asis,12/14/2024,12/27/2024,0.501725013,-76.32559592,North,secondary vegetation
+PPA2,P28,G028,G028_timelapse_20241218.wav,G028_timelapse_20241218.Table.1.selections.txt,20241218,25,Colombia,Putumayo,Puerto Asis,12/14/2024,12/27/2024,0.501725013,-76.32559592,North,secondary vegetation
+PPA2,P28,G028,G028_timelapse_20241220.wav,G028_timelapse_20241220.Table.1.selections.txt,20241220,29,Colombia,Putumayo,Puerto Asis,12/14/2024,12/27/2024,0.501725013,-76.32559592,North,secondary vegetation
+PPA2,P6,G040,G040_timelapse_20241216.wav,G040_timelapse_20241216.Table.1.selections.txt,20241216,54,Colombia,Putumayo,Puerto Asis,12/15/2024,12/27/2024,0.465659836,-76.32237641,South,pastures
+PPA2,P6,G040,G040_timelapse_20241218.wav,G040_timelapse_20241218.Table.1.selections.txt,20241218,47,Colombia,Putumayo,Puerto Asis,12/15/2024,12/27/2024,0.465659836,-76.32237641,South,pastures
+PPA2,P6,G040,G040_timelapse_20241220.wav,G040_timelapse_20241220.Table.1.selections.txt,20241220,21,Colombia,Putumayo,Puerto Asis,12/15/2024,12/27/2024,0.465659836,-76.32237641,South,pastures
+PPA2,P6,G040,G040_timelapse_20241221.wav,G040_timelapse_20241221.Table.1.selections.txt,20241221,39,Colombia,Putumayo,Puerto Asis,12/15/2024,12/27/2024,0.465659836,-76.32237641,South,pastures
+PPA2,P6,G040,G040_timelapse_20241222.wav,G040_timelapse_20241222.Table.1.selections.txt,20241222,20,Colombia,Putumayo,Puerto Asis,12/15/2024,12/27/2024,0.465659836,-76.32237641,South,pastures
+PPA2,P6,G040,G040_timelapse_20241226.wav,G040_timelapse_20241226.Table.1.selections.txt,20241226,51,Colombia,Putumayo,Puerto Asis,12/15/2024,12/27/2024,0.465659836,-76.32237641,South,pastures
+PPA3,P13,G040,G040_timelapse_20250308.wav,G040_timelapse_20250308.Table.1.selections.txt,20250308,20,Colombia,Putumayo,Puerto Asis,3/3/2025,3/25/2025,0.484876172,-76.32162573,Center,secondary vegetation
+PPA3,P13,G040,G040_timelapse_20250312.wav,G040_timelapse_20250312.Table.1.selections.txt,20250312,19,Colombia,Putumayo,Puerto Asis,3/3/2025,3/25/2025,0.484876172,-76.32162573,Center,secondary vegetation
+PPA3,P13,G040,G040_timelapse_20250313.wav,G040_timelapse_20250313.Table.1.selections.txt,20250313,20,Colombia,Putumayo,Puerto Asis,3/3/2025,3/25/2025,0.484876172,-76.32162573,Center,secondary vegetation
+PPA3,P13,G040,G040_timelapse_20250319.wav,G040_timelapse_20250319.Table.1.selections.txt,20250319,17,Colombia,Putumayo,Puerto Asis,3/3/2025,3/25/2025,0.484876172,-76.32162573,Center,secondary vegetation
+PPA3,P13,G040,G040_timelapse_20250321.wav,G040_timelapse_20250321.Table.1.selections.txt,20250321,34,Colombia,Putumayo,Puerto Asis,3/3/2025,3/25/2025,0.484876172,-76.32162573,Center,secondary vegetation
+PPA3,P13,G040,G040_timelapse_20250324.wav,G040_timelapse_20250324.Table.1.selections.txt,20250324,10,Colombia,Putumayo,Puerto Asis,3/3/2025,3/25/2025,0.484876172,-76.32162573,Center,secondary vegetation
+PPA4,P35,G040,G040_timelapse_20250624.wav,G040_timelapse_20250624.Table.1.selections.txt,20250624,41,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.496689972,-76.32738379,North,pastures
+PPA4,P35,G040,G040_timelapse_20250625.wav,G040_timelapse_20250625.Table.1.selections.txt,20250625,50,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.496689972,-76.32738379,North,pastures
+PPA4,P35,G040,G040_timelapse_20250627.wav,G040_timelapse_20250627.Table.1.selections.txt,20250627,40,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.496689972,-76.32738379,North,pastures
+PPA4,P35,G040,G040_timelapse_20250629.wav,G040_timelapse_20250629.Table.1.selections.txt,20250629,50,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.496689972,-76.32738379,North,pastures
+PPA4,P35,G040,G040_timelapse_20250630.wav,G040_timelapse_20250630.Table.1.selections.txt,20250630,64,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.496689972,-76.32738379,North,pastures
+PPA3,P16,G041,G041_timelapse_20250304.wav,G041_timelapse_20250304.Table.1.selections.txt,20250304,20,Colombia,Putumayo,Puerto Asis,3/1/2025,3/25/2025,0.46749775,-76.32842364,South,dense forest
+PPA3,P16,G041,G041_timelapse_20250308.wav,G041_timelapse_20250308.Table.1.selections.txt,20250308,39,Colombia,Putumayo,Puerto Asis,3/1/2025,3/25/2025,0.46749775,-76.32842364,South,dense forest
+PPA3,P16,G041,G041_timelapse_20250309.wav,G041_timelapse_20250309.Table.1.selections.txt,20250309,28,Colombia,Putumayo,Puerto Asis,3/1/2025,3/25/2025,0.46749775,-76.32842364,South,dense forest
+PPA3,P16,G041,G041_timelapse_20250312.wav,G041_timelapse_20250312.Table.1.selections.txt,20250312,8,Colombia,Putumayo,Puerto Asis,3/1/2025,3/25/2025,0.46749775,-76.32842364,South,dense forest
+PPA3,P16,G041,G041_timelapse_20250313.wav,G041_timelapse_20250313.Table.1.selections.txt,20250313,22,Colombia,Putumayo,Puerto Asis,3/1/2025,3/25/2025,0.46749775,-76.32842364,South,dense forest
+PPA2,P19,G042,G042_timelapse_20241216.wav,G042_timelapse_20241216.Table.1.selections.txt,20241216,41,Colombia,Putumayo,Puerto Asis,12/15/2024,12/27/2024,0.481031336,-76.31806753,Center,secondary vegetation
+PPA2,P19,G042,G042_timelapse_20241218.wav,G042_timelapse_20241218.Table.1.selections.txt,20241218,19,Colombia,Putumayo,Puerto Asis,12/15/2024,12/27/2024,0.481031336,-76.31806753,Center,secondary vegetation
+PPA2,P19,G042,G042_timelapse_20241220.wav,G042_timelapse_20241220.Table.1.selections.txt,20241220,50,Colombia,Putumayo,Puerto Asis,12/15/2024,12/27/2024,0.481031336,-76.31806753,Center,secondary vegetation
+PPA2,P19,G042,G042_timelapse_20241222.wav,G042_timelapse_20241222.Table.1.selections.txt,20241222,27,Colombia,Putumayo,Puerto Asis,12/15/2024,12/27/2024,0.481031336,-76.31806753,Center,secondary vegetation
+PPA3,P18,G042,G042_timelapse_20250309.wav,G042_timelapse_20250309.Table.1.selections.txt,20250309,79,Colombia,Putumayo,Puerto Asis,3/4/2025,3/25/2025,0.488871309,-76.32242715,Center,secondary vegetation
+PPA3,P18,G042,G042_timelapse_20250312.wav,G042_timelapse_20250312.Table.1.selections.txt,20250312,52,Colombia,Putumayo,Puerto Asis,3/4/2025,3/25/2025,0.488871309,-76.32242715,Center,secondary vegetation
+PPA3,P18,G042,G042_timelapse_20250313.wav,G042_timelapse_20250313.Table.1.selections.txt,20250313,59,Colombia,Putumayo,Puerto Asis,3/4/2025,3/25/2025,0.488871309,-76.32242715,Center,secondary vegetation
+PPA3,P18,G042,G042_timelapse_20250321.wav,G042_timelapse_20250321.Table.1.selections.txt,20250321,36,Colombia,Putumayo,Puerto Asis,3/4/2025,3/25/2025,0.488871309,-76.32242715,Center,secondary vegetation
+PPA3,P18,G042,G042_timelapse_20250324.wav,G042_timelapse_20250324.Table.1.selections.txt,20250324,33,Colombia,Putumayo,Puerto Asis,3/4/2025,3/25/2025,0.488871309,-76.32242715,Center,secondary vegetation
+PPA2,P17,G043,G043_timelapse_20241215.wav,G043_timelapse_20241215.Table.1.selections.txt,20241215,49,Colombia,Putumayo,Puerto Asis,12/14/2024,12/27/2024,0.503304443,-76.32256326,North,dense forest
+PPA2,P17,G043,G043_timelapse_20241216.wav,G043_timelapse_20241216.Table.1.selections.txt,20241216,39,Colombia,Putumayo,Puerto Asis,12/14/2024,12/27/2024,0.503304443,-76.32256326,North,dense forest
+PPA2,P17,G043,G043_timelapse_20241218.wav,G043_timelapse_20241218.Table.1.selections.txt,20241218,24,Colombia,Putumayo,Puerto Asis,12/14/2024,12/27/2024,0.503304443,-76.32256326,North,dense forest
+PPA2,P17,G043,G043_timelapse_20241220.wav,G043_timelapse_20241220.Table.1.selections.txt,20241220,25,Colombia,Putumayo,Puerto Asis,12/14/2024,12/27/2024,0.503304443,-76.32256326,North,dense forest
+PPA2,P17,G043,G043_timelapse_20241222.wav,G043_timelapse_20241222.Table.1.selections.txt,20241222,7,Colombia,Putumayo,Puerto Asis,12/14/2024,12/27/2024,0.503304443,-76.32256326,North,dense forest
+PPA2,P17,G043,G043_timelapse_20241226.wav,G043_timelapse_20241226.Table.1.selections.txt,20241226,7,Colombia,Putumayo,Puerto Asis,12/14/2024,12/27/2024,0.503304443,-76.32256326,North,dense forest
+PPA2,P34,G045,G045_timelapse_20241215.wav,G045_timelapse_20241215.Table.1.selections.txt,20241215,26,Colombia,Putumayo,Puerto Asis,12/14/2024,12/27/2024,0.498801152,-76.32449667,North,dense forest
+PPA2,P34,G045,G045_timelapse_20241216.wav,G045_timelapse_20241216.Table.1.selections.txt,20241216,31,Colombia,Putumayo,Puerto Asis,12/14/2024,12/27/2024,0.498801152,-76.32449667,North,dense forest
+PPA2,P34,G045,G045_timelapse_20241220.wav,G045_timelapse_20241220.Table.1.selections.txt,20241220,15,Colombia,Putumayo,Puerto Asis,12/14/2024,12/27/2024,0.498801152,-76.32449667,North,dense forest
+PPA3,P22,G045,G045_timelapse_20250304.wav,G045_timelapse_20250304.Table.1.selections.txt,20250304,24,Colombia,Putumayo,Puerto Asis,3/3/2025,3/25/2025,0.483959153,-76.32543891,Center,dense forest
+PPA3,P22,G045,G045_timelapse_20250308.wav,G045_timelapse_20250308.Table.1.selections.txt,20250308,14,Colombia,Putumayo,Puerto Asis,3/3/2025,3/25/2025,0.483959153,-76.32543891,Center,dense forest
+PPA3,P22,G045,G045_timelapse_20250309.wav,G045_timelapse_20250309.Table.1.selections.txt,20250309,28,Colombia,Putumayo,Puerto Asis,3/3/2025,3/25/2025,0.483959153,-76.32543891,Center,dense forest
+PPA3,P22,G045,G045_timelapse_20250312.wav,G045_timelapse_20250312.Table.1.selections.txt,20250312,19,Colombia,Putumayo,Puerto Asis,3/3/2025,3/25/2025,0.483959153,-76.32543891,Center,dense forest
+PPA3,P22,G045,G045_timelapse_20250313.wav,G045_timelapse_20250313.Table.1.selections.txt,20250313,14,Colombia,Putumayo,Puerto Asis,3/3/2025,3/25/2025,0.483959153,-76.32543891,Center,dense forest
+PPA4,P30,G045,G045_timelapse_20250619.wav,G045_timelapse_20250619.Table.1.selections.txt,20250619,9,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.483736513,-76.31671583,Center,dense forest
+PPA4,P30,G045,G045_timelapse_20250622.wav,G045_timelapse_20250622.Table.1.selections.txt,20250622,12,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.483736513,-76.31671583,Center,dense forest
+PPA4,P30,G045,G045_timelapse_20250623.wav,G045_timelapse_20250623.Table.1.selections.txt,20250623,6,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.483736513,-76.31671583,Center,dense forest
+PPA4,P30,G045,G045_timelapse_20250627.wav,G045_timelapse_20250627.Table.1.selections.txt,20250627,2,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.483736513,-76.31671583,Center,dense forest
+PPA4,P30,G045,G045_timelapse_20250629.wav,G045_timelapse_20250629.Table.1.selections.txt,20250629,4,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.483736513,-76.31671583,Center,dense forest
+PPA2,P31,G053,G053_timelapse_20241216.wav,G053_timelapse_20241216.Table.1.selections.txt,20241216,24,Colombia,Putumayo,Puerto Asis,12/14/2024,12/27/2024,0.499781388,-76.32170359,North,dense forest
+PPA2,P31,G053,G053_timelapse_20241218.wav,G053_timelapse_20241218.Table.1.selections.txt,20241218,25,Colombia,Putumayo,Puerto Asis,12/14/2024,12/27/2024,0.499781388,-76.32170359,North,dense forest
+PPA2,P31,G053,G053_timelapse_20241221.wav,G053_timelapse_20241221.Table.1.selections.txt,20241221,21,Colombia,Putumayo,Puerto Asis,12/14/2024,12/27/2024,0.499781388,-76.32170359,North,dense forest
+PPA2,P31,G053,G053_timelapse_20241222.wav,G053_timelapse_20241222.Table.1.selections.txt,20241222,39,Colombia,Putumayo,Puerto Asis,12/14/2024,12/27/2024,0.499781388,-76.32170359,North,dense forest
+PPA3,P24,G053,G053_timelapse_20250308.wav,G053_timelapse_20250308.Table.1.selections.txt,20250308,7,Colombia,Putumayo,Puerto Asis,3/4/2025,3/25/2025,0.485997145,-76.31650923,Center,dense forest
+PPA3,P24,G053,G053_timelapse_20250309.wav,G053_timelapse_20250309.Table.1.selections.txt,20250309,20,Colombia,Putumayo,Puerto Asis,3/4/2025,3/25/2025,0.485997145,-76.31650923,Center,dense forest
+PPA3,P24,G053,G053_timelapse_20250312.wav,G053_timelapse_20250312.Table.1.selections.txt,20250312,1,Colombia,Putumayo,Puerto Asis,3/4/2025,3/25/2025,0.485997145,-76.31650923,Center,dense forest
+PPA3,P24,G053,G053_timelapse_20250313.wav,G053_timelapse_20250313.Table.1.selections.txt,20250313,11,Colombia,Putumayo,Puerto Asis,3/4/2025,3/25/2025,0.485997145,-76.31650923,Center,dense forest
+PPA2,P27,G054,G054_timelapse_20241216.wav,G054_timelapse_20241216.Table.1.selections.txt,20241216,20,Colombia,Putumayo,Puerto Asis,12/15/2024,12/27/2024,0.469684772,-76.32851552,South,pastures
+PPA2,P27,G054,G054_timelapse_20241218.wav,G054_timelapse_20241218.Table.1.selections.txt,20241218,32,Colombia,Putumayo,Puerto Asis,12/15/2024,12/27/2024,0.469684772,-76.32851552,South,pastures
+PPA2,P27,G054,G054_timelapse_20241220.wav,G054_timelapse_20241220.Table.1.selections.txt,20241220,46,Colombia,Putumayo,Puerto Asis,12/15/2024,12/27/2024,0.469684772,-76.32851552,South,pastures
+PPA2,P27,G054,G054_timelapse_20241221.wav,G054_timelapse_20241221.Table.1.selections.txt,20241221,20,Colombia,Putumayo,Puerto Asis,12/15/2024,12/27/2024,0.469684772,-76.32851552,South,pastures
+PPA2,P27,G054,G054_timelapse_20241222.wav,G054_timelapse_20241222.Table.1.selections.txt,20241222,11,Colombia,Putumayo,Puerto Asis,12/15/2024,12/27/2024,0.469684772,-76.32851552,South,pastures
+PPA2,P22,G056,G056_timelapse_20241218.wav,G056_timelapse_20241218.Table.1.selections.txt,20241218,41,Colombia,Putumayo,Puerto Asis,12/16/2024,12/28/2024,0.483959153,-76.32543891,Center,dense forest
+PPA2,P22,G056,G056_timelapse_20241220.wav,G056_timelapse_20241220.Table.1.selections.txt,20241220,43,Colombia,Putumayo,Puerto Asis,12/16/2024,12/28/2024,0.483959153,-76.32543891,Center,dense forest
+PPA2,P22,G056,G056_timelapse_20241221.wav,G056_timelapse_20241221.Table.1.selections.txt,20241221,15,Colombia,Putumayo,Puerto Asis,12/16/2024,12/28/2024,0.483959153,-76.32543891,Center,dense forest
+PPA2,P22,G056,G056_timelapse_20241222.wav,G056_timelapse_20241222.Table.1.selections.txt,20241222,14,Colombia,Putumayo,Puerto Asis,12/16/2024,12/28/2024,0.483959153,-76.32543891,Center,dense forest
+PPA2,P22,G056,G056_timelapse_20241226.wav,G056_timelapse_20241226.Table.1.selections.txt,20241226,10,Colombia,Putumayo,Puerto Asis,12/16/2024,12/28/2024,0.483959153,-76.32543891,Center,dense forest
+PPA3,P14,G056,G056_timelapse_20250312.wav,G056_timelapse_20250312.Table.1.selections.txt,20250312,6,Colombia,Putumayo,Puerto Asis,3/4/2025,3/25/2025,0.484803731,-76.31775817,Center,dense forest
+PPA3,P14,G056,G056_timelapse_20250313.wav,G056_timelapse_20250313.Table.1.selections.txt,20250313,6,Colombia,Putumayo,Puerto Asis,3/4/2025,3/25/2025,0.484803731,-76.31775817,Center,dense forest
+PPA3,P14,G056,G056_timelapse_20250319.wav,G056_timelapse_20250319.Table.1.selections.txt,20250319,8,Colombia,Putumayo,Puerto Asis,3/4/2025,3/25/2025,0.484803731,-76.31775817,Center,dense forest
+PPA3,P14,G056,G056_timelapse_20250321.wav,G056_timelapse_20250321.Table.1.selections.txt,20250321,19,Colombia,Putumayo,Puerto Asis,3/4/2025,3/25/2025,0.484803731,-76.31775817,Center,dense forest
+PPA3,P14,G056,G056_timelapse_20250324.wav,G056_timelapse_20250324.Table.1.selections.txt,20250324,3,Colombia,Putumayo,Puerto Asis,3/4/2025,3/25/2025,0.484803731,-76.31775817,Center,dense forest
+PPA2,P18,G059,G059_timelapse_20241218.wav,G059_timelapse_20241218.Table.1.selections.txt,20241218,15,Colombia,Putumayo,Puerto Asis,12/16/2024,12/28/2024,0.488871309,-76.32242715,Center,secondary vegetation
+PPA2,P18,G059,G059_timelapse_20241220.wav,G059_timelapse_20241220.Table.1.selections.txt,20241220,48,Colombia,Putumayo,Puerto Asis,12/16/2024,12/28/2024,0.488871309,-76.32242715,Center,secondary vegetation
+PPA2,P18,G059,G059_timelapse_20241221.wav,G059_timelapse_20241221.Table.1.selections.txt,20241221,67,Colombia,Putumayo,Puerto Asis,12/16/2024,12/28/2024,0.488871309,-76.32242715,Center,secondary vegetation
+PPA2,P18,G059,G059_timelapse_20241222.wav,G059_timelapse_20241222.Table.1.selections.txt,20241222,85,Colombia,Putumayo,Puerto Asis,12/16/2024,12/28/2024,0.488871309,-76.32242715,Center,secondary vegetation
+PPA2,P18,G059,G059_timelapse_20241226.wav,G059_timelapse_20241226.Table.1.selections.txt,20241226,49,Colombia,Putumayo,Puerto Asis,12/16/2024,12/28/2024,0.488871309,-76.32242715,Center,secondary vegetation
+PPA3,P4,G059,G059_timelapse_20250304.wav,G059_timelapse_20250304.Table.1.selections.txt,20250304,13,Colombia,Putumayo,Puerto Asis,2/28/2025,3/25/2025,0.467879611,-76.32401589,South,secondary vegetation
+PPA3,P4,G059,G059_timelapse_20250313.wav,G059_timelapse_20250313.Table.1.selections.txt,20250313,15,Colombia,Putumayo,Puerto Asis,2/28/2025,3/25/2025,0.467879611,-76.32401589,South,secondary vegetation
+PPA3,P4,G059,G059_timelapse_20250319.wav,G059_timelapse_20250319.Table.1.selections.txt,20250319,23,Colombia,Putumayo,Puerto Asis,2/28/2025,3/25/2025,0.467879611,-76.32401589,South,secondary vegetation
+PPA3,P4,G059,G059_timelapse_20250321.wav,G059_timelapse_20250321.Table.1.selections.txt,20250321,14,Colombia,Putumayo,Puerto Asis,2/28/2025,3/25/2025,0.467879611,-76.32401589,South,secondary vegetation
+PPA3,P4,G059,G059_timelapse_20250324.wav,G059_timelapse_20250324.Table.1.selections.txt,20250324,41,Colombia,Putumayo,Puerto Asis,2/28/2025,3/25/2025,0.467879611,-76.32401589,South,secondary vegetation
+PPA4,P17,G059,G059_timelapse_20250622.wav,G059_timelapse_20250622.Table.1.selections.txt,20250622,26,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.503304443,-76.32256326,North,dense forest
+PPA4,P17,G059,G059_timelapse_20250623.wav,G059_timelapse_20250623.Table.1.selections.txt,20250623,20,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.503304443,-76.32256326,North,dense forest
+PPA4,P17,G059,G059_timelapse_20250627.wav,G059_timelapse_20250627.Table.1.selections.txt,20250627,11,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.503304443,-76.32256326,North,dense forest
+PPA4,P17,G059,G059_timelapse_20250629.wav,G059_timelapse_20250629.Table.1.selections.txt,20250629,29,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.503304443,-76.32256326,North,dense forest
+PPA4,P17,G059,G059_timelapse_20250630.wav,G059_timelapse_20250630.Table.1.selections.txt,20250630,17,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.503304443,-76.32256326,North,dense forest
+PPA2,P32,G063,G063_timelapse_20241215.wav,G063_timelapse_20241215.Table.1.selections.txt,20241215,13,Colombia,Putumayo,Puerto Asis,12/14/2024,12/27/2024,0.504662866,-76.32431679,North,pastures
+PPA2,P32,G063,G063_timelapse_20241216.wav,G063_timelapse_20241216.Table.1.selections.txt,20241216,1,Colombia,Putumayo,Puerto Asis,12/14/2024,12/27/2024,0.504662866,-76.32431679,North,pastures
+PPA2,P32,G063,G063_timelapse_20241218.wav,G063_timelapse_20241218.Table.1.selections.txt,20241218,3,Colombia,Putumayo,Puerto Asis,12/14/2024,12/27/2024,0.504662866,-76.32431679,North,pastures
+PPA2,P32,G063,G063_timelapse_20241220.wav,G063_timelapse_20241220.Table.1.selections.txt,20241220,6,Colombia,Putumayo,Puerto Asis,12/14/2024,12/27/2024,0.504662866,-76.32431679,North,pastures
+PPA2,P32,G063,G063_timelapse_20241221.wav,G063_timelapse_20241221.Table.1.selections.txt,20241221,17,Colombia,Putumayo,Puerto Asis,12/14/2024,12/27/2024,0.504662866,-76.32431679,North,pastures
+PPA3,P30,G064,G064_timelapse_20250308.wav,G064_timelapse_20250308.Table.1.selections.txt,20250308,12,Colombia,Putumayo,Puerto Asis,3/4/2025,3/25/2025,0.483736513,-76.31671583,Center,dense forest
+PPA3,P30,G064,G064_timelapse_20250312.wav,G064_timelapse_20250312.Table.1.selections.txt,20250312,10,Colombia,Putumayo,Puerto Asis,3/4/2025,3/25/2025,0.483736513,-76.31671583,Center,dense forest
+PPA3,P30,G064,G064_timelapse_20250313.wav,G064_timelapse_20250313.Table.1.selections.txt,20250313,32,Colombia,Putumayo,Puerto Asis,3/4/2025,3/25/2025,0.483736513,-76.31671583,Center,dense forest
+PPA3,P30,G064,G064_timelapse_20250319.wav,G064_timelapse_20250319.Table.1.selections.txt,20250319,15,Colombia,Putumayo,Puerto Asis,3/4/2025,3/25/2025,0.483736513,-76.31671583,Center,dense forest
+PPA3,P30,G064,G064_timelapse_20250321.wav,G064_timelapse_20250321.Table.1.selections.txt,20250321,22,Colombia,Putumayo,Puerto Asis,3/4/2025,3/25/2025,0.483736513,-76.31671583,Center,dense forest
+PPA2,P21,G065,G065_timelapse_20241216.wav,G065_timelapse_20241216.Table.1.selections.txt,20241216,55,Colombia,Putumayo,Puerto Asis,12/14/2024,12/27/2024,0.500228319,-76.3256375,North,secondary vegetation
+PPA2,P21,G065,G065_timelapse_20241218.wav,G065_timelapse_20241218.Table.1.selections.txt,20241218,64,Colombia,Putumayo,Puerto Asis,12/14/2024,12/27/2024,0.500228319,-76.3256375,North,secondary vegetation
+PPA2,P21,G065,G065_timelapse_20241221.wav,G065_timelapse_20241221.Table.1.selections.txt,20241221,28,Colombia,Putumayo,Puerto Asis,12/14/2024,12/27/2024,0.500228319,-76.3256375,North,secondary vegetation
+PPA3,P27,G065,G065_timelapse_20250304.wav,G065_timelapse_20250304.Table.1.selections.txt,20250304,28,Colombia,Putumayo,Puerto Asis,3/1/2025,3/25/2025,0.469684772,-76.32851552,South,pastures
+PPA3,P27,G065,G065_timelapse_20250308.wav,G065_timelapse_20250308.Table.1.selections.txt,20250308,30,Colombia,Putumayo,Puerto Asis,3/1/2025,3/25/2025,0.469684772,-76.32851552,South,pastures
+PPA3,P27,G065,G065_timelapse_20250312.wav,G065_timelapse_20250312.Table.1.selections.txt,20250312,13,Colombia,Putumayo,Puerto Asis,3/1/2025,3/25/2025,0.469684772,-76.32851552,South,pastures
+PPA3,P27,G065,G065_timelapse_20250319.wav,G065_timelapse_20250319.Table.1.selections.txt,20250319,18,Colombia,Putumayo,Puerto Asis,3/1/2025,3/25/2025,0.469684772,-76.32851552,South,pastures
+PPA3,P27,G065,G065_timelapse_20250321.wav,G065_timelapse_20250321.Table.1.selections.txt,20250321,4,Colombia,Putumayo,Puerto Asis,3/1/2025,3/25/2025,0.469684772,-76.32851552,South,pastures
+PPA4,P24,G065,G065_timelapse_20250622.wav,G065_timelapse_20250622.Table.1.selections.txt,20250622,23,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.485997145,-76.31650923,Center,dense forest
+PPA4,P24,G065,G065_timelapse_20250623.wav,G065_timelapse_20250623.Table.1.selections.txt,20250623,16,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.485997145,-76.31650923,Center,dense forest
+PPA4,P24,G065,G065_timelapse_20250625.wav,G065_timelapse_20250625.Table.1.selections.txt,20250625,6,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.485997145,-76.31650923,Center,dense forest
+PPA4,P24,G065,G065_timelapse_20250629.wav,G065_timelapse_20250629.Table.1.selections.txt,20250629,11,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.485997145,-76.31650923,Center,dense forest
+PPA4,P24,G065,G065_timelapse_20250630.wav,G065_timelapse_20250630.Table.1.selections.txt,20250630,13,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.485997145,-76.31650923,Center,dense forest
+PPA2,P33,G071,G071_timelapse_20241216.wav,G071_timelapse_20241216.Table.1.selections.txt,20241216,12,Colombia,Putumayo,Puerto Asis,12/15/2024,12/27/2024,0.467999369,-76.32180297,South,dense forest
+PPA2,P33,G071,G071_timelapse_20241220.wav,G071_timelapse_20241220.Table.1.selections.txt,20241220,16,Colombia,Putumayo,Puerto Asis,12/15/2024,12/27/2024,0.467999369,-76.32180297,South,dense forest
+PPA2,P33,G071,G071_timelapse_20241221.wav,G071_timelapse_20241221.Table.1.selections.txt,20241221,15,Colombia,Putumayo,Puerto Asis,12/15/2024,12/27/2024,0.467999369,-76.32180297,South,dense forest
+PPA2,P33,G071,G071_timelapse_20241222.wav,G071_timelapse_20241222.Table.1.selections.txt,20241222,35,Colombia,Putumayo,Puerto Asis,12/15/2024,12/27/2024,0.467999369,-76.32180297,South,dense forest
+PPA2,P33,G071,G071_timelapse_20241226.wav,G071_timelapse_20241226.Table.1.selections.txt,20241226,9,Colombia,Putumayo,Puerto Asis,12/15/2024,12/27/2024,0.467999369,-76.32180297,South,dense forest
+PPA2,P7,G072,G072_timelapse_20241216.wav,G072_timelapse_20241216.Table.1.selections.txt,20241216,22,Colombia,Putumayo,Puerto Asis,12/15/2024,12/27/2024,0.471974173,-76.32877718,South,pastures
+PPA2,P7,G072,G072_timelapse_20241220.wav,G072_timelapse_20241220.Table.1.selections.txt,20241220,39,Colombia,Putumayo,Puerto Asis,12/15/2024,12/27/2024,0.471974173,-76.32877718,South,pastures
+PPA2,P7,G072,G072_timelapse_20241221.wav,G072_timelapse_20241221.Table.1.selections.txt,20241221,47,Colombia,Putumayo,Puerto Asis,12/15/2024,12/27/2024,0.471974173,-76.32877718,South,pastures
+PPA2,P7,G072,G072_timelapse_20241222.wav,G072_timelapse_20241222.Table.1.selections.txt,20241222,33,Colombia,Putumayo,Puerto Asis,12/15/2024,12/27/2024,0.471974173,-76.32877718,South,pastures
+PPA2,P7,G072,G072_timelapse_20241226.wav,G072_timelapse_20241226.Table.1.selections.txt,20241226,28,Colombia,Putumayo,Puerto Asis,12/15/2024,12/27/2024,0.471974173,-76.32877718,South,pastures
+PPA3,P35,G072,G072_timelapse_20250304.wav,G072_timelapse_20250304.Table.1.selections.txt,20250304,45,Colombia,Putumayo,Puerto Asis,2/28/2025,3/25/2025,0.496689972,-76.32738379,North,pastures
+PPA3,P35,G072,G072_timelapse_20250308.wav,G072_timelapse_20250308.Table.1.selections.txt,20250308,59,Colombia,Putumayo,Puerto Asis,2/28/2025,3/25/2025,0.496689972,-76.32738379,North,pastures
+PPA3,P35,G072,G072_timelapse_20250309.wav,G072_timelapse_20250309.Table.1.selections.txt,20250309,48,Colombia,Putumayo,Puerto Asis,2/28/2025,3/25/2025,0.496689972,-76.32738379,North,pastures
+PPA3,P35,G072,G072_timelapse_20250312.wav,G072_timelapse_20250312.Table.1.selections.txt,20250312,67,Colombia,Putumayo,Puerto Asis,2/28/2025,3/25/2025,0.496689972,-76.32738379,North,pastures
+PPA3,P35,G072,G072_timelapse_20250321.wav,G072_timelapse_20250321.Table.1.selections.txt,20250321,53,Colombia,Putumayo,Puerto Asis,2/28/2025,3/25/2025,0.496689972,-76.32738379,North,pastures
+PPA4,P3,G072,G072_timelapse_20250622.wav,G072_timelapse_20250622.Table.1.selections.txt,20250622,18,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.481059472,-76.32277883,Center,dense forest
+PPA4,P3,G072,G072_timelapse_20250623.wav,G072_timelapse_20250623.Table.1.selections.txt,20250623,13,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.481059472,-76.32277883,Center,dense forest
+PPA4,P3,G072,G072_timelapse_20250625.wav,G072_timelapse_20250625.Table.1.selections.txt,20250625,18,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.481059472,-76.32277883,Center,dense forest
+PPA4,P3,G072,G072_timelapse_20250627.wav,G072_timelapse_20250627.Table.1.selections.txt,20250627,14,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.481059472,-76.32277883,Center,dense forest
+PPA4,P3,G072,G072_timelapse_20250629.wav,G072_timelapse_20250629.Table.1.selections.txt,20250629,29,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.481059472,-76.32277883,Center,dense forest
+PPA3,P7,G074,G074_timelapse_20250308.wav,G074_timelapse_20250308.Table.1.selections.txt,20250308,29,Colombia,Putumayo,Puerto Asis,3/1/2025,3/25/2025,0.471974173,-76.32877718,South,pastures
+PPA3,P7,G074,G074_timelapse_20250312.wav,G074_timelapse_20250312.Table.1.selections.txt,20250312,16,Colombia,Putumayo,Puerto Asis,3/1/2025,3/25/2025,0.471974173,-76.32877718,South,pastures
+PPA3,P7,G074,G074_timelapse_20250319.wav,G074_timelapse_20250319.Table.1.selections.txt,20250319,19,Colombia,Putumayo,Puerto Asis,3/1/2025,3/25/2025,0.471974173,-76.32877718,South,pastures
+PPA3,P7,G074,G074_timelapse_20250321.wav,G074_timelapse_20250321.Table.1.selections.txt,20250321,21,Colombia,Putumayo,Puerto Asis,3/1/2025,3/25/2025,0.471974173,-76.32877718,South,pastures
+PPA3,P7,G074,G074_timelapse_20250324.wav,G074_timelapse_20250324.Table.1.selections.txt,20250324,30,Colombia,Putumayo,Puerto Asis,3/1/2025,3/25/2025,0.471974173,-76.32877718,South,pastures
+PPA4,P20,G074,G074_timelapse_20250622.wav,G074_timelapse_20250622.Table.1.selections.txt,20250622,16,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.483822913,-76.31895993,Center,secondary vegetation
+PPA4,P20,G074,G074_timelapse_20250623.wav,G074_timelapse_20250623.Table.1.selections.txt,20250623,9,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.483822913,-76.31895993,Center,secondary vegetation
+PPA4,P20,G074,G074_timelapse_20250625.wav,G074_timelapse_20250625.Table.1.selections.txt,20250625,12,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.483822913,-76.31895993,Center,secondary vegetation
+PPA4,P20,G074,G074_timelapse_20250627.wav,G074_timelapse_20250627.Table.1.selections.txt,20250627,10,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.483822913,-76.31895993,Center,secondary vegetation
+PPA4,P20,G074,G074_timelapse_20250629.wav,G074_timelapse_20250629.Table.1.selections.txt,20250629,22,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.483822913,-76.31895993,Center,secondary vegetation
+PPA2,P15,G075,G075_timelapse_20241216.wav,G075_timelapse_20241216.Table.1.selections.txt,20241216,5,Colombia,Putumayo,Puerto Asis,12/15/2024,12/27/2024,0.46552914,-76.32659126,South,dense forest
+PPA2,P15,G075,G075_timelapse_20241218.wav,G075_timelapse_20241218.Table.1.selections.txt,20241218,8,Colombia,Putumayo,Puerto Asis,12/15/2024,12/27/2024,0.46552914,-76.32659126,South,dense forest
+PPA2,P15,G075,G075_timelapse_20241220.wav,G075_timelapse_20241220.Table.1.selections.txt,20241220,8,Colombia,Putumayo,Puerto Asis,12/15/2024,12/27/2024,0.46552914,-76.32659126,South,dense forest
+PPA2,P15,G075,G075_timelapse_20241221.wav,G075_timelapse_20241221.Table.1.selections.txt,20241221,5,Colombia,Putumayo,Puerto Asis,12/15/2024,12/27/2024,0.46552914,-76.32659126,South,dense forest
+PPA2,P15,G075,G075_timelapse_20241222.wav,G075_timelapse_20241222.Table.1.selections.txt,20241222,4,Colombia,Putumayo,Puerto Asis,12/15/2024,12/27/2024,0.46552914,-76.32659126,South,dense forest
+PPA3,P29,G075,G075_timelapse_20250308.wav,G075_timelapse_20250308.Table.1.selections.txt,20250308,27,Colombia,Putumayo,Puerto Asis,3/3/2025,3/25/2025,0.486164796,-76.32307577,Center,pastures
+PPA3,P29,G075,G075_timelapse_20250309.wav,G075_timelapse_20250309.Table.1.selections.txt,20250309,48,Colombia,Putumayo,Puerto Asis,3/3/2025,3/25/2025,0.486164796,-76.32307577,Center,pastures
+PPA3,P29,G075,G075_timelapse_20250313.wav,G075_timelapse_20250313.Table.1.selections.txt,20250313,18,Colombia,Putumayo,Puerto Asis,3/3/2025,3/25/2025,0.486164796,-76.32307577,Center,pastures
+PPA3,P29,G075,G075_timelapse_20250321.wav,G075_timelapse_20250321.Table.1.selections.txt,20250321,6,Colombia,Putumayo,Puerto Asis,3/3/2025,3/25/2025,0.486164796,-76.32307577,Center,pastures
+PPA4,P23,G075,G075_timelapse_20250619.wav,G075_timelapse_20250619.Table.1.selections.txt,20250619,4,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.465387575,-76.32449754,South,secondary vegetation
+PPA4,P23,G075,G075_timelapse_20250622.wav,G075_timelapse_20250622.Table.1.selections.txt,20250622,3,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.465387575,-76.32449754,South,secondary vegetation
+PPA4,P23,G075,G075_timelapse_20250623.wav,G075_timelapse_20250623.Table.1.selections.txt,20250623,10,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.465387575,-76.32449754,South,secondary vegetation
+PPA4,P23,G075,G075_timelapse_20250624.wav,G075_timelapse_20250624.Table.1.selections.txt,20250624,21,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.465387575,-76.32449754,South,secondary vegetation
+PPA4,P23,G075,G075_timelapse_20250625.wav,G075_timelapse_20250625.Table.1.selections.txt,20250625,7,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.465387575,-76.32449754,South,secondary vegetation
+PPA2,P1,G077,G077_timelapse_20241215.wav,G077_timelapse_20241215.Table.1.selections.txt,20241215,8,Colombia,Putumayo,Puerto Asis,12/14/2024,12/27/2024,0.501814214,-76.32395414,North,pastures
+PPA2,P1,G077,G077_timelapse_20241216.wav,G077_timelapse_20241216.Table.1.selections.txt,20241216,6,Colombia,Putumayo,Puerto Asis,12/14/2024,12/27/2024,0.501814214,-76.32395414,North,pastures
+PPA2,P1,G077,G077_timelapse_20241218.wav,G077_timelapse_20241218.Table.1.selections.txt,20241218,4,Colombia,Putumayo,Puerto Asis,12/14/2024,12/27/2024,0.501814214,-76.32395414,North,pastures
+PPA2,P1,G077,G077_timelapse_20241220.wav,G077_timelapse_20241220.Table.1.selections.txt,20241220,6,Colombia,Putumayo,Puerto Asis,12/14/2024,12/27/2024,0.501814214,-76.32395414,North,pastures
+PPA2,P1,G077,G077_timelapse_20241221.wav,G077_timelapse_20241221.Table.1.selections.txt,20241221,2,Colombia,Putumayo,Puerto Asis,12/14/2024,12/27/2024,0.501814214,-76.32395414,North,pastures
+PPA3,P9,G077,G077_timelapse_20250304.wav,G077_timelapse_20250304.Table.1.selections.txt,20250304,50,Colombia,Putumayo,Puerto Asis,3/3/2025,3/25/2025,0.487235496,-76.32244762,Center,pastures
+PPA3,P9,G077,G077_timelapse_20250308.wav,G077_timelapse_20250308.Table.1.selections.txt,20250308,55,Colombia,Putumayo,Puerto Asis,3/3/2025,3/25/2025,0.487235496,-76.32244762,Center,pastures
+PPA3,P9,G077,G077_timelapse_20250312.wav,G077_timelapse_20250312.Table.1.selections.txt,20250312,37,Colombia,Putumayo,Puerto Asis,3/3/2025,3/25/2025,0.487235496,-76.32244762,Center,pastures
+PPA3,P9,G077,G077_timelapse_20250321.wav,G077_timelapse_20250321.Table.1.selections.txt,20250321,48,Colombia,Putumayo,Puerto Asis,3/3/2025,3/25/2025,0.487235496,-76.32244762,Center,pastures
+PPA3,P9,G077,G077_timelapse_20250324.wav,G077_timelapse_20250324.Table.1.selections.txt,20250324,42,Colombia,Putumayo,Puerto Asis,3/3/2025,3/25/2025,0.487235496,-76.32244762,Center,pastures
+PPA4,P36,G077,G077_timelapse_20250622.wav,G077_timelapse_20250622.Table.1.selections.txt,20250622,17,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.499156344,-76.32286904,North,secondary vegetation
+PPA4,P36,G077,G077_timelapse_20250623.wav,G077_timelapse_20250623.Table.1.selections.txt,20250623,25,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.499156344,-76.32286904,North,secondary vegetation
+PPA4,P36,G077,G077_timelapse_20250625.wav,G077_timelapse_20250625.Table.1.selections.txt,20250625,23,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.499156344,-76.32286904,North,secondary vegetation
+PPA4,P36,G077,G077_timelapse_20250629.wav,G077_timelapse_20250629.Table.1.selections.txt,20250629,11,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.499156344,-76.32286904,North,secondary vegetation
+PPA4,P36,G077,G077_timelapse_20250630.wav,G077_timelapse_20250630.Table.1.selections.txt,20250630,12,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.499156344,-76.32286904,North,secondary vegetation
+PPA2,P23,G081,G081_timelapse_20241216.wav,G081_timelapse_20241216.Table.1.selections.txt,20241216,21,Colombia,Putumayo,Puerto Asis,12/15/2024,12/27/2024,0.465387575,-76.32449754,South,secondary vegetation
+PPA2,P23,G081,G081_timelapse_20241218.wav,G081_timelapse_20241218.Table.1.selections.txt,20241218,11,Colombia,Putumayo,Puerto Asis,12/15/2024,12/27/2024,0.465387575,-76.32449754,South,secondary vegetation
+PPA2,P23,G081,G081_timelapse_20241220.wav,G081_timelapse_20241220.Table.1.selections.txt,20241220,3,Colombia,Putumayo,Puerto Asis,12/15/2024,12/27/2024,0.465387575,-76.32449754,South,secondary vegetation
+PPA2,P23,G081,G081_timelapse_20241221.wav,G081_timelapse_20241221.Table.1.selections.txt,20241221,1,Colombia,Putumayo,Puerto Asis,12/15/2024,12/27/2024,0.465387575,-76.32449754,South,secondary vegetation
+PPA2,P23,G081,G081_timelapse_20241222.wav,G081_timelapse_20241222.Table.1.selections.txt,20241222,14,Colombia,Putumayo,Puerto Asis,12/15/2024,12/27/2024,0.465387575,-76.32449754,South,secondary vegetation
+PPA2,P35,G088,G088_timelapse_20241218.wav,G088_timelapse_20241218.Table.1.selections.txt,20241218,41,Colombia,Putumayo,Puerto Asis,12/14/2024,12/27/2024,0.496689972,-76.32738379,North,pastures
+PPA2,P35,G088,G088_timelapse_20241222.wav,G088_timelapse_20241222.Table.1.selections.txt,20241222,18,Colombia,Putumayo,Puerto Asis,12/14/2024,12/27/2024,0.496689972,-76.32738379,North,pastures
+PPA2,P35,G088,G088_timelapse_20241226.wav,G088_timelapse_20241226.Table.1.selections.txt,20241226,45,Colombia,Putumayo,Puerto Asis,12/14/2024,12/27/2024,0.496689972,-76.32738379,North,pastures
+PPA3,P3,G088,G088_timelapse_20250304.wav,G088_timelapse_20250304.Table.1.selections.txt,20250304,15,Colombia,Putumayo,Puerto Asis,3/3/2025,3/25/2025,0.481059472,-76.32277883,Center,dense forest
+PPA3,P3,G088,G088_timelapse_20250309.wav,G088_timelapse_20250309.Table.1.selections.txt,20250309,16,Colombia,Putumayo,Puerto Asis,3/3/2025,3/25/2025,0.481059472,-76.32277883,Center,dense forest
+PPA3,P3,G088,G088_timelapse_20250313.wav,G088_timelapse_20250313.Table.1.selections.txt,20250313,23,Colombia,Putumayo,Puerto Asis,3/3/2025,3/25/2025,0.481059472,-76.32277883,Center,dense forest
+PPA3,P3,G088,G088_timelapse_20250319.wav,G088_timelapse_20250319.Table.1.selections.txt,20250319,13,Colombia,Putumayo,Puerto Asis,3/3/2025,3/25/2025,0.481059472,-76.32277883,Center,dense forest
+PPA3,P3,G088,G088_timelapse_20250324.wav,G088_timelapse_20250324.Table.1.selections.txt,20250324,16,Colombia,Putumayo,Puerto Asis,3/3/2025,3/25/2025,0.481059472,-76.32277883,Center,dense forest
+PPA4,P27,G088,G088_timelapse_20250619.wav,G088_timelapse_20250619.Table.1.selections.txt,20250619,15,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.469684772,-76.32851552,South,pastures
+PPA4,P27,G088,G088_timelapse_20250622.wav,G088_timelapse_20250622.Table.1.selections.txt,20250622,20,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.469684772,-76.32851552,South,pastures
+PPA4,P27,G088,G088_timelapse_20250623.wav,G088_timelapse_20250623.Table.1.selections.txt,20250623,8,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.469684772,-76.32851552,South,pastures
+PPA4,P27,G088,G088_timelapse_20250624.wav,G088_timelapse_20250624.Table.1.selections.txt,20250624,10,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.469684772,-76.32851552,South,pastures
+PPA4,P27,G088,G088_timelapse_20250625.wav,G088_timelapse_20250625.Table.1.selections.txt,20250625,6,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.469684772,-76.32851552,South,pastures
+PPA2,P8,G091,G091_timelapse_20241218.wav,G091_timelapse_20241218.Table.1.selections.txt,20241218,1,Colombia,Putumayo,Puerto Asis,12/16/2024,12/28/2024,0.483051569,-76.32116736,Center,secondary vegetation
+PPA2,P8,G091,G091_timelapse_20241220.wav,G091_timelapse_20241220.Table.1.selections.txt,20241220,9,Colombia,Putumayo,Puerto Asis,12/16/2024,12/28/2024,0.483051569,-76.32116736,Center,secondary vegetation
+PPA3,P12,G091,G091_timelapse_20250304.wav,G091_timelapse_20250304.Table.1.selections.txt,20250304,8,Colombia,Putumayo,Puerto Asis,2/28/2025,3/24/2025,0.497499602,-76.32302174,North,secondary vegetation
+PPA3,P12,G091,G091_timelapse_20250308.wav,G091_timelapse_20250308.Table.1.selections.txt,20250308,5,Colombia,Putumayo,Puerto Asis,2/28/2025,3/24/2025,0.497499602,-76.32302174,North,secondary vegetation
+PPA3,P12,G091,G091_timelapse_20250309.wav,G091_timelapse_20250309.Table.1.selections.txt,20250309,17,Colombia,Putumayo,Puerto Asis,2/28/2025,3/24/2025,0.497499602,-76.32302174,North,secondary vegetation
+PPA3,P12,G091,G091_timelapse_20250313.wav,G091_timelapse_20250313.Table.1.selections.txt,20250313,4,Colombia,Putumayo,Puerto Asis,2/28/2025,3/24/2025,0.497499602,-76.32302174,North,secondary vegetation
+PPA3,P36,G094,G094_timelapse_20250304.wav,G094_timelapse_20250304.Table.1.selections.txt,20250304,28,Colombia,Putumayo,Puerto Asis,2/28/2025,3/25/2025,0.499156344,-76.32286904,North,secondary vegetation
+PPA3,P36,G094,G094_timelapse_20250308.wav,G094_timelapse_20250308.Table.1.selections.txt,20250308,20,Colombia,Putumayo,Puerto Asis,2/28/2025,3/25/2025,0.499156344,-76.32286904,North,secondary vegetation
+PPA3,P36,G094,G094_timelapse_20250309.wav,G094_timelapse_20250309.Table.1.selections.txt,20250309,26,Colombia,Putumayo,Puerto Asis,2/28/2025,3/25/2025,0.499156344,-76.32286904,North,secondary vegetation
+PPA3,P36,G094,G094_timelapse_20250312.wav,G094_timelapse_20250312.Table.1.selections.txt,20250312,13,Colombia,Putumayo,Puerto Asis,2/28/2025,3/25/2025,0.499156344,-76.32286904,North,secondary vegetation
+PPA3,P36,G094,G094_timelapse_20250319.wav,G094_timelapse_20250319.Table.1.selections.txt,20250319,26,Colombia,Putumayo,Puerto Asis,2/28/2025,3/25/2025,0.499156344,-76.32286904,North,secondary vegetation
+PPA4,P11,G094,G094_timelapse_20250622.wav,G094_timelapse_20250622.Table.1.selections.txt,20250622,30,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.487608988,-76.3186944,Center,secondary vegetation
+PPA4,P11,G094,G094_timelapse_20250624.wav,G094_timelapse_20250624.Table.1.selections.txt,20250624,34,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.487608988,-76.3186944,Center,secondary vegetation
+PPA4,P11,G094,G094_timelapse_20250625.wav,G094_timelapse_20250625.Table.1.selections.txt,20250625,34,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.487608988,-76.3186944,Center,secondary vegetation
+PPA4,P11,G094,G094_timelapse_20250627.wav,G094_timelapse_20250627.Table.1.selections.txt,20250627,16,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.487608988,-76.3186944,Center,secondary vegetation
+PPA4,P11,G094,G094_timelapse_20250629.wav,G094_timelapse_20250629.Table.1.selections.txt,20250629,44,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.487608988,-76.3186944,Center,secondary vegetation
+PPA2,P4,G095,G095_timelapse_20241216.wav,G095_timelapse_20241216.Table.1.selections.txt,20241216,23,Colombia,Putumayo,Puerto Asis,12/15/2024,12/27/2024,0.467879611,-76.32401589,South,secondary vegetation
+PPA2,P4,G095,G095_timelapse_20241218.wav,G095_timelapse_20241218.Table.1.selections.txt,20241218,26,Colombia,Putumayo,Puerto Asis,12/15/2024,12/27/2024,0.467879611,-76.32401589,South,secondary vegetation
+PPA2,P4,G095,G095_timelapse_20241220.wav,G095_timelapse_20241220.Table.1.selections.txt,20241220,26,Colombia,Putumayo,Puerto Asis,12/15/2024,12/27/2024,0.467879611,-76.32401589,South,secondary vegetation
+PPA2,P4,G095,G095_timelapse_20241221.wav,G095_timelapse_20241221.Table.1.selections.txt,20241221,23,Colombia,Putumayo,Puerto Asis,12/15/2024,12/27/2024,0.467879611,-76.32401589,South,secondary vegetation
+PPA2,P4,G095,G095_timelapse_20241222.wav,G095_timelapse_20241222.Table.1.selections.txt,20241222,27,Colombia,Putumayo,Puerto Asis,12/15/2024,12/27/2024,0.467879611,-76.32401589,South,secondary vegetation
+PPA3,P11,G095,G095_timelapse_20250308.wav,G095_timelapse_20250308.Table.1.selections.txt,20250308,22,Colombia,Putumayo,Puerto Asis,3/4/2025,3/25/2025,0.487608988,-76.3186944,Center,secondary vegetation
+PPA3,P11,G095,G095_timelapse_20250312.wav,G095_timelapse_20250312.Table.1.selections.txt,20250312,17,Colombia,Putumayo,Puerto Asis,3/4/2025,3/25/2025,0.487608988,-76.3186944,Center,secondary vegetation
+PPA3,P11,G095,G095_timelapse_20250313.wav,G095_timelapse_20250313.Table.1.selections.txt,20250313,28,Colombia,Putumayo,Puerto Asis,3/4/2025,3/25/2025,0.487608988,-76.3186944,Center,secondary vegetation
+PPA3,P11,G095,G095_timelapse_20250321.wav,G095_timelapse_20250321.Table.1.selections.txt,20250321,34,Colombia,Putumayo,Puerto Asis,3/4/2025,3/25/2025,0.487608988,-76.3186944,Center,secondary vegetation
+PPA3,P11,G095,G095_timelapse_20250324.wav,G095_timelapse_20250324.Table.1.selections.txt,20250324,30,Colombia,Putumayo,Puerto Asis,3/4/2025,3/25/2025,0.487608988,-76.3186944,Center,secondary vegetation
+PPA4,P2,G095,G095_timelapse_20250622.wav,G095_timelapse_20250622.Table.1.selections.txt,20250622,57,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.471789778,-76.33071199,South,pastures
+PPA4,P2,G095,G095_timelapse_20250623.wav,G095_timelapse_20250623.Table.1.selections.txt,20250623,67,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.471789778,-76.33071199,South,pastures
+PPA4,P2,G095,G095_timelapse_20250625.wav,G095_timelapse_20250625.Table.1.selections.txt,20250625,55,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.471789778,-76.33071199,South,pastures
+PPA4,P2,G095,G095_timelapse_20250629.wav,G095_timelapse_20250629.Table.1.selections.txt,20250629,78,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.471789778,-76.33071199,South,pastures
+PPA4,P2,G095,G095_timelapse_20250630.wav,G095_timelapse_20250630.Table.1.selections.txt,20250630,50,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.471789778,-76.33071199,South,pastures
+PPA3,P19,G097,G097_timelapse_20250308.wav,G097_timelapse_20250308.Table.1.selections.txt,20250308,20,Colombia,Putumayo,Puerto Asis,3/1/2025,3/25/2025,0.481031336,-76.31806753,Center,secondary vegetation
+PPA3,P19,G097,G097_timelapse_20250309.wav,G097_timelapse_20250309.Table.1.selections.txt,20250309,42,Colombia,Putumayo,Puerto Asis,3/1/2025,3/25/2025,0.481031336,-76.31806753,Center,secondary vegetation
+PPA3,P19,G097,G097_timelapse_20250312.wav,G097_timelapse_20250312.Table.1.selections.txt,20250312,25,Colombia,Putumayo,Puerto Asis,3/1/2025,3/25/2025,0.481031336,-76.31806753,Center,secondary vegetation
+PPA3,P19,G097,G097_timelapse_20250313.wav,G097_timelapse_20250313.Table.1.selections.txt,20250313,29,Colombia,Putumayo,Puerto Asis,3/1/2025,3/25/2025,0.481031336,-76.31806753,Center,secondary vegetation
+PPA3,P19,G097,G097_timelapse_20250319.wav,G097_timelapse_20250319.Table.1.selections.txt,20250319,19,Colombia,Putumayo,Puerto Asis,3/1/2025,3/25/2025,0.481031336,-76.31806753,Center,secondary vegetation
+PPA2,P3,G100,G100_timelapse_20241218.wav,G100_timelapse_20241218.Table.1.selections.txt,20241218,9,Colombia,Putumayo,Puerto Asis,12/16/2024,12/28/2024,0.481059472,-76.32277883,Center,dense forest
+PPA2,P3,G100,G100_timelapse_20241220.wav,G100_timelapse_20241220.Table.1.selections.txt,20241220,8,Colombia,Putumayo,Puerto Asis,12/16/2024,12/28/2024,0.481059472,-76.32277883,Center,dense forest
+PPA2,P3,G100,G100_timelapse_20241221.wav,G100_timelapse_20241221.Table.1.selections.txt,20241221,10,Colombia,Putumayo,Puerto Asis,12/16/2024,12/28/2024,0.481059472,-76.32277883,Center,dense forest
+PPA2,P3,G100,G100_timelapse_20241222.wav,G100_timelapse_20241222.Table.1.selections.txt,20241222,1,Colombia,Putumayo,Puerto Asis,12/16/2024,12/28/2024,0.481059472,-76.32277883,Center,dense forest
+PPA2,P3,G100,G100_timelapse_20241226.wav,G100_timelapse_20241226.Table.1.selections.txt,20241226,7,Colombia,Putumayo,Puerto Asis,12/16/2024,12/28/2024,0.481059472,-76.32277883,Center,dense forest
+PPA3,P28,G100,G100_timelapse_20250308.wav,G100_timelapse_20250308.Table.1.selections.txt,20250308,18,Colombia,Putumayo,Puerto Asis,3/4/2025,3/25/2025,0.501725013,-76.32559592,North,secondary vegetation
+PPA3,P28,G100,G100_timelapse_20250313.wav,G100_timelapse_20250313.Table.1.selections.txt,20250313,22,Colombia,Putumayo,Puerto Asis,3/4/2025,3/25/2025,0.501725013,-76.32559592,North,secondary vegetation
+PPA3,P28,G100,G100_timelapse_20250319.wav,G100_timelapse_20250319.Table.1.selections.txt,20250319,6,Colombia,Putumayo,Puerto Asis,3/4/2025,3/25/2025,0.501725013,-76.32559592,North,secondary vegetation
+PPA3,P28,G100,G100_timelapse_20250321.wav,G100_timelapse_20250321.Table.1.selections.txt,20250321,17,Colombia,Putumayo,Puerto Asis,3/4/2025,3/25/2025,0.501725013,-76.32559592,North,secondary vegetation
+PPA3,P28,G100,G100_timelapse_20250324.wav,G100_timelapse_20250324.Table.1.selections.txt,20250324,12,Colombia,Putumayo,Puerto Asis,3/4/2025,3/25/2025,0.501725013,-76.32559592,North,secondary vegetation
+PPA4,P34,G100,G100_timelapse_20250622.wav,G100_timelapse_20250622.Table.1.selections.txt,20250622,20,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.498801152,-76.32449667,North,dense forest
+PPA4,P34,G100,G100_timelapse_20250623.wav,G100_timelapse_20250623.Table.1.selections.txt,20250623,26,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.498801152,-76.32449667,North,dense forest
+PPA4,P34,G100,G100_timelapse_20250624.wav,G100_timelapse_20250624.Table.1.selections.txt,20250624,21,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.498801152,-76.32449667,North,dense forest
+PPA4,P34,G100,G100_timelapse_20250625.wav,G100_timelapse_20250625.Table.1.selections.txt,20250625,17,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.498801152,-76.32449667,North,dense forest
+PPA1,P1,G6370,G6370_20240218.wav,G6370_20240218.Table.1.selections.txt,20240218,25,Colombia,Putumayo,Puerto Asis,2/12/2024,3/2/2024,0.501763,-76.323853,North,dense forest
+PPA1,P1,G6370,G6370_20240219.wav,G6370_20240219.Table.1.selections.txt,20240219,27,Colombia,Putumayo,Puerto Asis,2/12/2024,3/2/2024,0.501763,-76.323853,North,dense forest
+PPA1,P1,G6370,G6370_20240220.wav,G6370_20240220.Table.1.selections.txt,20240220,21,Colombia,Putumayo,Puerto Asis,2/12/2024,3/2/2024,0.501763,-76.323853,North,dense forest
+PPA1,P1,G6370,G6370_20240221.wav,G6370_20240221.Table.1.selections.txt,20240221,19,Colombia,Putumayo,Puerto Asis,2/12/2024,3/2/2024,0.501763,-76.323853,North,dense forest
+PPA1,P2,G6371,G6371_20240218.wav,G6371_20240218.Table.1.selections.txt,20240218,10,Colombia,Putumayo,Puerto Asis,2/7/2024,3/2/2024,0.47182,-76.3307,South,secondary vegetation
+PPA1,P2,G6371,G6371_20240219.wav,G6371_20240219.Table.1.selections.txt,20240219,24,Colombia,Putumayo,Puerto Asis,2/7/2024,3/2/2024,0.47182,-76.3307,South,secondary vegetation
+PPA1,P2,G6371,G6371_20240220.wav,G6371_20240220.Table.1.selections.txt,20240220,27,Colombia,Putumayo,Puerto Asis,2/7/2024,3/2/2024,0.47182,-76.3307,South,secondary vegetation
+PPA1,P2,G6371,G6371_20240221.wav,G6371_20240221.Table.1.selections.txt,20240221,20,Colombia,Putumayo,Puerto Asis,2/7/2024,3/2/2024,0.47182,-76.3307,South,secondary vegetation
+PPA1,P3,G6376,G6376_20240218.wav,G6376_20240218.Table.1.selections.txt,20240218,6,Colombia,Putumayo,Puerto Asis,2/8/2024,3/2/2024,0.481171,-76.322907,Center,secondary vegetation
+PPA1,P3,G6376,G6376_20240219.wav,G6376_20240219.Table.1.selections.txt,20240219,23,Colombia,Putumayo,Puerto Asis,2/8/2024,3/2/2024,0.481171,-76.322907,Center,secondary vegetation
+PPA1,P3,G6376,G6376_20240220.wav,G6376_20240220.Table.1.selections.txt,20240220,27,Colombia,Putumayo,Puerto Asis,2/8/2024,3/2/2024,0.481171,-76.322907,Center,secondary vegetation
+PPA1,P4,G6381,G6381_20240218.wav,G6381_20240218.Table.1.selections.txt,20240218,10,Colombia,Putumayo,Puerto Asis,2/7/2024,3/2/2024,0.467902,-76.324046,South,secondary vegetation
+PPA1,P4,G6381,G6381_20240219.wav,G6381_20240219.Table.1.selections.txt,20240219,7,Colombia,Putumayo,Puerto Asis,2/7/2024,3/2/2024,0.467902,-76.324046,South,secondary vegetation
+PPA1,P4,G6381,G6381_20240220.wav,G6381_20240220.Table.1.selections.txt,20240220,31,Colombia,Putumayo,Puerto Asis,2/7/2024,3/2/2024,0.467902,-76.324046,South,secondary vegetation
+PPA1,P5,G6383,G6383_20240218.wav,G6383_20240218.Table.1.selections.txt,20240218,16,Colombia,Putumayo,Puerto Asis,2/11/2024,3/3/2024,0.496405,-76.325589,North,dense forest
+PPA1,P5,G6383,G6383_20240219.wav,G6383_20240219.Table.1.selections.txt,20240219,16,Colombia,Putumayo,Puerto Asis,2/11/2024,3/3/2024,0.496405,-76.325589,North,dense forest
+PPA1,P5,G6383,G6383_20240220.wav,G6383_20240220.Table.1.selections.txt,20240220,6,Colombia,Putumayo,Puerto Asis,2/11/2024,3/3/2024,0.496405,-76.325589,North,dense forest
+PPA1,P6,G6384,G6384_20240218.wav,G6384_20240218.Table.1.selections.txt,20240218,76,Colombia,Putumayo,Puerto Asis,2/7/2024,3/2/2024,0.466205,-76.322577,South,pastures
+PPA1,P6,G6384,G6384_20240219.wav,G6384_20240219.Table.1.selections.txt,20240219,58,Colombia,Putumayo,Puerto Asis,2/7/2024,3/2/2024,0.466205,-76.322577,South,pastures
+PPA1,P6,G6384,G6384_20240220.wav,G6384_20240220.Table.1.selections.txt,20240220,76,Colombia,Putumayo,Puerto Asis,2/7/2024,3/2/2024,0.466205,-76.322577,South,pastures
+PPA1,P7,G6394,G6394_20240218.wav,G6394_20240218.Table.1.selections.txt,20240218,11,Colombia,Putumayo,Puerto Asis,2/7/2024,3/2/2024,0.47208,-76.3288,South,dense forest
+PPA1,P7,G6394,G6394_20240219.wav,G6394_20240219.Table.1.selections.txt,20240219,12,Colombia,Putumayo,Puerto Asis,2/7/2024,3/2/2024,0.47208,-76.3288,South,dense forest
+PPA1,P7,G6394,G6394_20240220.wav,G6394_20240220.Table.1.selections.txt,20240220,25,Colombia,Putumayo,Puerto Asis,2/7/2024,3/2/2024,0.47208,-76.3288,South,dense forest
+PPA1,P8,G6395,G6395_20240218.wav,G6395_20240218.Table.1.selections.txt,20240218,20,Colombia,Putumayo,Puerto Asis,2/8/2024,3/2/2024,0.48317,-76.321262,Center,secondary vegetation
+PPA1,P8,G6395,G6395_20240219.wav,G6395_20240219.Table.1.selections.txt,20240219,19,Colombia,Putumayo,Puerto Asis,2/8/2024,3/2/2024,0.48317,-76.321262,Center,secondary vegetation
+PPA1,P8,G6395,G6395_20240220.wav,G6395_20240220.Table.1.selections.txt,20240220,13,Colombia,Putumayo,Puerto Asis,2/8/2024,3/2/2024,0.48317,-76.321262,Center,secondary vegetation
+PPA1,P10,G6398,G6398_20240218.wav,G6398_20240218.Table.1.selections.txt,20240218,20,Colombia,Putumayo,Puerto Asis,2/8/2024,2/26/2024,0.48036,-76.32004,Center,secondary vegetation
+PPA1,P10,G6398,G6398_20240219.wav,G6398_20240219.Table.1.selections.txt,20240219,29,Colombia,Putumayo,Puerto Asis,2/8/2024,2/26/2024,0.48036,-76.32004,Center,secondary vegetation
+PPA1,P10,G6398,G6398_20240220.wav,G6398_20240220.Table.1.selections.txt,20240220,42,Colombia,Putumayo,Puerto Asis,2/8/2024,2/26/2024,0.48036,-76.32004,Center,secondary vegetation
+PPA1,P11,G6403,G6403_20240218.wav,G6403_20240218.Table.1.selections.txt,20240218,30,Colombia,Putumayo,Puerto Asis,2/9/2024,3/2/2024,0.487424,-76.318568,Center,dense forest
+PPA1,P11,G6403,G6403_20240219.wav,G6403_20240219.Table.1.selections.txt,20240219,13,Colombia,Putumayo,Puerto Asis,2/9/2024,3/2/2024,0.487424,-76.318568,Center,dense forest
+PPA1,P11,G6403,G6403_20240220.wav,G6403_20240220.Table.1.selections.txt,20240220,13,Colombia,Putumayo,Puerto Asis,2/9/2024,3/2/2024,0.487424,-76.318568,Center,dense forest
+PPA1,P11,G6403,G6403_20240221.wav,G6403_20240221.Table.1.selections.txt,20240221,14,Colombia,Putumayo,Puerto Asis,2/9/2024,3/2/2024,0.487424,-76.318568,Center,dense forest
+PPA1,P12,G6404,G6404_20240218.wav,G6404_20240218.Table.1.selections.txt,20240218,17,Colombia,Putumayo,Puerto Asis,2/13/2024,3/2/2024,0.497502,-76.322981,North,dense forest
+PPA1,P12,G6404,G6404_20240219.wav,G6404_20240219.Table.1.selections.txt,20240219,19,Colombia,Putumayo,Puerto Asis,2/13/2024,3/2/2024,0.497502,-76.322981,North,dense forest
+PPA1,P12,G6404,G6404_20240220.wav,G6404_20240220.Table.1.selections.txt,20240220,10,Colombia,Putumayo,Puerto Asis,2/13/2024,3/2/2024,0.497502,-76.322981,North,dense forest
+PPA1,P12,G6404,G6404_20240221.wav,G6404_20240221.Table.1.selections.txt,20240221,14,Colombia,Putumayo,Puerto Asis,2/13/2024,3/2/2024,0.497502,-76.322981,North,dense forest
+PPA1,P13,G6406,G6406_20240218.wav,G6406_20240218.Table.1.selections.txt,20240218,20,Colombia,Putumayo,Puerto Asis,2/8/2024,3/2/2024,0.484945,-76.321513,Center,dense forest
+PPA1,P13,G6406,G6406_20240219.wav,G6406_20240219.Table.1.selections.txt,20240219,18,Colombia,Putumayo,Puerto Asis,2/8/2024,3/2/2024,0.484945,-76.321513,Center,dense forest
+PPA1,P13,G6406,G6406_20240220.wav,G6406_20240220.Table.1.selections.txt,20240220,18,Colombia,Putumayo,Puerto Asis,2/8/2024,3/2/2024,0.484945,-76.321513,Center,dense forest
+PPA1,P13,G6406,G6406_20240221.wav,G6406_20240221.Table.1.selections.txt,20240221,19,Colombia,Putumayo,Puerto Asis,2/8/2024,3/2/2024,0.484945,-76.321513,Center,dense forest
+PPA1,P14,G6408,G6408_20240218.wav,G6408_20240218.Table.1.selections.txt,20240218,23,Colombia,Putumayo,Puerto Asis,2/8/2024,3/2/2024,0.484805,-76.317756,Center,dense forest
+PPA1,P14,G6408,G6408_20240219.wav,G6408_20240219.Table.1.selections.txt,20240219,14,Colombia,Putumayo,Puerto Asis,2/8/2024,3/2/2024,0.484805,-76.317756,Center,dense forest
+PPA1,P14,G6408,G6408_20240220.wav,G6408_20240220.Table.1.selections.txt,20240220,15,Colombia,Putumayo,Puerto Asis,2/8/2024,3/2/2024,0.484805,-76.317756,Center,dense forest
+PPA1,P14,G6408,G6408_20240221.wav,G6408_20240221.Table.1.selections.txt,20240221,10,Colombia,Putumayo,Puerto Asis,2/8/2024,3/2/2024,0.484805,-76.317756,Center,dense forest
+PPA1,P15,G6413,G6413_20240218.wav,G6413_20240218.Table.1.selections.txt,20240218,20,Colombia,Putumayo,Puerto Asis,2/7/2024,3/2/2024,0.465565,-76.326598,South,dense forest
+PPA1,P15,G6413,G6413_20240219.wav,G6413_20240219.Table.1.selections.txt,20240219,35,Colombia,Putumayo,Puerto Asis,2/7/2024,3/2/2024,0.465565,-76.326598,South,dense forest
+PPA1,P15,G6413,G6413_20240220.wav,G6413_20240220.Table.1.selections.txt,20240220,22,Colombia,Putumayo,Puerto Asis,2/7/2024,3/2/2024,0.465565,-76.326598,South,dense forest
+PPA1,P15,G6413,G6413_20240221.wav,G6413_20240221.Table.1.selections.txt,20240221,28,Colombia,Putumayo,Puerto Asis,2/7/2024,3/2/2024,0.465565,-76.326598,South,dense forest
+PPA1,P16,G6414,G6414_20240218.wav,G6414_20240218.Table.1.selections.txt,20240218,26,Colombia,Putumayo,Puerto Asis,2/7/2024,3/2/2024,0.467771,-76.328433,South,pastures
+PPA1,P16,G6414,G6414_20240219.wav,G6414_20240219.Table.1.selections.txt,20240219,27,Colombia,Putumayo,Puerto Asis,2/7/2024,3/2/2024,0.467771,-76.328433,South,pastures
+PPA1,P16,G6414,G6414_20240220.wav,G6414_20240220.Table.1.selections.txt,20240220,46,Colombia,Putumayo,Puerto Asis,2/7/2024,3/2/2024,0.467771,-76.328433,South,pastures
+PPA1,P16,G6414,G6414_20240221.wav,G6414_20240221.Table.1.selections.txt,20240221,58,Colombia,Putumayo,Puerto Asis,2/7/2024,3/2/2024,0.467771,-76.328433,South,pastures
+PPA1,P17,G6418,G6418_20240218.wav,G6418_20240218.Table.1.selections.txt,20240218,15,Colombia,Putumayo,Puerto Asis,2/12/2024,3/2/2024,0.50345,-76.322483,North,dense forest
+PPA1,P17,G6418,G6418_20240219.wav,G6418_20240219.Table.1.selections.txt,20240219,10,Colombia,Putumayo,Puerto Asis,2/12/2024,3/2/2024,0.50345,-76.322483,North,dense forest
+PPA1,P17,G6418,G6418_20240220.wav,G6418_20240220.Table.1.selections.txt,20240220,12,Colombia,Putumayo,Puerto Asis,2/12/2024,3/2/2024,0.50345,-76.322483,North,dense forest
+PPA1,P17,G6418,G6418_20240221.wav,G6418_20240221.Table.1.selections.txt,20240221,22,Colombia,Putumayo,Puerto Asis,2/12/2024,3/2/2024,0.50345,-76.322483,North,dense forest
+PPA1,P18,G6419,G6419_20240218.wav,G6419_20240218.Table.1.selections.txt,20240218,17,Colombia,Putumayo,Puerto Asis,2/9/2024,3/2/2024,0.489046,-76.32233,Center,secondary vegetation
+PPA1,P18,G6419,G6419_20240219.wav,G6419_20240219.Table.1.selections.txt,20240219,15,Colombia,Putumayo,Puerto Asis,2/9/2024,3/2/2024,0.489046,-76.32233,Center,secondary vegetation
+PPA1,P18,G6419,G6419_20240220.wav,G6419_20240220.Table.1.selections.txt,20240220,7,Colombia,Putumayo,Puerto Asis,2/9/2024,3/2/2024,0.489046,-76.32233,Center,secondary vegetation
+PPA1,P18,G6419,G6419_20240221.wav,G6419_20240221.Table.1.selections.txt,20240221,11,Colombia,Putumayo,Puerto Asis,2/9/2024,3/2/2024,0.489046,-76.32233,Center,secondary vegetation
+PPA1,P19,G6421,G6421_20240218.wav,G6421_20240218.Table.1.selections.txt,20240218,31,Colombia,Putumayo,Puerto Asis,2/8/2024,3/2/2024,0.480966,-76.318115,Center,dense forest
+PPA1,P19,G6421,G6421_20240219.wav,G6421_20240219.Table.1.selections.txt,20240219,25,Colombia,Putumayo,Puerto Asis,2/8/2024,3/2/2024,0.480966,-76.318115,Center,dense forest
+PPA1,P19,G6421,G6421_20240220.wav,G6421_20240220.Table.1.selections.txt,20240220,23,Colombia,Putumayo,Puerto Asis,2/8/2024,3/2/2024,0.480966,-76.318115,Center,dense forest
+PPA1,P19,G6421,G6421_20240221.wav,G6421_20240221.Table.1.selections.txt,20240221,31,Colombia,Putumayo,Puerto Asis,2/8/2024,3/2/2024,0.480966,-76.318115,Center,dense forest
+PPA1,P21,G6428,G6428_20240218.wav,G6428_20240218.Table.1.selections.txt,20240218,47,Colombia,Putumayo,Puerto Asis,2/13/2024,3/2/2024,0.5002,-76.325689,North,secondary vegetation
+PPA1,P21,G6428,G6428_20240219.wav,G6428_20240219.Table.1.selections.txt,20240219,43,Colombia,Putumayo,Puerto Asis,2/13/2024,3/2/2024,0.5002,-76.325689,North,secondary vegetation
+PPA1,P21,G6428,G6428_20240220.wav,G6428_20240220.Table.1.selections.txt,20240220,39,Colombia,Putumayo,Puerto Asis,2/13/2024,3/2/2024,0.5002,-76.325689,North,secondary vegetation
+PPA1,P21,G6428,G6428_20240221.wav,G6428_20240221.Table.1.selections.txt,20240221,56,Colombia,Putumayo,Puerto Asis,2/13/2024,3/2/2024,0.5002,-76.325689,North,secondary vegetation
+PPA1,P22,G6429,G6429_20240218.wav,G6429_20240218.Table.1.selections.txt,20240218,7,Colombia,Putumayo,Puerto Asis,2/9/2024,3/2/2024,0.484917,-76.325309,Center,dense forest
+PPA1,P22,G6429,G6429_20240219.wav,G6429_20240219.Table.1.selections.txt,20240219,10,Colombia,Putumayo,Puerto Asis,2/9/2024,3/2/2024,0.484917,-76.325309,Center,dense forest
+PPA1,P22,G6429,G6429_20240220.wav,G6429_20240220.Table.1.selections.txt,20240220,3,Colombia,Putumayo,Puerto Asis,2/9/2024,3/2/2024,0.484917,-76.325309,Center,dense forest
+PPA1,P22,G6429,G6429_20240221.wav,G6429_20240221.Table.1.selections.txt,20240221,16,Colombia,Putumayo,Puerto Asis,2/9/2024,3/2/2024,0.484917,-76.325309,Center,dense forest
+PPA1,P24,G6437,G6437_20240218.wav,G6437_20240218.Table.1.selections.txt,20240218,9,Colombia,Putumayo,Puerto Asis,2/9/2024,3/2/2024,0.485901,-76.316377,Center,dense forest
+PPA1,P24,G6437,G6437_20240219.wav,G6437_20240219.Table.1.selections.txt,20240219,24,Colombia,Putumayo,Puerto Asis,2/9/2024,3/2/2024,0.485901,-76.316377,Center,dense forest
+PPA1,P24,G6437,G6437_20240220.wav,G6437_20240220.Table.1.selections.txt,20240220,6,Colombia,Putumayo,Puerto Asis,2/9/2024,3/2/2024,0.485901,-76.316377,Center,dense forest
+PPA1,P24,G6437,G6437_20240221.wav,G6437_20240221.Table.1.selections.txt,20240221,10,Colombia,Putumayo,Puerto Asis,2/9/2024,3/2/2024,0.485901,-76.316377,Center,dense forest
+PPA1,P27,G6455,G6455_20240218.wav,G6455_20240218.Table.1.selections.txt,20240218,22,Colombia,Putumayo,Puerto Asis,2/7/2024,3/2/2024,0.46971,-76.3285,South,dense forest
+PPA1,P27,G6455,G6455_20240219.wav,G6455_20240219.Table.1.selections.txt,20240219,6,Colombia,Putumayo,Puerto Asis,2/7/2024,3/2/2024,0.46971,-76.3285,South,dense forest
+PPA1,P27,G6455,G6455_20240220.wav,G6455_20240220.Table.1.selections.txt,20240220,13,Colombia,Putumayo,Puerto Asis,2/7/2024,3/2/2024,0.46971,-76.3285,South,dense forest
+PPA1,P27,G6455,G6455_20240221.wav,G6455_20240221.Table.1.selections.txt,20240221,6,Colombia,Putumayo,Puerto Asis,2/7/2024,3/2/2024,0.46971,-76.3285,South,dense forest
+PPA1,P28,G6460,G6460_20240218.wav,G6460_20240218.Table.1.selections.txt,20240218,30,Colombia,Putumayo,Puerto Asis,2/12/2024,3/2/2024,0.501673,-76.325554,North,dense forest
+PPA1,P28,G6460,G6460_20240219.wav,G6460_20240219.Table.1.selections.txt,20240219,34,Colombia,Putumayo,Puerto Asis,2/12/2024,3/2/2024,0.501673,-76.325554,North,dense forest
+PPA1,P28,G6460,G6460_20240220.wav,G6460_20240220.Table.1.selections.txt,20240220,28,Colombia,Putumayo,Puerto Asis,2/12/2024,3/2/2024,0.501673,-76.325554,North,dense forest
+PPA1,P28,G6460,G6460_20240221.wav,G6460_20240221.Table.1.selections.txt,20240221,46,Colombia,Putumayo,Puerto Asis,2/12/2024,3/2/2024,0.501673,-76.325554,North,dense forest
+PPA1,P29,G6462,G6462_20240218.wav,G6462_20240218.Table.1.selections.txt,20240218,35,Colombia,Putumayo,Puerto Asis,2/8/2024,3/2/2024,0.486133,-76.323221,Center,pastures
+PPA1,P29,G6462,G6462_20240219.wav,G6462_20240219.Table.1.selections.txt,20240219,31,Colombia,Putumayo,Puerto Asis,2/8/2024,3/2/2024,0.486133,-76.323221,Center,pastures
+PPA1,P29,G6462,G6462_20240220.wav,G6462_20240220.Table.1.selections.txt,20240220,34,Colombia,Putumayo,Puerto Asis,2/8/2024,3/2/2024,0.486133,-76.323221,Center,pastures
+PPA1,P29,G6462,G6462_20240221.wav,G6462_20240221.Table.1.selections.txt,20240221,25,Colombia,Putumayo,Puerto Asis,2/8/2024,3/2/2024,0.486133,-76.323221,Center,pastures
+PPA1,P30,G6464,G6464_20240218.wav,G6464_20240218.Table.1.selections.txt,20240218,25,Colombia,Putumayo,Puerto Asis,2/9/2024,3/2/2024,0.483653,-76.316732,Center,dense forest
+PPA1,P30,G6464,G6464_20240219.wav,G6464_20240219.Table.1.selections.txt,20240219,25,Colombia,Putumayo,Puerto Asis,2/9/2024,3/2/2024,0.483653,-76.316732,Center,dense forest
+PPA1,P30,G6464,G6464_20240220.wav,G6464_20240220.Table.1.selections.txt,20240220,16,Colombia,Putumayo,Puerto Asis,2/9/2024,3/2/2024,0.483653,-76.316732,Center,dense forest
+PPA1,P30,G6464,G6464_20240221.wav,G6464_20240221.Table.1.selections.txt,20240221,26,Colombia,Putumayo,Puerto Asis,2/9/2024,3/2/2024,0.483653,-76.316732,Center,dense forest
+PPA1,P31,G6465,G6465_20240218.wav,G6465_20240218.Table.1.selections.txt,20240218,10,Colombia,Putumayo,Puerto Asis,2/13/2024,3/2/2024,0.499758,-76.321538,North,dense forest
+PPA1,P31,G6465,G6465_20240219.wav,G6465_20240219.Table.1.selections.txt,20240219,12,Colombia,Putumayo,Puerto Asis,2/13/2024,3/2/2024,0.499758,-76.321538,North,dense forest
+PPA1,P31,G6465,G6465_20240220.wav,G6465_20240220.Table.1.selections.txt,20240220,14,Colombia,Putumayo,Puerto Asis,2/13/2024,3/2/2024,0.499758,-76.321538,North,dense forest
+PPA1,P31,G6465,G6465_20240221.wav,G6465_20240221.Table.1.selections.txt,20240221,9,Colombia,Putumayo,Puerto Asis,2/13/2024,3/2/2024,0.499758,-76.321538,North,dense forest
+PPA1,P32,G6467,G6467_20240218.wav,G6467_20240218.Table.1.selections.txt,20240218,15,Colombia,Putumayo,Puerto Asis,2/12/2024,3/2/2024,0.504661,-76.324227,North,dense forest
+PPA1,P32,G6467,G6467_20240219.wav,G6467_20240219.Table.1.selections.txt,20240219,25,Colombia,Putumayo,Puerto Asis,2/12/2024,3/2/2024,0.504661,-76.324227,North,dense forest
+PPA1,P32,G6467,G6467_20240220.wav,G6467_20240220.Table.1.selections.txt,20240220,28,Colombia,Putumayo,Puerto Asis,2/12/2024,3/2/2024,0.504661,-76.324227,North,dense forest
+PPA1,P32,G6467,G6467_20240221.wav,G6467_20240221.Table.1.selections.txt,20240221,16,Colombia,Putumayo,Puerto Asis,2/12/2024,3/2/2024,0.504661,-76.324227,North,dense forest
+PPA1,P34,G6469,G6469_20240218.wav,G6469_20240218.Table.1.selections.txt,20240218,8,Colombia,Putumayo,Puerto Asis,2/13/2024,3/2/2024,0.498802,-76.324496,North,dense forest
+PPA1,P34,G6469,G6469_20240219.wav,G6469_20240219.Table.1.selections.txt,20240219,26,Colombia,Putumayo,Puerto Asis,2/13/2024,3/2/2024,0.498802,-76.324496,North,dense forest
+PPA1,P34,G6469,G6469_20240220.wav,G6469_20240220.Table.1.selections.txt,20240220,11,Colombia,Putumayo,Puerto Asis,2/13/2024,3/2/2024,0.498802,-76.324496,North,dense forest
+PPA1,P34,G6469,G6469_20240221.wav,G6469_20240221.Table.1.selections.txt,20240221,13,Colombia,Putumayo,Puerto Asis,2/13/2024,3/2/2024,0.498802,-76.324496,North,dense forest
+PPA1,P35,G7276,G7276_20240219.wav,G7276_20240219.Table.1.selections.txt,20240219,26,Colombia,Putumayo,Puerto Asis,2/11/2024,3/3/2024,0.496634,-76.327401,North,pastures
+PPA1,P35,G7276,G7276_20240220.wav,G7276_20240220.Table.1.selections.txt,20240220,24,Colombia,Putumayo,Puerto Asis,2/11/2024,3/3/2024,0.496634,-76.327401,North,pastures
+PPA1,P35,G7276,G7276_20240221.wav,G7276_20240221.Table.1.selections.txt,20240221,8,Colombia,Putumayo,Puerto Asis,2/11/2024,3/3/2024,0.496634,-76.327401,North,pastures
+PPA2,P29,GP01,GP01_timelapse_20241218.wav,GP01_timelapse_20241218.Table.1.selections.txt,20241218,36,Colombia,Putumayo,Puerto Asis,12/16/2024,12/28/2024,0.486164796,-76.32307577,Center,pastures
+PPA2,P29,GP01,GP01_timelapse_20241221.wav,GP01_timelapse_20241221.Table.1.selections.txt,20241221,13,Colombia,Putumayo,Puerto Asis,12/16/2024,12/28/2024,0.486164796,-76.32307577,Center,pastures
+PPA2,P29,GP01,GP01_timelapse_20241222.wav,GP01_timelapse_20241222.Table.1.selections.txt,20241222,17,Colombia,Putumayo,Puerto Asis,12/16/2024,12/28/2024,0.486164796,-76.32307577,Center,pastures
+PPA3,P33,GP01,GP01_timelapse_20250304.wav,GP01_timelapse_20250304.Table.1.selections.txt,20250304,4,Colombia,Putumayo,Puerto Asis,2/28/2025,3/25/2025,0.467999369,-76.32180297,South,dense forest
+PPA3,P33,GP01,GP01_timelapse_20250308.wav,GP01_timelapse_20250308.Table.1.selections.txt,20250308,12,Colombia,Putumayo,Puerto Asis,2/28/2025,3/25/2025,0.467999369,-76.32180297,South,dense forest
+PPA3,P33,GP01,GP01_timelapse_20250309.wav,GP01_timelapse_20250309.Table.1.selections.txt,20250309,9,Colombia,Putumayo,Puerto Asis,2/28/2025,3/25/2025,0.467999369,-76.32180297,South,dense forest
+PPA3,P33,GP01,GP01_timelapse_20250313.wav,GP01_timelapse_20250313.Table.1.selections.txt,20250313,7,Colombia,Putumayo,Puerto Asis,2/28/2025,3/25/2025,0.467999369,-76.32180297,South,dense forest
+PPA3,P33,GP01,GP01_timelapse_20250319.wav,GP01_timelapse_20250319.Table.1.selections.txt,20250319,2,Colombia,Putumayo,Puerto Asis,2/28/2025,3/25/2025,0.467999369,-76.32180297,South,dense forest
+PPA4,P5,GP01,GP01_timelapse_20250622.wav,GP01_timelapse_20250622.Table.1.selections.txt,20250622,25,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.496382101,-76.32560887,North,pastures
+PPA4,P5,GP01,GP01_timelapse_20250623.wav,GP01_timelapse_20250623.Table.1.selections.txt,20250623,31,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.496382101,-76.32560887,North,pastures
+PPA4,P5,GP01,GP01_timelapse_20250625.wav,GP01_timelapse_20250625.Table.1.selections.txt,20250625,36,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.496382101,-76.32560887,North,pastures
+PPA4,P5,GP01,GP01_timelapse_20250629.wav,GP01_timelapse_20250629.Table.1.selections.txt,20250629,12,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.496382101,-76.32560887,North,pastures
+PPA4,P5,GP01,GP01_timelapse_20250630.wav,GP01_timelapse_20250630.Table.1.selections.txt,20250630,28,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.496382101,-76.32560887,North,pastures
+PPA2,P2,GP02,GP02_timelapse_20241216.wav,GP02_timelapse_20241216.Table.1.selections.txt,20241216,45,Colombia,Putumayo,Puerto Asis,12/15/2024,12/27/2024,0.471789778,-76.33071199,South,pastures
+PPA2,P2,GP02,GP02_timelapse_20241218.wav,GP02_timelapse_20241218.Table.1.selections.txt,20241218,37,Colombia,Putumayo,Puerto Asis,12/15/2024,12/27/2024,0.471789778,-76.33071199,South,pastures
+PPA2,P14,GP03,GP03_timelapse_20241220.wav,GP03_timelapse_20241220.Table.1.selections.txt,20241220,10,Colombia,Putumayo,Puerto Asis,12/16/2024,12/28/2024,0.484803731,-76.31775817,Center,dense forest
+PPA2,P14,GP03,GP03_timelapse_20241221.wav,GP03_timelapse_20241221.Table.1.selections.txt,20241221,6,Colombia,Putumayo,Puerto Asis,12/16/2024,12/28/2024,0.484803731,-76.31775817,Center,dense forest
+PPA2,P14,GP03,GP03_timelapse_20241222.wav,GP03_timelapse_20241222.Table.1.selections.txt,20241222,10,Colombia,Putumayo,Puerto Asis,12/16/2024,12/28/2024,0.484803731,-76.31775817,Center,dense forest
+PPA2,P14,GP03,GP03_timelapse_20241226.wav,GP03_timelapse_20241226.Table.1.selections.txt,20241226,9,Colombia,Putumayo,Puerto Asis,12/16/2024,12/28/2024,0.484803731,-76.31775817,Center,dense forest
+PPA3,P34,GP03,GP03_timelapse_20250304.wav,GP03_timelapse_20250304.Table.1.selections.txt,20250304,21,Colombia,Putumayo,Puerto Asis,2/27/2025,3/25/2025,0.498801152,-76.32449667,North,dense forest
+PPA3,P34,GP03,GP03_timelapse_20250309.wav,GP03_timelapse_20250309.Table.1.selections.txt,20250309,16,Colombia,Putumayo,Puerto Asis,2/27/2025,3/25/2025,0.498801152,-76.32449667,North,dense forest
+PPA3,P34,GP03,GP03_timelapse_20250313.wav,GP03_timelapse_20250313.Table.1.selections.txt,20250313,14,Colombia,Putumayo,Puerto Asis,2/27/2025,3/25/2025,0.498801152,-76.32449667,North,dense forest
+PPA3,P34,GP03,GP03_timelapse_20250321.wav,GP03_timelapse_20250321.Table.1.selections.txt,20250321,11,Colombia,Putumayo,Puerto Asis,2/27/2025,3/25/2025,0.498801152,-76.32449667,North,dense forest
+PPA3,P34,GP03,GP03_timelapse_20250324.wav,GP03_timelapse_20250324.Table.1.selections.txt,20250324,16,Colombia,Putumayo,Puerto Asis,2/27/2025,3/25/2025,0.498801152,-76.32449667,North,dense forest
+PPA4,P33,GP03,GP03_timelapse_20250622.wav,GP03_timelapse_20250622.Table.1.selections.txt,20250622,29,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.467999369,-76.32180297,South,dense forest
+PPA4,P33,GP03,GP03_timelapse_20250623.wav,GP03_timelapse_20250623.Table.1.selections.txt,20250623,36,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.467999369,-76.32180297,South,dense forest
+PPA4,P33,GP03,GP03_timelapse_20250625.wav,GP03_timelapse_20250625.Table.1.selections.txt,20250625,24,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.467999369,-76.32180297,South,dense forest
+PPA4,P33,GP03,GP03_timelapse_20250627.wav,GP03_timelapse_20250627.Table.1.selections.txt,20250627,8,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.467999369,-76.32180297,South,dense forest
+PPA4,P33,GP03,GP03_timelapse_20250629.wav,GP03_timelapse_20250629.Table.1.selections.txt,20250629,20,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.467999369,-76.32180297,South,dense forest
+PPA2,P11,GP04,GP04_timelapse_20241218.wav,GP04_timelapse_20241218.Table.1.selections.txt,20241218,40,Colombia,Putumayo,Puerto Asis,12/16/2024,12/28/2024,0.487608988,-76.3186944,Center,secondary vegetation
+PPA2,P11,GP04,GP04_timelapse_20241220.wav,GP04_timelapse_20241220.Table.1.selections.txt,20241220,28,Colombia,Putumayo,Puerto Asis,12/16/2024,12/28/2024,0.487608988,-76.3186944,Center,secondary vegetation
+PPA2,P11,GP04,GP04_timelapse_20241221.wav,GP04_timelapse_20241221.Table.1.selections.txt,20241221,35,Colombia,Putumayo,Puerto Asis,12/16/2024,12/28/2024,0.487608988,-76.3186944,Center,secondary vegetation
+PPA2,P11,GP04,GP04_timelapse_20241222.wav,GP04_timelapse_20241222.Table.1.selections.txt,20241222,23,Colombia,Putumayo,Puerto Asis,12/16/2024,12/28/2024,0.487608988,-76.3186944,Center,secondary vegetation
+PPA2,P11,GP04,GP04_timelapse_20241226.wav,GP04_timelapse_20241226.Table.1.selections.txt,20241226,43,Colombia,Putumayo,Puerto Asis,12/16/2024,12/28/2024,0.487608988,-76.3186944,Center,secondary vegetation
+PPA3,P21,GP04,GP04_timelapse_20250228.wav,GP04_timelapse_20250228.Table.1.selections.txt,20250228,26,Colombia,Putumayo,Puerto Asis,2/27/2025,3/7/2025,0.500228319,-76.3256375,North,secondary vegetation
+PPA3,P21,GP04,GP04_timelapse_20250304.wav,GP04_timelapse_20250304.Table.1.selections.txt,20250304,50,Colombia,Putumayo,Puerto Asis,2/27/2025,3/7/2025,0.500228319,-76.3256375,North,secondary vegetation
+PPA4,P15,GP04,GP04_timelapse_20250619.wav,GP04_timelapse_20250619.Table.1.selections.txt,20250619,4,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.46552914,-76.32659126,South,dense forest
+PPA4,P15,GP04,GP04_timelapse_20250622.wav,GP04_timelapse_20250622.Table.1.selections.txt,20250622,22,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.46552914,-76.32659126,South,dense forest
+PPA4,P15,GP04,GP04_timelapse_20250623.wav,GP04_timelapse_20250623.Table.1.selections.txt,20250623,25,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.46552914,-76.32659126,South,dense forest
+PPA4,P15,GP04,GP04_timelapse_20250625.wav,GP04_timelapse_20250625.Table.1.selections.txt,20250625,9,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.46552914,-76.32659126,South,dense forest
+PPA4,P15,GP04,GP04_timelapse_20250629.wav,GP04_timelapse_20250629.Table.1.selections.txt,20250629,12,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.46552914,-76.32659126,South,dense forest
+PPA2,P16,GP05,GP05_timelapse_20241216.wav,GP05_timelapse_20241216.Table.1.selections.txt,20241216,4,Colombia,Putumayo,Puerto Asis,12/15/2024,12/27/2024,0.46749775,-76.32842364,South,dense forest
+PPA2,P16,GP05,GP05_timelapse_20241218.wav,GP05_timelapse_20241218.Table.1.selections.txt,20241218,23,Colombia,Putumayo,Puerto Asis,12/15/2024,12/27/2024,0.46749775,-76.32842364,South,dense forest
+PPA2,P16,GP05,GP05_timelapse_20241220.wav,GP05_timelapse_20241220.Table.1.selections.txt,20241220,7,Colombia,Putumayo,Puerto Asis,12/15/2024,12/27/2024,0.46749775,-76.32842364,South,dense forest
+PPA2,P16,GP05,GP05_timelapse_20241221.wav,GP05_timelapse_20241221.Table.1.selections.txt,20241221,15,Colombia,Putumayo,Puerto Asis,12/15/2024,12/27/2024,0.46749775,-76.32842364,South,dense forest
+PPA3,P23,GP05,GP05_timelapse_20250308.wav,GP05_timelapse_20250308.Table.1.selections.txt,20250308,6,Colombia,Putumayo,Puerto Asis,2/28/2025,3/25/2025,0.465387575,-76.32449754,South,secondary vegetation
+PPA3,P23,GP05,GP05_timelapse_20250309.wav,GP05_timelapse_20250309.Table.1.selections.txt,20250309,9,Colombia,Putumayo,Puerto Asis,2/28/2025,3/25/2025,0.465387575,-76.32449754,South,secondary vegetation
+PPA3,P23,GP05,GP05_timelapse_20250312.wav,GP05_timelapse_20250312.Table.1.selections.txt,20250312,3,Colombia,Putumayo,Puerto Asis,2/28/2025,3/25/2025,0.465387575,-76.32449754,South,secondary vegetation
+PPA3,P23,GP05,GP05_timelapse_20250313.wav,GP05_timelapse_20250313.Table.1.selections.txt,20250313,7,Colombia,Putumayo,Puerto Asis,2/28/2025,3/25/2025,0.465387575,-76.32449754,South,secondary vegetation
+PPA3,P23,GP05,GP05_timelapse_20250319.wav,GP05_timelapse_20250319.Table.1.selections.txt,20250319,8,Colombia,Putumayo,Puerto Asis,2/28/2025,3/25/2025,0.465387575,-76.32449754,South,secondary vegetation
+PPA4,P8,GP05,GP05_timelapse_20250622.wav,GP05_timelapse_20250622.Table.1.selections.txt,20250622,17,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.483051569,-76.32116736,Center,secondary vegetation
+PPA4,P8,GP05,GP05_timelapse_20250623.wav,GP05_timelapse_20250623.Table.1.selections.txt,20250623,13,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.483051569,-76.32116736,Center,secondary vegetation
+PPA4,P8,GP05,GP05_timelapse_20250625.wav,GP05_timelapse_20250625.Table.1.selections.txt,20250625,13,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.483051569,-76.32116736,Center,secondary vegetation
+PPA4,P8,GP05,GP05_timelapse_20250629.wav,GP05_timelapse_20250629.Table.1.selections.txt,20250629,18,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.483051569,-76.32116736,Center,secondary vegetation
+PPA4,P8,GP05,GP05_timelapse_20250630.wav,GP05_timelapse_20250630.Table.1.selections.txt,20250630,7,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.483051569,-76.32116736,Center,secondary vegetation
+PPA2,P20,GP06,GP06_timelapse_20241218.wav,GP06_timelapse_20241218.Table.1.selections.txt,20241218,17,Colombia,Putumayo,Puerto Asis,12/16/2024,12/28/2024,0.483822913,-76.31895993,Center,secondary vegetation
+PPA2,P20,GP06,GP06_timelapse_20241220.wav,GP06_timelapse_20241220.Table.1.selections.txt,20241220,8,Colombia,Putumayo,Puerto Asis,12/16/2024,12/28/2024,0.483822913,-76.31895993,Center,secondary vegetation
+PPA2,P20,GP06,GP06_timelapse_20241221.wav,GP06_timelapse_20241221.Table.1.selections.txt,20241221,4,Colombia,Putumayo,Puerto Asis,12/16/2024,12/28/2024,0.483822913,-76.31895993,Center,secondary vegetation
+PPA2,P20,GP06,GP06_timelapse_20241222.wav,GP06_timelapse_20241222.Table.1.selections.txt,20241222,11,Colombia,Putumayo,Puerto Asis,12/16/2024,12/28/2024,0.483822913,-76.31895993,Center,secondary vegetation
+PPA2,P20,GP06,GP06_timelapse_20241226.wav,GP06_timelapse_20241226.Table.1.selections.txt,20241226,5,Colombia,Putumayo,Puerto Asis,12/16/2024,12/28/2024,0.483822913,-76.31895993,Center,secondary vegetation
+PPA3,P31,GP06,GP06_timelapse_20250304.wav,GP06_timelapse_20250304.Table.1.selections.txt,20250304,19,Colombia,Putumayo,Puerto Asis,2/28/2025,3/25/2025,0.499781388,-76.32170359,North,dense forest
+PPA3,P31,GP06,GP06_timelapse_20250312.wav,GP06_timelapse_20250312.Table.1.selections.txt,20250312,18,Colombia,Putumayo,Puerto Asis,2/28/2025,3/25/2025,0.499781388,-76.32170359,North,dense forest
+PPA3,P31,GP06,GP06_timelapse_20250313.wav,GP06_timelapse_20250313.Table.1.selections.txt,20250313,28,Colombia,Putumayo,Puerto Asis,2/28/2025,3/25/2025,0.499781388,-76.32170359,North,dense forest
+PPA3,P31,GP06,GP06_timelapse_20250319.wav,GP06_timelapse_20250319.Table.1.selections.txt,20250319,22,Colombia,Putumayo,Puerto Asis,2/28/2025,3/25/2025,0.499781388,-76.32170359,North,dense forest
+PPA3,P31,GP06,GP06_timelapse_20250324.wav,GP06_timelapse_20250324.Table.1.selections.txt,20250324,26,Colombia,Putumayo,Puerto Asis,2/28/2025,3/25/2025,0.499781388,-76.32170359,North,dense forest
+PPA4,P13,GP06,GP06_timelapse_20250619.wav,GP06_timelapse_20250619.Table.1.selections.txt,20250619,17,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.484876172,-76.32162573,Center,secondary vegetation
+PPA4,P13,GP06,GP06_timelapse_20250622.wav,GP06_timelapse_20250622.Table.1.selections.txt,20250622,11,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.484876172,-76.32162573,Center,secondary vegetation
+PPA4,P13,GP06,GP06_timelapse_20250625.wav,GP06_timelapse_20250625.Table.1.selections.txt,20250625,13,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.484876172,-76.32162573,Center,secondary vegetation
+PPA4,P13,GP06,GP06_timelapse_20250629.wav,GP06_timelapse_20250629.Table.1.selections.txt,20250629,18,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.484876172,-76.32162573,Center,secondary vegetation
+PPA4,P13,GP06,GP06_timelapse_20250630.wav,GP06_timelapse_20250630.Table.1.selections.txt,20250630,12,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.484876172,-76.32162573,Center,secondary vegetation
+PPA2,P26,GP07,GP07_timelapse_20241221.wav,GP07_timelapse_20241221.Table.1.selections.txt,20241221,27,Colombia,Putumayo,Puerto Asis,12/14/2024,12/27/2024,0.498368748,-76.32733008,North,secondary vegetation
+PPA3,P1,GP07,GP07_timelapse_20250228.wav,GP07_timelapse_20250228.Table.1.selections.txt,20250228,36,Colombia,Putumayo,Puerto Asis,2/27/2025,3/25/2025,0.501814214,-76.32395414,North,pastures
+PPA3,P1,GP07,GP07_timelapse_20250304.wav,GP07_timelapse_20250304.Table.1.selections.txt,20250304,40,Colombia,Putumayo,Puerto Asis,2/27/2025,3/25/2025,0.501814214,-76.32395414,North,pastures
+PPA3,P1,GP07,GP07_timelapse_20250308.wav,GP07_timelapse_20250308.Table.1.selections.txt,20250308,34,Colombia,Putumayo,Puerto Asis,2/27/2025,3/25/2025,0.501814214,-76.32395414,North,pastures
+PPA3,P1,GP07,GP07_timelapse_20250312.wav,GP07_timelapse_20250312.Table.1.selections.txt,20250312,19,Colombia,Putumayo,Puerto Asis,2/27/2025,3/25/2025,0.501814214,-76.32395414,North,pastures
+PPA3,P1,GP07,GP07_timelapse_20250313.wav,GP07_timelapse_20250313.Table.1.selections.txt,20250313,36,Colombia,Putumayo,Puerto Asis,2/27/2025,3/25/2025,0.501814214,-76.32395414,North,pastures
+PPA3,P1,GP07,GP07_timelapse_20250321.wav,GP07_timelapse_20250321.Table.1.selections.txt,20250321,23,Colombia,Putumayo,Puerto Asis,2/27/2025,3/25/2025,0.501814214,-76.32395414,North,pastures
+PPA4,P6,GP07,GP07_timelapse_20250622.wav,GP07_timelapse_20250622.Table.1.selections.txt,20250622,33,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.465659836,-76.32237641,South,pastures
+PPA4,P6,GP07,GP07_timelapse_20250623.wav,GP07_timelapse_20250623.Table.1.selections.txt,20250623,31,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.465659836,-76.32237641,South,pastures
+PPA4,P6,GP07,GP07_timelapse_20250625.wav,GP07_timelapse_20250625.Table.1.selections.txt,20250625,0,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.465659836,-76.32237641,South,pastures
+PPA4,P6,GP07,GP07_timelapse_20250629.wav,GP07_timelapse_20250629.Table.1.selections.txt,20250629,29,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.465659836,-76.32237641,South,pastures
+PPA4,P6,GP07,GP07_timelapse_20250630.wav,GP07_timelapse_20250630.Table.1.selections.txt,20250630,17,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.465659836,-76.32237641,South,pastures
+PPA2,P13,GP08,GP08_timelapse_20241218.wav,GP08_timelapse_20241218.Table.1.selections.txt,20241218,4,Colombia,Putumayo,Puerto Asis,12/16/2024,12/28/2024,0.484876172,-76.32162573,Center,secondary vegetation
+PPA3,P32,GP08,GP08_timelapse_20250228.wav,GP08_timelapse_20250228.Table.1.selections.txt,20250228,35,Colombia,Putumayo,Puerto Asis,2/27/2025,3/25/2025,0.504662866,-76.32431679,North,pastures
+PPA3,P32,GP08,GP08_timelapse_20250312.wav,GP08_timelapse_20250312.Table.1.selections.txt,20250312,43,Colombia,Putumayo,Puerto Asis,2/27/2025,3/25/2025,0.504662866,-76.32431679,North,pastures
+PPA3,P32,GP08,GP08_timelapse_20250313.wav,GP08_timelapse_20250313.Table.1.selections.txt,20250313,30,Colombia,Putumayo,Puerto Asis,2/27/2025,3/25/2025,0.504662866,-76.32431679,North,pastures
+PPA3,P32,GP08,GP08_timelapse_20250319.wav,GP08_timelapse_20250319.Table.1.selections.txt,20250319,45,Colombia,Putumayo,Puerto Asis,2/27/2025,3/25/2025,0.504662866,-76.32431679,North,pastures
+PPA3,P32,GP08,GP08_timelapse_20250321.wav,GP08_timelapse_20250321.Table.1.selections.txt,20250321,48,Colombia,Putumayo,Puerto Asis,2/27/2025,3/25/2025,0.504662866,-76.32431679,North,pastures
+PPA4,P21,GP08,GP08_timelapse_20250622.wav,GP08_timelapse_20250622.Table.1.selections.txt,20250622,44,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.500228319,-76.3256375,North,secondary vegetation
+PPA4,P21,GP08,GP08_timelapse_20250623.wav,GP08_timelapse_20250623.Table.1.selections.txt,20250623,27,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.500228319,-76.3256375,North,secondary vegetation
+PPA4,P21,GP08,GP08_timelapse_20250624.wav,GP08_timelapse_20250624.Table.1.selections.txt,20250624,29,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.500228319,-76.3256375,North,secondary vegetation
+PPA4,P21,GP08,GP08_timelapse_20250625.wav,GP08_timelapse_20250625.Table.1.selections.txt,20250625,35,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.500228319,-76.3256375,North,secondary vegetation
+PPA4,P21,GP08,GP08_timelapse_20250630.wav,GP08_timelapse_20250630.Table.1.selections.txt,20250630,18,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.500228319,-76.3256375,North,secondary vegetation
+PPA2,P9,GP09,GP09_timelapse_20241221.wav,GP09_timelapse_20241221.Table.1.selections.txt,20241221,24,Colombia,Putumayo,Puerto Asis,12/16/2024,12/28/2024,0.487235496,-76.32244762,Center,pastures
+PPA2,P9,GP09,GP09_timelapse_20241222.wav,GP09_timelapse_20241222.Table.1.selections.txt,20241222,33,Colombia,Putumayo,Puerto Asis,12/16/2024,12/28/2024,0.487235496,-76.32244762,Center,pastures
+PPA3,P17,GP09,GP09_timelapse_20250308.wav,GP09_timelapse_20250308.Table.1.selections.txt,20250308,13,Colombia,Putumayo,Puerto Asis,2/27/2025,3/25/2025,0.503304443,-76.32256326,North,dense forest
+PPA3,P17,GP09,GP09_timelapse_20250309.wav,GP09_timelapse_20250309.Table.1.selections.txt,20250309,22,Colombia,Putumayo,Puerto Asis,2/27/2025,3/25/2025,0.503304443,-76.32256326,North,dense forest
+PPA3,P17,GP09,GP09_timelapse_20250313.wav,GP09_timelapse_20250313.Table.1.selections.txt,20250313,21,Colombia,Putumayo,Puerto Asis,2/27/2025,3/25/2025,0.503304443,-76.32256326,North,dense forest
+PPA3,P17,GP09,GP09_timelapse_20250319.wav,GP09_timelapse_20250319.Table.1.selections.txt,20250319,8,Colombia,Putumayo,Puerto Asis,2/27/2025,3/25/2025,0.503304443,-76.32256326,North,dense forest
+PPA3,P17,GP09,GP09_timelapse_20250324.wav,GP09_timelapse_20250324.Table.1.selections.txt,20250324,16,Colombia,Putumayo,Puerto Asis,2/27/2025,3/25/2025,0.503304443,-76.32256326,North,dense forest
+PPA4,P26,GP09,GP09_timelapse_20250622.wav,GP09_timelapse_20250622.Table.1.selections.txt,20250622,50,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.498368748,-76.32733008,North,secondary vegetation
+PPA4,P26,GP09,GP09_timelapse_20250623.wav,GP09_timelapse_20250623.Table.1.selections.txt,20250623,28,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.498368748,-76.32733008,North,secondary vegetation
+PPA4,P26,GP09,GP09_timelapse_20250624.wav,GP09_timelapse_20250624.Table.1.selections.txt,20250624,30,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.498368748,-76.32733008,North,secondary vegetation
+PPA4,P26,GP09,GP09_timelapse_20250629.wav,GP09_timelapse_20250629.Table.1.selections.txt,20250629,19,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.498368748,-76.32733008,North,secondary vegetation
+PPA4,P26,GP09,GP09_timelapse_20250630.wav,GP09_timelapse_20250630.Table.1.selections.txt,20250630,13,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.498368748,-76.32733008,North,secondary vegetation
+PPA2,P10,GP10,GP10_timelapse_20241216.wav,GP10_timelapse_20241216.Table.1.selections.txt,20241216,15,Colombia,Putumayo,Puerto Asis,12/15/2024,12/27/2024,0.480305085,-76.320154,Center,pastures
+PPA2,P10,GP10,GP10_timelapse_20241218.wav,GP10_timelapse_20241218.Table.1.selections.txt,20241218,12,Colombia,Putumayo,Puerto Asis,12/15/2024,12/27/2024,0.480305085,-76.320154,Center,pastures
+PPA4,P9,H26,H26_timelapse_20250619.wav,H26_timelapse_20250619.Table.1.selections.txt,20250619,14,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.487235496,-76.32244762,Center,pastures
+PPA4,P9,H26,H26_timelapse_20250625.wav,H26_timelapse_20250625.Table.1.selections.txt,20250625,12,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.487235496,-76.32244762,Center,pastures
+PPA4,P29,H29,H29_timelapse_20250622.wav,H29_timelapse_20250622.Table.1.selections.txt,20250622,14,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.486164796,-76.32307577,Center,pastures
+PPA4,P29,H29,H29_timelapse_20250623.wav,H29_timelapse_20250623.Table.1.selections.txt,20250623,5,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.486164796,-76.32307577,Center,pastures
+PPA4,P29,H29,H29_timelapse_20250627.wav,H29_timelapse_20250627.Table.1.selections.txt,20250627,8,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.486164796,-76.32307577,Center,pastures
+PPA4,P29,H29,H29_timelapse_20250629.wav,H29_timelapse_20250629.Table.1.selections.txt,20250629,18,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.486164796,-76.32307577,Center,pastures
+PPA4,P29,H29,H29_timelapse_20250630.wav,H29_timelapse_20250630.Table.1.selections.txt,20250630,6,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.486164796,-76.32307577,Center,pastures
+PPA4,P22,H65,H65_timelapse_20250622.wav,H65_timelapse_20250622.Table.1.selections.txt,20250622,12,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.483959153,-76.32543891,Center,dense forest
+PPA4,P22,H65,H65_timelapse_20250623.wav,H65_timelapse_20250623.Table.1.selections.txt,20250623,8,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.483959153,-76.32543891,Center,dense forest
+PPA4,P22,H65,H65_timelapse_20250624.wav,H65_timelapse_20250624.Table.1.selections.txt,20250624,19,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.483959153,-76.32543891,Center,dense forest
+PPA4,P22,H65,H65_timelapse_20250625.wav,H65_timelapse_20250625.Table.1.selections.txt,20250625,12,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.483959153,-76.32543891,Center,dense forest
+PPA4,P22,H65,H65_timelapse_20250629.wav,H65_timelapse_20250629.Table.1.selections.txt,20250629,7,Colombia,Putumayo,Puerto Asis,6/19/2025,7/2/2025,0.483959153,-76.32543891,Center,dense forest
+MAP1,P5,P5-G022,P5-G022_04-13_tlapse.wav,P5-G022_04-13_tlapse.Table.1.selections.txt,20230413,32,Colombia,Magdalena,Pijivay,4/11/2023,6/6/2023,10.453357,-74.36504,Well,shrubland
+MAP1,P5,P5-G022,P5-G022_04-14_tlapse.wav,P5-G022_04-14_tlapse.Table.1.selections.txt,20230414,34,Colombia,Magdalena,Pijivay,4/11/2023,6/6/2023,10.453357,-74.36504,Well,shrubland
+MAP1,P5,P5-G022,P5-G022_04-15_tlapse.wav,P5-G022_04-15_tlapse.Table.1.selections.txt,20230415,36,Colombia,Magdalena,Pijivay,4/11/2023,6/6/2023,10.453357,-74.36504,Well,shrubland
+MAP1,P5,P5-G022,P5-G022_04-16_tlapse.wav,P5-G022_04-16_tlapse.Table.1.selections.txt,20230416,51,Colombia,Magdalena,Pijivay,4/11/2023,6/6/2023,10.453357,-74.36504,Well,shrubland
+MAP1,P5,P5-G022,P5-G022_04-17_tlapse.wav,P5-G022_04-17_tlapse.Table.1.selections.txt,20230417,39,Colombia,Magdalena,Pijivay,4/11/2023,6/6/2023,10.453357,-74.36504,Well,shrubland
+MAP1,P5,P5-G022,P5-G022_04-18_tlapse.wav,P5-G022_04-18_tlapse.Table.1.selections.txt,20230418,22,Colombia,Magdalena,Pijivay,4/11/2023,6/6/2023,10.453357,-74.36504,Well,shrubland
+MAP1,P5,P5-G022,P5-G022_06-01_tlapse.wav,P5-G022_06-01_tlapse.Table.1.selections.txt,20230601,51,Colombia,Magdalena,Pijivay,4/11/2023,6/6/2023,10.453357,-74.36504,Well,shrubland
+MAP1,P5,P5-G022,P5-G022_06-02_tlapse.wav,P5-G022_06-02_tlapse.Table.1.selections.txt,20230602,69,Colombia,Magdalena,Pijivay,4/11/2023,6/6/2023,10.453357,-74.36504,Well,shrubland
+MAP1,P5,P5-G022,P5-G022_06-03_tlapse.wav,P5-G022_06-03_tlapse.Table.1.selections.txt,20230603,82,Colombia,Magdalena,Pijivay,4/11/2023,6/6/2023,10.453357,-74.36504,Well,shrubland
+MAP1,P5,P5-G022,P5-G022_06-04_tlapse.wav,P5-G022_06-04_tlapse.Table.1.selections.txt,20230604,82,Colombia,Magdalena,Pijivay,4/11/2023,6/6/2023,10.453357,-74.36504,Well,shrubland
+MAP1,P5,P5-G022,P5-G022_06-05_tlapse.wav,P5-G022_06-05_tlapse.Table.1.selections.txt,20230605,93,Colombia,Magdalena,Pijivay,4/11/2023,6/6/2023,10.453357,-74.36504,Well,shrubland
+MAP1,P6,P6-G026,P6-G026_04-13_tlapse.wav,P6-G026_04-13_tlapse.Table.1.selections.txt,20230413,26,Colombia,Magdalena,Pijivay,4/11/2023,6/6/2023,10.45586,-74.36869,Well,pastures
+MAP1,P6,P6-G026,P6-G026_04-14_tlapse.wav,P6-G026_04-14_tlapse.Table.1.selections.txt,20230414,42,Colombia,Magdalena,Pijivay,4/11/2023,6/6/2023,10.45586,-74.36869,Well,pastures
+MAP1,P6,P6-G026,P6-G026_04-15_tlapse.wav,P6-G026_04-15_tlapse.Table.1.selections.txt,20230415,38,Colombia,Magdalena,Pijivay,4/11/2023,6/6/2023,10.45586,-74.36869,Well,pastures
+MAP1,P6,P6-G026,P6-G026_04-16_tlapse.wav,P6-G026_04-16_tlapse.Table.1.selections.txt,20230416,16,Colombia,Magdalena,Pijivay,4/11/2023,6/6/2023,10.45586,-74.36869,Well,pastures
+MAP1,P6,P6-G026,P6-G026_04-17_tlapse.wav,P6-G026_04-17_tlapse.Table.1.selections.txt,20230417,46,Colombia,Magdalena,Pijivay,4/11/2023,6/6/2023,10.45586,-74.36869,Well,pastures
+MAP1,P6,P6-G026,P6-G026_04-18_tlapse.wav,P6-G026_04-18_tlapse.Table.1.selections.txt,20230418,66,Colombia,Magdalena,Pijivay,4/11/2023,6/6/2023,10.45586,-74.36869,Well,pastures
+MAP1,P6,P6-G026,P6-G026_06-01_tlapse.wav,P6-G026_06-01_tlapse.Table.1.selections.txt,20230601,76,Colombia,Magdalena,Pijivay,4/11/2023,6/6/2023,10.45586,-74.36869,Well,pastures
+MAP1,P6,P6-G026,P6-G026_06-02_tlapse.wav,P6-G026_06-02_tlapse.Table.1.selections.txt,20230602,57,Colombia,Magdalena,Pijivay,4/11/2023,6/6/2023,10.45586,-74.36869,Well,pastures
+MAP1,P6,P6-G026,P6-G026_06-03_tlapse.wav,P6-G026_06-03_tlapse.Table.1.selections.txt,20230603,59,Colombia,Magdalena,Pijivay,4/11/2023,6/6/2023,10.45586,-74.36869,Well,pastures
+MAP1,P6,P6-G026,P6-G026_06-04_tlapse.wav,P6-G026_06-04_tlapse.Table.1.selections.txt,20230604,83,Colombia,Magdalena,Pijivay,4/11/2023,6/6/2023,10.45586,-74.36869,Well,pastures
+MAP1,P6,P6-G026,P6-G026_06-05_tlapse.wav,P6-G026_06-05_tlapse.Table.1.selections.txt,20230605,61,Colombia,Magdalena,Pijivay,4/11/2023,6/6/2023,10.45586,-74.36869,Well,pastures
+MAP1,Z5,Z5-G034,Z5-G034_04-13_tlapse.wav,Z5-G034_04-13_tlapse.Table.1.selections.txt,20230413,30,Colombia,Magdalena,Pijivay,4/12/2023,6/6/2023,10.466725,-74.379935,Control,forest
+MAP1,Z5,Z5-G034,Z5-G034_04-14_tlapse.wav,Z5-G034_04-14_tlapse.Table.1.selections.txt,20230414,32,Colombia,Magdalena,Pijivay,4/12/2023,6/6/2023,10.466725,-74.379935,Control,forest
+MAP1,Z5,Z5-G034,Z5-G034_04-15_tlapse.wav,Z5-G034_04-15_tlapse.Table.1.selections.txt,20230415,26,Colombia,Magdalena,Pijivay,4/12/2023,6/6/2023,10.466725,-74.379935,Control,forest
+MAP1,Z5,Z5-G034,Z5-G034_04-16_tlapse.wav,Z5-G034_04-16_tlapse.Table.1.selections.txt,20230416,24,Colombia,Magdalena,Pijivay,4/12/2023,6/6/2023,10.466725,-74.379935,Control,forest
+MAP1,Z5,Z5-G034,Z5-G034_04-17_tlapse.wav,Z5-G034_04-17_tlapse.Table.1.selections.txt,20230417,49,Colombia,Magdalena,Pijivay,4/12/2023,6/6/2023,10.466725,-74.379935,Control,forest
+MAP1,Z5,Z5-G034,Z5-G034_04-18_tlapse.wav,Z5-G034_04-18_tlapse.Table.1.selections.txt,20230418,49,Colombia,Magdalena,Pijivay,4/12/2023,6/6/2023,10.466725,-74.379935,Control,forest
+MAP1,Z5,Z5-G034,Z5-G034_06-01_tlapse.wav,Z5-G034_06-01_tlapse.Table.1.selections.txt,20230601,36,Colombia,Magdalena,Pijivay,4/12/2023,6/6/2023,10.466725,-74.379935,Control,forest
+MAP1,Z5,Z5-G034,Z5-G034_06-02_tlapse.wav,Z5-G034_06-02_tlapse.Table.1.selections.txt,20230602,48,Colombia,Magdalena,Pijivay,4/12/2023,6/6/2023,10.466725,-74.379935,Control,forest
+MAP1,Z5,Z5-G034,Z5-G034_06-03_tlapse.wav,Z5-G034_06-03_tlapse.Table.1.selections.txt,20230603,69,Colombia,Magdalena,Pijivay,4/12/2023,6/6/2023,10.466725,-74.379935,Control,forest
+MAP1,Z5,Z5-G034,Z5-G034_06-04_tlapse.wav,Z5-G034_06-04_tlapse.Table.1.selections.txt,20230604,26,Colombia,Magdalena,Pijivay,4/12/2023,6/6/2023,10.466725,-74.379935,Control,forest
+MAP1,Z5,Z5-G034,Z5-G034_06-05_tlapse.wav,Z5-G034_06-05_tlapse.Table.1.selections.txt,20230605,40,Colombia,Magdalena,Pijivay,4/12/2023,6/6/2023,10.466725,-74.379935,Control,forest
+MAP1,Z5,Z5-G034,Z5-G034_06-06_tlapse.wav,Z5-G034_06-06_tlapse.Table.1.selections.txt,20230606,52,Colombia,Magdalena,Pijivay,4/12/2023,6/6/2023,10.466725,-74.379935,Control,forest
+MAP1,Z6,Z6-G047,Z6-G047_04-13_tlapse.wav,Z6-G047_04-13_tlapse.Table.1.selections.txt,20230413,38,Colombia,Magdalena,Pijivay,4/12/2023,6/7/2023,10.466243,-74.378318,Control,pastures
+MAP1,Z6,Z6-G047,Z6-G047_04-14_tlapse.wav,Z6-G047_04-14_tlapse.Table.1.selections.txt,20230414,43,Colombia,Magdalena,Pijivay,4/12/2023,6/7/2023,10.466243,-74.378318,Control,pastures
+MAP1,Z6,Z6-G047,Z6-G047_04-15_tlapse.wav,Z6-G047_04-15_tlapse.Table.1.selections.txt,20230415,31,Colombia,Magdalena,Pijivay,4/12/2023,6/7/2023,10.466243,-74.378318,Control,pastures
+MAP1,Z6,Z6-G047,Z6-G047_04-16_tlapse.wav,Z6-G047_04-16_tlapse.Table.1.selections.txt,20230416,38,Colombia,Magdalena,Pijivay,4/12/2023,6/7/2023,10.466243,-74.378318,Control,pastures
+MAP1,Z6,Z6-G047,Z6-G047_04-17_tlapse.wav,Z6-G047_04-17_tlapse.Table.1.selections.txt,20230417,29,Colombia,Magdalena,Pijivay,4/12/2023,6/7/2023,10.466243,-74.378318,Control,pastures
+MAP1,Z6,Z6-G047,Z6-G047_04-18_tlapse.wav,Z6-G047_04-18_tlapse.Table.1.selections.txt,20230418,23,Colombia,Magdalena,Pijivay,4/12/2023,6/7/2023,10.466243,-74.378318,Control,pastures
+MAP1,Z6,Z6-G047,Z6-G047_05-26_tlapse.wav,Z6-G047_05-26_tlapse.Table.1.selections.txt,20230526,40,Colombia,Magdalena,Pijivay,4/12/2023,6/7/2023,10.466243,-74.378318,Control,pastures
+MAP1,Z6,Z6-G047,Z6-G047_05-27_tlapse.wav,Z6-G047_05-27_tlapse.Table.1.selections.txt,20230527,48,Colombia,Magdalena,Pijivay,4/12/2023,6/7/2023,10.466243,-74.378318,Control,pastures
+MAP1,Z6,Z6-G047,Z6-G047_05-28_tlapse.wav,Z6-G047_05-28_tlapse.Table.1.selections.txt,20230528,60,Colombia,Magdalena,Pijivay,4/12/2023,6/7/2023,10.466243,-74.378318,Control,pastures
+MAP1,Z6,Z6-G047,Z6-G047_05-29_tlapse.wav,Z6-G047_05-29_tlapse.Table.1.selections.txt,20230529,40,Colombia,Magdalena,Pijivay,4/12/2023,6/7/2023,10.466243,-74.378318,Control,pastures
+MAP1,Z6,Z6-G047,Z6-G047_05-30_tlapse.wav,Z6-G047_05-30_tlapse.Table.1.selections.txt,20230530,42,Colombia,Magdalena,Pijivay,4/12/2023,6/7/2023,10.466243,-74.378318,Control,pastures
+MAP1,Z6,Z6-G047,Z6-G047_05-31_tlapse.wav,Z6-G047_05-31_tlapse.Table.1.selections.txt,20230531,56,Colombia,Magdalena,Pijivay,4/12/2023,6/7/2023,10.466243,-74.378318,Control,pastures

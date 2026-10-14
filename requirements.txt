@@ -1,0 +1,2 @@
+# Corpus installation and freeze verification use only Python's standard library.
+# Runtime requirement: Python >= 3.10.
