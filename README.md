@@ -1,4 +1,6 @@
-# CodEco
+# 🌿 CodEco
+
+### 🦗 Ecoacústica de insetos · 🐦 Bioacústica de aves · 🍃 Sensoriamento eficiente
 
 **Codeco** é o espaço de trabalho do estudo sobre compressão de áudio e
 representações compactas para nós de monitoramento ecoacústico. O projeto está
@@ -99,11 +101,11 @@ efeito dos codecs.
 
 O protocolo foi concebido para dois domínios, analisados separadamente:
 
-1. **Insetos — ECOSoundSet.** Corpus principal, com foco em Orthoptera e nos
+1. **🦗 Insetos — ECOSoundSet.** Corpus principal, com foco em Orthoptera e nos
    registros elegíveis após auditoria de proveniência e formato. A primeira
    versão liberada contém 14.954 janelas completas e 34 espécies-alvo. O depósito
    oficial usa licença CC BY-NC 4.0, que também limita o uso dos derivados.
-2. **Aves — PteroSet/PPA1.** Réplica externa em áudio WAV original a 192 kHz,
+2. **🐦 Aves — PteroSet/PPA1.** Réplica externa em áudio WAV original a 192 kHz,
    reamostrado uma única vez para 48 kHz. O recorte congelado tem 108 gravações,
    29 grupos de local–gravador, 10.368 janelas de 4 s e 10 espécies-alvo. O
    arquivo PPA1 tem 15,3 GB, evitando o download dos 86,4 GB do PteroSet inteiro.
@@ -124,7 +126,7 @@ essa condição explicitamente.
 Em uma máquina nova:
 
 ```bash
-git clone <URL_DO_REPOSITORIO> codeco
+git clone https://github.com/joaocolombari/CodEco.git codeco
 cd codeco
 python3 -m venv .venv
 . .venv/bin/activate
