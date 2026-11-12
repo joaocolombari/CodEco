@@ -1,0 +1,29 @@
+# Numerico e Ciencia de Dados (travado em <2.0 para compatibilidade com TF, librosa e maad)
+numpy>=1.24,<2.0
+scipy
+pandas
+scikit-learn
+matplotlib
+tqdm
+
+# Processamento de Audio e Bioacustica
+soundfile
+soxr
+librosa
+scikit-image
+scikit-maad
+
+# PyTorch + EnCodec + Profiler de FLOPs
+torch>=2.1
+torchaudio>=2.1
+transformers>=4.38
+thop
+
+# Modelos Fundacionais (BirdNET v2.4 e Google Perch)
+birdnetlib
+tensorflow>=2.15,<2.18
+tf-keras
+tensorflow-hub
+
+# Dependencia de Sistema (instalar via apt/conda/brew, nao via pip):
+# ffmpeg (>=6.1 / 7.1 com --enable-liblc3, libmp3lame e libopus)
