@@ -5,10 +5,21 @@ external/
 data/audio/
 data/derived/
 data/downloads/
+data/music/
 
 # Local caches and environments.
 .venv/
+.tools/
 __pycache__/
 *.pyc
 *.inspect.ndjson
 .DS_Store
+
+# Generated seminar demonstrations.
+notebooks/outputs/
+.ipynb_checkpoints/
+
+# Local experiment reports are reproducible from frozen manifests and results.
+reports/*.csv
+reports/*.json
+reports/*.png

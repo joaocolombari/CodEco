@@ -13,7 +13,8 @@ e **capacidade de reutilização**.
 
 ## Pergunta de pesquisa
 
-> Em segmentos bioacústicos de quatro segundos, amostrados a 48 kHz, quanto o
+> Em segmentos bioacústicos de quatro segundos, mono, PCM de 16 bits e
+> amostrados a 48 kHz, quanto o
 > payload pode ser reduzido por codecs de forma de onda e por representações
 > aprendidas antes que índices acústicos, classificação e possibilidade de
 > reanálise sejam materialmente degradados?
@@ -87,7 +88,10 @@ usada no treinamento.
 
 - áudio mono;
 - frequência de amostragem comum de 48 kHz;
+- referência numérica PCM signed de 16 bits;
 - janelas de 4 s;
+- quando uma gravação longa exigir segmentação deslizante, hop temporal de 1 s,
+  equivalente a um quarto da janela e 75% de sobreposição;
 - conteúdo biologicamente relevante limitado a até 24 kHz;
 - todas as derivações de uma janela pertencem sempre à mesma partição;
 - comparação pareada: cada método recebe exatamente o mesmo sinal de entrada.
@@ -116,50 +120,244 @@ repetição em aves testa se os padrões de degradação se mantêm em outro dom
 sem transformar diferenças de gravador, habitat ou taxonomia em efeito de
 compressão.
 
-## Reproduzir exatamente os corpora congelados
+O recorte de classificação é derivado separadamente para cada corpus. Sobre as
+contagens de janelas do **treino**, aplica-se `log1p` e calcula-se o limiar
+`exp(μ - kσ) - 1`. O hiperparâmetro versionado `k` controla o compromisso entre
+número de classes e suporte por classe; também se exige um número mínimo de
+grupos independentes. O notebook de seleção mostra a distribuição, a análise
+de sensibilidade de `k`, cada inclusão/exclusão e o recorte balanceado. O
+freeze completo permanece inalterado.
 
-O freeze **1.3.0** pode ser reconstruído em Linux ou macOS com Git, `curl`,
-Python 3.10 ou mais recente e aproximadamente **55 GiB livres**. O instalador
-não depende de bibliotecas Python de terceiros; `requirements.txt` registra
-essa condição explicitamente.
+Se o cronograma permitir, o protocolo poderá ser replicado no **AnuraSet** e no
+**Watkins Marine Mammal Sound Database**. Essas extensões dependem de auditoria
+de licença, formato original, anotações, frequência de amostragem e
+proveniência sem perdas.
 
-Em uma máquina nova:
+## Instalação e execução, do zero
+
+Esta é a sequência de referência para o João e para os demais integrantes do
+grupo. Ela é suportada em **Ubuntu 24.04 ou superior** e **macOS**. No Windows,
+use WSL2 com Ubuntu e siga a seção Linux. Use Python **3.10, 3.11 ou 3.12**;
+Python 3.13/3.14 ainda não é compatível com todas as versões de TensorFlow,
+PyTorch e bibliotecas bioacústicas usadas aqui.
+
+### 1. Requisitos da máquina
+
+- aproximadamente **55 GiB livres** para os dois corpora;
+- pelo menos 16 GiB de RAM para o piloto; a execução completa é recomendada no
+  EASNCloud;
+- acesso à internet para os corpora e, no primeiro uso, para EnCodec, BirdNET
+  e Perch;
+- Git, compilador C, FFmpeg, `pkg-config` e `libsndfile`.
+
+Ubuntu/Debian:
 
 ```bash
+sudo apt-get update
+sudo apt-get install -y git curl build-essential pkg-config ffmpeg \
+  libsndfile1-dev liblc3-dev nasm xz-utils python3 python3-venv python3-dev
+```
+
+macOS com Homebrew:
+
+```bash
+brew install git curl pkg-config ffmpeg libsndfile nasm python@3.12
+```
+
+Se a conta do EASNCloud não tiver `sudo`, peça ao administrador para instalar
+os pacotes do primeiro bloco. Os dados e o ambiente Python ficam no diretório
+do projeto e não exigem acesso de administrador.
+
+### 2. Clonar ou atualizar o repositório
+
+Instalação nova:
+
+```bash
+cd /srv/easn/shared                       # no EASNCloud
 git clone https://github.com/joaocolombari/CodEco.git codeco
 cd codeco
+```
+
+Se o clone já existe:
+
+```bash
+cd /srv/easn/shared/codeco
+git status
+git pull --ff-only origin main
+```
+
+Não execute `git pull` sobre alterações locais sem antes salvá-las. Todos os
+comandos seguintes devem ser executados na raiz do clone, onde este README e
+`scripts/` estão visíveis.
+
+### 3. Criar o ambiente Python
+
+```bash
 python3 -m venv .venv
 . .venv/bin/activate
-python -m pip install -r requirements.txt
+python -m pip install --upgrade pip setuptools wheel
+python -m pip install -r requirements-notebook.txt -r scripts/requirements.txt
+```
+
+Confirme que o terminal está usando o ambiente correto:
+
+```bash
+which python
+python --version
+```
+
+O primeiro comando deve apontar para `codeco/.venv/bin/python`. O arquivo
+`requirements.txt` da raiz é propositalmente vazio: os instaladores dos
+corpora usam apenas a biblioteca padrão. O ambiente experimental completo é a
+combinação de `requirements-notebook.txt` e `scripts/requirements.txt` acima.
+
+### 4. Instalar e validar o LC3
+
+```bash
+./scripts/install_ffmpeg_lc3.sh
+```
+
+O script compila uma cópia local do FFmpeg 9.0.2 com `liblc3`, sem substituir
+o FFmpeg do sistema, e termina somente depois de um round-trip real. A saída
+esperada termina com `LC3 round-trip verified`. O pipeline usa esse executável
+somente para LC3; FLAC, MP3, AAC e Opus usam o FFmpeg do sistema.
+
+### 5. Instalar exatamente os corpora congelados
+
+Para os dois corpora:
+
+```bash
 ./scripts/install_frozen_corpora.sh all
 ```
 
-O último comando clona os repositórios auxiliares nos commits congelados,
-recria e confere os manifests, baixa os depósitos oficiais com retomada,
-verifica tamanho e hashes dos arquivos e audita o áudio selecionado. Ele falha
-em vez de aceitar silenciosamente uma revisão, arquivo ou seleção diferente.
-A especificação legível por máquina está em
-[`data/freeze-spec-v1.json`](data/freeze-spec-v1.json).
+O instalador pode ser interrompido e executado novamente. Ele clona os
+repositórios auxiliares nos commits congelados, retoma downloads, verifica
+tamanho e hashes e audita os WAVs. Ao final, deve imprimir
+`freeze 1.3.0 verification passed` e
+`Corpus freeze 1.3.0 installation complete`.
 
-Modos menores também estão disponíveis:
+Instalações parciais:
 
 ```bash
-./scripts/install_frozen_corpora.sh metadata     # sem baixar áudio
-./scripts/install_frozen_corpora.sh ecosoundset  # somente insetos, 38 GiB livres
-./scripts/install_frozen_corpora.sh pteroset     # somente aves, 17 GiB livres
+./scripts/install_frozen_corpora.sh metadata     # sem áudio
+./scripts/install_frozen_corpora.sh ecosoundset  # insetos; requer 38 GiB livres
+./scripts/install_frozen_corpora.sh pteroset     # aves; requer 17 GiB livres
 ```
 
-Os downloads ficam em `data/downloads/`, os WAVs do ECOSoundSet em
-`data/audio/ecosoundset/` e os checkouts auxiliares em `external/`. Esses
-diretórios são reproduzíveis e ignorados pelo Git. No EASNCloud, execute o
-comando dentro de um volume com espaço persistente. Não apague a cópia local
-antes de confirmar o push deste repositório e a verificação completa no cloud.
+Para conferir novamente uma instalação completa:
 
-Cada arquivo será auditado quanto a codec de origem, frequência de amostragem,
-número de canais, duração, licença e relação com outras gravações. A análise
-causal principal usará arquivos de origem sem perdas. Arquivos originalmente
-comprimidos poderão aparecer apenas em análise de sensibilidade, identificados
-como tais. Os resultados da auditoria estão em
+```bash
+python scripts/verify_frozen_install.py --stage all --corpus all
+```
+
+A especificação legível por máquina está em
+[`data/freeze-spec-v1.json`](data/freeze-spec-v1.json). Áudio e downloads ficam
+em `data/audio/` e `data/downloads/`; checkouts auxiliares ficam em
+`external/`. Eles são grandes, reproduzíveis e ignorados pelo Git.
+
+### 6. Gerar as tabelas locais e os notebooks
+
+Os manifests definem o recorte; os caminhos absolutos e a disponibilidade dos
+WAVs dependem de cada máquina. Por isso, gere novamente apenas as tabelas
+locais depois de instalar ou mover os corpora:
+
+```bash
+python scripts/data.py
+python scripts/build_experiment_notebooks.py
+```
+
+A saída de `scripts/data.py` deve informar um número de áudios disponíveis
+maior que zero para cada corpus instalado. Isso não altera o freeze nem as
+classes: apenas resolve os caminhos na máquina atual.
+
+### 7. Executar a sequência auditável
+
+```bash
+jupyter lab --no-browser --ip=0.0.0.0 notebooks/experimental
+```
+
+Abra e execute os notebooks nesta ordem:
+
+1. `01_corpus_audit.ipynb` — confere manifests, ambiente e distribuição;
+2. `02_class_selection.ipynb` — mostra a regra gaussiana em `log1p`, classes e
+   balanceamento;
+3. `03_preprocessing.ipynb` — confirma 4 s, 48 kHz, hop de 1 s e adaptadores;
+4. `04_codec_sanity_check.ipynb` — executa o round-trip sintético de todos os
+   codecs. Depois defina `RUN_CORPUS_PILOT=True` para testar uma janela real de
+   cada corpus;
+5. `05_reconstruction_metrics.ipynb` — defina `RUN_FULL_EVALUATION=True`
+   somente depois que o notebook 04 terminar sem falhas;
+6. `06_acoustic_indices.ipynb` — compara ACI, ADI, BIO, NDSI e Ht;
+7. `07_foundation_models.ipynb` — BirdNET e Perch, macro-F1, acurácia
+   balanceada e preservação dos embeddings;
+8. `08_compute_cost.ipynb` — FLOPs para redes neurais e tempo/instruções para
+   codecs tradicionais;
+9. `09_summary.ipynb` — tabelas e curvas finais.
+
+No notebook 04, `RUN_SMOKE_TEST=True` já vem ativado. EnCodec baixa os pesos
+`facebook/encodec_48khz` no primeiro uso. O piloto dos corpora reconstrói as
+tabelas locais antes de começar, mostra quantos WAVs encontrou e registra cada
+condição executada; ele não termina mais silenciosamente quando o áudio está
+ausente.
+
+### 8. Execução completa no EASNCloud
+
+Primeiro execute os notebooks 01–04. Depois, para uma execução retomável do
+pipeline não interativo:
+
+```bash
+. .venv/bin/activate
+python scripts/run_pipeline.py --skip-existing
+```
+
+Para executar apenas preparação e avaliação dos codecs, sem modelos
+fundacionais:
+
+```bash
+python scripts/run_pipeline.py --only data flops eval --skip-existing
+```
+
+Para processar um único corpus ou um único modelo:
+
+```bash
+python scripts/run_pipeline.py --datasets ecosoundset --models birdnet --skip-existing
+python scripts/run_pipeline.py --datasets pteroset_ppa1 --models perch --skip-existing
+```
+
+Os autoencoders próprios permanecem desativados. Não use
+`--include-autoencoders` até a validação de comprimento e serialização do
+payload. EnCodec não é um desses autoencoders: ele já integra a grade normal.
+
+### 9. Onde ficam os resultados
+
+- `data/derived/experiment/` — tabelas, caches, métricas e classificações;
+- `data/derived/experiment/cache/` — embeddings reaproveitáveis;
+- `reports/` — auditorias e figuras produzidas pelos notebooks;
+- `.tools/ffmpeg-lc3/9.0.2/` — FFmpeg local usado exclusivamente para LC3.
+
+Esses artefatos são ignorados pelo Git. Para compartilhar resultados, registre
+o commit exibido pelo notebook 01 e envie separadamente as tabelas/figuras
+necessárias.
+
+### 10. Diagnóstico rápido
+
+- **Piloto real não mostra nenhuma condição:** execute `python scripts/data.py`.
+  Se aparecer `0 audio files available`, os WAVs não estão dentro deste clone
+  em `data/audio/` ou o corpus foi instalado apenas parcialmente.
+- **`FFmpeg com liblc3 nao encontrado`:** execute
+  `./scripts/install_ffmpeg_lc3.sh` e confirme o round-trip.
+- **EnCodec informa ausência de `torch` ou `transformers`:** ative `.venv` e
+  reinstale `scripts/requirements.txt`.
+- **O notebook aberto não reflete uma atualização:** feche-o, execute
+  `python scripts/build_experiment_notebooks.py` e abra novamente.
+- **Perch/BirdNET ou EnCodec iniciam um download:** isso é esperado apenas na
+  primeira execução; mantenha `data/derived/experiment/cache/` para retomadas.
+- **Processo remoto cai ao fechar o terminal:** execute a sessão dentro de
+  `tmux` ou do gerenciador de jobs adotado no EASNCloud.
+
+Cada arquivo do corpus é auditado quanto a codec de origem, frequência de
+amostragem, canais, duração, licença e relação com outras gravações. A análise
+principal usa somente fontes sem perdas. Os resultados da auditoria estão em
 [`docs/corpus-audit.md`](docs/corpus-audit.md).
 
 ### Famílias comparadas
@@ -168,6 +366,7 @@ como tais. Os resultados da auditoria estão em
 |---|---|---|
 | Referência | PCM e FLAC | Estabelecer sinal e payload sem perdas |
 | Legado | MP3 | Fazer a ponte direta com a literatura |
+| Perceptual opcional | AAC-LC | Comparador amplamente implantado, condicionado a encoder e perfil congelados |
 | Perceptual moderno | Opus e LC3 | Testar eficiência em baixo bitrate |
 | Neural reconstruível | EnCodec e/ou implementação equivalente compatível com 48 kHz | Transmitir código e reconstruir áudio |
 | Aprendida para a tarefa | embedding quantizado e bottleneck treinado | Minimizar payload para classificação |
@@ -186,6 +385,30 @@ patentes, qualificação e framing antes de uma implantação comercial do LC3.
 Os níveis dos codecs neurais serão definidos a partir das configurações
 realmente suportadas pela implementação, e não apenas de valores publicados.
 
+### Instalação reproduzível do LC3
+
+O FFmpeg comum do Homebrew não inclui `liblc3`. Por isso o projeto constrói
+uma cópia local e fixada do **FFmpeg 9.0.2**, ligada à implementação oficial
+`google/liblc3`, sem substituir o FFmpeg do sistema:
+
+```bash
+./scripts/install_ffmpeg_lc3.sh
+```
+
+O script confere o SHA-256 do código-fonte, instala o binário em
+`.tools/ffmpeg-lc3/9.0.2/` e verifica a presença do encoder. O pipeline escolhe
+esse executável somente para LC3; FLAC, MP3, AAC e Opus continuam usando o
+FFmpeg do sistema. O perfil experimental fica explícito em **mono, 48 kHz,
+frames de 10 ms, modo high-resolution desligado**, com 32, 64 e 96 kbit/s.
+Assim, a configuração permanece no LC3 normal e não ativa extensões LC3plus.
+
+O AAC não integra o núcleo mínimo nesta versão, mas poderá entrar no piloto
+como **AAC-LC mono/48 kHz**, inicialmente em 64, 96 e 128 kbit/s. A
+implementação preferida para reprodutibilidade é o encoder AAC nativo do
+FFmpeg, com versão, perfil e container registrados. HE-AAC e xHE-AAC não serão
+tratados como equivalentes a AAC-LC; sua inclusão exigiria uma implementação e
+uma verificação de licença próprias.
+
 ## Princípios de comparação
 
 1. **Um único master padronizado.** A conversão para mono e 48 kHz ocorre uma
@@ -198,6 +421,12 @@ realmente suportadas pela implementação, e não apenas de valores publicados.
    robustez nativa.
 5. **Frontend fixo.** Janela, STFT, escala, normalização e arquitetura não
    mudam entre codecs.
+   A janela temporal de 4 s e seu hop de 1 s são separados da janela e do hop
+   internos da STFT ou do frontend de BirdNET e Perch.
+   Após a reconstrução, BirdNET recebe o recorte central de 3 s; Perch recebe
+   os 4 s reamostrados para 32 kHz com 0,5 s de zeros em cada extremidade. O
+   mesmo adaptador é usado na referência e em todas as condições e não entra
+   na contabilização do payload.
 6. **Payload observado.** A unidade é byte por janela e bit/s efetivo, incluindo
    cabeçalhos e metadados quando presentes.
 7. **Comparação por orçamento.** Além dos bitrates nativos, métodos são
@@ -212,8 +441,11 @@ realmente suportadas pela implementação, e não apenas de valores publicados.
 ### Primários
 
 - macro-F1 de classificação no teste;
+- acurácia balanceada no teste;
 - erro relativo e viés dos índices acústicos selecionados;
+- similaridade do espectrograma e do log-Mel antes e depois da reconstrução;
 - payload efetivo em bit/s;
+- FLOPs por janela para codificação, decodificação e inferência;
 - fronteira de Pareto entre payload e utilidade.
 
 A margem provisória de não inferioridade da classificação é de **2 pontos
@@ -223,11 +455,18 @@ confirmada antes de observar os resultados finais.
 ### Secundários
 
 - average precision e recall por classe;
+- matriz de confusão por condição;
 - calibração das probabilidades;
 - distância log-espectral e erro de energia por banda;
 - preservação de séries de atividade, quando os metadados temporais permitirem;
 - desempenho em gravações, locais ou fontes não vistos;
 - tempo de codificação, pico de memória e energia em plataforma declarada.
+
+Os limites de referência de **256 KiB de RAM e 1 MiB de flash** pertencem à
+validação embarcada. Eles não funcionam como critério de exclusão da primeira
+fase, que compara informação, payload e FLOPs em ambiente de servidor. Depois,
+as alternativas finalistas serão avaliadas quanto a portabilidade, tempo,
+memória, flash e energia no nó.
 
 ## Fases
 
@@ -235,7 +474,7 @@ confirmada antes de observar os resultados finais.
 |---|---|---|
 | 0 | Auditoria e manifesto dos corpora | Proveniência, licenças e grupos definidos |
 | 1 | Pipeline PCM/FLAC e partições | Reprodução determinística e sem vazamento |
-| 2 | MP3, Opus e LC3 | Bitstreams decodificáveis e payload validado |
+| 2 | MP3, Opus e LC3; AAC-LC opcional | Bitstreams decodificáveis e payload validado |
 | 3 | Classificação e índices | Métricas pareadas com intervalos de confiança |
 | 4 | Codec neural e representação orientada à tarefa | Payload serializado e decoder/tarefa documentados |
 | 5 | Generalização e séries temporais | Avaliação externa sem reajuste no teste |
@@ -263,6 +502,7 @@ codeco/
 │   ├── literature-screening.md
 │   ├── savedrecs_screening_1.bib
 │   └── savedrecs_screening_2.bib
+├── notebooks/            # análises legíveis apoiadas em src/configs/scripts
 ├── reports/              # tabelas e figuras derivadas
 ├── scripts/              # aquisição e preparação reprodutível
 ├── src/                  # pipeline de codecs, features e modelos
@@ -300,6 +540,8 @@ desfechos depois que os primeiros resultados forem vistos.
 - [x] mapear os 15.097 WAVs selecionados do ECOSoundSet no depósito oficial;
 - [x] definir a lista final de índices e suas parametrizações;
 - [x] baixar e auditar os 15.097 WAVs selecionados no EASNCloud; 14.954 foram liberados e 143 clipes curtos foram excluídos sem padding;
+- [x] organizar o protocolo em nove notebooks auditáveis;
+- [x] implementar seleção parametrizada de classes e adaptadores BirdNET/Perch;
 - [ ] confirmar licenças e implementações dos codecs;
 - [ ] implementar e validar o pipeline de referência;
 - [ ] executar o piloto de payload e escolher a grade final de bitrates.
@@ -308,6 +550,7 @@ desfechos depois que os primeiros resultados forem vistos.
 
 - [Triagem e síntese da literatura](docs/literature-screening.md)
 - [Matriz experimental](docs/experimental-matrix.md)
+- [Plano dos notebooks](notebooks/README.md)
 - [Auditoria e congelamento dos corpora](docs/corpus-audit.md)
 - [Capacidade local e plano de execução](docs/storage-plan.md)
 - [Parâmetros congelados dos índices](configs/acoustic-indices-v1.yaml)
