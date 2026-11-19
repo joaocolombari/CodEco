@@ -1,10 +1,11 @@
 # Source repositories can be recreated from data/manifest-lock-v1.json.
 external/
 
-# Audio and generated codec outputs must never enter Git.
+# Audio must never enter Git.
 data/audio/
-data/derived/
 data/downloads/
+# Embedding cache is regenerable from audio and too large for Git.
+data/derived/experiment/cache/
 data/music/
 
 # Local caches and environments.

@@ -83,11 +83,13 @@ class EncodecCodec(Codec):
     """EnCodec pre-treinado (HuggingFace). Sem treino."""
     name = "encodec"
 
-    def __init__(self, bandwidth_kbps, model_name="facebook/encodec_48khz", device="cpu"):
+    def __init__(self, bandwidth_kbps, model_name="facebook/encodec_48khz", device=None):
         import torch
         from transformers import EncodecModel
-        self.torch, self.device, self.bw = torch, device, float(bandwidth_kbps)
-        self.model = EncodecModel.from_pretrained(model_name).to(device).eval()
+        if device is None:
+            device = "cuda" if torch.cuda.is_available() else "cpu"
+        self.torch, self.device, self.bw = torch, torch.device(device), float(bandwidth_kbps)
+        self.model = EncodecModel.from_pretrained(model_name).to(self.device).eval()
         self.sr = self.model.config.sampling_rate
         self.channels = self.model.config.audio_channels
         self.cb_bits = int(np.ceil(np.log2(self.model.config.codebook_size)))

@@ -42,10 +42,27 @@ class BirdNETExtractor:
     def __init__(self):
         try:
             from birdnetlib.analyzer import Analyzer
-            self.analyzer = Analyzer()
-            self.interp = self.analyzer.interpreter
+            import tensorflow as tf
+
+            analyzer = Analyzer(version=C.BIRDNET_VERSION)
+            self.interp = tf.lite.Interpreter(
+                model_path=analyzer.model_path,
+                num_threads=1,
+                experimental_preserve_all_tensors=True,
+            )
+            self.interp.allocate_tensors()
             self.in_idx = self.interp.get_input_details()[0]["index"]
-            self.emb_idx = self.analyzer.embeddings_layer_index
+            embedding_tensors = [
+                tensor
+                for tensor in self.interp.get_tensor_details()
+                if tensor["name"].endswith("GLOBAL_AVG_POOL/Mean")
+                and tensor["shape"][-1] == 1024
+            ]
+            if len(embedding_tensors) != 1:
+                raise RuntimeError(
+                    "Nao foi possivel identificar unicamente a camada de embeddings do BirdNET."
+                )
+            self.emb_idx = embedding_tensors[0]["index"]
         except ImportError:
             raise ImportError("Instale `birdnetlib` e `tflite-runtime` (ou `tensorflow`).")
 
