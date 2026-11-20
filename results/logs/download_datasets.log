@@ -1,0 +1,380 @@
+2026-11-20 12:00:35,225 | INFO | 
+========================================================================
+DOWNLOAD DATASETS
+[CMD]   /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/.venv/bin/python /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/src/codeco/main.py --clean
+========================================================================
+2026-11-20 12:00:35,225 | INFO | 
+Registro da execucao
+------------------------------------------------------------------------
+2026-11-20 12:00:35,225 | INFO | Diretorio de logs encontrado: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/results/logs
+2026-11-20 12:00:35,225 | INFO | Log do download: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/results/logs/download_datasets.log
+2026-11-20 12:00:35,225 | INFO | Iniciando etapa de download dos datasets: ecosoundset, pteroset_ppa1
+2026-11-20 12:00:35,225 | INFO | Downloads serao preservados durante a retomada e removidos somente apos a extracao validada.
+2026-11-20 12:00:35,225 | INFO | 
+Diretorios do download
+------------------------------------------------------------------------
+2026-11-20 12:00:35,225 | INFO | Verificando os diretorios usados pelo download...
+2026-11-20 12:00:35,226 | INFO | Diretorio encontrado: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/datasets
+2026-11-20 12:00:35,226 | INFO | Criando diretorio: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/downloads
+2026-11-20 12:00:35,226 | INFO | 
+Manifesto dos datasets
+------------------------------------------------------------------------
+2026-11-20 12:00:35,226 | INFO | Lendo manifesto: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/config/manifests.parquet
+2026-11-20 12:00:35,836 | INFO | Manifesto carregado: 15208 registros.
+2026-11-20 12:00:35,837 | INFO | 
+Espaco em disco
+------------------------------------------------------------------------
+2026-11-20 12:00:35,837 | INFO | Verificando espaco livre e progresso ja armazenado...
+2026-11-20 12:00:36,068 | INFO | Progresso armazenado: 55.0 GiB.
+2026-11-20 12:00:36,068 | INFO | Espaco adicional necessario: 0.0 GiB; disponivel: 97.7 GiB.
+2026-11-20 12:00:36,069 | INFO | Nucleos fisicos detectados; processos de download: 8
+2026-11-20 12:00:36,069 | INFO | 
+Datasets, arquivos locais e checkpoints
+------------------------------------------------------------------------
+2026-11-20 12:00:36,069 | INFO | Verificando datasets, arquivos locais e checkpoints...
+2026-11-20 12:00:36,069 | INFO | Verificando dataset: ecosoundset
+2026-11-20 12:00:36,295 | INFO | Dataset ja esta completo: ecosoundset (15097 arquivos) em /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/datasets
+2026-11-20 12:00:36,298 | INFO | Verificando dataset: pteroset_ppa1
+2026-11-20 12:00:36,300 | INFO | Dataset ja esta completo: pteroset_ppa1 (108 arquivos) em /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/datasets
+2026-11-20 12:00:36,300 | INFO | 
+Downloads pendentes
+------------------------------------------------------------------------
+2026-11-20 12:00:36,300 | INFO | Executando os downloads pendentes...
+2026-11-20 12:00:36,300 | INFO | Nenhum byte precisa ser baixado; arquivos locais serao reutilizados.
+2026-11-20 12:00:36,300 | INFO | 
+Montagem e validacao dos arquivos
+------------------------------------------------------------------------
+2026-11-20 12:00:36,301 | INFO | Montando e validando os arquivos baixados...
+2026-11-20 12:00:36,301 | INFO | 
+Extracao dos datasets
+------------------------------------------------------------------------
+2026-11-20 12:00:36,301 | INFO | Extraindo os datasets...
+2026-11-20 12:00:36,301 | INFO | Nenhum arquivo precisa ser extraido.
+2026-11-20 12:00:36,301 | INFO | 
+Verificacao final
+------------------------------------------------------------------------
+2026-11-20 12:00:36,301 | INFO | Verificando os datasets finalizados...
+2026-11-20 12:00:36,301 | INFO | Diretorio de downloads vazio removido: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/downloads
+2026-11-20 12:00:36,303 | INFO | 
+Espaco para a baseline PCM
+------------------------------------------------------------------------
+2026-11-20 12:00:36,303 | INFO | Cache PCM precisa ser construido: indice ou metadados ausentes.
+2026-11-20 12:00:36,303 | INFO | Espaco exigido: 15 GiB; disponivel: 97.7 GiB.
+2026-11-20 12:00:36,303 | INFO | Espaco para a baseline PCM confirmado.
+2026-11-20 12:00:36,303 | INFO | Etapa de download dos datasets concluida.
+2026-11-20 12:00:36,303 | INFO | Estado final: DownloadState(datasets=('ecosoundset', 'pteroset_ppa1'), manifest=PosixPath('/home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/config/manifests.parquet'), downloads_directory=PosixPath('/home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/downloads'), datasets_directory=PosixPath('/home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/datasets'), processes=8, downloaded_archives=0, reused_archives=0, downloaded_parts=0, reused_parts=0, extracted_files=0, reused_datasets=('ecosoundset', 'pteroset_ppa1'), removed_archives=0, removed_part_directories=0, downloads_directory_removed=True)
+2026-11-20 12:08:06,855 | INFO | 
+========================================================================
+DOWNLOAD DATASETS
+[CMD]   /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/.venv/bin/python /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/src/codeco/main.py
+========================================================================
+2026-11-20 12:08:06,855 | INFO | 
+Registro da execucao
+------------------------------------------------------------------------
+2026-11-20 12:08:06,855 | INFO | Diretorio de logs encontrado: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/results/logs
+2026-11-20 12:08:06,856 | INFO | Log do download: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/results/logs/download_datasets.log
+2026-11-20 12:08:06,856 | INFO | Iniciando etapa de download dos datasets: ecosoundset, pteroset_ppa1
+2026-11-20 12:08:06,856 | INFO | Downloads serao preservados durante a retomada e removidos somente apos a extracao validada.
+2026-11-20 12:08:06,856 | INFO | 
+Diretorios do download
+------------------------------------------------------------------------
+2026-11-20 12:08:06,856 | INFO | Verificando os diretorios usados pelo download...
+2026-11-20 12:08:06,856 | INFO | Diretorio encontrado: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/datasets
+2026-11-20 12:08:06,856 | INFO | Criando diretorio: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/downloads
+2026-11-20 12:08:06,856 | INFO | 
+Manifesto dos datasets
+------------------------------------------------------------------------
+2026-11-20 12:08:06,856 | INFO | Lendo manifesto: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/config/manifests.parquet
+2026-11-20 12:08:07,457 | INFO | Manifesto carregado: 15208 registros.
+2026-11-20 12:08:07,458 | INFO | 
+Espaco em disco
+------------------------------------------------------------------------
+2026-11-20 12:08:07,458 | INFO | Verificando espaco livre e progresso ja armazenado...
+2026-11-20 12:08:07,690 | INFO | Progresso armazenado: 55.0 GiB.
+2026-11-20 12:08:07,690 | INFO | Espaco adicional necessario: 0.0 GiB; disponivel: 88.6 GiB.
+2026-11-20 12:08:07,691 | INFO | Nucleos fisicos detectados; processos de download: 8
+2026-11-20 12:08:07,691 | INFO | 
+Datasets, arquivos locais e checkpoints
+------------------------------------------------------------------------
+2026-11-20 12:08:07,691 | INFO | Verificando datasets, arquivos locais e checkpoints...
+2026-11-20 12:08:07,691 | INFO | Verificando dataset: ecosoundset
+2026-11-20 12:08:07,913 | INFO | Dataset ja esta completo: ecosoundset (15097 arquivos) em /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/datasets
+2026-11-20 12:08:07,915 | INFO | Verificando dataset: pteroset_ppa1
+2026-11-20 12:08:07,917 | INFO | Dataset ja esta completo: pteroset_ppa1 (108 arquivos) em /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/datasets
+2026-11-20 12:08:07,917 | INFO | 
+Downloads pendentes
+------------------------------------------------------------------------
+2026-11-20 12:08:07,917 | INFO | Executando os downloads pendentes...
+2026-11-20 12:08:07,917 | INFO | Nenhum byte precisa ser baixado; arquivos locais serao reutilizados.
+2026-11-20 12:08:07,918 | INFO | 
+Montagem e validacao dos arquivos
+------------------------------------------------------------------------
+2026-11-20 12:08:07,918 | INFO | Montando e validando os arquivos baixados...
+2026-11-20 12:08:07,918 | INFO | 
+Extracao dos datasets
+------------------------------------------------------------------------
+2026-11-20 12:08:07,918 | INFO | Extraindo os datasets...
+2026-11-20 12:08:07,918 | INFO | Nenhum arquivo precisa ser extraido.
+2026-11-20 12:08:07,918 | INFO | 
+Verificacao final
+------------------------------------------------------------------------
+2026-11-20 12:08:07,918 | INFO | Verificando os datasets finalizados...
+2026-11-20 12:08:07,918 | INFO | Diretorio de downloads vazio removido: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/downloads
+2026-11-20 12:08:07,924 | INFO | 
+Espaco para a baseline PCM
+------------------------------------------------------------------------
+2026-11-20 12:08:07,924 | INFO | Cache PCM completo; reserva adicional dispensada: 25322 clipes PCM validados.
+2026-11-20 12:08:07,924 | INFO | Etapa de download dos datasets concluida.
+2026-11-20 12:08:07,924 | INFO | Estado final: DownloadState(datasets=('ecosoundset', 'pteroset_ppa1'), manifest=PosixPath('/home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/config/manifests.parquet'), downloads_directory=PosixPath('/home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/downloads'), datasets_directory=PosixPath('/home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/datasets'), processes=8, downloaded_archives=0, reused_archives=0, downloaded_parts=0, reused_parts=0, extracted_files=0, reused_datasets=('ecosoundset', 'pteroset_ppa1'), removed_archives=0, removed_part_directories=0, downloads_directory_removed=True)
+2026-11-20 12:26:55,344 | INFO | 
+========================================================================
+DOWNLOAD DATASETS
+[CMD]   /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/.venv/bin/python /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/src/codeco/main.py
+========================================================================
+2026-11-20 12:26:55,345 | INFO | 
+Registro da execucao
+------------------------------------------------------------------------
+2026-11-20 12:26:55,345 | INFO | Diretorio de logs encontrado: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/results/logs
+2026-11-20 12:26:55,345 | INFO | Log do download: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/results/logs/download_datasets.log
+2026-11-20 12:26:55,345 | INFO | Iniciando etapa de download dos datasets: ecosoundset, pteroset_ppa1
+2026-11-20 12:26:55,345 | INFO | Downloads serao preservados durante a retomada e removidos somente apos a extracao validada.
+2026-11-20 12:26:55,345 | INFO | 
+Diretorios do download
+------------------------------------------------------------------------
+2026-11-20 12:26:55,345 | INFO | Verificando os diretorios usados pelo download...
+2026-11-20 12:26:55,345 | INFO | Diretorio encontrado: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/datasets
+2026-11-20 12:26:55,345 | INFO | Criando diretorio: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/downloads
+2026-11-20 12:26:55,345 | INFO | 
+Manifesto dos datasets
+------------------------------------------------------------------------
+2026-11-20 12:26:55,345 | INFO | Lendo manifesto: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/config/manifests.parquet
+2026-11-20 12:26:55,995 | INFO | Manifesto carregado: 15208 registros.
+2026-11-20 12:26:55,995 | INFO | 
+Espaco em disco
+------------------------------------------------------------------------
+2026-11-20 12:26:55,995 | INFO | Verificando espaco livre e progresso ja armazenado...
+2026-11-20 12:26:56,226 | INFO | Progresso armazenado: 55.0 GiB.
+2026-11-20 12:26:56,226 | INFO | Espaco adicional necessario: 0.0 GiB; disponivel: 88.4 GiB.
+2026-11-20 12:26:56,227 | INFO | Nucleos fisicos detectados; processos de download: 8
+2026-11-20 12:26:56,227 | INFO | 
+Datasets, arquivos locais e checkpoints
+------------------------------------------------------------------------
+2026-11-20 12:26:56,227 | INFO | Verificando datasets, arquivos locais e checkpoints...
+2026-11-20 12:26:56,227 | INFO | Verificando dataset: ecosoundset
+2026-11-20 12:26:56,449 | INFO | Dataset ja esta completo: ecosoundset (15097 arquivos) em /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/datasets
+2026-11-20 12:26:56,452 | INFO | Verificando dataset: pteroset_ppa1
+2026-11-20 12:26:56,454 | INFO | Dataset ja esta completo: pteroset_ppa1 (108 arquivos) em /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/datasets
+2026-11-20 12:26:56,455 | INFO | 
+Downloads pendentes
+------------------------------------------------------------------------
+2026-11-20 12:26:56,455 | INFO | Executando os downloads pendentes...
+2026-11-20 12:26:56,455 | INFO | Nenhum byte precisa ser baixado; arquivos locais serao reutilizados.
+2026-11-20 12:26:56,455 | INFO | 
+Montagem e validacao dos arquivos
+------------------------------------------------------------------------
+2026-11-20 12:26:56,455 | INFO | Montando e validando os arquivos baixados...
+2026-11-20 12:26:56,455 | INFO | 
+Extracao dos datasets
+------------------------------------------------------------------------
+2026-11-20 12:26:56,455 | INFO | Extraindo os datasets...
+2026-11-20 12:26:56,455 | INFO | Nenhum arquivo precisa ser extraido.
+2026-11-20 12:26:56,455 | INFO | 
+Verificacao final
+------------------------------------------------------------------------
+2026-11-20 12:26:56,455 | INFO | Verificando os datasets finalizados...
+2026-11-20 12:26:56,455 | INFO | Diretorio de downloads vazio removido: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/downloads
+2026-11-20 12:26:56,461 | INFO | 
+Espaco para a baseline PCM
+------------------------------------------------------------------------
+2026-11-20 12:26:56,461 | INFO | Cache PCM completo; reserva adicional dispensada: 25322 clipes PCM validados.
+2026-11-20 12:26:56,461 | INFO | Etapa de download dos datasets concluida.
+2026-11-20 12:26:56,462 | INFO | Estado final: DownloadState(datasets=('ecosoundset', 'pteroset_ppa1'), manifest=PosixPath('/home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/config/manifests.parquet'), downloads_directory=PosixPath('/home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/downloads'), datasets_directory=PosixPath('/home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/datasets'), processes=8, downloaded_archives=0, reused_archives=0, downloaded_parts=0, reused_parts=0, extracted_files=0, reused_datasets=('ecosoundset', 'pteroset_ppa1'), removed_archives=0, removed_part_directories=0, downloads_directory_removed=True)
+2026-11-20 12:30:51,458 | INFO | 
+========================================================================
+DOWNLOAD DATASETS
+[CMD]   /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/.venv/bin/python /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/src/codeco/main.py
+========================================================================
+2026-11-20 12:30:51,459 | INFO | 
+Registro da execucao
+------------------------------------------------------------------------
+2026-11-20 12:30:51,459 | INFO | Diretorio de logs encontrado: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/results/logs
+2026-11-20 12:30:51,459 | INFO | Log do download: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/results/logs/download_datasets.log
+2026-11-20 12:30:51,459 | INFO | Iniciando etapa de download dos datasets: ecosoundset, pteroset_ppa1
+2026-11-20 12:30:51,459 | INFO | Downloads serao preservados durante a retomada e removidos somente apos a extracao validada.
+2026-11-20 12:30:51,459 | INFO | 
+Diretorios do download
+------------------------------------------------------------------------
+2026-11-20 12:30:51,459 | INFO | Verificando os diretorios usados pelo download...
+2026-11-20 12:30:51,459 | INFO | Diretorio encontrado: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/datasets
+2026-11-20 12:30:51,459 | INFO | Criando diretorio: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/downloads
+2026-11-20 12:30:51,459 | INFO | 
+Manifesto dos datasets
+------------------------------------------------------------------------
+2026-11-20 12:30:51,459 | INFO | Lendo manifesto: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/config/manifests.parquet
+2026-11-20 12:30:52,064 | INFO | Manifesto carregado: 15208 registros.
+2026-11-20 12:30:52,064 | INFO | 
+Espaco em disco
+------------------------------------------------------------------------
+2026-11-20 12:30:52,064 | INFO | Verificando espaco livre e progresso ja armazenado...
+2026-11-20 12:30:52,289 | INFO | Progresso armazenado: 55.0 GiB.
+2026-11-20 12:30:52,289 | INFO | Espaco adicional necessario: 0.0 GiB; disponivel: 88.2 GiB.
+2026-11-20 12:30:52,289 | INFO | Nucleos fisicos detectados; processos de download: 8
+2026-11-20 12:30:52,289 | INFO | 
+Datasets, arquivos locais e checkpoints
+------------------------------------------------------------------------
+2026-11-20 12:30:52,290 | INFO | Verificando datasets, arquivos locais e checkpoints...
+2026-11-20 12:30:52,290 | INFO | Verificando dataset: ecosoundset
+2026-11-20 12:30:52,511 | INFO | Dataset ja esta completo: ecosoundset (15097 arquivos) em /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/datasets
+2026-11-20 12:30:52,513 | INFO | Verificando dataset: pteroset_ppa1
+2026-11-20 12:30:52,515 | INFO | Dataset ja esta completo: pteroset_ppa1 (108 arquivos) em /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/datasets
+2026-11-20 12:30:52,515 | INFO | 
+Downloads pendentes
+------------------------------------------------------------------------
+2026-11-20 12:30:52,515 | INFO | Executando os downloads pendentes...
+2026-11-20 12:30:52,515 | INFO | Nenhum byte precisa ser baixado; arquivos locais serao reutilizados.
+2026-11-20 12:30:52,515 | INFO | 
+Montagem e validacao dos arquivos
+------------------------------------------------------------------------
+2026-11-20 12:30:52,516 | INFO | Montando e validando os arquivos baixados...
+2026-11-20 12:30:52,516 | INFO | 
+Extracao dos datasets
+------------------------------------------------------------------------
+2026-11-20 12:30:52,516 | INFO | Extraindo os datasets...
+2026-11-20 12:30:52,516 | INFO | Nenhum arquivo precisa ser extraido.
+2026-11-20 12:30:52,516 | INFO | 
+Verificacao final
+------------------------------------------------------------------------
+2026-11-20 12:30:52,516 | INFO | Verificando os datasets finalizados...
+2026-11-20 12:30:52,516 | INFO | Diretorio de downloads vazio removido: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/downloads
+2026-11-20 12:30:52,522 | INFO | 
+Espaco para a baseline PCM
+------------------------------------------------------------------------
+2026-11-20 12:30:52,522 | INFO | Cache PCM completo; reserva adicional dispensada: 25322 clipes PCM validados.
+2026-11-20 12:30:52,523 | INFO | Etapa de download dos datasets concluida.
+2026-11-20 12:30:52,523 | INFO | Estado final: DownloadState(datasets=('ecosoundset', 'pteroset_ppa1'), manifest=PosixPath('/home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/config/manifests.parquet'), downloads_directory=PosixPath('/home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/downloads'), datasets_directory=PosixPath('/home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/datasets'), processes=8, downloaded_archives=0, reused_archives=0, downloaded_parts=0, reused_parts=0, extracted_files=0, reused_datasets=('ecosoundset', 'pteroset_ppa1'), removed_archives=0, removed_part_directories=0, downloads_directory_removed=True)
+2026-11-20 15:09:34,957 | INFO | 
+========================================================================
+DOWNLOAD DATASETS
+[CMD]   /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/.venv/bin/python /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/src/codeco/main.py
+========================================================================
+2026-11-20 15:09:34,958 | INFO | 
+Registro da execucao
+------------------------------------------------------------------------
+2026-11-20 15:09:34,958 | INFO | Diretorio de logs encontrado: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/results/logs
+2026-11-20 15:09:34,958 | INFO | Log do download: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/results/logs/download_datasets.log
+2026-11-20 15:09:34,958 | INFO | Iniciando etapa de download dos datasets: ecosoundset, pteroset_ppa1
+2026-11-20 15:09:34,958 | INFO | Downloads serao preservados durante a retomada e removidos somente apos a extracao validada.
+2026-11-20 15:09:34,958 | INFO | 
+Diretorios do download
+------------------------------------------------------------------------
+2026-11-20 15:09:34,958 | INFO | Verificando os diretorios usados pelo download...
+2026-11-20 15:09:34,958 | INFO | Diretorio encontrado: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/datasets
+2026-11-20 15:09:34,958 | INFO | Criando diretorio: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/downloads
+2026-11-20 15:09:34,958 | INFO | 
+Manifesto dos datasets
+------------------------------------------------------------------------
+2026-11-20 15:09:34,959 | INFO | Lendo manifesto: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/config/manifests.parquet
+2026-11-20 15:09:35,579 | INFO | Manifesto carregado: 15208 registros.
+2026-11-20 15:09:35,579 | INFO | 
+Espaco em disco
+------------------------------------------------------------------------
+2026-11-20 15:09:35,579 | INFO | Verificando espaco livre e progresso ja armazenado...
+2026-11-20 15:09:35,843 | INFO | Progresso armazenado: 55.0 GiB.
+2026-11-20 15:09:35,843 | INFO | Espaco adicional necessario: 0.0 GiB; disponivel: 87.2 GiB.
+2026-11-20 15:09:35,844 | INFO | Nucleos fisicos detectados; processos de download: 8
+2026-11-20 15:09:35,844 | INFO | 
+Datasets, arquivos locais e checkpoints
+------------------------------------------------------------------------
+2026-11-20 15:09:35,844 | INFO | Verificando datasets, arquivos locais e checkpoints...
+2026-11-20 15:09:35,844 | INFO | Verificando dataset: ecosoundset
+2026-11-20 15:09:36,062 | INFO | Dataset ja esta completo: ecosoundset (15097 arquivos) em /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/datasets
+2026-11-20 15:09:36,065 | INFO | Verificando dataset: pteroset_ppa1
+2026-11-20 15:09:36,067 | INFO | Dataset ja esta completo: pteroset_ppa1 (108 arquivos) em /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/datasets
+2026-11-20 15:09:36,068 | INFO | 
+Downloads pendentes
+------------------------------------------------------------------------
+2026-11-20 15:09:36,068 | INFO | Executando os downloads pendentes...
+2026-11-20 15:09:36,068 | INFO | Nenhum byte precisa ser baixado; arquivos locais serao reutilizados.
+2026-11-20 15:09:36,068 | INFO | 
+Montagem e validacao dos arquivos
+------------------------------------------------------------------------
+2026-11-20 15:09:36,068 | INFO | Montando e validando os arquivos baixados...
+2026-11-20 15:09:36,068 | INFO | 
+Extracao dos datasets
+------------------------------------------------------------------------
+2026-11-20 15:09:36,068 | INFO | Extraindo os datasets...
+2026-11-20 15:09:36,068 | INFO | Nenhum arquivo precisa ser extraido.
+2026-11-20 15:09:36,068 | INFO | 
+Verificacao final
+------------------------------------------------------------------------
+2026-11-20 15:09:36,068 | INFO | Verificando os datasets finalizados...
+2026-11-20 15:09:36,068 | INFO | Diretorio de downloads vazio removido: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/downloads
+2026-11-20 15:09:36,075 | INFO | 
+Espaco para a baseline PCM
+------------------------------------------------------------------------
+2026-11-20 15:09:36,075 | INFO | Cache PCM completo; reserva adicional dispensada: 25322 clipes PCM validados.
+2026-11-20 15:09:36,075 | INFO | Etapa de download dos datasets concluida.
+2026-11-20 15:09:36,075 | INFO | Estado final: DownloadState(datasets=('ecosoundset', 'pteroset_ppa1'), manifest=PosixPath('/home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/config/manifests.parquet'), downloads_directory=PosixPath('/home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/downloads'), datasets_directory=PosixPath('/home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/datasets'), processes=8, downloaded_archives=0, reused_archives=0, downloaded_parts=0, reused_parts=0, extracted_files=0, reused_datasets=('ecosoundset', 'pteroset_ppa1'), removed_archives=0, removed_part_directories=0, downloads_directory_removed=True)
+2026-11-20 18:37:10,930 | INFO | 
+========================================================================
+DOWNLOAD DATASETS
+[CMD]   /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/.venv/bin/python /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/src/codeco/main.py
+========================================================================
+2026-11-20 18:37:10,930 | INFO | 
+Registro da execucao
+------------------------------------------------------------------------
+2026-11-20 18:37:10,930 | INFO | Diretorio de logs encontrado: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/results/logs
+2026-11-20 18:37:10,931 | INFO | Log do download: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/results/logs/download_datasets.log
+2026-11-20 18:37:10,931 | INFO | Iniciando etapa de download dos datasets: ecosoundset, pteroset_ppa1
+2026-11-20 18:37:10,931 | INFO | Downloads serao preservados durante a retomada e removidos somente apos a extracao validada.
+2026-11-20 18:37:10,931 | INFO | 
+Diretorios do download
+------------------------------------------------------------------------
+2026-11-20 18:37:10,931 | INFO | Verificando os diretorios usados pelo download...
+2026-11-20 18:37:10,931 | INFO | Diretorio encontrado: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/datasets
+2026-11-20 18:37:10,931 | INFO | Criando diretorio: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/downloads
+2026-11-20 18:37:10,931 | INFO | 
+Manifesto dos datasets
+------------------------------------------------------------------------
+2026-11-20 18:37:10,931 | INFO | Lendo manifesto: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/config/manifests.parquet
+2026-11-20 18:37:11,529 | INFO | Manifesto carregado: 15208 registros.
+2026-11-20 18:37:11,530 | INFO | 
+Espaco em disco
+------------------------------------------------------------------------
+2026-11-20 18:37:11,530 | INFO | Verificando espaco livre e progresso ja armazenado...
+2026-11-20 18:37:11,855 | INFO | Progresso armazenado: 55.0 GiB.
+2026-11-20 18:37:11,856 | INFO | Espaco adicional necessario: 0.0 GiB; disponivel: 81.9 GiB.
+2026-11-20 18:37:11,856 | INFO | Nucleos fisicos detectados; processos de download: 8
+2026-11-20 18:37:11,856 | INFO | 
+Datasets, arquivos locais e checkpoints
+------------------------------------------------------------------------
+2026-11-20 18:37:11,856 | INFO | Verificando datasets, arquivos locais e checkpoints...
+2026-11-20 18:37:11,856 | INFO | Verificando dataset: ecosoundset
+2026-11-20 18:37:12,077 | INFO | Dataset ja esta completo: ecosoundset (15097 arquivos) em /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/datasets
+2026-11-20 18:37:12,080 | INFO | Verificando dataset: pteroset_ppa1
+2026-11-20 18:37:12,082 | INFO | Dataset ja esta completo: pteroset_ppa1 (108 arquivos) em /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/datasets
+2026-11-20 18:37:12,082 | INFO | 
+Downloads pendentes
+------------------------------------------------------------------------
+2026-11-20 18:37:12,082 | INFO | Executando os downloads pendentes...
+2026-11-20 18:37:12,082 | INFO | Nenhum byte precisa ser baixado; arquivos locais serao reutilizados.
+2026-11-20 18:37:12,082 | INFO | 
+Montagem e validacao dos arquivos
+------------------------------------------------------------------------
+2026-11-20 18:37:12,082 | INFO | Montando e validando os arquivos baixados...
+2026-11-20 18:37:12,082 | INFO | 
+Extracao dos datasets
+------------------------------------------------------------------------
+2026-11-20 18:37:12,083 | INFO | Extraindo os datasets...
+2026-11-20 18:37:12,083 | INFO | Nenhum arquivo precisa ser extraido.
+2026-11-20 18:37:12,083 | INFO | 
+Verificacao final
+------------------------------------------------------------------------
+2026-11-20 18:37:12,083 | INFO | Verificando os datasets finalizados...
+2026-11-20 18:37:12,083 | INFO | Diretorio de downloads vazio removido: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/downloads
+2026-11-20 18:37:12,090 | INFO | 
+Espaco para a baseline PCM
+------------------------------------------------------------------------
+2026-11-20 18:37:12,090 | INFO | Cache PCM completo; reserva adicional dispensada: 25322 clipes PCM validados.
+2026-11-20 18:37:12,090 | INFO | Etapa de download dos datasets concluida.
+2026-11-20 18:37:12,090 | INFO | Estado final: DownloadState(datasets=('ecosoundset', 'pteroset_ppa1'), manifest=PosixPath('/home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/config/manifests.parquet'), downloads_directory=PosixPath('/home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/downloads'), datasets_directory=PosixPath('/home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/datasets'), processes=8, downloaded_archives=0, reused_archives=0, downloaded_parts=0, reused_parts=0, extracted_files=0, reused_datasets=('ecosoundset', 'pteroset_ppa1'), removed_archives=0, removed_part_directories=0, downloads_directory_removed=True)

@@ -1,0 +1,388 @@
+2026-11-20 12:01:22,056 | INFO | 
+========================================================================
+PREPARE BASELINE
+[CMD]   /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/.venv/bin/python /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/src/codeco/main.py --clean
+========================================================================
+2026-11-20 12:01:22,056 | INFO | 
+Registro da execucao
+------------------------------------------------------------------------
+2026-11-20 12:01:22,056 | INFO | Diretorio de logs encontrado: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/results/logs
+2026-11-20 12:01:22,056 | INFO | Log da tabela de clipes: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/results/logs/prepare_table.log
+2026-11-20 12:01:22,057 | INFO | 
+Cache da tabela de clipes
+------------------------------------------------------------------------
+2026-11-20 12:01:22,057 | INFO | Cache: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/cache/clip_table.parquet
+2026-11-20 12:01:22,058 | INFO | SHA-256 do manifesto: e7edf847d8843a93f9f95372bc2034102a9816cdf3e0eae3784dfc529d2253d7 (0.001 s).
+2026-11-20 12:01:22,058 | INFO | Cache miss apos 0.000 s: arquivo ausente.
+2026-11-20 12:01:22,058 | INFO | 
+Manifesto congelado
+------------------------------------------------------------------------
+2026-11-20 12:01:22,058 | INFO | Lendo janelas de: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/config/manifests.parquet
+2026-11-20 12:01:22,082 | INFO | 25322 janelas encontradas para: ecosoundset, pteroset_ppa1
+2026-11-20 12:01:22,082 | INFO | 
+Tabela de clipes em memoria
+------------------------------------------------------------------------
+2026-11-20 12:01:22,675 | INFO | Tabela completa reconstruida em 0.617 s.
+2026-11-20 12:01:22,683 | INFO | Cache gravado atomicamente: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/cache/clip_table.parquet; 0.16 MiB em 0.008 s.
+2026-11-20 12:01:22,722 | INFO | ecosoundset: 14954 janelas; 14954 audios disponiveis.
+2026-11-20 12:01:22,722 | INFO | pteroset_ppa1: 10368 janelas; 10368 audios disponiveis.
+2026-11-20 12:01:22,739 | INFO | 
+Tabela preparada
+------------------------------------------------------------------------
+2026-11-20 12:01:22,739 | INFO | Datasets selecionados: ecosoundset, pteroset_ppa1.
+2026-11-20 12:01:22,739 | INFO | Tabela em memoria: 25322 clipes; 5.43 MiB.
+2026-11-20 12:01:23,002 | INFO | 
+Cache PCM da baseline
+------------------------------------------------------------------------
+2026-11-20 12:01:23,002 | INFO | Cache: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/cache/baseline_pcm
+2026-11-20 12:01:23,002 | INFO | Cache miss apos 0.000 s: indice ou metadados ausentes.
+2026-11-20 12:01:23,003 | INFO | Construindo 25322 clipes em PCM16 | batch=64 | nucleos fisicos=8.
+2026-11-20 12:02:18,665 | INFO | Cache PCM concluido: 25322 clipes; 9.06 GiB; 55.66 s; 8 processos.
+2026-11-20 12:06:47,564 | INFO | 
+========================================================================
+PREPARE BASELINE
+[CMD]   /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/.venv/bin/python /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/-
+========================================================================
+2026-11-20 12:06:47,565 | INFO | 
+Registro da execucao
+------------------------------------------------------------------------
+2026-11-20 12:06:47,565 | INFO | Diretorio de logs encontrado: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/results/logs
+2026-11-20 12:06:47,565 | INFO | Log da tabela de clipes: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/results/logs/prepare_table.log
+2026-11-20 12:06:47,565 | INFO | 
+Cache da tabela de clipes
+------------------------------------------------------------------------
+2026-11-20 12:06:47,565 | INFO | Cache: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/cache/clip_table.parquet
+2026-11-20 12:06:47,571 | INFO | SHA-256 do manifesto: e7edf847d8843a93f9f95372bc2034102a9816cdf3e0eae3784dfc529d2253d7 (0.005 s).
+2026-11-20 12:06:47,585 | INFO | Cache hit: 25322 registros lidos em 0.014 s.
+2026-11-20 12:06:47,834 | INFO | Disponibilidade dos audios conferida em 0.250 s; 0 alteracoes.
+2026-11-20 12:06:47,870 | INFO | ecosoundset: 14954 janelas; 14954 audios disponiveis.
+2026-11-20 12:06:47,871 | INFO | pteroset_ppa1: 10368 janelas; 10368 audios disponiveis.
+2026-11-20 12:06:47,887 | INFO | 
+Tabela preparada
+------------------------------------------------------------------------
+2026-11-20 12:06:47,887 | INFO | Datasets selecionados: ecosoundset, pteroset_ppa1.
+2026-11-20 12:06:47,887 | INFO | Tabela em memoria: 25322 clipes; 5.43 MiB.
+2026-11-20 12:06:48,176 | INFO | 
+Cache PCM da baseline
+------------------------------------------------------------------------
+2026-11-20 12:06:48,176 | INFO | Cache: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/cache/baseline_pcm
+2026-11-20 12:06:48,180 | INFO | Cache hit: 25322 clipes PCM validados em 0.004 s.
+2026-11-20 12:08:08,518 | INFO | 
+========================================================================
+PREPARE BASELINE
+[CMD]   /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/.venv/bin/python /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/src/codeco/main.py
+========================================================================
+2026-11-20 12:08:08,518 | INFO | 
+Registro da execucao
+------------------------------------------------------------------------
+2026-11-20 12:08:08,518 | INFO | Diretorio de logs encontrado: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/results/logs
+2026-11-20 12:08:08,518 | INFO | Log da tabela de clipes: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/results/logs/prepare_table.log
+2026-11-20 12:08:08,518 | INFO | 
+Cache da tabela de clipes
+------------------------------------------------------------------------
+2026-11-20 12:08:08,518 | INFO | Cache: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/cache/clip_table.parquet
+2026-11-20 12:08:08,519 | INFO | SHA-256 do manifesto: e7edf847d8843a93f9f95372bc2034102a9816cdf3e0eae3784dfc529d2253d7 (0.001 s).
+2026-11-20 12:08:08,523 | INFO | Cache hit: 25322 registros lidos em 0.004 s.
+2026-11-20 12:08:08,745 | INFO | Disponibilidade dos audios conferida em 0.222 s; 0 alteracoes.
+2026-11-20 12:08:08,782 | INFO | ecosoundset: 14954 janelas; 14954 audios disponiveis.
+2026-11-20 12:08:08,782 | INFO | pteroset_ppa1: 10368 janelas; 10368 audios disponiveis.
+2026-11-20 12:08:08,800 | INFO | 
+Tabela preparada
+------------------------------------------------------------------------
+2026-11-20 12:08:08,800 | INFO | Datasets selecionados: ecosoundset, pteroset_ppa1.
+2026-11-20 12:08:08,800 | INFO | Tabela em memoria: 25322 clipes; 5.43 MiB.
+2026-11-20 12:08:09,067 | INFO | 
+Cache PCM da baseline
+------------------------------------------------------------------------
+2026-11-20 12:08:09,067 | INFO | Cache: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/cache/baseline_pcm
+2026-11-20 12:08:09,070 | INFO | Cache hit: 25322 clipes PCM validados em 0.002 s.
+2026-11-20 12:12:08,947 | INFO | 
+========================================================================
+PREPARE BASELINE
+[CMD]   /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/.venv/bin/python /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/-
+========================================================================
+2026-11-20 12:12:08,948 | INFO | 
+Registro da execucao
+------------------------------------------------------------------------
+2026-11-20 12:12:08,948 | INFO | Diretorio de logs encontrado: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/results/logs
+2026-11-20 12:12:08,948 | INFO | Log da tabela de clipes: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/results/logs/prepare_table.log
+2026-11-20 12:12:08,948 | INFO | 
+Cache da tabela de clipes
+------------------------------------------------------------------------
+2026-11-20 12:12:08,948 | INFO | Cache: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/cache/clip_table.parquet
+2026-11-20 12:12:08,951 | INFO | SHA-256 do manifesto: e7edf847d8843a93f9f95372bc2034102a9816cdf3e0eae3784dfc529d2253d7 (0.002 s).
+2026-11-20 12:12:08,974 | INFO | Cache hit: 25322 registros lidos em 0.023 s.
+2026-11-20 12:12:09,568 | INFO | Disponibilidade dos audios conferida em 0.593 s; 0 alteracoes.
+2026-11-20 12:12:09,647 | INFO | ecosoundset: 14954 janelas; 14954 audios disponiveis.
+2026-11-20 12:12:09,652 | INFO | pteroset_ppa1: 10368 janelas; 10368 audios disponiveis.
+2026-11-20 12:12:09,689 | INFO | 
+Tabela preparada
+------------------------------------------------------------------------
+2026-11-20 12:12:09,689 | INFO | Datasets selecionados: ecosoundset, pteroset_ppa1.
+2026-11-20 12:12:09,690 | INFO | Tabela em memoria: 25322 clipes; 5.43 MiB.
+2026-11-20 12:12:10,540 | INFO | 
+Cache PCM da baseline
+------------------------------------------------------------------------
+2026-11-20 12:12:10,540 | INFO | Cache: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/cache/baseline_pcm
+2026-11-20 12:12:10,547 | INFO | Cache hit: 25322 clipes PCM validados em 0.007 s.
+2026-11-20 12:15:34,565 | INFO | 
+========================================================================
+PREPARE BASELINE
+[CMD]   /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/.venv/bin/python /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/-
+========================================================================
+2026-11-20 12:15:34,566 | INFO | 
+Registro da execucao
+------------------------------------------------------------------------
+2026-11-20 12:15:34,566 | INFO | Diretorio de logs encontrado: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/results/logs
+2026-11-20 12:15:34,566 | INFO | Log da tabela de clipes: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/results/logs/prepare_table.log
+2026-11-20 12:15:34,566 | INFO | 
+Cache da tabela de clipes
+------------------------------------------------------------------------
+2026-11-20 12:15:34,566 | INFO | Cache: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/cache/clip_table.parquet
+2026-11-20 12:15:34,568 | INFO | SHA-256 do manifesto: e7edf847d8843a93f9f95372bc2034102a9816cdf3e0eae3784dfc529d2253d7 (0.002 s).
+2026-11-20 12:15:34,585 | INFO | Cache hit: 25322 registros lidos em 0.017 s.
+2026-11-20 12:15:35,113 | INFO | Disponibilidade dos audios conferida em 0.528 s; 0 alteracoes.
+2026-11-20 12:15:35,212 | INFO | ecosoundset: 14954 janelas; 14954 audios disponiveis.
+2026-11-20 12:15:35,214 | INFO | pteroset_ppa1: 10368 janelas; 10368 audios disponiveis.
+2026-11-20 12:15:35,261 | INFO | 
+Tabela preparada
+------------------------------------------------------------------------
+2026-11-20 12:15:35,261 | INFO | Datasets selecionados: ecosoundset, pteroset_ppa1.
+2026-11-20 12:15:35,261 | INFO | Tabela em memoria: 25322 clipes; 5.43 MiB.
+2026-11-20 12:15:35,930 | INFO | 
+Cache PCM da baseline
+------------------------------------------------------------------------
+2026-11-20 12:15:35,930 | INFO | Cache: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/cache/baseline_pcm
+2026-11-20 12:15:35,937 | INFO | Cache hit: 25322 clipes PCM validados em 0.007 s.
+2026-11-20 12:22:11,047 | INFO | 
+========================================================================
+PREPARE BASELINE
+[CMD]   /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/.venv/bin/python /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/-
+========================================================================
+2026-11-20 12:22:11,048 | INFO | 
+Registro da execucao
+------------------------------------------------------------------------
+2026-11-20 12:22:11,048 | INFO | Diretorio de logs encontrado: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/results/logs
+2026-11-20 12:22:11,048 | INFO | Log da tabela de clipes: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/results/logs/prepare_table.log
+2026-11-20 12:22:11,048 | INFO | 
+Cache da tabela de clipes
+------------------------------------------------------------------------
+2026-11-20 12:22:11,048 | INFO | Cache: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/cache/clip_table.parquet
+2026-11-20 12:22:11,050 | INFO | SHA-256 do manifesto: e7edf847d8843a93f9f95372bc2034102a9816cdf3e0eae3784dfc529d2253d7 (0.002 s).
+2026-11-20 12:22:11,071 | INFO | Cache hit: 25322 registros lidos em 0.020 s.
+2026-11-20 12:22:11,671 | INFO | Disponibilidade dos audios conferida em 0.601 s; 0 alteracoes.
+2026-11-20 12:22:11,751 | INFO | ecosoundset: 14954 janelas; 14954 audios disponiveis.
+2026-11-20 12:22:11,753 | INFO | pteroset_ppa1: 10368 janelas; 10368 audios disponiveis.
+2026-11-20 12:22:11,791 | INFO | 
+Tabela preparada
+------------------------------------------------------------------------
+2026-11-20 12:22:11,791 | INFO | Datasets selecionados: ecosoundset, pteroset_ppa1.
+2026-11-20 12:22:11,791 | INFO | Tabela em memoria: 25322 clipes; 5.43 MiB.
+2026-11-20 12:22:12,397 | INFO | 
+Cache PCM da baseline
+------------------------------------------------------------------------
+2026-11-20 12:22:12,398 | INFO | Cache: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/cache/baseline_pcm
+2026-11-20 12:22:12,402 | INFO | Cache hit: 25322 clipes PCM validados em 0.005 s.
+2026-11-20 12:24:11,095 | INFO | 
+========================================================================
+PREPARE BASELINE
+[CMD]   /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/.venv/bin/python /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/-
+========================================================================
+2026-11-20 12:24:11,096 | INFO | 
+Registro da execucao
+------------------------------------------------------------------------
+2026-11-20 12:24:11,096 | INFO | Diretorio de logs encontrado: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/results/logs
+2026-11-20 12:24:11,096 | INFO | Log da tabela de clipes: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/results/logs/prepare_table.log
+2026-11-20 12:24:11,096 | INFO | 
+Cache da tabela de clipes
+------------------------------------------------------------------------
+2026-11-20 12:24:11,096 | INFO | Cache: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/cache/clip_table.parquet
+2026-11-20 12:24:11,098 | INFO | SHA-256 do manifesto: e7edf847d8843a93f9f95372bc2034102a9816cdf3e0eae3784dfc529d2253d7 (0.001 s).
+2026-11-20 12:24:11,405 | INFO | Cache hit: 25322 registros lidos em 0.307 s.
+2026-11-20 12:24:11,931 | INFO | Disponibilidade dos audios conferida em 0.527 s; 0 alteracoes.
+2026-11-20 12:24:12,012 | INFO | ecosoundset: 14954 janelas; 14954 audios disponiveis.
+2026-11-20 12:24:12,014 | INFO | pteroset_ppa1: 10368 janelas; 10368 audios disponiveis.
+2026-11-20 12:24:12,059 | INFO | 
+Tabela preparada
+------------------------------------------------------------------------
+2026-11-20 12:24:12,060 | INFO | Datasets selecionados: ecosoundset, pteroset_ppa1.
+2026-11-20 12:24:12,060 | INFO | Tabela em memoria: 25322 clipes; 5.43 MiB.
+2026-11-20 12:24:12,823 | INFO | 
+Cache PCM da baseline
+------------------------------------------------------------------------
+2026-11-20 12:24:12,823 | INFO | Cache: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/cache/baseline_pcm
+2026-11-20 12:24:12,833 | INFO | Cache hit: 25322 clipes PCM validados em 0.010 s.
+2026-11-20 12:26:57,039 | INFO | 
+========================================================================
+PREPARE BASELINE
+[CMD]   /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/.venv/bin/python /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/src/codeco/main.py
+========================================================================
+2026-11-20 12:26:57,039 | INFO | 
+Registro da execucao
+------------------------------------------------------------------------
+2026-11-20 12:26:57,039 | INFO | Diretorio de logs encontrado: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/results/logs
+2026-11-20 12:26:57,039 | INFO | Log da tabela de clipes: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/results/logs/prepare_table.log
+2026-11-20 12:26:57,039 | INFO | 
+Cache da tabela de clipes
+------------------------------------------------------------------------
+2026-11-20 12:26:57,039 | INFO | Cache: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/cache/clip_table.parquet
+2026-11-20 12:26:57,040 | INFO | SHA-256 do manifesto: e7edf847d8843a93f9f95372bc2034102a9816cdf3e0eae3784dfc529d2253d7 (0.001 s).
+2026-11-20 12:26:57,043 | INFO | Cache hit: 25322 registros lidos em 0.003 s.
+2026-11-20 12:26:57,255 | INFO | Disponibilidade dos audios conferida em 0.212 s; 0 alteracoes.
+2026-11-20 12:26:57,293 | INFO | ecosoundset: 14954 janelas; 14954 audios disponiveis.
+2026-11-20 12:26:57,294 | INFO | pteroset_ppa1: 10368 janelas; 10368 audios disponiveis.
+2026-11-20 12:26:57,312 | INFO | 
+Tabela preparada
+------------------------------------------------------------------------
+2026-11-20 12:26:57,312 | INFO | Datasets selecionados: ecosoundset, pteroset_ppa1.
+2026-11-20 12:26:57,312 | INFO | Tabela em memoria: 25322 clipes; 5.43 MiB.
+2026-11-20 12:26:57,580 | INFO | 
+Cache PCM da baseline
+------------------------------------------------------------------------
+2026-11-20 12:26:57,580 | INFO | Cache: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/cache/baseline_pcm
+2026-11-20 12:26:57,583 | INFO | Cache hit: 25322 clipes PCM validados em 0.003 s.
+2026-11-20 12:29:58,852 | INFO | 
+========================================================================
+PREPARE BASELINE
+[CMD]   /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/.venv/bin/python /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/-
+========================================================================
+2026-11-20 12:29:58,853 | INFO | 
+Registro da execucao
+------------------------------------------------------------------------
+2026-11-20 12:29:58,853 | INFO | Diretorio de logs encontrado: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/results/logs
+2026-11-20 12:29:58,853 | INFO | Log da tabela de clipes: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/results/logs/prepare_table.log
+2026-11-20 12:29:58,853 | INFO | 
+Cache da tabela de clipes
+------------------------------------------------------------------------
+2026-11-20 12:29:58,853 | INFO | Cache: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/cache/clip_table.parquet
+2026-11-20 12:29:58,854 | INFO | SHA-256 do manifesto: e7edf847d8843a93f9f95372bc2034102a9816cdf3e0eae3784dfc529d2253d7 (0.002 s).
+2026-11-20 12:29:58,865 | INFO | Cache hit: 25322 registros lidos em 0.011 s.
+2026-11-20 12:29:59,077 | INFO | Disponibilidade dos audios conferida em 0.212 s; 0 alteracoes.
+2026-11-20 12:29:59,113 | INFO | ecosoundset: 14954 janelas; 14954 audios disponiveis.
+2026-11-20 12:29:59,113 | INFO | pteroset_ppa1: 10368 janelas; 10368 audios disponiveis.
+2026-11-20 12:29:59,130 | INFO | 
+Tabela preparada
+------------------------------------------------------------------------
+2026-11-20 12:29:59,130 | INFO | Datasets selecionados: ecosoundset, pteroset_ppa1.
+2026-11-20 12:29:59,130 | INFO | Tabela em memoria: 25322 clipes; 5.43 MiB.
+2026-11-20 12:29:59,417 | INFO | 
+Cache PCM da baseline
+------------------------------------------------------------------------
+2026-11-20 12:29:59,417 | INFO | Cache: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/cache/baseline_pcm
+2026-11-20 12:29:59,421 | INFO | Cache hit: 25322 clipes PCM validados em 0.004 s.
+2026-11-20 12:30:22,991 | INFO | 
+========================================================================
+PREPARE BASELINE
+[CMD]   /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/.venv/bin/python /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/-
+========================================================================
+2026-11-20 12:30:22,992 | INFO | 
+Registro da execucao
+------------------------------------------------------------------------
+2026-11-20 12:30:22,992 | INFO | Diretorio de logs encontrado: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/results/logs
+2026-11-20 12:30:22,992 | INFO | Log da tabela de clipes: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/results/logs/prepare_table.log
+2026-11-20 12:30:22,992 | INFO | 
+Cache da tabela de clipes
+------------------------------------------------------------------------
+2026-11-20 12:30:22,992 | INFO | Cache: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/cache/clip_table.parquet
+2026-11-20 12:30:22,994 | INFO | SHA-256 do manifesto: e7edf847d8843a93f9f95372bc2034102a9816cdf3e0eae3784dfc529d2253d7 (0.002 s).
+2026-11-20 12:30:23,005 | INFO | Cache hit: 25322 registros lidos em 0.011 s.
+2026-11-20 12:30:23,215 | INFO | Disponibilidade dos audios conferida em 0.210 s; 0 alteracoes.
+2026-11-20 12:30:23,250 | INFO | ecosoundset: 14954 janelas; 14954 audios disponiveis.
+2026-11-20 12:30:23,251 | INFO | pteroset_ppa1: 10368 janelas; 10368 audios disponiveis.
+2026-11-20 12:30:23,269 | INFO | 
+Tabela preparada
+------------------------------------------------------------------------
+2026-11-20 12:30:23,269 | INFO | Datasets selecionados: ecosoundset, pteroset_ppa1.
+2026-11-20 12:30:23,269 | INFO | Tabela em memoria: 25322 clipes; 5.43 MiB.
+2026-11-20 12:30:23,556 | INFO | 
+Cache PCM da baseline
+------------------------------------------------------------------------
+2026-11-20 12:30:23,556 | INFO | Cache: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/cache/baseline_pcm
+2026-11-20 12:30:23,559 | INFO | Cache hit: 25322 clipes PCM validados em 0.003 s.
+2026-11-20 12:30:53,100 | INFO | 
+========================================================================
+PREPARE BASELINE
+[CMD]   /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/.venv/bin/python /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/src/codeco/main.py
+========================================================================
+2026-11-20 12:30:53,100 | INFO | 
+Registro da execucao
+------------------------------------------------------------------------
+2026-11-20 12:30:53,100 | INFO | Diretorio de logs encontrado: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/results/logs
+2026-11-20 12:30:53,100 | INFO | Log da tabela de clipes: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/results/logs/prepare_table.log
+2026-11-20 12:30:53,100 | INFO | 
+Cache da tabela de clipes
+------------------------------------------------------------------------
+2026-11-20 12:30:53,100 | INFO | Cache: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/cache/clip_table.parquet
+2026-11-20 12:30:53,101 | INFO | SHA-256 do manifesto: e7edf847d8843a93f9f95372bc2034102a9816cdf3e0eae3784dfc529d2253d7 (0.001 s).
+2026-11-20 12:30:53,105 | INFO | Cache hit: 25322 registros lidos em 0.004 s.
+2026-11-20 12:30:53,314 | INFO | Disponibilidade dos audios conferida em 0.209 s; 0 alteracoes.
+2026-11-20 12:30:53,349 | INFO | ecosoundset: 14954 janelas; 14954 audios disponiveis.
+2026-11-20 12:30:53,350 | INFO | pteroset_ppa1: 10368 janelas; 10368 audios disponiveis.
+2026-11-20 12:30:53,366 | INFO | 
+Tabela preparada
+------------------------------------------------------------------------
+2026-11-20 12:30:53,367 | INFO | Datasets selecionados: ecosoundset, pteroset_ppa1.
+2026-11-20 12:30:53,367 | INFO | Tabela em memoria: 25322 clipes; 5.43 MiB.
+2026-11-20 12:30:53,627 | INFO | 
+Cache PCM da baseline
+------------------------------------------------------------------------
+2026-11-20 12:30:53,627 | INFO | Cache: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/cache/baseline_pcm
+2026-11-20 12:30:53,629 | INFO | Cache hit: 25322 clipes PCM validados em 0.002 s.
+2026-11-20 15:09:36,682 | INFO | 
+========================================================================
+PREPARE BASELINE
+[CMD]   /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/.venv/bin/python /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/src/codeco/main.py
+========================================================================
+2026-11-20 15:09:36,682 | INFO | 
+Registro da execucao
+------------------------------------------------------------------------
+2026-11-20 15:09:36,682 | INFO | Diretorio de logs encontrado: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/results/logs
+2026-11-20 15:09:36,682 | INFO | Log da tabela de clipes: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/results/logs/prepare_table.log
+2026-11-20 15:09:36,682 | INFO | 
+Cache da tabela de clipes
+------------------------------------------------------------------------
+2026-11-20 15:09:36,682 | INFO | Cache: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/cache/clip_table.parquet
+2026-11-20 15:09:36,683 | INFO | SHA-256 do manifesto: e7edf847d8843a93f9f95372bc2034102a9816cdf3e0eae3784dfc529d2253d7 (0.001 s).
+2026-11-20 15:09:36,687 | INFO | Cache hit: 25322 registros lidos em 0.004 s.
+2026-11-20 15:09:36,894 | INFO | Disponibilidade dos audios conferida em 0.207 s; 0 alteracoes.
+2026-11-20 15:09:36,929 | INFO | ecosoundset: 14954 janelas; 14954 audios disponiveis.
+2026-11-20 15:09:36,930 | INFO | pteroset_ppa1: 10368 janelas; 10368 audios disponiveis.
+2026-11-20 15:09:36,946 | INFO | 
+Tabela preparada
+------------------------------------------------------------------------
+2026-11-20 15:09:36,946 | INFO | Datasets selecionados: ecosoundset, pteroset_ppa1.
+2026-11-20 15:09:36,946 | INFO | Tabela em memoria: 25322 clipes; 5.43 MiB.
+2026-11-20 15:09:37,211 | INFO | 
+Cache PCM da baseline
+------------------------------------------------------------------------
+2026-11-20 15:09:37,211 | INFO | Cache: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/cache/baseline_pcm
+2026-11-20 15:09:37,214 | INFO | Cache hit: 25322 clipes PCM validados em 0.002 s.
+2026-11-20 18:37:12,669 | INFO | 
+========================================================================
+PREPARE BASELINE
+[CMD]   /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/.venv/bin/python /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/src/codeco/main.py
+========================================================================
+2026-11-20 18:37:12,670 | INFO | 
+Registro da execucao
+------------------------------------------------------------------------
+2026-11-20 18:37:12,670 | INFO | Diretorio de logs encontrado: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/results/logs
+2026-11-20 18:37:12,670 | INFO | Log da tabela de clipes: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/results/logs/prepare_table.log
+2026-11-20 18:37:12,670 | INFO | 
+Cache da tabela de clipes
+------------------------------------------------------------------------
+2026-11-20 18:37:12,670 | INFO | Cache: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/cache/clip_table.parquet
+2026-11-20 18:37:12,671 | INFO | SHA-256 do manifesto: e7edf847d8843a93f9f95372bc2034102a9816cdf3e0eae3784dfc529d2253d7 (0.001 s).
+2026-11-20 18:37:12,675 | INFO | Cache hit: 25322 registros lidos em 0.004 s.
+2026-11-20 18:37:12,881 | INFO | Disponibilidade dos audios conferida em 0.206 s; 0 alteracoes.
+2026-11-20 18:37:12,919 | INFO | ecosoundset: 14954 janelas; 14954 audios disponiveis.
+2026-11-20 18:37:12,920 | INFO | pteroset_ppa1: 10368 janelas; 10368 audios disponiveis.
+2026-11-20 18:37:12,936 | INFO | 
+Tabela preparada
+------------------------------------------------------------------------
+2026-11-20 18:37:12,936 | INFO | Datasets selecionados: ecosoundset, pteroset_ppa1.
+2026-11-20 18:37:12,937 | INFO | Tabela em memoria: 25322 clipes; 5.43 MiB.
+2026-11-20 18:37:13,198 | INFO | 
+Cache PCM da baseline
+------------------------------------------------------------------------
+2026-11-20 18:37:13,198 | INFO | Cache: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/cache/baseline_pcm
+2026-11-20 18:37:13,201 | INFO | Cache hit: 25322 clipes PCM validados em 0.003 s.

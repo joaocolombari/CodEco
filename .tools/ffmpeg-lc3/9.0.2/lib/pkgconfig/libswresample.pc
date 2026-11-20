@@ -1,0 +1,14 @@
+prefix=/home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/.tools/ffmpeg-lc3/9.0.2
+exec_prefix=${prefix}
+libdir=/home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/.tools/ffmpeg-lc3/9.0.2/lib
+includedir=/home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/.tools/ffmpeg-lc3/9.0.2/include
+
+Name: libswresample
+Description: FFmpeg audio resampling library
+Version: 7.1.102
+Requires: libavutil >= 61.1.102
+Requires.private: 
+Conflicts:
+Libs: -L${libdir}  -lswresample -lm -latomic
+Libs.private: 
+Cflags: -I${includedir}

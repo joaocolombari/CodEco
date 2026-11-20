@@ -1,0 +1,14 @@
+prefix=/home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/.tools/ffmpeg-lc3/9.0.2
+exec_prefix=${prefix}
+libdir=/home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/.tools/ffmpeg-lc3/9.0.2/lib
+includedir=/home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/.tools/ffmpeg-lc3/9.0.2/include
+
+Name: libavdevice
+Description: FFmpeg device handling library
+Version: 63.1.102
+Requires: libavfilter >= 12.1.102, libswscale >= 10.1.102, libavformat >= 63.1.102, libavcodec >= 63.1.102, libswresample >= 7.1.102, libavutil >= 61.1.102
+Requires.private: 
+Conflicts:
+Libs: -L${libdir}  -lavdevice -lm -latomic -ldrm -lxcb -lxcb-shm -lxcb-shape -lxcb-xfixes -lasound -lsndio -lXv -lX11 -lXext
+Libs.private: 
+Cflags: -I${includedir}

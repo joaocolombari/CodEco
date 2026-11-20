@@ -1,0 +1,14 @@
+prefix=/home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/.tools/ffmpeg-lc3/9.0.2
+exec_prefix=${prefix}
+libdir=/home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/.tools/ffmpeg-lc3/9.0.2/lib
+includedir=/home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/.tools/ffmpeg-lc3/9.0.2/include
+
+Name: libavutil
+Description: FFmpeg utility library
+Version: 61.1.102
+Requires: 
+Requires.private: 
+Conflicts:
+Libs: -L${libdir}  -lavutil -lva-drm -lva -lva-x11 -lva -lvdpau -lX11 -lm -lz -ldrm -lva -latomic -pthread -lX11
+Libs.private: 
+Cflags: -I${includedir}

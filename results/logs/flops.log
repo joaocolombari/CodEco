@@ -1,0 +1,1280 @@
+2026-11-20 12:00:36,871 | INFO | 
+========================================================================
+BENCHMARK DE CUSTO COMPUTACIONAL
+[CMD]   /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/.venv/bin/python /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/src/codeco/main.py --clean
+========================================================================
+2026-11-20 12:00:36,871 | INFO | 
+Registro da execucao
+------------------------------------------------------------------------
+2026-11-20 12:00:36,871 | INFO | Log: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/results/logs/flops.log
+2026-11-20 12:00:36,873 | INFO | FFmpeg 9.0.2: /home/filipe/.local/ffmpeg-lc3/9.0.2/bin/ffmpeg
+2026-11-20 12:00:36,873 | INFO | Sinal: 48000 Hz | 20 x 4 s = 80 s | perf: True
+2026-11-20 12:00:36,900 | INFO | Contador de FLOPs FFmpeg: fp_ret_sse_avx_ops.all
+2026-11-20 12:00:36,900 | INFO | 
+FFmpeg | CPU em ms/clipe
+------------------------------------------------------------------------
+2026-11-20 12:00:37,172 | INFO | FLAC  compression_level=5       enc    4.09  dec    3.91
+2026-11-20 12:00:38,182 | INFO | MP3   bitrate_kbps=32           enc   16.60  dec    5.05
+2026-11-20 12:00:39,261 | INFO | MP3   bitrate_kbps=64           enc   17.30  dec    5.14
+2026-11-20 12:00:40,484 | INFO | MP3   bitrate_kbps=128          enc   19.27  dec    5.55
+2026-11-20 12:00:41,961 | INFO | AAC   bitrate_kbps=64           enc   24.32  dec    4.20
+2026-11-20 12:00:43,574 | INFO | AAC   bitrate_kbps=96           enc   26.12  dec    4.37
+2026-11-20 12:00:45,346 | INFO | AAC   bitrate_kbps=128          enc   28.66  dec    4.90
+2026-11-20 12:00:47,308 | INFO | OPUS  bitrate_kbps=12           enc   31.00  dec    6.97
+2026-11-20 12:00:48,490 | INFO | OPUS  bitrate_kbps=24           enc   18.51  dec    6.64
+2026-11-20 12:00:49,720 | INFO | OPUS  bitrate_kbps=48           enc   19.17  dec    7.31
+2026-11-20 12:00:50,822 | INFO | OPUS  bitrate_kbps=96           enc   15.80  dec    8.17
+2026-11-20 12:00:51,470 | INFO | LC3   bitrate_kbps=32           enc   10.33  dec   11.56
+2026-11-20 12:00:52,246 | INFO | LC3   bitrate_kbps=64           enc   11.34  dec   12.05
+2026-11-20 12:00:53,067 | INFO | LC3   bitrate_kbps=96           enc   11.83  dec   12.79
+2026-11-20 12:00:53,068 | INFO | 
+EnCodec | GFLOPs estimados por clipe
+------------------------------------------------------------------------
+2026-11-20 12:01:06,598 | INFO | 6 kb/s  4 codebooks  enc 24.968  dec 81.626
+2026-11-20 12:01:14,434 | INFO | 12 kb/s  8 codebooks  enc 25.754  dec 81.626
+2026-11-20 12:01:22,043 | INFO | 24 kb/s  16 codebooks  enc 27.327  dec 81.627
+2026-11-20 12:01:22,045 | INFO | 
+Resultados do benchmark
+------------------------------------------------------------------------
+2026-11-20 12:01:22,056 | INFO | Resultados salvos em /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/results/benchmarks/flops.csv
+
+- FLAC (dsp_c)
+
+    compression_level=5
+      Encoder
+        CPU: 0,004093 s/clipe · 1,023 ms/s de áudio
+        Instruções/s de áudio: 8.156.779,69
+        FLOPs/clipe: 3.948.653,35 · GFLOPs/s de áudio: 0,000987163
+      Decoder
+        CPU: 0,003906 s/clipe · 0,977 ms/s de áudio
+        Instruções/s de áudio: 4.347.466,58
+        FLOPs/clipe: 294,90 · GFLOPs/s de áudio: 0,000000074
+
+--------------------------
+
+- MP3 (dsp_c)
+
+    bitrate_kbps=32
+      Encoder
+        CPU: 0,016595 s/clipe · 4,149 ms/s de áudio
+        Instruções/s de áudio: 53.649.618,51
+        FLOPs/clipe: 41.203.239,65 · GFLOPs/s de áudio: 0,010300810
+      Decoder
+        CPU: 0,005053 s/clipe · 1,263 ms/s de áudio
+        Instruções/s de áudio: 3.969.938,40
+        FLOPs/clipe: 9.933.998,95 · GFLOPs/s de áudio: 0,002483500
+
+    bitrate_kbps=64
+      Encoder
+        CPU: 0,017298 s/clipe · 4,325 ms/s de áudio
+        Instruções/s de áudio: 54.707.748,58
+        FLOPs/clipe: 41.581.099,40 · GFLOPs/s de áudio: 0,010395275
+      Decoder
+        CPU: 0,005138 s/clipe · 1,285 ms/s de áudio
+        Instruções/s de áudio: 4.313.870,44
+        FLOPs/clipe: 10.648.042,85 · GFLOPs/s de áudio: 0,002662011
+
+    bitrate_kbps=128
+      Encoder
+        CPU: 0,019272 s/clipe · 4,818 ms/s de áudio
+        Instruções/s de áudio: 69.609.796,58
+        FLOPs/clipe: 38.575.309,60 · GFLOPs/s de áudio: 0,009643827
+      Decoder
+        CPU: 0,005548 s/clipe · 1,387 ms/s de áudio
+        Instruções/s de áudio: 5.326.464,65
+        FLOPs/clipe: 10.969.353,75 · GFLOPs/s de áudio: 0,002742338
+
+--------------------------
+
+- AAC (dsp_c)
+
+    bitrate_kbps=64
+      Encoder
+        CPU: 0,024322 s/clipe · 6,080 ms/s de áudio
+        Instruções/s de áudio: 74.799.350,88
+        FLOPs/clipe: 58.519.225,95 · GFLOPs/s de áudio: 0,014629806
+      Decoder
+        CPU: 0,004205 s/clipe · 1,051 ms/s de áudio
+        Instruções/s de áudio: 3.494.782,30
+        FLOPs/clipe: 5.100.835,05 · GFLOPs/s de áudio: 0,001275209
+
+    bitrate_kbps=96
+      Encoder
+        CPU: 0,026124 s/clipe · 6,531 ms/s de áudio
+        Instruções/s de áudio: 80.257.411,04
+        FLOPs/clipe: 61.739.782,10 · GFLOPs/s de áudio: 0,015434946
+      Decoder
+        CPU: 0,004371 s/clipe · 1,093 ms/s de áudio
+        Instruções/s de áudio: 3.661.877,15
+        FLOPs/clipe: 5.113.820,65 · GFLOPs/s de áudio: 0,001278455
+
+    bitrate_kbps=128
+      Encoder
+        CPU: 0,028660 s/clipe · 7,165 ms/s de áudio
+        Instruções/s de áudio: 87.037.845,62
+        FLOPs/clipe: 69.172.110,95 · GFLOPs/s de áudio: 0,017293028
+      Decoder
+        CPU: 0,004905 s/clipe · 1,226 ms/s de áudio
+        Instruções/s de áudio: 3.864.300,91
+        FLOPs/clipe: 5.132.578,60 · GFLOPs/s de áudio: 0,001283145
+
+--------------------------
+
+- OPUS (dsp_c)
+
+    bitrate_kbps=12
+      Encoder
+        CPU: 0,030996 s/clipe · 7,749 ms/s de áudio
+        Instruções/s de áudio: 83.534.880,01
+        FLOPs/clipe: 72.166.922,25 · GFLOPs/s de áudio: 0,018041731
+      Decoder
+        CPU: 0,006970 s/clipe · 1,743 ms/s de áudio
+        Instruções/s de áudio: 6.348.296,86
+        FLOPs/clipe: 10.832.383,50 · GFLOPs/s de áudio: 0,002708096
+
+    bitrate_kbps=24
+      Encoder
+        CPU: 0,018512 s/clipe · 4,628 ms/s de áudio
+        Instruções/s de áudio: 48.739.523,02
+        FLOPs/clipe: 81.384.285,30 · GFLOPs/s de áudio: 0,020346071
+      Decoder
+        CPU: 0,006643 s/clipe · 1,661 ms/s de áudio
+        Instruções/s de áudio: 6.535.930,35
+        FLOPs/clipe: 10.860.980,80 · GFLOPs/s de áudio: 0,002715245
+
+    bitrate_kbps=48
+      Encoder
+        CPU: 0,019170 s/clipe · 4,792 ms/s de áudio
+        Instruções/s de áudio: 48.345.881,04
+        FLOPs/clipe: 83.196.754,75 · GFLOPs/s de áudio: 0,020799189
+      Decoder
+        CPU: 0,007305 s/clipe · 1,826 ms/s de áudio
+        Instruções/s de áudio: 7.877.128,50
+        FLOPs/clipe: 11.599.882,15 · GFLOPs/s de áudio: 0,002899971
+
+    bitrate_kbps=96
+      Encoder
+        CPU: 0,015804 s/clipe · 3,951 ms/s de áudio
+        Instruções/s de áudio: 39.843.947,46
+        FLOPs/clipe: 82.535.003,35 · GFLOPs/s de áudio: 0,020633751
+      Decoder
+        CPU: 0,008168 s/clipe · 2,042 ms/s de áudio
+        Instruções/s de áudio: 8.764.277,55
+        FLOPs/clipe: 8.459.873,55 · GFLOPs/s de áudio: 0,002114968
+
+--------------------------
+
+- LC3 (dsp_c)
+
+    bitrate_kbps=32
+      Encoder
+        CPU: 0,010330 s/clipe · 2,583 ms/s de áudio
+        Instruções/s de áudio: 20.522.263,60
+        FLOPs/clipe: 17.216.143,85 · GFLOPs/s de áudio: 0,004304036
+      Decoder
+        CPU: 0,011565 s/clipe · 2,891 ms/s de áudio
+        Instruções/s de áudio: 11.214.951,55
+        FLOPs/clipe: 9.623.501,05 · GFLOPs/s de áudio: 0,002405875
+
+    bitrate_kbps=64
+      Encoder
+        CPU: 0,011338 s/clipe · 2,834 ms/s de áudio
+        Instruções/s de áudio: 22.411.324,43
+        FLOPs/clipe: 17.300.024,05 · GFLOPs/s de áudio: 0,004325006
+      Decoder
+        CPU: 0,012051 s/clipe · 3,013 ms/s de áudio
+        Instruções/s de áudio: 12.472.882,91
+        FLOPs/clipe: 9.698.398,00 · GFLOPs/s de áudio: 0,002424600
+
+    bitrate_kbps=96
+      Encoder
+        CPU: 0,011828 s/clipe · 2,957 ms/s de áudio
+        Instruções/s de áudio: 23.279.318,16
+        FLOPs/clipe: 17.244.054,85 · GFLOPs/s de áudio: 0,004311014
+      Decoder
+        CPU: 0,012787 s/clipe · 3,197 ms/s de áudio
+        Instruções/s de áudio: 12.762.441,24
+        FLOPs/clipe: 9.702.059,80 · GFLOPs/s de áudio: 0,002425515
+
+--------------------------
+
+- ENCODEC (neural)
+
+    bandwidth_kbps=6,model=encodec_48khz · 4 codebooks
+      Encoder
+        CPU: 1,458456 s/clipe · 364,614 ms/s de áudio
+        Instruções/s de áudio: 1.387.046.675,22
+        FLOPs/clipe: 24.967.790.592,00 · GFLOPs/s de áudio: 6,241947648
+        Parâmetros: 7.428.336
+      Decoder
+        CPU: 1,456865 s/clipe · 364,216 ms/s de áudio
+        Instruções/s de áudio: 1.521.248.471,71
+        FLOPs/clipe: 81.626.045.440,00 · GFLOPs/s de áudio: 20,406511360
+        Parâmetros: 7.427.958
+
+    bandwidth_kbps=12,model=encodec_48khz · 8 codebooks
+      Encoder
+        CPU: 1,473285 s/clipe · 368,321 ms/s de áudio
+        Instruções/s de áudio: 1.418.658.609,51
+        FLOPs/clipe: 25.754.222.592,00 · GFLOPs/s de áudio: 6,438555648
+        Parâmetros: 7.428.336
+      Decoder
+        CPU: 1,385496 s/clipe · 346,374 ms/s de áudio
+        Instruções/s de áudio: 1.517.472.272,81
+        FLOPs/clipe: 81.626.429.440,00 · GFLOPs/s de áudio: 20,406607360
+        Parâmetros: 7.427.958
+
+    bandwidth_kbps=24,model=encodec_48khz · 16 codebooks
+      Encoder
+        CPU: 1,429492 s/clipe · 357,373 ms/s de áudio
+        Instruções/s de áudio: 1.476.317.548,66
+        FLOPs/clipe: 27.327.086.592,00 · GFLOPs/s de áudio: 6,831771648
+        Parâmetros: 7.428.336
+      Decoder
+        CPU: 1,432906 s/clipe · 358,226 ms/s de áudio
+        Instruções/s de áudio: 1.518.132.172,58
+        FLOPs/clipe: 81.627.197.440,00 · GFLOPs/s de áudio: 20,406799360
+        Parâmetros: 7.427.958
+2026-11-20 12:01:22,056 | INFO | 
+Benchmark concluido: 17 configuracoes.
+/home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/results/benchmarks/flops.csv
+2026-11-20 12:08:08,508 | INFO | 
+========================================================================
+BENCHMARK DE CUSTO COMPUTACIONAL
+[CMD]   /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/.venv/bin/python /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/src/codeco/main.py
+========================================================================
+2026-11-20 12:08:08,508 | INFO | 
+Registro da execucao
+------------------------------------------------------------------------
+2026-11-20 12:08:08,508 | INFO | Log: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/results/logs/flops.log
+2026-11-20 12:08:08,517 | INFO | Resultado existente carregado: 17 configuracoes em /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/results/benchmarks/flops.csv
+
+- FLAC (dsp_c)
+
+    compression_level=5
+      Encoder
+        CPU: 0,004093 s/clipe · 1,023 ms/s de áudio
+        Instruções/s de áudio: 8.156.779,69
+        FLOPs/clipe: 3.948.653,35 · GFLOPs/s de áudio: 0,000987163
+      Decoder
+        CPU: 0,003906 s/clipe · 0,977 ms/s de áudio
+        Instruções/s de áudio: 4.347.466,58
+        FLOPs/clipe: 294,90 · GFLOPs/s de áudio: 0,000000074
+
+--------------------------
+
+- MP3 (dsp_c)
+
+    bitrate_kbps=32
+      Encoder
+        CPU: 0,016595 s/clipe · 4,149 ms/s de áudio
+        Instruções/s de áudio: 53.649.618,51
+        FLOPs/clipe: 41.203.239,65 · GFLOPs/s de áudio: 0,010300810
+      Decoder
+        CPU: 0,005053 s/clipe · 1,263 ms/s de áudio
+        Instruções/s de áudio: 3.969.938,40
+        FLOPs/clipe: 9.933.998,95 · GFLOPs/s de áudio: 0,002483500
+
+    bitrate_kbps=64
+      Encoder
+        CPU: 0,017298 s/clipe · 4,325 ms/s de áudio
+        Instruções/s de áudio: 54.707.748,58
+        FLOPs/clipe: 41.581.099,40 · GFLOPs/s de áudio: 0,010395275
+      Decoder
+        CPU: 0,005138 s/clipe · 1,285 ms/s de áudio
+        Instruções/s de áudio: 4.313.870,44
+        FLOPs/clipe: 10.648.042,85 · GFLOPs/s de áudio: 0,002662011
+
+    bitrate_kbps=128
+      Encoder
+        CPU: 0,019272 s/clipe · 4,818 ms/s de áudio
+        Instruções/s de áudio: 69.609.796,58
+        FLOPs/clipe: 38.575.309,60 · GFLOPs/s de áudio: 0,009643827
+      Decoder
+        CPU: 0,005548 s/clipe · 1,387 ms/s de áudio
+        Instruções/s de áudio: 5.326.464,65
+        FLOPs/clipe: 10.969.353,75 · GFLOPs/s de áudio: 0,002742338
+
+--------------------------
+
+- AAC (dsp_c)
+
+    bitrate_kbps=64
+      Encoder
+        CPU: 0,024322 s/clipe · 6,080 ms/s de áudio
+        Instruções/s de áudio: 74.799.350,88
+        FLOPs/clipe: 58.519.225,95 · GFLOPs/s de áudio: 0,014629806
+      Decoder
+        CPU: 0,004205 s/clipe · 1,051 ms/s de áudio
+        Instruções/s de áudio: 3.494.782,30
+        FLOPs/clipe: 5.100.835,05 · GFLOPs/s de áudio: 0,001275209
+
+    bitrate_kbps=96
+      Encoder
+        CPU: 0,026124 s/clipe · 6,531 ms/s de áudio
+        Instruções/s de áudio: 80.257.411,04
+        FLOPs/clipe: 61.739.782,10 · GFLOPs/s de áudio: 0,015434946
+      Decoder
+        CPU: 0,004371 s/clipe · 1,093 ms/s de áudio
+        Instruções/s de áudio: 3.661.877,15
+        FLOPs/clipe: 5.113.820,65 · GFLOPs/s de áudio: 0,001278455
+
+    bitrate_kbps=128
+      Encoder
+        CPU: 0,028660 s/clipe · 7,165 ms/s de áudio
+        Instruções/s de áudio: 87.037.845,62
+        FLOPs/clipe: 69.172.110,95 · GFLOPs/s de áudio: 0,017293028
+      Decoder
+        CPU: 0,004905 s/clipe · 1,226 ms/s de áudio
+        Instruções/s de áudio: 3.864.300,91
+        FLOPs/clipe: 5.132.578,60 · GFLOPs/s de áudio: 0,001283145
+
+--------------------------
+
+- OPUS (dsp_c)
+
+    bitrate_kbps=12
+      Encoder
+        CPU: 0,030996 s/clipe · 7,749 ms/s de áudio
+        Instruções/s de áudio: 83.534.880,01
+        FLOPs/clipe: 72.166.922,25 · GFLOPs/s de áudio: 0,018041731
+      Decoder
+        CPU: 0,006970 s/clipe · 1,743 ms/s de áudio
+        Instruções/s de áudio: 6.348.296,86
+        FLOPs/clipe: 10.832.383,50 · GFLOPs/s de áudio: 0,002708096
+
+    bitrate_kbps=24
+      Encoder
+        CPU: 0,018512 s/clipe · 4,628 ms/s de áudio
+        Instruções/s de áudio: 48.739.523,02
+        FLOPs/clipe: 81.384.285,30 · GFLOPs/s de áudio: 0,020346071
+      Decoder
+        CPU: 0,006643 s/clipe · 1,661 ms/s de áudio
+        Instruções/s de áudio: 6.535.930,35
+        FLOPs/clipe: 10.860.980,80 · GFLOPs/s de áudio: 0,002715245
+
+    bitrate_kbps=48
+      Encoder
+        CPU: 0,019170 s/clipe · 4,792 ms/s de áudio
+        Instruções/s de áudio: 48.345.881,04
+        FLOPs/clipe: 83.196.754,75 · GFLOPs/s de áudio: 0,020799189
+      Decoder
+        CPU: 0,007305 s/clipe · 1,826 ms/s de áudio
+        Instruções/s de áudio: 7.877.128,50
+        FLOPs/clipe: 11.599.882,15 · GFLOPs/s de áudio: 0,002899971
+
+    bitrate_kbps=96
+      Encoder
+        CPU: 0,015804 s/clipe · 3,951 ms/s de áudio
+        Instruções/s de áudio: 39.843.947,46
+        FLOPs/clipe: 82.535.003,35 · GFLOPs/s de áudio: 0,020633751
+      Decoder
+        CPU: 0,008168 s/clipe · 2,042 ms/s de áudio
+        Instruções/s de áudio: 8.764.277,55
+        FLOPs/clipe: 8.459.873,55 · GFLOPs/s de áudio: 0,002114968
+
+--------------------------
+
+- LC3 (dsp_c)
+
+    bitrate_kbps=32
+      Encoder
+        CPU: 0,010330 s/clipe · 2,583 ms/s de áudio
+        Instruções/s de áudio: 20.522.263,60
+        FLOPs/clipe: 17.216.143,85 · GFLOPs/s de áudio: 0,004304036
+      Decoder
+        CPU: 0,011565 s/clipe · 2,891 ms/s de áudio
+        Instruções/s de áudio: 11.214.951,55
+        FLOPs/clipe: 9.623.501,05 · GFLOPs/s de áudio: 0,002405875
+
+    bitrate_kbps=64
+      Encoder
+        CPU: 0,011338 s/clipe · 2,834 ms/s de áudio
+        Instruções/s de áudio: 22.411.324,43
+        FLOPs/clipe: 17.300.024,05 · GFLOPs/s de áudio: 0,004325006
+      Decoder
+        CPU: 0,012051 s/clipe · 3,013 ms/s de áudio
+        Instruções/s de áudio: 12.472.882,91
+        FLOPs/clipe: 9.698.398,00 · GFLOPs/s de áudio: 0,002424600
+
+    bitrate_kbps=96
+      Encoder
+        CPU: 0,011828 s/clipe · 2,957 ms/s de áudio
+        Instruções/s de áudio: 23.279.318,16
+        FLOPs/clipe: 17.244.054,85 · GFLOPs/s de áudio: 0,004311014
+      Decoder
+        CPU: 0,012787 s/clipe · 3,197 ms/s de áudio
+        Instruções/s de áudio: 12.762.441,24
+        FLOPs/clipe: 9.702.059,80 · GFLOPs/s de áudio: 0,002425515
+
+--------------------------
+
+- ENCODEC (neural)
+
+    bandwidth_kbps=6,model=encodec_48khz · 4 codebooks
+      Encoder
+        CPU: 1,458456 s/clipe · 364,614 ms/s de áudio
+        Instruções/s de áudio: 1.387.046.675,22
+        FLOPs/clipe: 24.967.790.592,00 · GFLOPs/s de áudio: 6,241947648
+        Parâmetros: 7.428.336
+      Decoder
+        CPU: 1,456865 s/clipe · 364,216 ms/s de áudio
+        Instruções/s de áudio: 1.521.248.471,71
+        FLOPs/clipe: 81.626.045.440,00 · GFLOPs/s de áudio: 20,406511360
+        Parâmetros: 7.427.958
+
+    bandwidth_kbps=12,model=encodec_48khz · 8 codebooks
+      Encoder
+        CPU: 1,473285 s/clipe · 368,321 ms/s de áudio
+        Instruções/s de áudio: 1.418.658.609,51
+        FLOPs/clipe: 25.754.222.592,00 · GFLOPs/s de áudio: 6,438555648
+        Parâmetros: 7.428.336
+      Decoder
+        CPU: 1,385496 s/clipe · 346,374 ms/s de áudio
+        Instruções/s de áudio: 1.517.472.272,81
+        FLOPs/clipe: 81.626.429.440,00 · GFLOPs/s de áudio: 20,406607360
+        Parâmetros: 7.427.958
+
+    bandwidth_kbps=24,model=encodec_48khz · 16 codebooks
+      Encoder
+        CPU: 1,429492 s/clipe · 357,373 ms/s de áudio
+        Instruções/s de áudio: 1.476.317.548,66
+        FLOPs/clipe: 27.327.086.592,00 · GFLOPs/s de áudio: 6,831771648
+        Parâmetros: 7.428.336
+      Decoder
+        CPU: 1,432906 s/clipe · 358,226 ms/s de áudio
+        Instruções/s de áudio: 1.518.132.172,58
+        FLOPs/clipe: 81.627.197.440,00 · GFLOPs/s de áudio: 20,406799360
+        Parâmetros: 7.427.958
+2026-11-20 12:26:57,029 | INFO | 
+========================================================================
+BENCHMARK DE CUSTO COMPUTACIONAL
+[CMD]   /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/.venv/bin/python /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/src/codeco/main.py
+========================================================================
+2026-11-20 12:26:57,029 | INFO | 
+Registro da execucao
+------------------------------------------------------------------------
+2026-11-20 12:26:57,029 | INFO | Log: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/results/logs/flops.log
+2026-11-20 12:26:57,038 | INFO | Resultado existente carregado: 17 configuracoes em /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/results/benchmarks/flops.csv
+
+- FLAC (dsp_c)
+
+    compression_level=5
+      Encoder
+        CPU: 0,004093 s/clipe · 1,023 ms/s de áudio
+        Instruções/s de áudio: 8.156.779,69
+        FLOPs/clipe: 3.948.653,35 · GFLOPs/s de áudio: 0,000987163
+      Decoder
+        CPU: 0,003906 s/clipe · 0,977 ms/s de áudio
+        Instruções/s de áudio: 4.347.466,58
+        FLOPs/clipe: 294,90 · GFLOPs/s de áudio: 0,000000074
+
+--------------------------
+
+- MP3 (dsp_c)
+
+    bitrate_kbps=32
+      Encoder
+        CPU: 0,016595 s/clipe · 4,149 ms/s de áudio
+        Instruções/s de áudio: 53.649.618,51
+        FLOPs/clipe: 41.203.239,65 · GFLOPs/s de áudio: 0,010300810
+      Decoder
+        CPU: 0,005053 s/clipe · 1,263 ms/s de áudio
+        Instruções/s de áudio: 3.969.938,40
+        FLOPs/clipe: 9.933.998,95 · GFLOPs/s de áudio: 0,002483500
+
+    bitrate_kbps=64
+      Encoder
+        CPU: 0,017298 s/clipe · 4,325 ms/s de áudio
+        Instruções/s de áudio: 54.707.748,58
+        FLOPs/clipe: 41.581.099,40 · GFLOPs/s de áudio: 0,010395275
+      Decoder
+        CPU: 0,005138 s/clipe · 1,285 ms/s de áudio
+        Instruções/s de áudio: 4.313.870,44
+        FLOPs/clipe: 10.648.042,85 · GFLOPs/s de áudio: 0,002662011
+
+    bitrate_kbps=128
+      Encoder
+        CPU: 0,019272 s/clipe · 4,818 ms/s de áudio
+        Instruções/s de áudio: 69.609.796,58
+        FLOPs/clipe: 38.575.309,60 · GFLOPs/s de áudio: 0,009643827
+      Decoder
+        CPU: 0,005548 s/clipe · 1,387 ms/s de áudio
+        Instruções/s de áudio: 5.326.464,65
+        FLOPs/clipe: 10.969.353,75 · GFLOPs/s de áudio: 0,002742338
+
+--------------------------
+
+- AAC (dsp_c)
+
+    bitrate_kbps=64
+      Encoder
+        CPU: 0,024322 s/clipe · 6,080 ms/s de áudio
+        Instruções/s de áudio: 74.799.350,88
+        FLOPs/clipe: 58.519.225,95 · GFLOPs/s de áudio: 0,014629806
+      Decoder
+        CPU: 0,004205 s/clipe · 1,051 ms/s de áudio
+        Instruções/s de áudio: 3.494.782,30
+        FLOPs/clipe: 5.100.835,05 · GFLOPs/s de áudio: 0,001275209
+
+    bitrate_kbps=96
+      Encoder
+        CPU: 0,026124 s/clipe · 6,531 ms/s de áudio
+        Instruções/s de áudio: 80.257.411,04
+        FLOPs/clipe: 61.739.782,10 · GFLOPs/s de áudio: 0,015434946
+      Decoder
+        CPU: 0,004371 s/clipe · 1,093 ms/s de áudio
+        Instruções/s de áudio: 3.661.877,15
+        FLOPs/clipe: 5.113.820,65 · GFLOPs/s de áudio: 0,001278455
+
+    bitrate_kbps=128
+      Encoder
+        CPU: 0,028660 s/clipe · 7,165 ms/s de áudio
+        Instruções/s de áudio: 87.037.845,62
+        FLOPs/clipe: 69.172.110,95 · GFLOPs/s de áudio: 0,017293028
+      Decoder
+        CPU: 0,004905 s/clipe · 1,226 ms/s de áudio
+        Instruções/s de áudio: 3.864.300,91
+        FLOPs/clipe: 5.132.578,60 · GFLOPs/s de áudio: 0,001283145
+
+--------------------------
+
+- OPUS (dsp_c)
+
+    bitrate_kbps=12
+      Encoder
+        CPU: 0,030996 s/clipe · 7,749 ms/s de áudio
+        Instruções/s de áudio: 83.534.880,01
+        FLOPs/clipe: 72.166.922,25 · GFLOPs/s de áudio: 0,018041731
+      Decoder
+        CPU: 0,006970 s/clipe · 1,743 ms/s de áudio
+        Instruções/s de áudio: 6.348.296,86
+        FLOPs/clipe: 10.832.383,50 · GFLOPs/s de áudio: 0,002708096
+
+    bitrate_kbps=24
+      Encoder
+        CPU: 0,018512 s/clipe · 4,628 ms/s de áudio
+        Instruções/s de áudio: 48.739.523,02
+        FLOPs/clipe: 81.384.285,30 · GFLOPs/s de áudio: 0,020346071
+      Decoder
+        CPU: 0,006643 s/clipe · 1,661 ms/s de áudio
+        Instruções/s de áudio: 6.535.930,35
+        FLOPs/clipe: 10.860.980,80 · GFLOPs/s de áudio: 0,002715245
+
+    bitrate_kbps=48
+      Encoder
+        CPU: 0,019170 s/clipe · 4,792 ms/s de áudio
+        Instruções/s de áudio: 48.345.881,04
+        FLOPs/clipe: 83.196.754,75 · GFLOPs/s de áudio: 0,020799189
+      Decoder
+        CPU: 0,007305 s/clipe · 1,826 ms/s de áudio
+        Instruções/s de áudio: 7.877.128,50
+        FLOPs/clipe: 11.599.882,15 · GFLOPs/s de áudio: 0,002899971
+
+    bitrate_kbps=96
+      Encoder
+        CPU: 0,015804 s/clipe · 3,951 ms/s de áudio
+        Instruções/s de áudio: 39.843.947,46
+        FLOPs/clipe: 82.535.003,35 · GFLOPs/s de áudio: 0,020633751
+      Decoder
+        CPU: 0,008168 s/clipe · 2,042 ms/s de áudio
+        Instruções/s de áudio: 8.764.277,55
+        FLOPs/clipe: 8.459.873,55 · GFLOPs/s de áudio: 0,002114968
+
+--------------------------
+
+- LC3 (dsp_c)
+
+    bitrate_kbps=32
+      Encoder
+        CPU: 0,010330 s/clipe · 2,583 ms/s de áudio
+        Instruções/s de áudio: 20.522.263,60
+        FLOPs/clipe: 17.216.143,85 · GFLOPs/s de áudio: 0,004304036
+      Decoder
+        CPU: 0,011565 s/clipe · 2,891 ms/s de áudio
+        Instruções/s de áudio: 11.214.951,55
+        FLOPs/clipe: 9.623.501,05 · GFLOPs/s de áudio: 0,002405875
+
+    bitrate_kbps=64
+      Encoder
+        CPU: 0,011338 s/clipe · 2,834 ms/s de áudio
+        Instruções/s de áudio: 22.411.324,43
+        FLOPs/clipe: 17.300.024,05 · GFLOPs/s de áudio: 0,004325006
+      Decoder
+        CPU: 0,012051 s/clipe · 3,013 ms/s de áudio
+        Instruções/s de áudio: 12.472.882,91
+        FLOPs/clipe: 9.698.398,00 · GFLOPs/s de áudio: 0,002424600
+
+    bitrate_kbps=96
+      Encoder
+        CPU: 0,011828 s/clipe · 2,957 ms/s de áudio
+        Instruções/s de áudio: 23.279.318,16
+        FLOPs/clipe: 17.244.054,85 · GFLOPs/s de áudio: 0,004311014
+      Decoder
+        CPU: 0,012787 s/clipe · 3,197 ms/s de áudio
+        Instruções/s de áudio: 12.762.441,24
+        FLOPs/clipe: 9.702.059,80 · GFLOPs/s de áudio: 0,002425515
+
+--------------------------
+
+- ENCODEC (neural)
+
+    bandwidth_kbps=6,model=encodec_48khz · 4 codebooks
+      Encoder
+        CPU: 1,458456 s/clipe · 364,614 ms/s de áudio
+        Instruções/s de áudio: 1.387.046.675,22
+        FLOPs/clipe: 24.967.790.592,00 · GFLOPs/s de áudio: 6,241947648
+        Parâmetros: 7.428.336
+      Decoder
+        CPU: 1,456865 s/clipe · 364,216 ms/s de áudio
+        Instruções/s de áudio: 1.521.248.471,71
+        FLOPs/clipe: 81.626.045.440,00 · GFLOPs/s de áudio: 20,406511360
+        Parâmetros: 7.427.958
+
+    bandwidth_kbps=12,model=encodec_48khz · 8 codebooks
+      Encoder
+        CPU: 1,473285 s/clipe · 368,321 ms/s de áudio
+        Instruções/s de áudio: 1.418.658.609,51
+        FLOPs/clipe: 25.754.222.592,00 · GFLOPs/s de áudio: 6,438555648
+        Parâmetros: 7.428.336
+      Decoder
+        CPU: 1,385496 s/clipe · 346,374 ms/s de áudio
+        Instruções/s de áudio: 1.517.472.272,81
+        FLOPs/clipe: 81.626.429.440,00 · GFLOPs/s de áudio: 20,406607360
+        Parâmetros: 7.427.958
+
+    bandwidth_kbps=24,model=encodec_48khz · 16 codebooks
+      Encoder
+        CPU: 1,429492 s/clipe · 357,373 ms/s de áudio
+        Instruções/s de áudio: 1.476.317.548,66
+        FLOPs/clipe: 27.327.086.592,00 · GFLOPs/s de áudio: 6,831771648
+        Parâmetros: 7.428.336
+      Decoder
+        CPU: 1,432906 s/clipe · 358,226 ms/s de áudio
+        Instruções/s de áudio: 1.518.132.172,58
+        FLOPs/clipe: 81.627.197.440,00 · GFLOPs/s de áudio: 20,406799360
+        Parâmetros: 7.427.958
+2026-11-20 12:30:53,090 | INFO | 
+========================================================================
+BENCHMARK DE CUSTO COMPUTACIONAL
+[CMD]   /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/.venv/bin/python /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/src/codeco/main.py
+========================================================================
+2026-11-20 12:30:53,090 | INFO | 
+Registro da execucao
+------------------------------------------------------------------------
+2026-11-20 12:30:53,090 | INFO | Log: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/results/logs/flops.log
+2026-11-20 12:30:53,099 | INFO | Resultado existente carregado: 17 configuracoes em /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/results/benchmarks/flops.csv
+
+- FLAC (dsp_c)
+
+    compression_level=5
+      Encoder
+        CPU: 0,004093 s/clipe · 1,023 ms/s de áudio
+        Instruções/s de áudio: 8.156.779,69
+        FLOPs/clipe: 3.948.653,35 · GFLOPs/s de áudio: 0,000987163
+      Decoder
+        CPU: 0,003906 s/clipe · 0,977 ms/s de áudio
+        Instruções/s de áudio: 4.347.466,58
+        FLOPs/clipe: 294,90 · GFLOPs/s de áudio: 0,000000074
+
+--------------------------
+
+- MP3 (dsp_c)
+
+    bitrate_kbps=32
+      Encoder
+        CPU: 0,016595 s/clipe · 4,149 ms/s de áudio
+        Instruções/s de áudio: 53.649.618,51
+        FLOPs/clipe: 41.203.239,65 · GFLOPs/s de áudio: 0,010300810
+      Decoder
+        CPU: 0,005053 s/clipe · 1,263 ms/s de áudio
+        Instruções/s de áudio: 3.969.938,40
+        FLOPs/clipe: 9.933.998,95 · GFLOPs/s de áudio: 0,002483500
+
+    bitrate_kbps=64
+      Encoder
+        CPU: 0,017298 s/clipe · 4,325 ms/s de áudio
+        Instruções/s de áudio: 54.707.748,58
+        FLOPs/clipe: 41.581.099,40 · GFLOPs/s de áudio: 0,010395275
+      Decoder
+        CPU: 0,005138 s/clipe · 1,285 ms/s de áudio
+        Instruções/s de áudio: 4.313.870,44
+        FLOPs/clipe: 10.648.042,85 · GFLOPs/s de áudio: 0,002662011
+
+    bitrate_kbps=128
+      Encoder
+        CPU: 0,019272 s/clipe · 4,818 ms/s de áudio
+        Instruções/s de áudio: 69.609.796,58
+        FLOPs/clipe: 38.575.309,60 · GFLOPs/s de áudio: 0,009643827
+      Decoder
+        CPU: 0,005548 s/clipe · 1,387 ms/s de áudio
+        Instruções/s de áudio: 5.326.464,65
+        FLOPs/clipe: 10.969.353,75 · GFLOPs/s de áudio: 0,002742338
+
+--------------------------
+
+- AAC (dsp_c)
+
+    bitrate_kbps=64
+      Encoder
+        CPU: 0,024322 s/clipe · 6,080 ms/s de áudio
+        Instruções/s de áudio: 74.799.350,88
+        FLOPs/clipe: 58.519.225,95 · GFLOPs/s de áudio: 0,014629806
+      Decoder
+        CPU: 0,004205 s/clipe · 1,051 ms/s de áudio
+        Instruções/s de áudio: 3.494.782,30
+        FLOPs/clipe: 5.100.835,05 · GFLOPs/s de áudio: 0,001275209
+
+    bitrate_kbps=96
+      Encoder
+        CPU: 0,026124 s/clipe · 6,531 ms/s de áudio
+        Instruções/s de áudio: 80.257.411,04
+        FLOPs/clipe: 61.739.782,10 · GFLOPs/s de áudio: 0,015434946
+      Decoder
+        CPU: 0,004371 s/clipe · 1,093 ms/s de áudio
+        Instruções/s de áudio: 3.661.877,15
+        FLOPs/clipe: 5.113.820,65 · GFLOPs/s de áudio: 0,001278455
+
+    bitrate_kbps=128
+      Encoder
+        CPU: 0,028660 s/clipe · 7,165 ms/s de áudio
+        Instruções/s de áudio: 87.037.845,62
+        FLOPs/clipe: 69.172.110,95 · GFLOPs/s de áudio: 0,017293028
+      Decoder
+        CPU: 0,004905 s/clipe · 1,226 ms/s de áudio
+        Instruções/s de áudio: 3.864.300,91
+        FLOPs/clipe: 5.132.578,60 · GFLOPs/s de áudio: 0,001283145
+
+--------------------------
+
+- OPUS (dsp_c)
+
+    bitrate_kbps=12
+      Encoder
+        CPU: 0,030996 s/clipe · 7,749 ms/s de áudio
+        Instruções/s de áudio: 83.534.880,01
+        FLOPs/clipe: 72.166.922,25 · GFLOPs/s de áudio: 0,018041731
+      Decoder
+        CPU: 0,006970 s/clipe · 1,743 ms/s de áudio
+        Instruções/s de áudio: 6.348.296,86
+        FLOPs/clipe: 10.832.383,50 · GFLOPs/s de áudio: 0,002708096
+
+    bitrate_kbps=24
+      Encoder
+        CPU: 0,018512 s/clipe · 4,628 ms/s de áudio
+        Instruções/s de áudio: 48.739.523,02
+        FLOPs/clipe: 81.384.285,30 · GFLOPs/s de áudio: 0,020346071
+      Decoder
+        CPU: 0,006643 s/clipe · 1,661 ms/s de áudio
+        Instruções/s de áudio: 6.535.930,35
+        FLOPs/clipe: 10.860.980,80 · GFLOPs/s de áudio: 0,002715245
+
+    bitrate_kbps=48
+      Encoder
+        CPU: 0,019170 s/clipe · 4,792 ms/s de áudio
+        Instruções/s de áudio: 48.345.881,04
+        FLOPs/clipe: 83.196.754,75 · GFLOPs/s de áudio: 0,020799189
+      Decoder
+        CPU: 0,007305 s/clipe · 1,826 ms/s de áudio
+        Instruções/s de áudio: 7.877.128,50
+        FLOPs/clipe: 11.599.882,15 · GFLOPs/s de áudio: 0,002899971
+
+    bitrate_kbps=96
+      Encoder
+        CPU: 0,015804 s/clipe · 3,951 ms/s de áudio
+        Instruções/s de áudio: 39.843.947,46
+        FLOPs/clipe: 82.535.003,35 · GFLOPs/s de áudio: 0,020633751
+      Decoder
+        CPU: 0,008168 s/clipe · 2,042 ms/s de áudio
+        Instruções/s de áudio: 8.764.277,55
+        FLOPs/clipe: 8.459.873,55 · GFLOPs/s de áudio: 0,002114968
+
+--------------------------
+
+- LC3 (dsp_c)
+
+    bitrate_kbps=32
+      Encoder
+        CPU: 0,010330 s/clipe · 2,583 ms/s de áudio
+        Instruções/s de áudio: 20.522.263,60
+        FLOPs/clipe: 17.216.143,85 · GFLOPs/s de áudio: 0,004304036
+      Decoder
+        CPU: 0,011565 s/clipe · 2,891 ms/s de áudio
+        Instruções/s de áudio: 11.214.951,55
+        FLOPs/clipe: 9.623.501,05 · GFLOPs/s de áudio: 0,002405875
+
+    bitrate_kbps=64
+      Encoder
+        CPU: 0,011338 s/clipe · 2,834 ms/s de áudio
+        Instruções/s de áudio: 22.411.324,43
+        FLOPs/clipe: 17.300.024,05 · GFLOPs/s de áudio: 0,004325006
+      Decoder
+        CPU: 0,012051 s/clipe · 3,013 ms/s de áudio
+        Instruções/s de áudio: 12.472.882,91
+        FLOPs/clipe: 9.698.398,00 · GFLOPs/s de áudio: 0,002424600
+
+    bitrate_kbps=96
+      Encoder
+        CPU: 0,011828 s/clipe · 2,957 ms/s de áudio
+        Instruções/s de áudio: 23.279.318,16
+        FLOPs/clipe: 17.244.054,85 · GFLOPs/s de áudio: 0,004311014
+      Decoder
+        CPU: 0,012787 s/clipe · 3,197 ms/s de áudio
+        Instruções/s de áudio: 12.762.441,24
+        FLOPs/clipe: 9.702.059,80 · GFLOPs/s de áudio: 0,002425515
+
+--------------------------
+
+- ENCODEC (neural)
+
+    bandwidth_kbps=6,model=encodec_48khz · 4 codebooks
+      Encoder
+        CPU: 1,458456 s/clipe · 364,614 ms/s de áudio
+        Instruções/s de áudio: 1.387.046.675,22
+        FLOPs/clipe: 24.967.790.592,00 · GFLOPs/s de áudio: 6,241947648
+        Parâmetros: 7.428.336
+      Decoder
+        CPU: 1,456865 s/clipe · 364,216 ms/s de áudio
+        Instruções/s de áudio: 1.521.248.471,71
+        FLOPs/clipe: 81.626.045.440,00 · GFLOPs/s de áudio: 20,406511360
+        Parâmetros: 7.427.958
+
+    bandwidth_kbps=12,model=encodec_48khz · 8 codebooks
+      Encoder
+        CPU: 1,473285 s/clipe · 368,321 ms/s de áudio
+        Instruções/s de áudio: 1.418.658.609,51
+        FLOPs/clipe: 25.754.222.592,00 · GFLOPs/s de áudio: 6,438555648
+        Parâmetros: 7.428.336
+      Decoder
+        CPU: 1,385496 s/clipe · 346,374 ms/s de áudio
+        Instruções/s de áudio: 1.517.472.272,81
+        FLOPs/clipe: 81.626.429.440,00 · GFLOPs/s de áudio: 20,406607360
+        Parâmetros: 7.427.958
+
+    bandwidth_kbps=24,model=encodec_48khz · 16 codebooks
+      Encoder
+        CPU: 1,429492 s/clipe · 357,373 ms/s de áudio
+        Instruções/s de áudio: 1.476.317.548,66
+        FLOPs/clipe: 27.327.086.592,00 · GFLOPs/s de áudio: 6,831771648
+        Parâmetros: 7.428.336
+      Decoder
+        CPU: 1,432906 s/clipe · 358,226 ms/s de áudio
+        Instruções/s de áudio: 1.518.132.172,58
+        FLOPs/clipe: 81.627.197.440,00 · GFLOPs/s de áudio: 20,406799360
+        Parâmetros: 7.427.958
+2026-11-20 15:09:36,672 | INFO | 
+========================================================================
+BENCHMARK DE CUSTO COMPUTACIONAL
+[CMD]   /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/.venv/bin/python /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/src/codeco/main.py
+========================================================================
+2026-11-20 15:09:36,672 | INFO | 
+Registro da execucao
+------------------------------------------------------------------------
+2026-11-20 15:09:36,672 | INFO | Log: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/results/logs/flops.log
+2026-11-20 15:09:36,681 | INFO | Resultado existente carregado: 17 configuracoes em /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/results/benchmarks/flops.csv
+
+- FLAC (dsp_c)
+
+    compression_level=5
+      Encoder
+        CPU: 0,004093 s/clipe · 1,023 ms/s de áudio
+        Instruções/s de áudio: 8.156.779,69
+        FLOPs/clipe: 3.948.653,35 · GFLOPs/s de áudio: 0,000987163
+      Decoder
+        CPU: 0,003906 s/clipe · 0,977 ms/s de áudio
+        Instruções/s de áudio: 4.347.466,58
+        FLOPs/clipe: 294,90 · GFLOPs/s de áudio: 0,000000074
+
+--------------------------
+
+- MP3 (dsp_c)
+
+    bitrate_kbps=32
+      Encoder
+        CPU: 0,016595 s/clipe · 4,149 ms/s de áudio
+        Instruções/s de áudio: 53.649.618,51
+        FLOPs/clipe: 41.203.239,65 · GFLOPs/s de áudio: 0,010300810
+      Decoder
+        CPU: 0,005053 s/clipe · 1,263 ms/s de áudio
+        Instruções/s de áudio: 3.969.938,40
+        FLOPs/clipe: 9.933.998,95 · GFLOPs/s de áudio: 0,002483500
+
+    bitrate_kbps=64
+      Encoder
+        CPU: 0,017298 s/clipe · 4,325 ms/s de áudio
+        Instruções/s de áudio: 54.707.748,58
+        FLOPs/clipe: 41.581.099,40 · GFLOPs/s de áudio: 0,010395275
+      Decoder
+        CPU: 0,005138 s/clipe · 1,285 ms/s de áudio
+        Instruções/s de áudio: 4.313.870,44
+        FLOPs/clipe: 10.648.042,85 · GFLOPs/s de áudio: 0,002662011
+
+    bitrate_kbps=128
+      Encoder
+        CPU: 0,019272 s/clipe · 4,818 ms/s de áudio
+        Instruções/s de áudio: 69.609.796,58
+        FLOPs/clipe: 38.575.309,60 · GFLOPs/s de áudio: 0,009643827
+      Decoder
+        CPU: 0,005548 s/clipe · 1,387 ms/s de áudio
+        Instruções/s de áudio: 5.326.464,65
+        FLOPs/clipe: 10.969.353,75 · GFLOPs/s de áudio: 0,002742338
+
+--------------------------
+
+- AAC (dsp_c)
+
+    bitrate_kbps=64
+      Encoder
+        CPU: 0,024322 s/clipe · 6,080 ms/s de áudio
+        Instruções/s de áudio: 74.799.350,88
+        FLOPs/clipe: 58.519.225,95 · GFLOPs/s de áudio: 0,014629806
+      Decoder
+        CPU: 0,004205 s/clipe · 1,051 ms/s de áudio
+        Instruções/s de áudio: 3.494.782,30
+        FLOPs/clipe: 5.100.835,05 · GFLOPs/s de áudio: 0,001275209
+
+    bitrate_kbps=96
+      Encoder
+        CPU: 0,026124 s/clipe · 6,531 ms/s de áudio
+        Instruções/s de áudio: 80.257.411,04
+        FLOPs/clipe: 61.739.782,10 · GFLOPs/s de áudio: 0,015434946
+      Decoder
+        CPU: 0,004371 s/clipe · 1,093 ms/s de áudio
+        Instruções/s de áudio: 3.661.877,15
+        FLOPs/clipe: 5.113.820,65 · GFLOPs/s de áudio: 0,001278455
+
+    bitrate_kbps=128
+      Encoder
+        CPU: 0,028660 s/clipe · 7,165 ms/s de áudio
+        Instruções/s de áudio: 87.037.845,62
+        FLOPs/clipe: 69.172.110,95 · GFLOPs/s de áudio: 0,017293028
+      Decoder
+        CPU: 0,004905 s/clipe · 1,226 ms/s de áudio
+        Instruções/s de áudio: 3.864.300,91
+        FLOPs/clipe: 5.132.578,60 · GFLOPs/s de áudio: 0,001283145
+
+--------------------------
+
+- OPUS (dsp_c)
+
+    bitrate_kbps=12
+      Encoder
+        CPU: 0,030996 s/clipe · 7,749 ms/s de áudio
+        Instruções/s de áudio: 83.534.880,01
+        FLOPs/clipe: 72.166.922,25 · GFLOPs/s de áudio: 0,018041731
+      Decoder
+        CPU: 0,006970 s/clipe · 1,743 ms/s de áudio
+        Instruções/s de áudio: 6.348.296,86
+        FLOPs/clipe: 10.832.383,50 · GFLOPs/s de áudio: 0,002708096
+
+    bitrate_kbps=24
+      Encoder
+        CPU: 0,018512 s/clipe · 4,628 ms/s de áudio
+        Instruções/s de áudio: 48.739.523,02
+        FLOPs/clipe: 81.384.285,30 · GFLOPs/s de áudio: 0,020346071
+      Decoder
+        CPU: 0,006643 s/clipe · 1,661 ms/s de áudio
+        Instruções/s de áudio: 6.535.930,35
+        FLOPs/clipe: 10.860.980,80 · GFLOPs/s de áudio: 0,002715245
+
+    bitrate_kbps=48
+      Encoder
+        CPU: 0,019170 s/clipe · 4,792 ms/s de áudio
+        Instruções/s de áudio: 48.345.881,04
+        FLOPs/clipe: 83.196.754,75 · GFLOPs/s de áudio: 0,020799189
+      Decoder
+        CPU: 0,007305 s/clipe · 1,826 ms/s de áudio
+        Instruções/s de áudio: 7.877.128,50
+        FLOPs/clipe: 11.599.882,15 · GFLOPs/s de áudio: 0,002899971
+
+    bitrate_kbps=96
+      Encoder
+        CPU: 0,015804 s/clipe · 3,951 ms/s de áudio
+        Instruções/s de áudio: 39.843.947,46
+        FLOPs/clipe: 82.535.003,35 · GFLOPs/s de áudio: 0,020633751
+      Decoder
+        CPU: 0,008168 s/clipe · 2,042 ms/s de áudio
+        Instruções/s de áudio: 8.764.277,55
+        FLOPs/clipe: 8.459.873,55 · GFLOPs/s de áudio: 0,002114968
+
+--------------------------
+
+- LC3 (dsp_c)
+
+    bitrate_kbps=32
+      Encoder
+        CPU: 0,010330 s/clipe · 2,583 ms/s de áudio
+        Instruções/s de áudio: 20.522.263,60
+        FLOPs/clipe: 17.216.143,85 · GFLOPs/s de áudio: 0,004304036
+      Decoder
+        CPU: 0,011565 s/clipe · 2,891 ms/s de áudio
+        Instruções/s de áudio: 11.214.951,55
+        FLOPs/clipe: 9.623.501,05 · GFLOPs/s de áudio: 0,002405875
+
+    bitrate_kbps=64
+      Encoder
+        CPU: 0,011338 s/clipe · 2,834 ms/s de áudio
+        Instruções/s de áudio: 22.411.324,43
+        FLOPs/clipe: 17.300.024,05 · GFLOPs/s de áudio: 0,004325006
+      Decoder
+        CPU: 0,012051 s/clipe · 3,013 ms/s de áudio
+        Instruções/s de áudio: 12.472.882,91
+        FLOPs/clipe: 9.698.398,00 · GFLOPs/s de áudio: 0,002424600
+
+    bitrate_kbps=96
+      Encoder
+        CPU: 0,011828 s/clipe · 2,957 ms/s de áudio
+        Instruções/s de áudio: 23.279.318,16
+        FLOPs/clipe: 17.244.054,85 · GFLOPs/s de áudio: 0,004311014
+      Decoder
+        CPU: 0,012787 s/clipe · 3,197 ms/s de áudio
+        Instruções/s de áudio: 12.762.441,24
+        FLOPs/clipe: 9.702.059,80 · GFLOPs/s de áudio: 0,002425515
+
+--------------------------
+
+- ENCODEC (neural)
+
+    bandwidth_kbps=6,model=encodec_48khz · 4 codebooks
+      Encoder
+        CPU: 1,458456 s/clipe · 364,614 ms/s de áudio
+        Instruções/s de áudio: 1.387.046.675,22
+        FLOPs/clipe: 24.967.790.592,00 · GFLOPs/s de áudio: 6,241947648
+        Parâmetros: 7.428.336
+      Decoder
+        CPU: 1,456865 s/clipe · 364,216 ms/s de áudio
+        Instruções/s de áudio: 1.521.248.471,71
+        FLOPs/clipe: 81.626.045.440,00 · GFLOPs/s de áudio: 20,406511360
+        Parâmetros: 7.427.958
+
+    bandwidth_kbps=12,model=encodec_48khz · 8 codebooks
+      Encoder
+        CPU: 1,473285 s/clipe · 368,321 ms/s de áudio
+        Instruções/s de áudio: 1.418.658.609,51
+        FLOPs/clipe: 25.754.222.592,00 · GFLOPs/s de áudio: 6,438555648
+        Parâmetros: 7.428.336
+      Decoder
+        CPU: 1,385496 s/clipe · 346,374 ms/s de áudio
+        Instruções/s de áudio: 1.517.472.272,81
+        FLOPs/clipe: 81.626.429.440,00 · GFLOPs/s de áudio: 20,406607360
+        Parâmetros: 7.427.958
+
+    bandwidth_kbps=24,model=encodec_48khz · 16 codebooks
+      Encoder
+        CPU: 1,429492 s/clipe · 357,373 ms/s de áudio
+        Instruções/s de áudio: 1.476.317.548,66
+        FLOPs/clipe: 27.327.086.592,00 · GFLOPs/s de áudio: 6,831771648
+        Parâmetros: 7.428.336
+      Decoder
+        CPU: 1,432906 s/clipe · 358,226 ms/s de áudio
+        Instruções/s de áudio: 1.518.132.172,58
+        FLOPs/clipe: 81.627.197.440,00 · GFLOPs/s de áudio: 20,406799360
+        Parâmetros: 7.427.958
+2026-11-20 18:37:12,659 | INFO | 
+========================================================================
+BENCHMARK DE CUSTO COMPUTACIONAL
+[CMD]   /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/.venv/bin/python /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/src/codeco/main.py
+========================================================================
+2026-11-20 18:37:12,660 | INFO | 
+Registro da execucao
+------------------------------------------------------------------------
+2026-11-20 18:37:12,660 | INFO | Log: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/results/logs/flops.log
+2026-11-20 18:37:12,669 | INFO | Resultado existente carregado: 17 configuracoes em /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/results/benchmarks/flops.csv
+
+- FLAC (dsp_c)
+
+    compression_level=5
+      Encoder
+        CPU: 0,004093 s/clipe · 1,023 ms/s de áudio
+        Instruções/s de áudio: 8.156.779,69
+        FLOPs/clipe: 3.948.653,35 · GFLOPs/s de áudio: 0,000987163
+      Decoder
+        CPU: 0,003906 s/clipe · 0,977 ms/s de áudio
+        Instruções/s de áudio: 4.347.466,58
+        FLOPs/clipe: 294,90 · GFLOPs/s de áudio: 0,000000074
+
+--------------------------
+
+- MP3 (dsp_c)
+
+    bitrate_kbps=32
+      Encoder
+        CPU: 0,016595 s/clipe · 4,149 ms/s de áudio
+        Instruções/s de áudio: 53.649.618,51
+        FLOPs/clipe: 41.203.239,65 · GFLOPs/s de áudio: 0,010300810
+      Decoder
+        CPU: 0,005053 s/clipe · 1,263 ms/s de áudio
+        Instruções/s de áudio: 3.969.938,40
+        FLOPs/clipe: 9.933.998,95 · GFLOPs/s de áudio: 0,002483500
+
+    bitrate_kbps=64
+      Encoder
+        CPU: 0,017298 s/clipe · 4,325 ms/s de áudio
+        Instruções/s de áudio: 54.707.748,58
+        FLOPs/clipe: 41.581.099,40 · GFLOPs/s de áudio: 0,010395275
+      Decoder
+        CPU: 0,005138 s/clipe · 1,285 ms/s de áudio
+        Instruções/s de áudio: 4.313.870,44
+        FLOPs/clipe: 10.648.042,85 · GFLOPs/s de áudio: 0,002662011
+
+    bitrate_kbps=128
+      Encoder
+        CPU: 0,019272 s/clipe · 4,818 ms/s de áudio
+        Instruções/s de áudio: 69.609.796,58
+        FLOPs/clipe: 38.575.309,60 · GFLOPs/s de áudio: 0,009643827
+      Decoder
+        CPU: 0,005548 s/clipe · 1,387 ms/s de áudio
+        Instruções/s de áudio: 5.326.464,65
+        FLOPs/clipe: 10.969.353,75 · GFLOPs/s de áudio: 0,002742338
+
+--------------------------
+
+- AAC (dsp_c)
+
+    bitrate_kbps=64
+      Encoder
+        CPU: 0,024322 s/clipe · 6,080 ms/s de áudio
+        Instruções/s de áudio: 74.799.350,88
+        FLOPs/clipe: 58.519.225,95 · GFLOPs/s de áudio: 0,014629806
+      Decoder
+        CPU: 0,004205 s/clipe · 1,051 ms/s de áudio
+        Instruções/s de áudio: 3.494.782,30
+        FLOPs/clipe: 5.100.835,05 · GFLOPs/s de áudio: 0,001275209
+
+    bitrate_kbps=96
+      Encoder
+        CPU: 0,026124 s/clipe · 6,531 ms/s de áudio
+        Instruções/s de áudio: 80.257.411,04
+        FLOPs/clipe: 61.739.782,10 · GFLOPs/s de áudio: 0,015434946
+      Decoder
+        CPU: 0,004371 s/clipe · 1,093 ms/s de áudio
+        Instruções/s de áudio: 3.661.877,15
+        FLOPs/clipe: 5.113.820,65 · GFLOPs/s de áudio: 0,001278455
+
+    bitrate_kbps=128
+      Encoder
+        CPU: 0,028660 s/clipe · 7,165 ms/s de áudio
+        Instruções/s de áudio: 87.037.845,62
+        FLOPs/clipe: 69.172.110,95 · GFLOPs/s de áudio: 0,017293028
+      Decoder
+        CPU: 0,004905 s/clipe · 1,226 ms/s de áudio
+        Instruções/s de áudio: 3.864.300,91
+        FLOPs/clipe: 5.132.578,60 · GFLOPs/s de áudio: 0,001283145
+
+--------------------------
+
+- OPUS (dsp_c)
+
+    bitrate_kbps=12
+      Encoder
+        CPU: 0,030996 s/clipe · 7,749 ms/s de áudio
+        Instruções/s de áudio: 83.534.880,01
+        FLOPs/clipe: 72.166.922,25 · GFLOPs/s de áudio: 0,018041731
+      Decoder
+        CPU: 0,006970 s/clipe · 1,743 ms/s de áudio
+        Instruções/s de áudio: 6.348.296,86
+        FLOPs/clipe: 10.832.383,50 · GFLOPs/s de áudio: 0,002708096
+
+    bitrate_kbps=24
+      Encoder
+        CPU: 0,018512 s/clipe · 4,628 ms/s de áudio
+        Instruções/s de áudio: 48.739.523,02
+        FLOPs/clipe: 81.384.285,30 · GFLOPs/s de áudio: 0,020346071
+      Decoder
+        CPU: 0,006643 s/clipe · 1,661 ms/s de áudio
+        Instruções/s de áudio: 6.535.930,35
+        FLOPs/clipe: 10.860.980,80 · GFLOPs/s de áudio: 0,002715245
+
+    bitrate_kbps=48
+      Encoder
+        CPU: 0,019170 s/clipe · 4,792 ms/s de áudio
+        Instruções/s de áudio: 48.345.881,04
+        FLOPs/clipe: 83.196.754,75 · GFLOPs/s de áudio: 0,020799189
+      Decoder
+        CPU: 0,007305 s/clipe · 1,826 ms/s de áudio
+        Instruções/s de áudio: 7.877.128,50
+        FLOPs/clipe: 11.599.882,15 · GFLOPs/s de áudio: 0,002899971
+
+    bitrate_kbps=96
+      Encoder
+        CPU: 0,015804 s/clipe · 3,951 ms/s de áudio
+        Instruções/s de áudio: 39.843.947,46
+        FLOPs/clipe: 82.535.003,35 · GFLOPs/s de áudio: 0,020633751
+      Decoder
+        CPU: 0,008168 s/clipe · 2,042 ms/s de áudio
+        Instruções/s de áudio: 8.764.277,55
+        FLOPs/clipe: 8.459.873,55 · GFLOPs/s de áudio: 0,002114968
+
+--------------------------
+
+- LC3 (dsp_c)
+
+    bitrate_kbps=32
+      Encoder
+        CPU: 0,010330 s/clipe · 2,583 ms/s de áudio
+        Instruções/s de áudio: 20.522.263,60
+        FLOPs/clipe: 17.216.143,85 · GFLOPs/s de áudio: 0,004304036
+      Decoder
+        CPU: 0,011565 s/clipe · 2,891 ms/s de áudio
+        Instruções/s de áudio: 11.214.951,55
+        FLOPs/clipe: 9.623.501,05 · GFLOPs/s de áudio: 0,002405875
+
+    bitrate_kbps=64
+      Encoder
+        CPU: 0,011338 s/clipe · 2,834 ms/s de áudio
+        Instruções/s de áudio: 22.411.324,43
+        FLOPs/clipe: 17.300.024,05 · GFLOPs/s de áudio: 0,004325006
+      Decoder
+        CPU: 0,012051 s/clipe · 3,013 ms/s de áudio
+        Instruções/s de áudio: 12.472.882,91
+        FLOPs/clipe: 9.698.398,00 · GFLOPs/s de áudio: 0,002424600
+
+    bitrate_kbps=96
+      Encoder
+        CPU: 0,011828 s/clipe · 2,957 ms/s de áudio
+        Instruções/s de áudio: 23.279.318,16
+        FLOPs/clipe: 17.244.054,85 · GFLOPs/s de áudio: 0,004311014
+      Decoder
+        CPU: 0,012787 s/clipe · 3,197 ms/s de áudio
+        Instruções/s de áudio: 12.762.441,24
+        FLOPs/clipe: 9.702.059,80 · GFLOPs/s de áudio: 0,002425515
+
+--------------------------
+
+- ENCODEC (neural)
+
+    bandwidth_kbps=6,model=encodec_48khz · 4 codebooks
+      Encoder
+        CPU: 1,458456 s/clipe · 364,614 ms/s de áudio
+        Instruções/s de áudio: 1.387.046.675,22
+        FLOPs/clipe: 24.967.790.592,00 · GFLOPs/s de áudio: 6,241947648
+        Parâmetros: 7.428.336
+      Decoder
+        CPU: 1,456865 s/clipe · 364,216 ms/s de áudio
+        Instruções/s de áudio: 1.521.248.471,71
+        FLOPs/clipe: 81.626.045.440,00 · GFLOPs/s de áudio: 20,406511360
+        Parâmetros: 7.427.958
+
+    bandwidth_kbps=12,model=encodec_48khz · 8 codebooks
+      Encoder
+        CPU: 1,473285 s/clipe · 368,321 ms/s de áudio
+        Instruções/s de áudio: 1.418.658.609,51
+        FLOPs/clipe: 25.754.222.592,00 · GFLOPs/s de áudio: 6,438555648
+        Parâmetros: 7.428.336
+      Decoder
+        CPU: 1,385496 s/clipe · 346,374 ms/s de áudio
+        Instruções/s de áudio: 1.517.472.272,81
+        FLOPs/clipe: 81.626.429.440,00 · GFLOPs/s de áudio: 20,406607360
+        Parâmetros: 7.427.958
+
+    bandwidth_kbps=24,model=encodec_48khz · 16 codebooks
+      Encoder
+        CPU: 1,429492 s/clipe · 357,373 ms/s de áudio
+        Instruções/s de áudio: 1.476.317.548,66
+        FLOPs/clipe: 27.327.086.592,00 · GFLOPs/s de áudio: 6,831771648
+        Parâmetros: 7.428.336
+      Decoder
+        CPU: 1,432906 s/clipe · 358,226 ms/s de áudio
+        Instruções/s de áudio: 1.518.132.172,58
+        FLOPs/clipe: 81.627.197.440,00 · GFLOPs/s de áudio: 20,406799360
+        Parâmetros: 7.427.958

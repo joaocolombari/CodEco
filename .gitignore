@@ -1,25 +1,16 @@
-# Source repositories can be recreated from data/manifest-lock-v1.json.
-external/
-
-# Audio and generated codec outputs must never enter Git.
-data/audio/
-data/derived/
-data/downloads/
-data/music/
-
-# Local caches and environments.
 .venv/
-.tools/
 __pycache__/
-*.pyc
-*.inspect.ndjson
-.DS_Store
+*.py[cod]
+*.egg-info/
+build/
+dist/
 
-# Generated seminar demonstrations.
-notebooks/outputs/
-.ipynb_checkpoints/
-
-# Local experiment reports are reproducible from frozen manifests and results.
-reports/*.csv
-reports/*.json
-reports/*.png
+data/datasets/
+data/downloads/
+data/models/
+data/prepared/
+data/samples/
+data/tests/
+data/cache/
+data/checkpoints/
+results/tables/ffmpeg_metrics.csv

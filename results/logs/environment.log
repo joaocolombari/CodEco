@@ -1,0 +1,402 @@
+2026-11-20 12:00:26,152 | INFO | 
+========================================================================
+ENVIRONMENT
+[CMD]   /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/.venv/bin/python /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/src/codeco/main.py --clean
+========================================================================
+2026-11-20 12:00:26,152 | INFO | 
+Registro da execucao
+------------------------------------------------------------------------
+2026-11-20 12:00:26,153 | INFO | Diretorio de logs criado: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/results/logs
+2026-11-20 12:00:26,153 | INFO | Log da verificacao de ambiente: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/results/logs/environment.log
+2026-11-20 12:00:26,153 | INFO | Iniciando verificacao do ambiente do projeto: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment
+2026-11-20 12:00:26,153 | INFO | 
+Ambiente virtual
+------------------------------------------------------------------------
+2026-11-20 12:00:26,153 | INFO | Verificando ambiente virtual: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/.venv
+2026-11-20 12:00:26,153 | INFO | Ambiente virtual ativo: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/.venv
+2026-11-20 12:00:26,153 | INFO | 
+Variaveis do pipeline
+------------------------------------------------------------------------
+2026-11-20 12:00:26,157 | INFO | PATH: configurado
+2026-11-20 12:00:26,157 | INFO | LD_LIBRARY_PATH: configurado
+2026-11-20 12:00:26,157 | INFO | TF_CPP_MIN_LOG_LEVEL: 3
+2026-11-20 12:00:26,157 | INFO | TFHUB_CACHE_DIR: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/cache/tensorflow_hub
+2026-11-20 12:00:26,157 | INFO | MPLCONFIGDIR: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/cache/matplotlib
+2026-11-20 12:00:26,157 | INFO | BIRDNET_APP_DATA: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/cache/birdnet
+2026-11-20 12:00:26,157 | INFO | BIRDNET_START_METHOD: spawn
+2026-11-20 12:00:26,157 | INFO | CUDA_VISIBLE_DEVICES: dinamico
+2026-11-20 12:00:26,157 | INFO | 
+Pacotes do ambiente
+------------------------------------------------------------------------
+2026-11-20 12:00:26,184 | INFO | uv 0.13.8 validado: /usr/bin/uv
+2026-11-20 12:00:26,184 | INFO | Sincronizando os pacotes fixados em uv.lock...
+2026-11-20 12:00:26,284 | INFO | Pacotes do ambiente sincronizados.
+2026-11-20 12:00:26,284 | INFO | 
+Dependencias do sistema
+------------------------------------------------------------------------
+2026-11-20 12:00:26,284 | INFO | Verificando a versao do Python...
+2026-11-20 12:00:26,284 | INFO | Python compativel: 3.12.16
+2026-11-20 12:00:26,284 | INFO | Verificando o sistema operacional...
+2026-11-20 12:00:26,284 | INFO | Sistema operacional suportado: Linux
+2026-11-20 12:00:26,284 | INFO | Verificando o uv 0.13.8 no PATH...
+2026-11-20 12:00:26,290 | INFO | uv validado: 0.13.8 (/usr/bin/uv)
+2026-11-20 12:00:26,291 | INFO | Procurando FFmpeg no PATH do sistema...
+2026-11-20 12:00:26,308 | INFO | Testando codificacao e decodificacao FFmpeg: flac
+2026-11-20 12:00:26,324 | INFO | Teste FFmpeg concluido: flac
+2026-11-20 12:00:26,324 | INFO | Testando codificacao e decodificacao FFmpeg: mp3
+2026-11-20 12:00:26,338 | INFO | Teste FFmpeg concluido: mp3
+2026-11-20 12:00:26,338 | INFO | Testando codificacao e decodificacao FFmpeg: m4a
+2026-11-20 12:00:26,354 | INFO | Teste FFmpeg concluido: m4a
+2026-11-20 12:00:26,354 | INFO | Testando codificacao e decodificacao FFmpeg: opus
+2026-11-20 12:00:26,367 | INFO | Teste FFmpeg concluido: opus
+2026-11-20 12:00:26,367 | INFO | Testando codificacao e decodificacao FFmpeg: lc3
+2026-11-20 12:00:26,380 | INFO | Teste FFmpeg concluido: lc3
+2026-11-20 12:00:26,380 | INFO | FFmpeg validado: 9.0.2 (/home/filipe/.local/ffmpeg-lc3/9.0.2/bin/ffmpeg)
+2026-11-20 12:00:26,380 | INFO | Verificando disponibilidade de GPU CUDA...
+2026-11-20 12:00:27,819 | INFO | GPU CUDA disponivel: sim; dispositivo selecionado: cuda; GPUs: 2
+2026-11-20 12:00:27,819 | INFO | GPU 0: NVIDIA GeForce RTX 5070 Ti; VRAM total: 15879 MiB
+2026-11-20 12:00:27,819 | INFO | GPU 1: NVIDIA GeForce RTX 3060; VRAM total: 11931 MiB
+2026-11-20 12:00:27,819 | INFO | Verificando GPUs visiveis para TensorFlow...
+2026-11-20 12:00:35,191 | INFO | GPUs visiveis para TensorFlow: 2
+2026-11-20 12:00:35,191 | INFO | Verificacao do ambiente concluida com sucesso.
+2026-11-20 12:07:59,389 | INFO | 
+========================================================================
+ENVIRONMENT
+[CMD]   /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/.venv/bin/python /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/src/codeco/main.py
+========================================================================
+2026-11-20 12:07:59,389 | INFO | 
+Registro da execucao
+------------------------------------------------------------------------
+2026-11-20 12:07:59,389 | INFO | Diretorio de logs encontrado: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/results/logs
+2026-11-20 12:07:59,389 | INFO | Log da verificacao de ambiente: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/results/logs/environment.log
+2026-11-20 12:07:59,389 | INFO | Iniciando verificacao do ambiente do projeto: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment
+2026-11-20 12:07:59,389 | INFO | 
+Ambiente virtual
+------------------------------------------------------------------------
+2026-11-20 12:07:59,389 | INFO | Verificando ambiente virtual: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/.venv
+2026-11-20 12:07:59,389 | INFO | Ambiente virtual ativo: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/.venv
+2026-11-20 12:07:59,389 | INFO | 
+Variaveis do pipeline
+------------------------------------------------------------------------
+2026-11-20 12:07:59,391 | INFO | PATH: configurado
+2026-11-20 12:07:59,391 | INFO | LD_LIBRARY_PATH: configurado
+2026-11-20 12:07:59,391 | INFO | TF_CPP_MIN_LOG_LEVEL: 3
+2026-11-20 12:07:59,391 | INFO | TFHUB_CACHE_DIR: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/cache/tensorflow_hub
+2026-11-20 12:07:59,391 | INFO | MPLCONFIGDIR: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/cache/matplotlib
+2026-11-20 12:07:59,391 | INFO | BIRDNET_APP_DATA: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/cache/birdnet
+2026-11-20 12:07:59,391 | INFO | BIRDNET_START_METHOD: spawn
+2026-11-20 12:07:59,391 | INFO | CUDA_VISIBLE_DEVICES: dinamico
+2026-11-20 12:07:59,391 | INFO | 
+Pacotes do ambiente
+------------------------------------------------------------------------
+2026-11-20 12:07:59,405 | INFO | uv 0.13.8 validado: /usr/bin/uv
+2026-11-20 12:07:59,405 | INFO | Sincronizando os pacotes fixados em uv.lock...
+2026-11-20 12:07:59,503 | INFO | Pacotes do ambiente sincronizados.
+2026-11-20 12:07:59,503 | INFO | 
+Dependencias do sistema
+------------------------------------------------------------------------
+2026-11-20 12:07:59,503 | INFO | Verificando a versao do Python...
+2026-11-20 12:07:59,504 | INFO | Python compativel: 3.12.16
+2026-11-20 12:07:59,504 | INFO | Verificando o sistema operacional...
+2026-11-20 12:07:59,504 | INFO | Sistema operacional suportado: Linux
+2026-11-20 12:07:59,504 | INFO | Verificando o uv 0.13.8 no PATH...
+2026-11-20 12:07:59,510 | INFO | uv validado: 0.13.8 (/usr/bin/uv)
+2026-11-20 12:07:59,510 | INFO | Procurando FFmpeg no PATH do sistema...
+2026-11-20 12:07:59,527 | INFO | Testando codificacao e decodificacao FFmpeg: flac
+2026-11-20 12:07:59,543 | INFO | Teste FFmpeg concluido: flac
+2026-11-20 12:07:59,544 | INFO | Testando codificacao e decodificacao FFmpeg: mp3
+2026-11-20 12:07:59,557 | INFO | Teste FFmpeg concluido: mp3
+2026-11-20 12:07:59,557 | INFO | Testando codificacao e decodificacao FFmpeg: m4a
+2026-11-20 12:07:59,575 | INFO | Teste FFmpeg concluido: m4a
+2026-11-20 12:07:59,575 | INFO | Testando codificacao e decodificacao FFmpeg: opus
+2026-11-20 12:07:59,590 | INFO | Teste FFmpeg concluido: opus
+2026-11-20 12:07:59,590 | INFO | Testando codificacao e decodificacao FFmpeg: lc3
+2026-11-20 12:07:59,603 | INFO | Teste FFmpeg concluido: lc3
+2026-11-20 12:07:59,603 | INFO | FFmpeg validado: 9.0.2 (/home/filipe/.local/ffmpeg-lc3/9.0.2/bin/ffmpeg)
+2026-11-20 12:07:59,603 | INFO | Verificando disponibilidade de GPU CUDA...
+2026-11-20 12:08:00,884 | INFO | GPU CUDA disponivel: sim; dispositivo selecionado: cuda; GPUs: 2
+2026-11-20 12:08:00,884 | INFO | GPU 0: NVIDIA GeForce RTX 5070 Ti; VRAM total: 15879 MiB
+2026-11-20 12:08:00,884 | INFO | GPU 1: NVIDIA GeForce RTX 3060; VRAM total: 11931 MiB
+2026-11-20 12:08:00,884 | INFO | Verificando GPUs visiveis para TensorFlow...
+2026-11-20 12:08:06,820 | INFO | GPUs visiveis para TensorFlow: 2
+2026-11-20 12:08:06,820 | INFO | Verificacao do ambiente concluida com sucesso.
+2026-11-20 12:26:50,817 | INFO | 
+========================================================================
+ENVIRONMENT
+[CMD]   /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/.venv/bin/python /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/src/codeco/main.py
+========================================================================
+2026-11-20 12:26:50,817 | INFO | 
+Registro da execucao
+------------------------------------------------------------------------
+2026-11-20 12:26:50,818 | INFO | Diretorio de logs encontrado: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/results/logs
+2026-11-20 12:26:50,818 | INFO | Log da verificacao de ambiente: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/results/logs/environment.log
+2026-11-20 12:26:50,818 | INFO | Iniciando verificacao do ambiente do projeto: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment
+2026-11-20 12:26:50,818 | INFO | 
+Ambiente virtual
+------------------------------------------------------------------------
+2026-11-20 12:26:50,818 | INFO | Verificando ambiente virtual: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/.venv
+2026-11-20 12:26:50,818 | INFO | Ambiente virtual ativo: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/.venv
+2026-11-20 12:26:50,818 | INFO | 
+Variaveis do pipeline
+------------------------------------------------------------------------
+2026-11-20 12:26:50,821 | INFO | PATH: configurado
+2026-11-20 12:26:50,821 | INFO | LD_LIBRARY_PATH: configurado
+2026-11-20 12:26:50,821 | INFO | TF_CPP_MIN_LOG_LEVEL: 3
+2026-11-20 12:26:50,821 | INFO | TFHUB_CACHE_DIR: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/cache/tensorflow_hub
+2026-11-20 12:26:50,821 | INFO | MPLCONFIGDIR: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/cache/matplotlib
+2026-11-20 12:26:50,821 | INFO | BIRDNET_APP_DATA: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/cache/birdnet
+2026-11-20 12:26:50,821 | INFO | BIRDNET_START_METHOD: spawn
+2026-11-20 12:26:50,821 | INFO | CUDA_VISIBLE_DEVICES: dinamico
+2026-11-20 12:26:50,821 | INFO | 
+Pacotes do ambiente
+------------------------------------------------------------------------
+2026-11-20 12:26:50,845 | INFO | uv 0.13.8 validado: /usr/bin/uv
+2026-11-20 12:26:50,845 | INFO | Sincronizando os pacotes fixados em uv.lock...
+2026-11-20 12:26:50,871 | INFO | Pacotes do ambiente sincronizados.
+2026-11-20 12:26:50,871 | INFO | 
+Dependencias do sistema
+------------------------------------------------------------------------
+2026-11-20 12:26:50,871 | INFO | Verificando a versao do Python...
+2026-11-20 12:26:50,872 | INFO | Python compativel: 3.12.16
+2026-11-20 12:26:50,872 | INFO | Verificando o sistema operacional...
+2026-11-20 12:26:50,872 | INFO | Sistema operacional suportado: Linux
+2026-11-20 12:26:50,872 | INFO | Verificando o uv 0.13.8 no PATH...
+2026-11-20 12:26:50,878 | INFO | uv validado: 0.13.8 (/usr/bin/uv)
+2026-11-20 12:26:50,878 | INFO | Procurando FFmpeg no PATH do sistema...
+2026-11-20 12:26:50,896 | INFO | Testando codificacao e decodificacao FFmpeg: flac
+2026-11-20 12:26:50,913 | INFO | Teste FFmpeg concluido: flac
+2026-11-20 12:26:50,913 | INFO | Testando codificacao e decodificacao FFmpeg: mp3
+2026-11-20 12:26:50,928 | INFO | Teste FFmpeg concluido: mp3
+2026-11-20 12:26:50,928 | INFO | Testando codificacao e decodificacao FFmpeg: m4a
+2026-11-20 12:26:50,945 | INFO | Teste FFmpeg concluido: m4a
+2026-11-20 12:26:50,945 | INFO | Testando codificacao e decodificacao FFmpeg: opus
+2026-11-20 12:26:50,959 | INFO | Teste FFmpeg concluido: opus
+2026-11-20 12:26:50,959 | INFO | Testando codificacao e decodificacao FFmpeg: lc3
+2026-11-20 12:26:50,971 | INFO | Teste FFmpeg concluido: lc3
+2026-11-20 12:26:50,971 | INFO | FFmpeg validado: 9.0.2 (/home/filipe/.local/ffmpeg-lc3/9.0.2/bin/ffmpeg)
+2026-11-20 12:26:50,971 | INFO | Verificando disponibilidade de GPU CUDA...
+2026-11-20 12:26:52,168 | INFO | GPU CUDA disponivel: sim; dispositivo selecionado: cuda; GPUs: 2
+2026-11-20 12:26:52,168 | INFO | GPU 0: NVIDIA GeForce RTX 5070 Ti; VRAM total: 15879 MiB
+2026-11-20 12:26:52,168 | INFO | GPU 1: NVIDIA GeForce RTX 3060; VRAM total: 11931 MiB
+2026-11-20 12:26:52,168 | INFO | Verificando GPUs visiveis para TensorFlow...
+2026-11-20 12:26:55,311 | INFO | GPUs visiveis para TensorFlow: 2
+2026-11-20 12:26:55,311 | INFO | Verificacao do ambiente concluida com sucesso.
+2026-11-20 12:30:10,506 | INFO | 
+========================================================================
+ENVIRONMENT
+[CMD]   /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/.venv/bin/python /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/-
+========================================================================
+2026-11-20 12:30:10,506 | INFO | 
+Registro da execucao
+------------------------------------------------------------------------
+2026-11-20 12:30:10,506 | INFO | Diretorio de logs encontrado: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/results/logs
+2026-11-20 12:30:10,506 | INFO | Log da verificacao de ambiente: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/results/logs/environment.log
+2026-11-20 12:30:10,506 | INFO | Iniciando verificacao do ambiente do projeto: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment
+2026-11-20 12:30:10,506 | INFO | 
+Ambiente virtual
+------------------------------------------------------------------------
+2026-11-20 12:30:10,506 | INFO | Verificando ambiente virtual: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/.venv
+2026-11-20 12:30:10,506 | INFO | Ambiente virtual ativo: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/.venv
+2026-11-20 12:30:10,506 | INFO | 
+Variaveis do pipeline
+------------------------------------------------------------------------
+2026-11-20 12:30:10,508 | INFO | PATH: configurado
+2026-11-20 12:30:10,508 | INFO | LD_LIBRARY_PATH: configurado
+2026-11-20 12:30:10,508 | INFO | TF_CPP_MIN_LOG_LEVEL: 3
+2026-11-20 12:30:10,508 | INFO | TFHUB_CACHE_DIR: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/cache/tensorflow_hub
+2026-11-20 12:30:10,508 | INFO | MPLCONFIGDIR: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/cache/matplotlib
+2026-11-20 12:30:10,508 | INFO | BIRDNET_APP_DATA: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/cache/birdnet
+2026-11-20 12:30:10,508 | INFO | BIRDNET_START_METHOD: spawn
+2026-11-20 12:30:10,508 | INFO | CUDA_VISIBLE_DEVICES: dinamico
+2026-11-20 12:30:10,508 | INFO | 
+Pacotes do ambiente
+------------------------------------------------------------------------
+2026-11-20 12:30:10,514 | INFO | uv 0.13.8 validado: /usr/bin/uv
+2026-11-20 12:30:10,514 | INFO | Sincronizando os pacotes fixados em uv.lock...
+2026-11-20 12:30:47,200 | INFO | 
+========================================================================
+ENVIRONMENT
+[CMD]   /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/.venv/bin/python /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/src/codeco/main.py
+========================================================================
+2026-11-20 12:30:47,200 | INFO | 
+Registro da execucao
+------------------------------------------------------------------------
+2026-11-20 12:30:47,200 | INFO | Diretorio de logs encontrado: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/results/logs
+2026-11-20 12:30:47,200 | INFO | Log da verificacao de ambiente: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/results/logs/environment.log
+2026-11-20 12:30:47,200 | INFO | Iniciando verificacao do ambiente do projeto: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment
+2026-11-20 12:30:47,200 | INFO | 
+Ambiente virtual
+------------------------------------------------------------------------
+2026-11-20 12:30:47,200 | INFO | Verificando ambiente virtual: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/.venv
+2026-11-20 12:30:47,200 | INFO | Ambiente virtual ativo: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/.venv
+2026-11-20 12:30:47,200 | INFO | 
+Variaveis do pipeline
+------------------------------------------------------------------------
+2026-11-20 12:30:47,202 | INFO | PATH: configurado
+2026-11-20 12:30:47,202 | INFO | LD_LIBRARY_PATH: configurado
+2026-11-20 12:30:47,202 | INFO | TF_CPP_MIN_LOG_LEVEL: 3
+2026-11-20 12:30:47,202 | INFO | TFHUB_CACHE_DIR: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/cache/tensorflow_hub
+2026-11-20 12:30:47,202 | INFO | MPLCONFIGDIR: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/cache/matplotlib
+2026-11-20 12:30:47,202 | INFO | BIRDNET_APP_DATA: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/cache/birdnet
+2026-11-20 12:30:47,202 | INFO | BIRDNET_START_METHOD: spawn
+2026-11-20 12:30:47,202 | INFO | CUDA_VISIBLE_DEVICES: dinamico
+2026-11-20 12:30:47,202 | INFO | 
+Pacotes do ambiente
+------------------------------------------------------------------------
+2026-11-20 12:30:47,208 | INFO | uv 0.13.8 validado: /usr/bin/uv
+2026-11-20 12:30:47,208 | INFO | Sincronizando os pacotes fixados em uv.lock...
+2026-11-20 12:30:47,222 | INFO | Pacotes do ambiente sincronizados.
+2026-11-20 12:30:47,222 | INFO | 
+Dependencias do sistema
+------------------------------------------------------------------------
+2026-11-20 12:30:47,222 | INFO | Verificando a versao do Python...
+2026-11-20 12:30:47,222 | INFO | Python compativel: 3.12.16
+2026-11-20 12:30:47,222 | INFO | Verificando o sistema operacional...
+2026-11-20 12:30:47,222 | INFO | Sistema operacional suportado: Linux
+2026-11-20 12:30:47,223 | INFO | Verificando o uv 0.13.8 no PATH...
+2026-11-20 12:30:47,228 | INFO | uv validado: 0.13.8 (/usr/bin/uv)
+2026-11-20 12:30:47,228 | INFO | Procurando FFmpeg no PATH do sistema...
+2026-11-20 12:30:47,246 | INFO | Testando codificacao e decodificacao FFmpeg: flac
+2026-11-20 12:30:47,261 | INFO | Teste FFmpeg concluido: flac
+2026-11-20 12:30:47,261 | INFO | Testando codificacao e decodificacao FFmpeg: mp3
+2026-11-20 12:30:47,276 | INFO | Teste FFmpeg concluido: mp3
+2026-11-20 12:30:47,276 | INFO | Testando codificacao e decodificacao FFmpeg: m4a
+2026-11-20 12:30:47,294 | INFO | Teste FFmpeg concluido: m4a
+2026-11-20 12:30:47,294 | INFO | Testando codificacao e decodificacao FFmpeg: opus
+2026-11-20 12:30:47,307 | INFO | Teste FFmpeg concluido: opus
+2026-11-20 12:30:47,307 | INFO | Testando codificacao e decodificacao FFmpeg: lc3
+2026-11-20 12:30:47,319 | INFO | Teste FFmpeg concluido: lc3
+2026-11-20 12:30:47,319 | INFO | FFmpeg validado: 9.0.2 (/home/filipe/.local/ffmpeg-lc3/9.0.2/bin/ffmpeg)
+2026-11-20 12:30:47,319 | INFO | Verificando disponibilidade de GPU CUDA...
+2026-11-20 12:30:48,531 | INFO | GPU CUDA disponivel: sim; dispositivo selecionado: cuda; GPUs: 2
+2026-11-20 12:30:48,531 | INFO | GPU 0: NVIDIA GeForce RTX 5070 Ti; VRAM total: 15879 MiB
+2026-11-20 12:30:48,531 | INFO | GPU 1: NVIDIA GeForce RTX 3060; VRAM total: 11931 MiB
+2026-11-20 12:30:48,531 | INFO | Verificando GPUs visiveis para TensorFlow...
+2026-11-20 12:30:51,425 | INFO | GPUs visiveis para TensorFlow: 2
+2026-11-20 12:30:51,425 | INFO | Verificacao do ambiente concluida com sucesso.
+2026-11-20 15:09:26,597 | INFO | 
+========================================================================
+ENVIRONMENT
+[CMD]   /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/.venv/bin/python /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/src/codeco/main.py
+========================================================================
+2026-11-20 15:09:26,597 | INFO | 
+Registro da execucao
+------------------------------------------------------------------------
+2026-11-20 15:09:26,597 | INFO | Diretorio de logs encontrado: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/results/logs
+2026-11-20 15:09:26,597 | INFO | Log da verificacao de ambiente: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/results/logs/environment.log
+2026-11-20 15:09:26,597 | INFO | Iniciando verificacao do ambiente do projeto: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment
+2026-11-20 15:09:26,597 | INFO | 
+Ambiente virtual
+------------------------------------------------------------------------
+2026-11-20 15:09:26,597 | INFO | Verificando ambiente virtual: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/.venv
+2026-11-20 15:09:26,598 | INFO | Ambiente virtual ativo: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/.venv
+2026-11-20 15:09:26,598 | INFO | 
+Variaveis do pipeline
+------------------------------------------------------------------------
+2026-11-20 15:09:26,601 | INFO | PATH: configurado
+2026-11-20 15:09:26,602 | INFO | LD_LIBRARY_PATH: configurado
+2026-11-20 15:09:26,602 | INFO | TF_CPP_MIN_LOG_LEVEL: 3
+2026-11-20 15:09:26,602 | INFO | TFHUB_CACHE_DIR: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/models/tensorflow_hub
+2026-11-20 15:09:26,602 | INFO | MPLCONFIGDIR: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/cache/matplotlib
+2026-11-20 15:09:26,602 | INFO | BIRDNET_APP_DATA: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/models/birdnet
+2026-11-20 15:09:26,602 | INFO | HF_HOME: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/models/huggingface
+2026-11-20 15:09:26,602 | INFO | HF_HUB_CACHE: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/models/huggingface/hub
+2026-11-20 15:09:26,602 | INFO | BIRDNET_START_METHOD: spawn
+2026-11-20 15:09:26,602 | INFO | CUDA_VISIBLE_DEVICES: dinamico
+2026-11-20 15:09:26,602 | INFO | 
+Pacotes do ambiente
+------------------------------------------------------------------------
+2026-11-20 15:09:26,633 | INFO | uv 0.13.8 validado: /usr/bin/uv
+2026-11-20 15:09:26,633 | INFO | Sincronizando os pacotes fixados em uv.lock...
+2026-11-20 15:09:26,752 | INFO | Pacotes do ambiente sincronizados.
+2026-11-20 15:09:26,752 | INFO | 
+Dependencias do sistema
+------------------------------------------------------------------------
+2026-11-20 15:09:26,752 | INFO | Verificando a versao do Python...
+2026-11-20 15:09:26,753 | INFO | Python compativel: 3.12.16
+2026-11-20 15:09:26,753 | INFO | Verificando o sistema operacional...
+2026-11-20 15:09:26,753 | INFO | Sistema operacional suportado: Linux
+2026-11-20 15:09:26,753 | INFO | Verificando o uv 0.13.8 no PATH...
+2026-11-20 15:09:26,759 | INFO | uv validado: 0.13.8 (/usr/bin/uv)
+2026-11-20 15:09:26,759 | INFO | Procurando FFmpeg no PATH do sistema...
+2026-11-20 15:09:26,793 | INFO | Testando codificacao e decodificacao FFmpeg: flac
+2026-11-20 15:09:26,821 | INFO | Teste FFmpeg concluido: flac
+2026-11-20 15:09:26,821 | INFO | Testando codificacao e decodificacao FFmpeg: mp3
+2026-11-20 15:09:26,838 | INFO | Teste FFmpeg concluido: mp3
+2026-11-20 15:09:26,838 | INFO | Testando codificacao e decodificacao FFmpeg: m4a
+2026-11-20 15:09:26,859 | INFO | Teste FFmpeg concluido: m4a
+2026-11-20 15:09:26,860 | INFO | Testando codificacao e decodificacao FFmpeg: opus
+2026-11-20 15:09:26,877 | INFO | Teste FFmpeg concluido: opus
+2026-11-20 15:09:26,877 | INFO | Testando codificacao e decodificacao FFmpeg: lc3
+2026-11-20 15:09:26,890 | INFO | Teste FFmpeg concluido: lc3
+2026-11-20 15:09:26,890 | INFO | FFmpeg validado: 9.0.2 (/home/filipe/.local/ffmpeg-lc3/9.0.2/bin/ffmpeg)
+2026-11-20 15:09:26,890 | INFO | Verificando disponibilidade de GPU CUDA...
+2026-11-20 15:09:28,656 | INFO | GPU CUDA disponivel: sim; dispositivo selecionado: cuda; GPUs: 2
+2026-11-20 15:09:28,656 | INFO | GPU 0: NVIDIA GeForce RTX 5070 Ti; VRAM total: 15879 MiB
+2026-11-20 15:09:28,656 | INFO | GPU 1: NVIDIA GeForce RTX 3060; VRAM total: 11931 MiB
+2026-11-20 15:09:28,656 | INFO | Verificando GPUs visiveis para TensorFlow...
+2026-11-20 15:09:34,924 | INFO | GPUs visiveis para TensorFlow: 2
+2026-11-20 15:09:34,924 | INFO | Verificacao do ambiente concluida com sucesso.
+2026-11-20 18:37:06,483 | INFO | 
+========================================================================
+ENVIRONMENT
+[CMD]   /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/.venv/bin/python /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/src/codeco/main.py
+========================================================================
+2026-11-20 18:37:06,484 | INFO | 
+Registro da execucao
+------------------------------------------------------------------------
+2026-11-20 18:37:06,484 | INFO | Diretorio de logs encontrado: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/results/logs
+2026-11-20 18:37:06,484 | INFO | Log da verificacao de ambiente: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/results/logs/environment.log
+2026-11-20 18:37:06,484 | INFO | Iniciando verificacao do ambiente do projeto: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment
+2026-11-20 18:37:06,484 | INFO | 
+Ambiente virtual
+------------------------------------------------------------------------
+2026-11-20 18:37:06,484 | INFO | Verificando ambiente virtual: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/.venv
+2026-11-20 18:37:06,484 | INFO | Ambiente virtual ativo: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/.venv
+2026-11-20 18:37:06,484 | INFO | 
+Variaveis do pipeline
+------------------------------------------------------------------------
+2026-11-20 18:37:06,485 | INFO | PATH: configurado
+2026-11-20 18:37:06,485 | INFO | LD_LIBRARY_PATH: configurado
+2026-11-20 18:37:06,485 | INFO | TF_CPP_MIN_LOG_LEVEL: 3
+2026-11-20 18:37:06,486 | INFO | TFHUB_CACHE_DIR: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/models/tensorflow_hub
+2026-11-20 18:37:06,486 | INFO | MPLCONFIGDIR: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/cache/matplotlib
+2026-11-20 18:37:06,486 | INFO | BIRDNET_APP_DATA: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/models/birdnet
+2026-11-20 18:37:06,486 | INFO | HF_HOME: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/models/huggingface
+2026-11-20 18:37:06,486 | INFO | HF_HUB_CACHE: /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/models/huggingface/hub
+2026-11-20 18:37:06,486 | INFO | BIRDNET_START_METHOD: spawn
+2026-11-20 18:37:06,486 | INFO | CUDA_VISIBLE_DEVICES: dinamico
+2026-11-20 18:37:06,486 | INFO | 
+Pacotes do ambiente
+------------------------------------------------------------------------
+2026-11-20 18:37:06,515 | INFO | uv 0.13.8 validado: /usr/bin/uv
+2026-11-20 18:37:06,515 | INFO | Sincronizando os pacotes fixados em uv.lock...
+2026-11-20 18:37:06,626 | INFO | Pacotes do ambiente sincronizados.
+2026-11-20 18:37:06,627 | INFO | 
+Dependencias do sistema
+------------------------------------------------------------------------
+2026-11-20 18:37:06,627 | INFO | Verificando a versao do Python...
+2026-11-20 18:37:06,627 | INFO | Python compativel: 3.12.16
+2026-11-20 18:37:06,627 | INFO | Verificando o sistema operacional...
+2026-11-20 18:37:06,627 | INFO | Sistema operacional suportado: Linux
+2026-11-20 18:37:06,627 | INFO | Verificando o uv 0.13.8 no PATH...
+2026-11-20 18:37:06,633 | INFO | uv validado: 0.13.8 (/usr/bin/uv)
+2026-11-20 18:37:06,633 | INFO | Procurando FFmpeg no PATH do sistema...
+2026-11-20 18:37:06,650 | INFO | Testando codificacao e decodificacao FFmpeg: flac
+2026-11-20 18:37:06,666 | INFO | Teste FFmpeg concluido: flac
+2026-11-20 18:37:06,666 | INFO | Testando codificacao e decodificacao FFmpeg: mp3
+2026-11-20 18:37:06,681 | INFO | Teste FFmpeg concluido: mp3
+2026-11-20 18:37:06,681 | INFO | Testando codificacao e decodificacao FFmpeg: m4a
+2026-11-20 18:37:06,698 | INFO | Teste FFmpeg concluido: m4a
+2026-11-20 18:37:06,698 | INFO | Testando codificacao e decodificacao FFmpeg: opus
+2026-11-20 18:37:06,712 | INFO | Teste FFmpeg concluido: opus
+2026-11-20 18:37:06,712 | INFO | Testando codificacao e decodificacao FFmpeg: lc3
+2026-11-20 18:37:06,724 | INFO | Teste FFmpeg concluido: lc3
+2026-11-20 18:37:06,724 | INFO | FFmpeg validado: 9.0.2 (/home/filipe/.local/ffmpeg-lc3/9.0.2/bin/ffmpeg)
+2026-11-20 18:37:06,724 | INFO | Verificando disponibilidade de GPU CUDA...
+2026-11-20 18:37:07,930 | INFO | GPU CUDA disponivel: sim; dispositivo selecionado: cuda; GPUs: 2
+2026-11-20 18:37:07,931 | INFO | GPU 0: NVIDIA GeForce RTX 5070 Ti; VRAM total: 15879 MiB
+2026-11-20 18:37:07,931 | INFO | GPU 1: NVIDIA GeForce RTX 3060; VRAM total: 11931 MiB
+2026-11-20 18:37:07,931 | INFO | Verificando GPUs visiveis para TensorFlow...
+2026-11-20 18:37:10,893 | INFO | GPUs visiveis para TensorFlow: 2
+2026-11-20 18:37:10,893 | INFO | Verificacao do ambiente concluida com sucesso.

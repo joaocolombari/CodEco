@@ -1,0 +1,14 @@
+prefix=/home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/.tools/ffmpeg-lc3/9.0.2
+exec_prefix=${prefix}
+libdir=/home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/.tools/ffmpeg-lc3/9.0.2/lib
+includedir=/home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/.tools/ffmpeg-lc3/9.0.2/include
+
+Name: libavfilter
+Description: FFmpeg audio/video filtering library
+Version: 12.1.102
+Requires: libswscale >= 10.1.102, libavformat >= 63.1.102, libavcodec >= 63.1.102, libswresample >= 7.1.102, libavutil >= 61.1.102
+Requires.private: 
+Conflicts:
+Libs: -L${libdir}  -lavfilter -pthread -lm -latomic -lz -lva
+Libs.private: 
+Cflags: -I${includedir}
