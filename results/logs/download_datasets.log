@@ -378,3 +378,129 @@ Espaco para a baseline PCM
 2026-11-20 18:37:12,090 | INFO | Cache PCM completo; reserva adicional dispensada: 25322 clipes PCM validados.
 2026-11-20 18:37:12,090 | INFO | Etapa de download dos datasets concluida.
 2026-11-20 18:37:12,090 | INFO | Estado final: DownloadState(datasets=('ecosoundset', 'pteroset_ppa1'), manifest=PosixPath('/home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/config/manifests.parquet'), downloads_directory=PosixPath('/home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/downloads'), datasets_directory=PosixPath('/home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/data/datasets'), processes=8, downloaded_archives=0, reused_archives=0, downloaded_parts=0, reused_parts=0, extracted_files=0, reused_datasets=('ecosoundset', 'pteroset_ppa1'), removed_archives=0, removed_part_directories=0, downloads_directory_removed=True)
+2026-11-20 19:22:40,621 | INFO | 
+========================================================================
+DOWNLOAD DATASETS
+[CMD]   /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/.venv/bin/python /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/src/codeco/main.py
+========================================================================
+2026-11-20 19:22:40,621 | INFO | 
+Registro da execucao
+------------------------------------------------------------------------
+2026-11-20 19:22:40,621 | INFO | Diretorio de logs encontrado: /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/results/logs
+2026-11-20 19:22:40,621 | INFO | Log do download: /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/results/logs/download_datasets.log
+2026-11-20 19:22:40,622 | INFO | Iniciando etapa de download dos datasets: ecosoundset, pteroset_ppa1
+2026-11-20 19:22:40,622 | INFO | Downloads serao preservados durante a retomada e removidos somente apos a extracao validada.
+2026-11-20 19:22:40,622 | INFO | 
+Diretorios do download
+------------------------------------------------------------------------
+2026-11-20 19:22:40,622 | INFO | Verificando os diretorios usados pelo download...
+2026-11-20 19:22:40,622 | INFO | Diretorio encontrado: /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/data/datasets
+2026-11-20 19:22:40,622 | INFO | Criando diretorio: /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/data/downloads
+2026-11-20 19:22:40,622 | INFO | 
+Manifesto dos datasets
+------------------------------------------------------------------------
+2026-11-20 19:22:40,622 | INFO | Lendo manifesto: /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/config/manifests.parquet
+2026-11-20 19:22:41,230 | INFO | Manifesto carregado: 15208 registros.
+2026-11-20 19:22:41,231 | INFO | 
+Espaco em disco
+------------------------------------------------------------------------
+2026-11-20 19:22:41,231 | INFO | Verificando espaco livre e progresso ja armazenado...
+2026-11-20 19:22:41,463 | INFO | Progresso armazenado: 55.0 GiB.
+2026-11-20 19:22:41,463 | INFO | Espaco adicional necessario: 0.0 GiB; disponivel: 89.3 GiB.
+2026-11-20 19:22:41,464 | INFO | Nucleos fisicos detectados; processos de download: 8
+2026-11-20 19:22:41,464 | INFO | 
+Datasets, arquivos locais e checkpoints
+------------------------------------------------------------------------
+2026-11-20 19:22:41,464 | INFO | Verificando datasets, arquivos locais e checkpoints...
+2026-11-20 19:22:41,464 | INFO | Verificando dataset: ecosoundset
+2026-11-20 19:22:41,685 | INFO | Dataset ja esta completo: ecosoundset (15097 arquivos) em /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/data/datasets
+2026-11-20 19:22:41,688 | INFO | Verificando dataset: pteroset_ppa1
+2026-11-20 19:22:41,690 | INFO | Dataset ja esta completo: pteroset_ppa1 (108 arquivos) em /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/data/datasets
+2026-11-20 19:22:41,691 | INFO | 
+Downloads pendentes
+------------------------------------------------------------------------
+2026-11-20 19:22:41,691 | INFO | Executando os downloads pendentes...
+2026-11-20 19:22:41,691 | INFO | Nenhum byte precisa ser baixado; arquivos locais serao reutilizados.
+2026-11-20 19:22:41,691 | INFO | 
+Montagem e validacao dos arquivos
+------------------------------------------------------------------------
+2026-11-20 19:22:41,691 | INFO | Montando e validando os arquivos baixados...
+2026-11-20 19:22:41,691 | INFO | 
+Extracao dos datasets
+------------------------------------------------------------------------
+2026-11-20 19:22:41,691 | INFO | Extraindo os datasets...
+2026-11-20 19:22:41,691 | INFO | Nenhum arquivo precisa ser extraido.
+2026-11-20 19:22:41,691 | INFO | 
+Verificacao final
+------------------------------------------------------------------------
+2026-11-20 19:22:41,691 | INFO | Verificando os datasets finalizados...
+2026-11-20 19:22:41,691 | INFO | Diretorio de downloads vazio removido: /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/data/downloads
+2026-11-20 19:22:41,698 | INFO | 
+Espaco para a baseline PCM
+------------------------------------------------------------------------
+2026-11-20 19:22:41,698 | INFO | Cache PCM completo; reserva adicional dispensada: 25322 clipes PCM validados.
+2026-11-20 19:22:41,698 | INFO | Etapa de download dos datasets concluida.
+2026-11-20 19:22:41,698 | INFO | Estado final: DownloadState(datasets=('ecosoundset', 'pteroset_ppa1'), manifest=PosixPath('/home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/config/manifests.parquet'), downloads_directory=PosixPath('/home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/data/downloads'), datasets_directory=PosixPath('/home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/data/datasets'), processes=8, downloaded_archives=0, reused_archives=0, downloaded_parts=0, reused_parts=0, extracted_files=0, reused_datasets=('ecosoundset', 'pteroset_ppa1'), removed_archives=0, removed_part_directories=0, downloads_directory_removed=True)
+2026-11-20 19:45:32,616 | INFO | 
+========================================================================
+DOWNLOAD DATASETS
+[CMD]   /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/.venv/bin/python /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/src/codeco/main.py
+========================================================================
+2026-11-20 19:45:32,617 | INFO | 
+Registro da execucao
+------------------------------------------------------------------------
+2026-11-20 19:45:32,617 | INFO | Diretorio de logs encontrado: /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/results/logs
+2026-11-20 19:45:32,617 | INFO | Log do download: /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/results/logs/download_datasets.log
+2026-11-20 19:45:32,617 | INFO | Iniciando etapa de download dos datasets: ecosoundset, pteroset_ppa1
+2026-11-20 19:45:32,617 | INFO | Downloads serao preservados durante a retomada e removidos somente apos a extracao validada.
+2026-11-20 19:45:32,617 | INFO | 
+Diretorios do download
+------------------------------------------------------------------------
+2026-11-20 19:45:32,617 | INFO | Verificando os diretorios usados pelo download...
+2026-11-20 19:45:32,617 | INFO | Diretorio encontrado: /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/data/datasets
+2026-11-20 19:45:32,617 | INFO | Criando diretorio: /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/data/downloads
+2026-11-20 19:45:32,617 | INFO | 
+Manifesto dos datasets
+------------------------------------------------------------------------
+2026-11-20 19:45:32,618 | INFO | Lendo manifesto: /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/config/manifests.parquet
+2026-11-20 19:45:33,236 | INFO | Manifesto carregado: 15208 registros.
+2026-11-20 19:45:33,237 | INFO | 
+Espaco em disco
+------------------------------------------------------------------------
+2026-11-20 19:45:33,237 | INFO | Verificando espaco livre e progresso ja armazenado...
+2026-11-20 19:45:33,462 | INFO | Progresso armazenado: 55.0 GiB.
+2026-11-20 19:45:33,462 | INFO | Espaco adicional necessario: 0.0 GiB; disponivel: 88.9 GiB.
+2026-11-20 19:45:33,463 | INFO | Nucleos fisicos detectados; processos de download: 8
+2026-11-20 19:45:33,463 | INFO | 
+Datasets, arquivos locais e checkpoints
+------------------------------------------------------------------------
+2026-11-20 19:45:33,463 | INFO | Verificando datasets, arquivos locais e checkpoints...
+2026-11-20 19:45:33,463 | INFO | Verificando dataset: ecosoundset
+2026-11-20 19:45:33,681 | INFO | Dataset ja esta completo: ecosoundset (15097 arquivos) em /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/data/datasets
+2026-11-20 19:45:33,684 | INFO | Verificando dataset: pteroset_ppa1
+2026-11-20 19:45:33,686 | INFO | Dataset ja esta completo: pteroset_ppa1 (108 arquivos) em /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/data/datasets
+2026-11-20 19:45:33,687 | INFO | 
+Downloads pendentes
+------------------------------------------------------------------------
+2026-11-20 19:45:33,687 | INFO | Executando os downloads pendentes...
+2026-11-20 19:45:33,687 | INFO | Nenhum byte precisa ser baixado; arquivos locais serao reutilizados.
+2026-11-20 19:45:33,687 | INFO | 
+Montagem e validacao dos arquivos
+------------------------------------------------------------------------
+2026-11-20 19:45:33,687 | INFO | Montando e validando os arquivos baixados...
+2026-11-20 19:45:33,687 | INFO | 
+Extracao dos datasets
+------------------------------------------------------------------------
+2026-11-20 19:45:33,687 | INFO | Extraindo os datasets...
+2026-11-20 19:45:33,687 | INFO | Nenhum arquivo precisa ser extraido.
+2026-11-20 19:45:33,687 | INFO | 
+Verificacao final
+------------------------------------------------------------------------
+2026-11-20 19:45:33,687 | INFO | Verificando os datasets finalizados...
+2026-11-20 19:45:33,687 | INFO | Diretorio de downloads vazio removido: /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/data/downloads
+2026-11-20 19:45:33,693 | INFO | 
+Espaco para a baseline PCM
+------------------------------------------------------------------------
+2026-11-20 19:45:33,693 | INFO | Cache PCM completo; reserva adicional dispensada: 25322 clipes PCM validados.
+2026-11-20 19:45:33,693 | INFO | Etapa de download dos datasets concluida.
+2026-11-20 19:45:33,693 | INFO | Estado final: DownloadState(datasets=('ecosoundset', 'pteroset_ppa1'), manifest=PosixPath('/home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/config/manifests.parquet'), downloads_directory=PosixPath('/home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/data/downloads'), datasets_directory=PosixPath('/home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/data/datasets'), processes=8, downloaded_archives=0, reused_archives=0, downloaded_parts=0, reused_parts=0, extracted_files=0, reused_datasets=('ecosoundset', 'pteroset_ppa1'), removed_archives=0, removed_part_directories=0, downloads_directory_removed=True)

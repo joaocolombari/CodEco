@@ -91,6 +91,9 @@ def _write_csv(table: pd.DataFrame, output: Path) -> None:
 
 def _sources(index: Path, dataset: str, limit: int | None):
     table = pd.read_csv(index)
+    paths = CodecoPath.discover()
+    for column in ("clips_file", "embeddings_file"):
+        table[column] = table[column].map(lambda value: str(paths.project_path(value)))
     table = table.loc[
         (table["dataset"] == dataset) & (table["foundation_model"] == "birdnet")
     ]

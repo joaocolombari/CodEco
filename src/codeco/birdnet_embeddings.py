@@ -1312,20 +1312,29 @@ def run(
         if sample_row["pcm_file"] is None
         else load_pcm_clip(str(sample_row["pcm_file"]), int(sample_row["pcm_row"]))
     )
+    selection = clips[
+        [
+            "dataset",
+            "clip_id",
+            "path",
+            "start",
+            "split",
+            "pcm_file",
+            "pcm_row",
+        ]
+    ].copy()
+    selection["path"] = selection["path"].map(paths.project_relative)
+    selection["pcm_file"] = selection["pcm_file"].map(
+        lambda value: (
+            None
+            if value is None or pd.isna(value)
+            else paths.project_relative(value)
+        )
+    )
     metadata = {
         "implementation_version": IMPLEMENTATION_VERSION,
         "manifest_sha256": selected_baseline.manifest_sha256,
-        "selection": clips[
-            [
-                "dataset",
-                "clip_id",
-                "path",
-                "start",
-                "split",
-                "pcm_file",
-                "pcm_row",
-            ]
-        ].to_dict("records"),
+        "selection": selection.to_dict("records"),
         "conditions": [asdict(condition) for condition in selected_conditions],
         "model_version": MODEL_VERSION,
         "seed": seed,
@@ -1452,6 +1461,7 @@ def run(
                 "source_group_id",
             ]
             clip_index = dataset_clips[clip_columns].copy()
+            clip_index["path"] = clip_index["path"].map(paths.project_relative)
             clip_index.insert(0, "row_index", np.arange(len(clip_index), dtype=np.int64))
             _write_index_parquet(clip_index, clips_file)
             dataset_tables[str(dataset)] = dataset_clips
@@ -1533,8 +1543,8 @@ def run(
                         "seconds": condition_seconds,
                         "embeddings_per_second": processed / max(condition_seconds, 1e-12),
                         "embedding_dimension": EMBEDDING_DIMENSION,
-                        "clips_file": str(clips_files[dataset]),
-                        "embeddings_file": str(embedding_file),
+                        "clips_file": paths.project_relative(clips_files[dataset]),
+                        "embeddings_file": paths.project_relative(embedding_file),
                     }
                 )
                 _write_index_csv(records, output)

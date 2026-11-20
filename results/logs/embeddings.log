@@ -252,3 +252,109 @@ Perch concluido: 36 configuracoes | /home/filipe/Documentos/Mestrado/SeriesTempo
 2026-11-20 18:38:10,213 | INFO | Worker 0 | GPU 0 | batch 64->64 | tarefas=0 | pico VRAM=2206 MiB
 2026-11-20 18:38:10,213 | INFO | Worker 1 | GPU 1 | batch 128->128 | tarefas=0 | pico VRAM=1465 MiB
 2026-11-20 18:38:10,213 | INFO | Tempo total Perch: 1.78 s
+2026-11-20 19:46:33,617 | INFO | Resolvendo modelo Perch: https://www.kaggle.com/models/google/bird-vocalization-classifier/TensorFlow2/perch_v2/2
+2026-11-20 19:46:42,787 | INFO | Log: /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/results/logs/embeddings.log
+2026-11-20 19:46:42,787 | INFO | Checkpoint: /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/data/cache/checkpoints.sqlite3
+2026-11-20 19:46:42,787 | INFO | Indice CSV: /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/results/tables/perch_embeddings.csv
+2026-11-20 19:46:42,787 | INFO | Modelo: Google Perch v2 | TFHub
+2026-11-20 19:46:42,787 | INFO | Entrada: 5 s | 32 kHz | padding simetrico de 0,5 s
+2026-11-20 19:46:42,787 | INFO | FFmpeg: 9.0.2
+2026-11-20 19:46:42,788 | INFO | Nucleos fisicos: 8
+2026-11-20 19:46:42,788 | INFO | Selecao: corpus completo congelado; nenhuma amostragem aplicada.
+2026-11-20 19:46:42,788 | INFO | GPUs TensorFlow: 2; microbatch=32; maximo=512
+2026-11-20 19:46:42,791 | INFO | Calibracao: ate 7477 clipes/worker; teto util de batch=512.
+2026-11-20 19:46:42,791 | INFO | Calibracao reutilizada: GPU 0 | batch=64 | ganho de throughput inferior a 5%
+2026-11-20 19:46:42,792 | INFO | Calibracao reutilizada: GPU 1 | batch=128 | batch rejeitado por InternalError
+2026-11-20 19:46:43,221 | INFO | 
+Inicializacao dos workers Perch
+2026-11-20 19:46:43,221 | INFO | ------------------------------------------------------------------------
+2026-11-20 19:46:43,221 | INFO | Progresso: 0/2 workers prontos. O processamento dos clipes comeca apos o carregamento dos modelos limpos.
+2026-11-20 19:46:43,221 | INFO | Worker 0 | GPU 0 | inicializando TensorFlow e TFHub...
+2026-11-20 19:46:43,222 | INFO | Worker 1 | GPU 1 | inicializando TensorFlow e TFHub...
+2026-11-20 19:46:45,766 | INFO | Worker 0 | GPU 0 | carregando o modelo Perch...
+2026-11-20 19:46:45,975 | INFO | Worker 1 | GPU 1 | carregando o modelo Perch...
+2026-11-20 19:46:47,414 | INFO | Worker 0 | GPU 0 | modelo carregado em 1.78 s.
+2026-11-20 19:46:47,415 | INFO | Worker 0 | GPU 0 | validando a inferencia e a saida...
+2026-11-20 19:46:47,760 | INFO | Worker 1 | GPU 1 | modelo carregado em 1.92 s.
+2026-11-20 19:46:47,760 | INFO | Worker 1 | GPU 1 | validando a inferencia e a saida...
+2026-11-20 19:46:59,497 | INFO | Worker 0 | GPU 0 | inferencia validada em 12.08 s; dimensao=1536.
+2026-11-20 19:46:59,497 | INFO | Progresso: 1/2 workers prontos | Worker 0: GPU 0; batch=64; dimensao=1536; ajuste=configuracao calibrada
+2026-11-20 19:46:59,636 | INFO | Worker 1 | GPU 1 | inferencia validada em 11.88 s; dimensao=1536.
+2026-11-20 19:46:59,636 | INFO | Progresso: 2/2 workers prontos | Worker 1: GPU 1; batch=128; dimensao=1536; ajuste=configuracao calibrada
+2026-11-20 19:47:02,648 | INFO | 
+Configuracao 1/18: BASELINE | orig
+2026-11-20 19:47:02,657 | INFO | [CACHE HIT] ecosoundset | orig: 14954 embeddings.
+2026-11-20 19:47:02,664 | INFO | [CACHE HIT] pteroset_ppa1 | orig: 10368 embeddings.
+2026-11-20 19:47:02,665 | INFO | 
+Configuracao 2/18: FLAC | compression_level=5
+2026-11-20 19:47:02,674 | INFO | [CACHE HIT] ecosoundset | compression_level=5: 14954 embeddings.
+2026-11-20 19:47:02,681 | INFO | [CACHE HIT] pteroset_ppa1 | compression_level=5: 10368 embeddings.
+2026-11-20 19:47:02,683 | INFO | 
+Configuracao 3/18: MP3 | bitrate_kbps=32
+2026-11-20 19:47:02,691 | INFO | [CACHE HIT] ecosoundset | bitrate_kbps=32: 14954 embeddings.
+2026-11-20 19:47:02,699 | INFO | [CACHE HIT] pteroset_ppa1 | bitrate_kbps=32: 10368 embeddings.
+2026-11-20 19:47:02,700 | INFO | 
+Configuracao 4/18: MP3 | bitrate_kbps=64
+2026-11-20 19:47:02,709 | INFO | [CACHE HIT] ecosoundset | bitrate_kbps=64: 14954 embeddings.
+2026-11-20 19:47:02,716 | INFO | [CACHE HIT] pteroset_ppa1 | bitrate_kbps=64: 10368 embeddings.
+2026-11-20 19:47:02,717 | INFO | 
+Configuracao 5/18: MP3 | bitrate_kbps=128
+2026-11-20 19:47:02,726 | INFO | [CACHE HIT] ecosoundset | bitrate_kbps=128: 14954 embeddings.
+2026-11-20 19:47:02,733 | INFO | [CACHE HIT] pteroset_ppa1 | bitrate_kbps=128: 10368 embeddings.
+2026-11-20 19:47:02,735 | INFO | 
+Configuracao 6/18: AAC | bitrate_kbps=64
+2026-11-20 19:47:02,743 | INFO | [CACHE HIT] ecosoundset | bitrate_kbps=64: 14954 embeddings.
+2026-11-20 19:47:02,751 | INFO | [CACHE HIT] pteroset_ppa1 | bitrate_kbps=64: 10368 embeddings.
+2026-11-20 19:47:02,752 | INFO | 
+Configuracao 7/18: AAC | bitrate_kbps=96
+2026-11-20 19:47:02,761 | INFO | [CACHE HIT] ecosoundset | bitrate_kbps=96: 14954 embeddings.
+2026-11-20 19:47:02,769 | INFO | [CACHE HIT] pteroset_ppa1 | bitrate_kbps=96: 10368 embeddings.
+2026-11-20 19:47:02,770 | INFO | 
+Configuracao 8/18: AAC | bitrate_kbps=128
+2026-11-20 19:47:02,779 | INFO | [CACHE HIT] ecosoundset | bitrate_kbps=128: 14954 embeddings.
+2026-11-20 19:47:02,786 | INFO | [CACHE HIT] pteroset_ppa1 | bitrate_kbps=128: 10368 embeddings.
+2026-11-20 19:47:02,787 | INFO | 
+Configuracao 9/18: OPUS | bitrate_kbps=12
+2026-11-20 19:47:02,796 | INFO | [CACHE HIT] ecosoundset | bitrate_kbps=12: 14954 embeddings.
+2026-11-20 19:47:02,803 | INFO | [CACHE HIT] pteroset_ppa1 | bitrate_kbps=12: 10368 embeddings.
+2026-11-20 19:47:02,804 | INFO | 
+Configuracao 10/18: OPUS | bitrate_kbps=24
+2026-11-20 19:47:02,813 | INFO | [CACHE HIT] ecosoundset | bitrate_kbps=24: 14954 embeddings.
+2026-11-20 19:47:02,821 | INFO | [CACHE HIT] pteroset_ppa1 | bitrate_kbps=24: 10368 embeddings.
+2026-11-20 19:47:02,822 | INFO | 
+Configuracao 11/18: OPUS | bitrate_kbps=48
+2026-11-20 19:47:02,831 | INFO | [CACHE HIT] ecosoundset | bitrate_kbps=48: 14954 embeddings.
+2026-11-20 19:47:02,838 | INFO | [CACHE HIT] pteroset_ppa1 | bitrate_kbps=48: 10368 embeddings.
+2026-11-20 19:47:02,840 | INFO | 
+Configuracao 12/18: OPUS | bitrate_kbps=96
+2026-11-20 19:47:02,848 | INFO | [CACHE HIT] ecosoundset | bitrate_kbps=96: 14954 embeddings.
+2026-11-20 19:47:02,855 | INFO | [CACHE HIT] pteroset_ppa1 | bitrate_kbps=96: 10368 embeddings.
+2026-11-20 19:47:02,857 | INFO | 
+Configuracao 13/18: LC3 | bitrate_kbps=32
+2026-11-20 19:47:02,865 | INFO | [CACHE HIT] ecosoundset | bitrate_kbps=32: 14954 embeddings.
+2026-11-20 19:47:02,872 | INFO | [CACHE HIT] pteroset_ppa1 | bitrate_kbps=32: 10368 embeddings.
+2026-11-20 19:47:02,874 | INFO | 
+Configuracao 14/18: LC3 | bitrate_kbps=64
+2026-11-20 19:47:02,882 | INFO | [CACHE HIT] ecosoundset | bitrate_kbps=64: 14954 embeddings.
+2026-11-20 19:47:02,890 | INFO | [CACHE HIT] pteroset_ppa1 | bitrate_kbps=64: 10368 embeddings.
+2026-11-20 19:47:02,892 | INFO | 
+Configuracao 15/18: LC3 | bitrate_kbps=96
+2026-11-20 19:47:02,900 | INFO | [CACHE HIT] ecosoundset | bitrate_kbps=96: 14954 embeddings.
+2026-11-20 19:47:02,908 | INFO | [CACHE HIT] pteroset_ppa1 | bitrate_kbps=96: 10368 embeddings.
+2026-11-20 19:47:02,909 | INFO | 
+Configuracao 16/18: ENCODEC | bandwidth_kbps=6,model=encodec_48khz
+2026-11-20 19:47:02,917 | INFO | [CACHE HIT] ecosoundset | bandwidth_kbps=6,model=encodec_48khz: 14954 embeddings.
+2026-11-20 19:47:02,924 | INFO | [CACHE HIT] pteroset_ppa1 | bandwidth_kbps=6,model=encodec_48khz: 10368 embeddings.
+2026-11-20 19:47:02,926 | INFO | 
+Configuracao 17/18: ENCODEC | bandwidth_kbps=12,model=encodec_48khz
+2026-11-20 19:47:02,933 | INFO | [CACHE HIT] ecosoundset | bandwidth_kbps=12,model=encodec_48khz: 14954 embeddings.
+2026-11-20 19:47:02,940 | INFO | [CACHE HIT] pteroset_ppa1 | bandwidth_kbps=12,model=encodec_48khz: 10368 embeddings.
+2026-11-20 19:47:02,942 | INFO | 
+Configuracao 18/18: ENCODEC | bandwidth_kbps=24,model=encodec_48khz
+2026-11-20 19:47:02,949 | INFO | [CACHE HIT] ecosoundset | bandwidth_kbps=24,model=encodec_48khz: 14954 embeddings.
+2026-11-20 19:47:02,956 | INFO | [CACHE HIT] pteroset_ppa1 | bandwidth_kbps=24,model=encodec_48khz: 10368 embeddings.
+2026-11-20 19:47:04,019 | INFO | 
+Perch concluido: 36 configuracoes | /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/results/tables/perch_embeddings.csv
+2026-11-20 19:47:04,020 | INFO | Worker 0 | GPU 0 | batch 64->64 | tarefas=0 | pico VRAM=2206 MiB
+2026-11-20 19:47:04,020 | INFO | Worker 1 | GPU 1 | batch 128->128 | tarefas=0 | pico VRAM=1465 MiB
+2026-11-20 19:47:04,020 | INFO | Tempo total Perch: 4.38 s

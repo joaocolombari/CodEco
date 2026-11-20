@@ -164,6 +164,11 @@ Checkpoints ficam em `data/cache/checkpoints.sqlite3` ou nos diretórios
 específicos da etapa. O processamento é registrado em lotes, permitindo retomar
 execuções sem repetir resultados já concluídos.
 
+Todos os caminhos de arquivos pertencentes ao projeto são persistidos em forma
+relativa à raiz do repositório. Ao carregar caches, índices ou checkpoints, o
+pipeline os resolve contra a raiz descoberta por `CodecoPath`, permitindo mover
+ou copiar o checkout sem manter referências à localização anterior.
+
 ## Testes autônomos
 
 Cada módulo pode ser executado separadamente sem iniciar `environment()`,

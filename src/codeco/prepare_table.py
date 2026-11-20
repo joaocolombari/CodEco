@@ -31,7 +31,7 @@ CLIP_SECONDS = 4.0
 WINDOW_SECONDS = CLIP_SECONDS
 SAMPLE_RATE = 48_000
 BIT_DEPTH = 16
-CACHE_SCHEMA_VERSION = "1"
+CACHE_SCHEMA_VERSION = "2"
 CACHE_FILE_NAME = "clip_table.parquet"
 PCM_CACHE_SCHEMA_VERSION = "1"
 PCM_CACHE_BATCH_SIZE = 64
@@ -200,6 +200,7 @@ def _cache_validation_error(table: pa.Table, manifest_sha256: str) -> str | None
 def _read_cache(
     cache_file: Path,
     manifest_sha256: str,
+    paths: CodecoPath,
 ) -> tuple[pa.Table | None, str | None, float]:
     started = time.perf_counter()
     if not cache_file.is_file():
@@ -215,13 +216,24 @@ def _read_cache(
     error = _cache_validation_error(table, manifest_sha256)
     if error is not None:
         return None, error, time.perf_counter() - started
-    return table.replace_schema_metadata(None), None, time.perf_counter() - started
+    table = table.replace_schema_metadata(None)
+    path_index = table.schema.get_field_index("path")
+    table = table.set_column(
+        path_index,
+        CLIP_TABLE_SCHEMA.field("path"),
+        pa.array(
+            [str(paths.project_path(value)) for value in table["path"].to_pylist()],
+            type=pa.string(),
+        ),
+    )
+    return table, None, time.perf_counter() - started
 
 
 def _write_cache(
     table: pa.Table,
     cache_file: Path,
     manifest_sha256: str,
+    paths: CodecoPath,
 ) -> tuple[float, int]:
     started = time.perf_counter()
     cache_file.parent.mkdir(parents=True, exist_ok=True)
@@ -229,7 +241,16 @@ def _write_cache(
         **CACHE_METADATA,
         b"codeco_source_manifest_sha256": manifest_sha256.encode("ascii"),
     }
-    cached_table = table.replace_schema_metadata(metadata)
+    path_index = table.schema.get_field_index("path")
+    persisted = table.set_column(
+        path_index,
+        CLIP_TABLE_SCHEMA.field("path"),
+        pa.array(
+            [paths.project_relative(value) for value in table["path"].to_pylist()],
+            type=pa.string(),
+        ),
+    )
+    cached_table = persisted.replace_schema_metadata(metadata)
     temporary_path: Path | None = None
     try:
         with tempfile.NamedTemporaryFile(
@@ -270,12 +291,16 @@ def _pcm_records(table: pa.Table) -> list[dict[str, object]]:
     ]
 
 
-def _pcm_table_sha256(records: list[dict[str, object]]) -> str:
+def _pcm_table_sha256(
+    records: list[dict[str, object]],
+    paths: CodecoPath,
+) -> str:
     digest = hashlib.sha256()
     for row in records:
+        persisted = {**row, "path": paths.project_relative(str(row["path"]))}
         digest.update(
             json.dumps(
-                row,
+                persisted,
                 ensure_ascii=False,
                 sort_keys=True,
                 separators=(",", ":"),
@@ -315,6 +340,7 @@ def _pcm_expected_index(records: list[dict[str, object]]) -> pa.Table:
 def _pcm_expected_metadata(
     records: list[dict[str, object]],
     manifest_sha256: str,
+    paths: CodecoPath,
 ) -> dict[str, object]:
     counts: dict[str, int] = {}
     for row in records:
@@ -324,7 +350,7 @@ def _pcm_expected_metadata(
         "cache_kind": "baseline_pcm",
         "schema_version": PCM_CACHE_SCHEMA_VERSION,
         "manifest_sha256": manifest_sha256,
-        "table_sha256": _pcm_table_sha256(records),
+        "table_sha256": _pcm_table_sha256(records, paths),
         "sample_rate": SAMPLE_RATE,
         "clip_seconds": CLIP_SECONDS,
         "bit_depth": BIT_DEPTH,
@@ -568,7 +594,7 @@ def _prepare_pcm_cache(
     if not records:
         raise ValueError("Nenhum audio disponivel para construir a baseline PCM.")
     index = _pcm_expected_index(records)
-    metadata = _pcm_expected_metadata(records, manifest_sha256)
+    metadata = _pcm_expected_metadata(records, manifest_sha256, paths)
     cache_dir = paths.baseline_pcm
 
     _section("Cache PCM da baseline")
@@ -759,6 +785,7 @@ def _prepare_table(
     clip_table, cache_error, read_seconds = _read_cache(
         cache_file,
         manifest_sha256,
+        paths,
     )
 
     if clip_table is not None:
@@ -779,6 +806,7 @@ def _prepare_table(
                 clip_table,
                 cache_file,
                 manifest_sha256,
+                paths,
             )
             LOGGER.info(
                 "Cache atualizado atomicamente: %.2f MiB em %.3f s.",
@@ -815,6 +843,7 @@ def _prepare_table(
             clip_table,
             cache_file,
             manifest_sha256,
+            paths,
         )
         LOGGER.info(
             "Cache gravado atomicamente: %s; %.2f MiB em %.3f s.",

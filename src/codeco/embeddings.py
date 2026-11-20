@@ -904,20 +904,29 @@ def _run_perch(arguments: EmbeddingRun) -> Path:
         if sample_row["pcm_file"] is None
         else load_pcm_clip(str(sample_row["pcm_file"]), int(sample_row["pcm_row"]))
     )
+    selection = clips[
+        [
+            "dataset",
+            "clip_id",
+            "path",
+            "start",
+            "split",
+            "pcm_file",
+            "pcm_row",
+        ]
+    ].copy()
+    selection["path"] = selection["path"].map(paths.project_relative)
+    selection["pcm_file"] = selection["pcm_file"].map(
+        lambda value: (
+            None
+            if value is None or pd.isna(value)
+            else paths.project_relative(value)
+        )
+    )
     metadata = {
         "implementation_version": "1",
         "manifest_sha256": arguments.baseline.manifest_sha256,
-        "selection": clips[
-            [
-                "dataset",
-                "clip_id",
-                "path",
-                "start",
-                "split",
-                "pcm_file",
-                "pcm_row",
-            ]
-        ].to_dict("records"),
+        "selection": selection.to_dict("records"),
         "conditions": [asdict(condition) for condition in selected_conditions],
         "foundation_model": "perch",
         "model_handle": PERCH_MODEL_HANDLE,
@@ -1337,6 +1346,7 @@ def _run_perch(arguments: EmbeddingRun) -> Path:
                 "source_group_id",
             ]
             clip_index = dataset_clips[columns].copy()
+            clip_index["path"] = clip_index["path"].map(paths.project_relative)
             clip_index.insert(
                 0, "row_index", np.arange(len(clip_index), dtype=np.int64)
             )
@@ -1432,8 +1442,8 @@ def _run_perch(arguments: EmbeddingRun) -> Path:
                         "seconds": seconds,
                         "embeddings_per_second": processed / max(seconds, 1e-12),
                         "embedding_dimension": embedding_dimension,
-                        "clips_file": str(clips_files[dataset]),
-                        "embeddings_file": str(embedding_file),
+                        "clips_file": paths.project_relative(clips_files[dataset]),
+                        "embeddings_file": paths.project_relative(embedding_file),
                     }
                 )
                 backend._write_index_csv(records, output)

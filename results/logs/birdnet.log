@@ -304,3 +304,154 @@ Execucao concluida
 2026-11-20 18:37:47,978 | INFO | Worker 0 | GPU 0 | batch 512->512 | tarefas=0 | lotes=0 | ativa=0.00 s | retries=0 | pico VRAM=6479 MiB
 2026-11-20 18:37:47,978 | INFO | Worker 1 | GPU 1 | batch 512->512 | tarefas=0 | lotes=0 | ativa=0.00 s | retries=0 | pico VRAM=6479 MiB
 2026-11-20 18:37:47,978 | INFO | Tempo total: 2.06 s
+2026-11-20 19:46:08,907 | INFO | 
+========================================================================
+BIRDNET 2.4: EMBEDDINGS EM BATCH
+[CMD]   /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/.venv/bin/python /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/src/codeco/main.py
+========================================================================
+2026-11-20 19:46:15,099 | INFO | 
+Configuracao
+------------------------------------------------------------------------
+2026-11-20 19:46:15,099 | INFO | Log: /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/results/logs/birdnet.log
+2026-11-20 19:46:15,099 | INFO | Checkpoint: /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/data/cache/checkpoints.sqlite3
+2026-11-20 19:46:15,099 | INFO | Indice CSV: /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/results/tables/birdnet_embeddings.csv
+2026-11-20 19:46:15,099 | INFO | Modelo: BirdNET 2.4 ProtoBuf FP32
+2026-11-20 19:46:15,099 | INFO | FFmpeg: 9.0.2
+2026-11-20 19:46:15,099 | INFO | Nucleos fisicos: 8
+2026-11-20 19:46:15,099 | INFO | Selecao: corpus completo congelado; nenhuma amostragem aplicada.
+2026-11-20 19:46:15,099 | INFO | GPUs TensorFlow: 2; microbatch=32; maximo=512; alvo VRAM=85%
+2026-11-20 19:46:26,871 | INFO | Worker 0 pronto: GPU 0; batch=512; ajuste=32 (ok) -> 64 (ok) -> 128 (ok) -> 256 (ok) -> 512 (ok)
+2026-11-20 19:46:28,426 | INFO | Worker 1 pronto: GPU 1; batch=512; ajuste=32 (ok) -> 64 (ok) -> 128 (ok) -> 256 (ok) -> 512 (ok)
+2026-11-20 19:46:31,474 | INFO | 
+Condicao 1/18: BASELINE | orig
+------------------------------------------------------------------------
+2026-11-20 19:46:31,474 | INFO | Dataset ecosoundset | BASELINE | orig
+2026-11-20 19:46:31,483 | INFO | [CACHE HIT] ecosoundset | orig: 14954 embeddings.
+2026-11-20 19:46:31,484 | INFO | Dataset pteroset_ppa1 | BASELINE | orig
+2026-11-20 19:46:31,490 | INFO | [CACHE HIT] pteroset_ppa1 | orig: 10368 embeddings.
+2026-11-20 19:46:31,491 | INFO | 
+Condicao 2/18: FLAC | compression_level=5
+------------------------------------------------------------------------
+2026-11-20 19:46:31,491 | INFO | Dataset ecosoundset | FLAC | compression_level=5
+2026-11-20 19:46:31,500 | INFO | [CACHE HIT] ecosoundset | compression_level=5: 14954 embeddings.
+2026-11-20 19:46:31,501 | INFO | Dataset pteroset_ppa1 | FLAC | compression_level=5
+2026-11-20 19:46:31,507 | INFO | [CACHE HIT] pteroset_ppa1 | compression_level=5: 10368 embeddings.
+2026-11-20 19:46:31,508 | INFO | 
+Condicao 3/18: MP3 | bitrate_kbps=32
+------------------------------------------------------------------------
+2026-11-20 19:46:31,509 | INFO | Dataset ecosoundset | MP3 | bitrate_kbps=32
+2026-11-20 19:46:31,517 | INFO | [CACHE HIT] ecosoundset | bitrate_kbps=32: 14954 embeddings.
+2026-11-20 19:46:31,518 | INFO | Dataset pteroset_ppa1 | MP3 | bitrate_kbps=32
+2026-11-20 19:46:31,525 | INFO | [CACHE HIT] pteroset_ppa1 | bitrate_kbps=32: 10368 embeddings.
+2026-11-20 19:46:31,526 | INFO | 
+Condicao 4/18: MP3 | bitrate_kbps=64
+------------------------------------------------------------------------
+2026-11-20 19:46:31,526 | INFO | Dataset ecosoundset | MP3 | bitrate_kbps=64
+2026-11-20 19:46:31,534 | INFO | [CACHE HIT] ecosoundset | bitrate_kbps=64: 14954 embeddings.
+2026-11-20 19:46:31,535 | INFO | Dataset pteroset_ppa1 | MP3 | bitrate_kbps=64
+2026-11-20 19:46:31,542 | INFO | [CACHE HIT] pteroset_ppa1 | bitrate_kbps=64: 10368 embeddings.
+2026-11-20 19:46:31,543 | INFO | 
+Condicao 5/18: MP3 | bitrate_kbps=128
+------------------------------------------------------------------------
+2026-11-20 19:46:31,543 | INFO | Dataset ecosoundset | MP3 | bitrate_kbps=128
+2026-11-20 19:46:31,551 | INFO | [CACHE HIT] ecosoundset | bitrate_kbps=128: 14954 embeddings.
+2026-11-20 19:46:31,553 | INFO | Dataset pteroset_ppa1 | MP3 | bitrate_kbps=128
+2026-11-20 19:46:31,559 | INFO | [CACHE HIT] pteroset_ppa1 | bitrate_kbps=128: 10368 embeddings.
+2026-11-20 19:46:31,560 | INFO | 
+Condicao 6/18: AAC | bitrate_kbps=64
+------------------------------------------------------------------------
+2026-11-20 19:46:31,560 | INFO | Dataset ecosoundset | AAC | bitrate_kbps=64
+2026-11-20 19:46:31,569 | INFO | [CACHE HIT] ecosoundset | bitrate_kbps=64: 14954 embeddings.
+2026-11-20 19:46:31,570 | INFO | Dataset pteroset_ppa1 | AAC | bitrate_kbps=64
+2026-11-20 19:46:31,576 | INFO | [CACHE HIT] pteroset_ppa1 | bitrate_kbps=64: 10368 embeddings.
+2026-11-20 19:46:31,577 | INFO | 
+Condicao 7/18: AAC | bitrate_kbps=96
+------------------------------------------------------------------------
+2026-11-20 19:46:31,578 | INFO | Dataset ecosoundset | AAC | bitrate_kbps=96
+2026-11-20 19:46:31,586 | INFO | [CACHE HIT] ecosoundset | bitrate_kbps=96: 14954 embeddings.
+2026-11-20 19:46:31,588 | INFO | Dataset pteroset_ppa1 | AAC | bitrate_kbps=96
+2026-11-20 19:46:31,594 | INFO | [CACHE HIT] pteroset_ppa1 | bitrate_kbps=96: 10368 embeddings.
+2026-11-20 19:46:31,595 | INFO | 
+Condicao 8/18: AAC | bitrate_kbps=128
+------------------------------------------------------------------------
+2026-11-20 19:46:31,595 | INFO | Dataset ecosoundset | AAC | bitrate_kbps=128
+2026-11-20 19:46:31,604 | INFO | [CACHE HIT] ecosoundset | bitrate_kbps=128: 14954 embeddings.
+2026-11-20 19:46:31,605 | INFO | Dataset pteroset_ppa1 | AAC | bitrate_kbps=128
+2026-11-20 19:46:31,611 | INFO | [CACHE HIT] pteroset_ppa1 | bitrate_kbps=128: 10368 embeddings.
+2026-11-20 19:46:31,612 | INFO | 
+Condicao 9/18: OPUS | bitrate_kbps=12
+------------------------------------------------------------------------
+2026-11-20 19:46:31,612 | INFO | Dataset ecosoundset | OPUS | bitrate_kbps=12
+2026-11-20 19:46:31,621 | INFO | [CACHE HIT] ecosoundset | bitrate_kbps=12: 14954 embeddings.
+2026-11-20 19:46:31,622 | INFO | Dataset pteroset_ppa1 | OPUS | bitrate_kbps=12
+2026-11-20 19:46:31,628 | INFO | [CACHE HIT] pteroset_ppa1 | bitrate_kbps=12: 10368 embeddings.
+2026-11-20 19:46:31,629 | INFO | 
+Condicao 10/18: OPUS | bitrate_kbps=24
+------------------------------------------------------------------------
+2026-11-20 19:46:31,629 | INFO | Dataset ecosoundset | OPUS | bitrate_kbps=24
+2026-11-20 19:46:31,638 | INFO | [CACHE HIT] ecosoundset | bitrate_kbps=24: 14954 embeddings.
+2026-11-20 19:46:31,639 | INFO | Dataset pteroset_ppa1 | OPUS | bitrate_kbps=24
+2026-11-20 19:46:31,645 | INFO | [CACHE HIT] pteroset_ppa1 | bitrate_kbps=24: 10368 embeddings.
+2026-11-20 19:46:31,646 | INFO | 
+Condicao 11/18: OPUS | bitrate_kbps=48
+------------------------------------------------------------------------
+2026-11-20 19:46:31,646 | INFO | Dataset ecosoundset | OPUS | bitrate_kbps=48
+2026-11-20 19:46:31,654 | INFO | [CACHE HIT] ecosoundset | bitrate_kbps=48: 14954 embeddings.
+2026-11-20 19:46:31,656 | INFO | Dataset pteroset_ppa1 | OPUS | bitrate_kbps=48
+2026-11-20 19:46:31,662 | INFO | [CACHE HIT] pteroset_ppa1 | bitrate_kbps=48: 10368 embeddings.
+2026-11-20 19:46:31,663 | INFO | 
+Condicao 12/18: OPUS | bitrate_kbps=96
+------------------------------------------------------------------------
+2026-11-20 19:46:31,663 | INFO | Dataset ecosoundset | OPUS | bitrate_kbps=96
+2026-11-20 19:46:31,672 | INFO | [CACHE HIT] ecosoundset | bitrate_kbps=96: 14954 embeddings.
+2026-11-20 19:46:31,673 | INFO | Dataset pteroset_ppa1 | OPUS | bitrate_kbps=96
+2026-11-20 19:46:31,679 | INFO | [CACHE HIT] pteroset_ppa1 | bitrate_kbps=96: 10368 embeddings.
+2026-11-20 19:46:31,680 | INFO | 
+Condicao 13/18: LC3 | bitrate_kbps=32
+------------------------------------------------------------------------
+2026-11-20 19:46:31,681 | INFO | Dataset ecosoundset | LC3 | bitrate_kbps=32
+2026-11-20 19:46:31,689 | INFO | [CACHE HIT] ecosoundset | bitrate_kbps=32: 14954 embeddings.
+2026-11-20 19:46:31,690 | INFO | Dataset pteroset_ppa1 | LC3 | bitrate_kbps=32
+2026-11-20 19:46:31,696 | INFO | [CACHE HIT] pteroset_ppa1 | bitrate_kbps=32: 10368 embeddings.
+2026-11-20 19:46:31,698 | INFO | 
+Condicao 14/18: LC3 | bitrate_kbps=64
+------------------------------------------------------------------------
+2026-11-20 19:46:31,698 | INFO | Dataset ecosoundset | LC3 | bitrate_kbps=64
+2026-11-20 19:46:31,706 | INFO | [CACHE HIT] ecosoundset | bitrate_kbps=64: 14954 embeddings.
+2026-11-20 19:46:31,707 | INFO | Dataset pteroset_ppa1 | LC3 | bitrate_kbps=64
+2026-11-20 19:46:31,713 | INFO | [CACHE HIT] pteroset_ppa1 | bitrate_kbps=64: 10368 embeddings.
+2026-11-20 19:46:31,715 | INFO | 
+Condicao 15/18: LC3 | bitrate_kbps=96
+------------------------------------------------------------------------
+2026-11-20 19:46:31,715 | INFO | Dataset ecosoundset | LC3 | bitrate_kbps=96
+2026-11-20 19:46:31,723 | INFO | [CACHE HIT] ecosoundset | bitrate_kbps=96: 14954 embeddings.
+2026-11-20 19:46:31,725 | INFO | Dataset pteroset_ppa1 | LC3 | bitrate_kbps=96
+2026-11-20 19:46:31,731 | INFO | [CACHE HIT] pteroset_ppa1 | bitrate_kbps=96: 10368 embeddings.
+2026-11-20 19:46:31,732 | INFO | 
+Condicao 16/18: ENCODEC | bandwidth_kbps=6,model=encodec_48khz
+------------------------------------------------------------------------
+2026-11-20 19:46:31,744 | INFO | Dataset ecosoundset | ENCODEC | bandwidth_kbps=6,model=encodec_48khz
+2026-11-20 19:46:31,751 | INFO | [CACHE HIT] ecosoundset | bandwidth_kbps=6,model=encodec_48khz: 14954 embeddings.
+2026-11-20 19:46:31,753 | INFO | Dataset pteroset_ppa1 | ENCODEC | bandwidth_kbps=6,model=encodec_48khz
+2026-11-20 19:46:31,758 | INFO | [CACHE HIT] pteroset_ppa1 | bandwidth_kbps=6,model=encodec_48khz: 10368 embeddings.
+2026-11-20 19:46:31,759 | INFO | 
+Condicao 17/18: ENCODEC | bandwidth_kbps=12,model=encodec_48khz
+------------------------------------------------------------------------
+2026-11-20 19:46:31,771 | INFO | Dataset ecosoundset | ENCODEC | bandwidth_kbps=12,model=encodec_48khz
+2026-11-20 19:46:31,779 | INFO | [CACHE HIT] ecosoundset | bandwidth_kbps=12,model=encodec_48khz: 14954 embeddings.
+2026-11-20 19:46:31,780 | INFO | Dataset pteroset_ppa1 | ENCODEC | bandwidth_kbps=12,model=encodec_48khz
+2026-11-20 19:46:31,785 | INFO | [CACHE HIT] pteroset_ppa1 | bandwidth_kbps=12,model=encodec_48khz: 10368 embeddings.
+2026-11-20 19:46:31,787 | INFO | 
+Condicao 18/18: ENCODEC | bandwidth_kbps=24,model=encodec_48khz
+------------------------------------------------------------------------
+2026-11-20 19:46:31,798 | INFO | Dataset ecosoundset | ENCODEC | bandwidth_kbps=24,model=encodec_48khz
+2026-11-20 19:46:31,806 | INFO | [CACHE HIT] ecosoundset | bandwidth_kbps=24,model=encodec_48khz: 14954 embeddings.
+2026-11-20 19:46:31,807 | INFO | Dataset pteroset_ppa1 | ENCODEC | bandwidth_kbps=24,model=encodec_48khz
+2026-11-20 19:46:31,813 | INFO | [CACHE HIT] pteroset_ppa1 | bandwidth_kbps=24,model=encodec_48khz: 10368 embeddings.
+2026-11-20 19:46:33,384 | INFO | 
+Execucao concluida
+------------------------------------------------------------------------
+2026-11-20 19:46:33,385 | INFO | Condicoes: 36; indice: /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/results/tables/birdnet_embeddings.csv
+2026-11-20 19:46:33,385 | INFO | Worker 0 | GPU 0 | batch 512->512 | tarefas=0 | lotes=0 | ativa=0.00 s | retries=0 | pico VRAM=6479 MiB
+2026-11-20 19:46:33,385 | INFO | Worker 1 | GPU 1 | batch 512->512 | tarefas=0 | lotes=0 | ativa=0.00 s | retries=0 | pico VRAM=6479 MiB
+2026-11-20 19:46:33,385 | INFO | Tempo total: 4.96 s

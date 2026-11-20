@@ -709,6 +709,9 @@ def _load_source_index(
     duplicate = table.duplicated(["dataset", "codec", "setting"], keep=False)
     if duplicate.any():
         raise ValueError("O indice contem condicoes duplicadas para o mesmo dataset.")
+    paths = CodecoPath.discover()
+    for column in ("clips_file", "embeddings_file"):
+        table[column] = table[column].map(lambda value: str(paths.project_path(value)))
     return table.reset_index(drop=True)
 
 
@@ -758,12 +761,13 @@ def _fingerprint(
     early_stopping: bool,
     foundation_model: str = DEFAULT_FOUNDATION_MODEL,
 ) -> tuple[str, dict]:
+    paths = CodecoPath.discover()
     conditions = [
         {
             "codec": str(row.codec),
             "setting": str(row.setting),
-            "clips_file": str(Path(row.clips_file).resolve()),
-            "embeddings_file": str(Path(row.embeddings_file).resolve()),
+            "clips_file": paths.project_relative(row.clips_file),
+            "embeddings_file": paths.project_relative(row.embeddings_file),
         }
         for row in source.itertuples()
     ]

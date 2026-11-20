@@ -400,3 +400,129 @@ Dependencias do sistema
 2026-11-20 18:37:07,931 | INFO | Verificando GPUs visiveis para TensorFlow...
 2026-11-20 18:37:10,893 | INFO | GPUs visiveis para TensorFlow: 2
 2026-11-20 18:37:10,893 | INFO | Verificacao do ambiente concluida com sucesso.
+2026-11-20 19:22:32,038 | INFO | 
+========================================================================
+ENVIRONMENT
+[CMD]   /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/.venv/bin/python /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/src/codeco/main.py
+========================================================================
+2026-11-20 19:22:32,038 | INFO | 
+Registro da execucao
+------------------------------------------------------------------------
+2026-11-20 19:22:32,038 | INFO | Diretorio de logs encontrado: /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/results/logs
+2026-11-20 19:22:32,039 | INFO | Log da verificacao de ambiente: /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/results/logs/environment.log
+2026-11-20 19:22:32,039 | INFO | Iniciando verificacao do ambiente do projeto: /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco
+2026-11-20 19:22:32,039 | INFO | 
+Ambiente virtual
+------------------------------------------------------------------------
+2026-11-20 19:22:32,039 | INFO | Verificando ambiente virtual: /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/.venv
+2026-11-20 19:22:32,039 | INFO | Ambiente virtual ativo: /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/.venv
+2026-11-20 19:22:32,039 | INFO | 
+Variaveis do pipeline
+------------------------------------------------------------------------
+2026-11-20 19:22:32,041 | INFO | PATH: configurado
+2026-11-20 19:22:32,041 | INFO | LD_LIBRARY_PATH: configurado
+2026-11-20 19:22:32,041 | INFO | TF_CPP_MIN_LOG_LEVEL: 3
+2026-11-20 19:22:32,041 | INFO | TFHUB_CACHE_DIR: /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/data/models/tensorflow_hub
+2026-11-20 19:22:32,041 | INFO | MPLCONFIGDIR: /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/data/cache/matplotlib
+2026-11-20 19:22:32,041 | INFO | BIRDNET_APP_DATA: /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/data/models/birdnet
+2026-11-20 19:22:32,041 | INFO | HF_HOME: /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/data/models/huggingface
+2026-11-20 19:22:32,041 | INFO | HF_HUB_CACHE: /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/data/models/huggingface/hub
+2026-11-20 19:22:32,041 | INFO | BIRDNET_START_METHOD: spawn
+2026-11-20 19:22:32,041 | INFO | CUDA_VISIBLE_DEVICES: dinamico
+2026-11-20 19:22:32,041 | INFO | 
+Pacotes do ambiente
+------------------------------------------------------------------------
+2026-11-20 19:22:32,047 | INFO | uv 0.13.8 validado: /usr/bin/uv
+2026-11-20 19:22:32,047 | INFO | Sincronizando os pacotes fixados em uv.lock...
+2026-11-20 19:22:32,064 | INFO | Pacotes do ambiente sincronizados.
+2026-11-20 19:22:32,064 | INFO | 
+Dependencias do sistema
+------------------------------------------------------------------------
+2026-11-20 19:22:32,064 | INFO | Verificando a versao do Python...
+2026-11-20 19:22:32,064 | INFO | Python compativel: 3.12.16
+2026-11-20 19:22:32,064 | INFO | Verificando o sistema operacional...
+2026-11-20 19:22:32,064 | INFO | Sistema operacional suportado: Linux
+2026-11-20 19:22:32,065 | INFO | Verificando o uv 0.13.8 no PATH...
+2026-11-20 19:22:32,072 | INFO | uv validado: 0.13.8 (/usr/bin/uv)
+2026-11-20 19:22:32,072 | INFO | Procurando FFmpeg no PATH do sistema...
+2026-11-20 19:22:32,089 | INFO | Testando codificacao e decodificacao FFmpeg: flac
+2026-11-20 19:22:32,106 | INFO | Teste FFmpeg concluido: flac
+2026-11-20 19:22:32,106 | INFO | Testando codificacao e decodificacao FFmpeg: mp3
+2026-11-20 19:22:32,120 | INFO | Teste FFmpeg concluido: mp3
+2026-11-20 19:22:32,120 | INFO | Testando codificacao e decodificacao FFmpeg: m4a
+2026-11-20 19:22:32,138 | INFO | Teste FFmpeg concluido: m4a
+2026-11-20 19:22:32,138 | INFO | Testando codificacao e decodificacao FFmpeg: opus
+2026-11-20 19:22:32,152 | INFO | Teste FFmpeg concluido: opus
+2026-11-20 19:22:32,152 | INFO | Testando codificacao e decodificacao FFmpeg: lc3
+2026-11-20 19:22:32,164 | INFO | Teste FFmpeg concluido: lc3
+2026-11-20 19:22:32,164 | INFO | FFmpeg validado: 9.0.2 (/home/filipe/.local/ffmpeg-lc3/9.0.2/bin/ffmpeg)
+2026-11-20 19:22:32,164 | INFO | Verificando disponibilidade de GPU CUDA...
+2026-11-20 19:22:34,306 | INFO | GPU CUDA disponivel: sim; dispositivo selecionado: cuda; GPUs: 2
+2026-11-20 19:22:34,306 | INFO | GPU 0: NVIDIA GeForce RTX 5070 Ti; VRAM total: 15879 MiB
+2026-11-20 19:22:34,306 | INFO | GPU 1: NVIDIA GeForce RTX 3060; VRAM total: 11931 MiB
+2026-11-20 19:22:34,306 | INFO | Verificando GPUs visiveis para TensorFlow...
+2026-11-20 19:22:40,582 | INFO | GPUs visiveis para TensorFlow: 2
+2026-11-20 19:22:40,582 | INFO | Verificacao do ambiente concluida com sucesso.
+2026-11-20 19:45:26,909 | INFO | 
+========================================================================
+ENVIRONMENT
+[CMD]   /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/.venv/bin/python /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/src/codeco/main.py
+========================================================================
+2026-11-20 19:45:26,909 | INFO | 
+Registro da execucao
+------------------------------------------------------------------------
+2026-11-20 19:45:26,909 | INFO | Diretorio de logs encontrado: /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/results/logs
+2026-11-20 19:45:26,909 | INFO | Log da verificacao de ambiente: /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/results/logs/environment.log
+2026-11-20 19:45:26,909 | INFO | Iniciando verificacao do ambiente do projeto: /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco
+2026-11-20 19:45:26,909 | INFO | 
+Ambiente virtual
+------------------------------------------------------------------------
+2026-11-20 19:45:26,909 | INFO | Verificando ambiente virtual: /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/.venv
+2026-11-20 19:45:26,909 | INFO | Ambiente virtual ativo: /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/.venv
+2026-11-20 19:45:26,909 | INFO | 
+Variaveis do pipeline
+------------------------------------------------------------------------
+2026-11-20 19:45:26,911 | INFO | PATH: configurado
+2026-11-20 19:45:26,911 | INFO | LD_LIBRARY_PATH: configurado
+2026-11-20 19:45:26,911 | INFO | TF_CPP_MIN_LOG_LEVEL: 3
+2026-11-20 19:45:26,911 | INFO | TFHUB_CACHE_DIR: /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/data/models/tensorflow_hub
+2026-11-20 19:45:26,911 | INFO | MPLCONFIGDIR: /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/data/cache/matplotlib
+2026-11-20 19:45:26,911 | INFO | BIRDNET_APP_DATA: /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/data/models/birdnet
+2026-11-20 19:45:26,911 | INFO | HF_HOME: /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/data/models/huggingface
+2026-11-20 19:45:26,911 | INFO | HF_HUB_CACHE: /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/data/models/huggingface/hub
+2026-11-20 19:45:26,911 | INFO | BIRDNET_START_METHOD: spawn
+2026-11-20 19:45:26,912 | INFO | CUDA_VISIBLE_DEVICES: dinamico
+2026-11-20 19:45:26,912 | INFO | 
+Pacotes do ambiente
+------------------------------------------------------------------------
+2026-11-20 19:45:26,920 | INFO | uv 0.13.8 validado: /usr/bin/uv
+2026-11-20 19:45:26,921 | INFO | Sincronizando os pacotes fixados em uv.lock...
+2026-11-20 19:45:26,963 | INFO | Pacotes do ambiente sincronizados.
+2026-11-20 19:45:26,963 | INFO | 
+Dependencias do sistema
+------------------------------------------------------------------------
+2026-11-20 19:45:26,963 | INFO | Verificando a versao do Python...
+2026-11-20 19:45:26,964 | INFO | Python compativel: 3.12.16
+2026-11-20 19:45:26,964 | INFO | Verificando o sistema operacional...
+2026-11-20 19:45:26,964 | INFO | Sistema operacional suportado: Linux
+2026-11-20 19:45:26,964 | INFO | Verificando o uv 0.13.8 no PATH...
+2026-11-20 19:45:26,970 | INFO | uv validado: 0.13.8 (/usr/bin/uv)
+2026-11-20 19:45:26,970 | INFO | Procurando FFmpeg no PATH do sistema...
+2026-11-20 19:45:26,993 | INFO | Testando codificacao e decodificacao FFmpeg: flac
+2026-11-20 19:45:27,011 | INFO | Teste FFmpeg concluido: flac
+2026-11-20 19:45:27,011 | INFO | Testando codificacao e decodificacao FFmpeg: mp3
+2026-11-20 19:45:27,027 | INFO | Teste FFmpeg concluido: mp3
+2026-11-20 19:45:27,027 | INFO | Testando codificacao e decodificacao FFmpeg: m4a
+2026-11-20 19:45:27,045 | INFO | Teste FFmpeg concluido: m4a
+2026-11-20 19:45:27,045 | INFO | Testando codificacao e decodificacao FFmpeg: opus
+2026-11-20 19:45:27,059 | INFO | Teste FFmpeg concluido: opus
+2026-11-20 19:45:27,059 | INFO | Testando codificacao e decodificacao FFmpeg: lc3
+2026-11-20 19:45:27,072 | INFO | Teste FFmpeg concluido: lc3
+2026-11-20 19:45:27,072 | INFO | FFmpeg validado: 9.0.2 (/home/filipe/.local/ffmpeg-lc3/9.0.2/bin/ffmpeg)
+2026-11-20 19:45:27,072 | INFO | Verificando disponibilidade de GPU CUDA...
+2026-11-20 19:45:28,583 | INFO | GPU CUDA disponivel: sim; dispositivo selecionado: cuda; GPUs: 2
+2026-11-20 19:45:28,583 | INFO | GPU 0: NVIDIA GeForce RTX 5070 Ti; VRAM total: 15879 MiB
+2026-11-20 19:45:28,583 | INFO | GPU 1: NVIDIA GeForce RTX 3060; VRAM total: 11931 MiB
+2026-11-20 19:45:28,583 | INFO | Verificando GPUs visiveis para TensorFlow...
+2026-11-20 19:45:32,583 | INFO | GPUs visiveis para TensorFlow: 2
+2026-11-20 19:45:32,583 | INFO | Verificacao do ambiente concluida com sucesso.

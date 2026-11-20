@@ -762,9 +762,20 @@ def run(
         seed,
     )
     tasks = _build_tasks(clips, ffmpeg)
-    selection_records = clips[
+    persisted_selection = clips[
         ["dataset", "clip_id", "path", "start", "pcm_file", "pcm_row"]
-    ].to_dict("records")
+    ].copy()
+    persisted_selection["path"] = persisted_selection["path"].map(
+        paths.project_relative
+    )
+    persisted_selection["pcm_file"] = persisted_selection["pcm_file"].map(
+        lambda value: (
+            None
+            if value is None or pd.isna(value)
+            else paths.project_relative(value)
+        )
+    )
+    selection_records = persisted_selection.to_dict("records")
     selection_sha256 = _sha256_json(selection_records)
     metadata = {
         "implementation_version": IMPLEMENTATION_VERSION,

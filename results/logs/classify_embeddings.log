@@ -2278,3 +2278,95 @@ Execucao concluida
 2026-11-20 18:43:57,437 | INFO | ecosoundset | retomados=0 | processados=35 | tempo=136.81 s | /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/results/tables/classification_ecosoundset_perch_mlp.csv
 2026-11-20 18:43:57,437 | INFO | pteroset_ppa1 | retomados=0 | processados=35 | tempo=36.84 s | /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/results/tables/classification_pteroset_ppa1_perch_mlp.csv
 2026-11-20 18:43:57,437 | INFO | Tempo total: 173.66 s
+2026-11-20 19:47:04,119 | INFO | 
+========================================================================
+CLASSIFICACAO DOS EMBEDDINGS BIRDNET
+[CMD]   /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/.venv/bin/python /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/src/codeco/main.py
+========================================================================
+2026-11-20 19:47:04,131 | INFO | 
+Configuracao
+------------------------------------------------------------------------
+2026-11-20 19:47:04,131 | INFO | Log: /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/results/logs/classify_embeddings.log
+2026-11-20 19:47:04,131 | INFO | Indice de embeddings: /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/results/tables/birdnet_embeddings.csv
+2026-11-20 19:47:04,131 | INFO | Checkpoint: /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/data/cache/checkpoints.sqlite3
+2026-11-20 19:47:04,132 | INFO | Datasets: ecosoundset, pteroset_ppa1
+2026-11-20 19:47:04,132 | INFO | Foundation model: BIRDNET
+2026-11-20 19:47:04,132 | INFO | Head: MLP
+2026-11-20 19:47:04,132 | INFO | Force: False
+2026-11-20 19:47:04,132 | INFO | Early stopping: True
+2026-11-20 19:47:04,132 | INFO | Grafico de overfitting: False
+2026-11-20 19:47:04,132 | INFO | 
+Legenda experimental
+------------------------------------------------------------------------
+2026-11-20 19:47:04,134 | INFO | ID  Condicao             Familia                     Papel
+R0 PCM s16le          Referencia        baseline principal
+R1      FLAC          Sem perdas     referencia sem perdas
+L1       MP3              Legado              codec legado
+A1    AAC-LC Perceptual opcional codec perceptual opcional
+M1      Opus             Moderno             codec moderno
+M2       LC3             Moderno             codec moderno
+N1   EnCodec        Codec neural              codec neural
+2026-11-20 19:47:04,134 | INFO | R0 (PCM s16le) e a baseline principal; R1 (FLAC) e a referencia sem perdas.
+2026-11-20 19:47:04,134 | INFO | Experimento A - robustez sem retreinamento: treina e valida em R0 PCM; testa no audio reconstruido pelo codec.
+2026-11-20 19:47:04,134 | INFO | Experimento B - adaptacao ao codec: treina, valida e testa no audio reconstruido pela mesma configuracao de codec.
+2026-11-20 19:47:04,134 | INFO | VALIDACAO e TESTE permanecem separados e usam os mesmos splits e rotulos em todas as configuracoes.
+2026-11-20 19:47:04,134 | INFO | 
+Dataset 1/2: ecosoundset
+------------------------------------------------------------------------
+2026-11-20 19:47:04,234 | INFO | [CACHE HIT] ecosoundset | mlp: 35 resultados.
+2026-11-20 19:47:04,235 | INFO | 
+Dataset 2/2: pteroset_ppa1
+------------------------------------------------------------------------
+2026-11-20 19:47:04,253 | INFO | [CACHE HIT] pteroset_ppa1 | mlp: 35 resultados.
+2026-11-20 19:47:04,255 | INFO | 
+Execucao concluida
+------------------------------------------------------------------------
+2026-11-20 19:47:04,255 | INFO | ecosoundset | retomados=35 | processados=0 | tempo=0.10 s | /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/results/tables/classification_ecosoundset_birdnet_mlp.csv
+2026-11-20 19:47:04,255 | INFO | pteroset_ppa1 | retomados=35 | processados=0 | tempo=0.02 s | /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/results/tables/classification_pteroset_ppa1_birdnet_mlp.csv
+2026-11-20 19:47:04,255 | INFO | Tempo total: 0.12 s
+2026-11-20 19:47:04,255 | INFO | 
+========================================================================
+CLASSIFICACAO DOS EMBEDDINGS PERCH
+[CMD]   /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/.venv/bin/python /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/src/codeco/main.py
+========================================================================
+2026-11-20 19:47:04,267 | INFO | 
+Configuracao
+------------------------------------------------------------------------
+2026-11-20 19:47:04,267 | INFO | Log: /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/results/logs/classify_embeddings.log
+2026-11-20 19:47:04,267 | INFO | Indice de embeddings: /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/results/tables/perch_embeddings.csv
+2026-11-20 19:47:04,267 | INFO | Checkpoint: /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/data/cache/checkpoints.sqlite3
+2026-11-20 19:47:04,267 | INFO | Datasets: ecosoundset, pteroset_ppa1
+2026-11-20 19:47:04,267 | INFO | Foundation model: PERCH
+2026-11-20 19:47:04,267 | INFO | Head: MLP
+2026-11-20 19:47:04,267 | INFO | Force: False
+2026-11-20 19:47:04,267 | INFO | Early stopping: True
+2026-11-20 19:47:04,267 | INFO | Grafico de overfitting: False
+2026-11-20 19:47:04,267 | INFO | 
+Legenda experimental
+------------------------------------------------------------------------
+2026-11-20 19:47:04,269 | INFO | ID  Condicao             Familia                     Papel
+R0 PCM s16le          Referencia        baseline principal
+R1      FLAC          Sem perdas     referencia sem perdas
+L1       MP3              Legado              codec legado
+A1    AAC-LC Perceptual opcional codec perceptual opcional
+M1      Opus             Moderno             codec moderno
+M2       LC3             Moderno             codec moderno
+N1   EnCodec        Codec neural              codec neural
+2026-11-20 19:47:04,269 | INFO | R0 (PCM s16le) e a baseline principal; R1 (FLAC) e a referencia sem perdas.
+2026-11-20 19:47:04,269 | INFO | Experimento A - robustez sem retreinamento: treina e valida em R0 PCM; testa no audio reconstruido pelo codec.
+2026-11-20 19:47:04,269 | INFO | Experimento B - adaptacao ao codec: treina, valida e testa no audio reconstruido pela mesma configuracao de codec.
+2026-11-20 19:47:04,269 | INFO | VALIDACAO e TESTE permanecem separados e usam os mesmos splits e rotulos em todas as configuracoes.
+2026-11-20 19:47:04,269 | INFO | 
+Dataset 1/2: ecosoundset
+------------------------------------------------------------------------
+2026-11-20 19:47:04,297 | INFO | [CACHE HIT] ecosoundset | mlp: 35 resultados.
+2026-11-20 19:47:04,298 | INFO | 
+Dataset 2/2: pteroset_ppa1
+------------------------------------------------------------------------
+2026-11-20 19:47:04,316 | INFO | [CACHE HIT] pteroset_ppa1 | mlp: 35 resultados.
+2026-11-20 19:47:04,317 | INFO | 
+Execucao concluida
+------------------------------------------------------------------------
+2026-11-20 19:47:04,317 | INFO | ecosoundset | retomados=35 | processados=0 | tempo=0.03 s | /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/results/tables/classification_ecosoundset_perch_mlp.csv
+2026-11-20 19:47:04,317 | INFO | pteroset_ppa1 | retomados=35 | processados=0 | tempo=0.02 s | /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/results/tables/classification_pteroset_ppa1_perch_mlp.csv
+2026-11-20 19:47:04,318 | INFO | Tempo total: 0.05 s

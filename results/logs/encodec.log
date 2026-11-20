@@ -1345,3 +1345,53 @@ Resumo por condicao
 2026-11-20 18:37:32,270 | INFO | ENCODEC 6 kbps   25322  25322      0            0     
 2026-11-20 18:37:32,270 | INFO | ENCODEC 12 kbps  25322  25322      0            0     
 2026-11-20 18:37:32,270 | INFO | ENCODEC 24 kbps  25322  25322      0            0     
+2026-11-20 19:45:59,998 | INFO | 
+========================================================================
+COMPRESSAO ENCODEC + RECONSTRUCAO + METRICAS
+[CMD]   /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/.venv/bin/python /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/src/codeco/main.py
+========================================================================
+2026-11-20 19:45:59,998 | INFO | 
+Preparacao da execucao
+------------------------------------------------------------------------
+2026-11-20 19:46:06,462 | INFO | Log: /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/results/logs/encodec.log
+2026-11-20 19:46:06,462 | INFO | Checkpoint: /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/data/cache/checkpoints.sqlite3
+2026-11-20 19:46:06,462 | INFO | Resultado CSV: /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/results/tables/encodec_metrics.csv
+2026-11-20 19:46:06,462 | INFO | Modelo: facebook/encodec_48khz; precisao: float32
+2026-11-20 19:46:06,462 | INFO | Entrada PCM: /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/data/cache/baseline_pcm
+2026-11-20 19:46:06,463 | INFO | Fingerprint: abe4d073aca1f105971d4f4638099dc88eb5058a8e6bbb8c13f2d4756cbbf264
+2026-11-20 19:46:06,463 | INFO | Clipes: ecosoundset=14954, pteroset_ppa1=10368
+2026-11-20 19:46:06,463 | INFO | Condicoes: 3 ENCODEC; tarefas: 75966
+2026-11-20 19:46:06,463 | INFO | GPUs CUDA: 2; um processo/modelo persistente por GPU; batch inicial: 32
+2026-11-20 19:46:06,463 | INFO | Uso alvo da VRAM: 90%; prefetch: 2 batches por GPU.
+2026-11-20 19:46:06,463 | INFO | Processos CPU para metricas: 8; fila de metricas: 64; checkpoint: 64; tentativas: 3
+2026-11-20 19:46:06,714 | INFO | 
+Processamento
+------------------------------------------------------------------------
+2026-11-20 19:46:06,714 | INFO | Retomada: 75966 concluidas; 0 pendentes.
+2026-11-20 19:46:08,689 | INFO | 
+Execucao concluida
+------------------------------------------------------------------------
+2026-11-20 19:46:08,689 | INFO | Resultados: 75966 linhas em /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/results/tables/encodec_metrics.csv
+2026-11-20 19:46:08,689 | INFO | 
+Tempos da execucao
+------------------------------------------------------------------------
+2026-11-20 19:46:08,689 | INFO | Etapa                              Tempo 
+2026-11-20 19:46:08,690 | INFO | ---------------------------------  ------
+2026-11-20 19:46:08,690 | INFO | Preparacao dos dados e checkpoint  6.72 s
+2026-11-20 19:46:08,690 | INFO | Carregamento dos modelos           0.00 s
+2026-11-20 19:46:08,690 | INFO | Processamento                      0.00 s
+2026-11-20 19:46:08,690 | INFO | Exportacao do CSV                  1.97 s
+2026-11-20 19:46:08,690 | INFO | Total                              8.69 s
+2026-11-20 19:46:08,690 | INFO | CPU de metricas acumulada: 0.00 s em 8 processos.
+2026-11-20 19:46:08,690 | INFO | 
+Desempenho por GPU
+------------------------------------------------------------------------
+2026-11-20 19:46:08,690 | INFO | Nenhum trabalho de GPU: todas as tarefas vieram do checkpoint.
+2026-11-20 19:46:08,746 | INFO | 
+Resumo por condicao
+------------------------------------------------------------------------
+2026-11-20 19:46:08,746 | INFO | Condicao         Total  Retomadas  Processadas  Falhas
+2026-11-20 19:46:08,746 | INFO | ---------------  -----  ---------  -----------  ------
+2026-11-20 19:46:08,746 | INFO | ENCODEC 6 kbps   25322  25322      0            0     
+2026-11-20 19:46:08,746 | INFO | ENCODEC 12 kbps  25322  25322      0            0     
+2026-11-20 19:46:08,746 | INFO | ENCODEC 24 kbps  25322  25322      0            0     

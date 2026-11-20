@@ -1,7 +1,7 @@
-prefix=/home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/.tools/ffmpeg-lc3/9.0.2
+prefix=${pcfiledir}/../..
 exec_prefix=${prefix}
-libdir=/home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/.tools/ffmpeg-lc3/9.0.2/lib
-includedir=/home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/.tools/ffmpeg-lc3/9.0.2/include
+libdir=${prefix}/lib
+includedir=${prefix}/include
 
 Name: libavfilter
 Description: FFmpeg audio/video filtering library

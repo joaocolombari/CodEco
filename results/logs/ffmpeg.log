@@ -6127,3 +6127,357 @@ Execucao concluida
 ------------------------------------------------------------------------
 2026-11-20 18:37:28,610 | INFO | Resultados: 379830 linhas em /home/filipe/Documentos/Mestrado/SeriesTemporais/Experiment/results/tables/ffmpeg_metrics.csv
 2026-11-20 18:37:28,610 | INFO | Tempo total: 13.2 s
+2026-11-20 19:23:40,937 | INFO | 
+========================================================================
+COMPRESSAO FFmpeg + RECONSTRUCAO + METRICAS
+[CMD]   /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/.venv/bin/python /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/src/codeco/main.py
+========================================================================
+2026-11-20 19:23:40,937 | INFO | 
+Preparacao da execucao
+------------------------------------------------------------------------
+2026-11-20 19:23:49,098 | INFO | Log: /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/results/logs/ffmpeg.log
+2026-11-20 19:23:49,098 | INFO | Checkpoint: /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/data/cache/checkpoints.sqlite3
+2026-11-20 19:23:49,098 | INFO | Resultado CSV: /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/results/tables/ffmpeg_metrics.csv
+2026-11-20 19:23:49,098 | INFO | FFmpeg: 9.0.2
+2026-11-20 19:23:49,099 | INFO | Entrada PCM: /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/data/cache/baseline_pcm
+2026-11-20 19:23:49,099 | INFO | Fingerprint: 4e7f056a4f8e9cea58bfedfb6b197ae36c3c17ce73535f1d563a5fe8ccdb0cf3
+2026-11-20 19:23:49,099 | INFO | Clipes: ecosoundset=14954, pteroset_ppa1=10368
+2026-11-20 19:23:49,099 | INFO | Condicoes: 1 baseline + 14 FFmpeg; tarefas: 379830
+2026-11-20 19:23:49,099 | INFO | Nucleos fisicos: 8; processos persistentes: 8
+2026-11-20 19:23:49,099 | INFO | Janela da fila: 64; checkpoint: 64 resultados; tentativas: 3
+2026-11-20 19:23:52,145 | INFO | 
+Processamento
+------------------------------------------------------------------------
+2026-11-20 19:23:52,146 | INFO | Retomada: 0 concluidas; 379830 pendentes.
+2026-11-20 19:23:52,658 | INFO | Checkpoint: 64/379830 (0.0%); fila ativa: 64; CPU: 32.5%; RSS agregado: 8.81 GiB; ETA: 25.7 min.
+2026-11-20 19:23:52,852 | INFO | Checkpoint: 128/379830 (0.0%); fila ativa: 64; CPU: 55.9%; RSS agregado: 8.84 GiB; ETA: 22.5 min.
+2026-11-20 19:23:53,036 | INFO | Checkpoint: 192/379830 (0.1%); fila ativa: 64; CPU: 53.9%; RSS agregado: 8.86 GiB; ETA: 21.0 min.
+2026-11-20 19:23:53,237 | INFO | Checkpoint: 256/379830 (0.1%); fila ativa: 64; CPU: 66.0%; RSS agregado: 8.89 GiB; ETA: 20.7 min.
+2026-11-20 19:23:53,427 | INFO | Checkpoint: 320/379830 (0.1%); fila ativa: 64; CPU: 56.6%; RSS agregado: 8.92 GiB; ETA: 20.4 min.
+2026-11-20 19:23:53,625 | INFO | Checkpoint: 384/379830 (0.1%); fila ativa: 64; CPU: 57.3%; RSS agregado: 8.94 GiB; ETA: 20.2 min.
+2026-11-20 19:23:53,813 | INFO | Checkpoint: 448/379830 (0.1%); fila ativa: 64; CPU: 54.5%; RSS agregado: 8.97 GiB; ETA: 20.0 min.
+2026-11-20 19:23:54,015 | INFO | Checkpoint: 512/379830 (0.1%); fila ativa: 64; CPU: 55.4%; RSS agregado: 9.00 GiB; ETA: 20.0 min.
+2026-11-20 19:23:54,205 | INFO | Checkpoint: 576/379830 (0.2%); fila ativa: 64; CPU: 55.1%; RSS agregado: 9.03 GiB; ETA: 19.8 min.
+2026-11-20 19:23:54,391 | INFO | Checkpoint: 640/379830 (0.2%); fila ativa: 64; CPU: 56.2%; RSS agregado: 9.06 GiB; ETA: 19.7 min.
+2026-11-20 19:23:54,574 | INFO | Checkpoint: 704/379830 (0.2%); fila ativa: 64; CPU: 54.7%; RSS agregado: 9.08 GiB; ETA: 19.5 min.
+2026-11-20 19:23:54,766 | INFO | Checkpoint: 768/379830 (0.2%); fila ativa: 64; CPU: 56.4%; RSS agregado: 9.11 GiB; ETA: 19.5 min.
+2026-11-20 19:23:54,957 | INFO | Checkpoint: 832/379830 (0.2%); fila ativa: 64; CPU: 54.7%; RSS agregado: 9.14 GiB; ETA: 19.4 min.
+2026-11-20 19:23:55,144 | INFO | Checkpoint: 896/379830 (0.2%); fila ativa: 64; CPU: 54.0%; RSS agregado: 9.16 GiB; ETA: 19.4 min.
+2026-11-20 19:23:55,333 | INFO | Checkpoint: 960/379830 (0.3%); fila ativa: 64; CPU: 54.8%; RSS agregado: 9.19 GiB; ETA: 19.3 min.
+2026-11-20 19:23:55,533 | INFO | Checkpoint: 1024/379830 (0.3%); fila ativa: 64; CPU: 58.1%; RSS agregado: 9.22 GiB; ETA: 19.3 min.
+2026-11-20 19:23:55,722 | INFO | Checkpoint: 1088/379830 (0.3%); fila ativa: 64; CPU: 54.8%; RSS agregado: 9.25 GiB; ETA: 19.3 min.
+2026-11-20 19:23:55,908 | INFO | Checkpoint: 1152/379830 (0.3%); fila ativa: 64; CPU: 56.7%; RSS agregado: 9.27 GiB; ETA: 19.2 min.
+2026-11-20 19:23:56,105 | INFO | Checkpoint: 1216/379830 (0.3%); fila ativa: 64; CPU: 54.9%; RSS agregado: 9.30 GiB; ETA: 19.2 min.
+2026-11-20 19:23:56,297 | INFO | Checkpoint: 1280/379830 (0.3%); fila ativa: 64; CPU: 57.6%; RSS agregado: 9.33 GiB; ETA: 19.2 min.
+2026-11-20 19:23:56,496 | INFO | Checkpoint: 1344/379830 (0.4%); fila ativa: 64; CPU: 56.4%; RSS agregado: 9.36 GiB; ETA: 19.2 min.
+2026-11-20 19:23:56,680 | INFO | Checkpoint: 1408/379830 (0.4%); fila ativa: 64; CPU: 54.1%; RSS agregado: 9.39 GiB; ETA: 19.2 min.
+2026-11-20 19:23:56,880 | INFO | Checkpoint: 1472/379830 (0.4%); fila ativa: 64; CPU: 55.5%; RSS agregado: 9.41 GiB; ETA: 19.2 min.
+2026-11-20 19:23:57,096 | INFO | Checkpoint: 1536/379830 (0.4%); fila ativa: 64; CPU: 77.8%; RSS agregado: 9.44 GiB; ETA: 19.3 min.
+2026-11-20 19:23:57,306 | INFO | Checkpoint: 1600/379830 (0.4%); fila ativa: 64; CPU: 66.0%; RSS agregado: 9.47 GiB; ETA: 19.3 min.
+2026-11-20 19:23:57,502 | INFO | Checkpoint: 1664/379830 (0.4%); fila ativa: 64; CPU: 53.9%; RSS agregado: 9.50 GiB; ETA: 19.3 min.
+2026-11-20 19:23:57,691 | INFO | Checkpoint: 1728/379830 (0.5%); fila ativa: 64; CPU: 54.6%; RSS agregado: 9.52 GiB; ETA: 19.3 min.
+2026-11-20 19:23:57,876 | INFO | Checkpoint: 1792/379830 (0.5%); fila ativa: 64; CPU: 55.4%; RSS agregado: 9.55 GiB; ETA: 19.3 min.
+2026-11-20 19:23:58,064 | INFO | Checkpoint: 1856/379830 (0.5%); fila ativa: 64; CPU: 55.8%; RSS agregado: 9.58 GiB; ETA: 19.2 min.
+2026-11-20 19:23:58,257 | INFO | Checkpoint: 1920/379830 (0.5%); fila ativa: 64; CPU: 54.5%; RSS agregado: 9.61 GiB; ETA: 19.2 min.
+2026-11-20 19:23:58,441 | INFO | Checkpoint: 1984/379830 (0.5%); fila ativa: 64; CPU: 57.9%; RSS agregado: 9.63 GiB; ETA: 19.2 min.
+2026-11-20 19:23:58,634 | INFO | Checkpoint: 2048/379830 (0.5%); fila ativa: 64; CPU: 55.2%; RSS agregado: 9.66 GiB; ETA: 19.2 min.
+2026-11-20 19:23:58,820 | INFO | Checkpoint: 2112/379830 (0.6%); fila ativa: 64; CPU: 55.6%; RSS agregado: 9.69 GiB; ETA: 19.1 min.
+2026-11-20 19:23:59,019 | INFO | Checkpoint: 2176/379830 (0.6%); fila ativa: 64; CPU: 54.6%; RSS agregado: 9.72 GiB; ETA: 19.2 min.
+2026-11-20 19:23:59,206 | INFO | Checkpoint: 2240/379830 (0.6%); fila ativa: 64; CPU: 56.3%; RSS agregado: 9.74 GiB; ETA: 19.1 min.
+2026-11-20 19:23:59,407 | INFO | Checkpoint: 2304/379830 (0.6%); fila ativa: 64; CPU: 54.9%; RSS agregado: 9.77 GiB; ETA: 19.1 min.
+2026-11-20 19:23:59,598 | INFO | Checkpoint: 2368/379830 (0.6%); fila ativa: 64; CPU: 56.2%; RSS agregado: 9.80 GiB; ETA: 19.1 min.
+2026-11-20 19:23:59,777 | INFO | Checkpoint: 2432/379830 (0.6%); fila ativa: 64; CPU: 55.2%; RSS agregado: 9.82 GiB; ETA: 19.1 min.
+2026-11-20 19:23:59,956 | INFO | Checkpoint: 2496/379830 (0.7%); fila ativa: 64; CPU: 54.2%; RSS agregado: 9.85 GiB; ETA: 19.0 min.
+2026-11-20 19:24:00,162 | INFO | Checkpoint: 2560/379830 (0.7%); fila ativa: 64; CPU: 57.5%; RSS agregado: 9.88 GiB; ETA: 19.1 min.
+2026-11-20 19:24:00,350 | INFO | Checkpoint: 2624/379830 (0.7%); fila ativa: 64; CPU: 56.1%; RSS agregado: 9.91 GiB; ETA: 19.1 min.
+2026-11-20 19:24:00,554 | INFO | Checkpoint: 2688/379830 (0.7%); fila ativa: 64; CPU: 60.4%; RSS agregado: 9.94 GiB; ETA: 19.1 min.
+2026-11-20 19:24:00,727 | INFO | Checkpoint: 2752/379830 (0.7%); fila ativa: 64; CPU: 53.8%; RSS agregado: 9.96 GiB; ETA: 19.0 min.
+2026-11-20 19:24:00,935 | INFO | Checkpoint: 2816/379830 (0.7%); fila ativa: 64; CPU: 55.2%; RSS agregado: 9.99 GiB; ETA: 19.0 min.
+2026-11-20 19:24:01,125 | INFO | Checkpoint: 2880/379830 (0.8%); fila ativa: 64; CPU: 54.1%; RSS agregado: 10.02 GiB; ETA: 19.0 min.
+2026-11-20 19:24:01,315 | INFO | Checkpoint: 2944/379830 (0.8%); fila ativa: 64; CPU: 55.6%; RSS agregado: 10.05 GiB; ETA: 19.0 min.
+2026-11-20 19:24:01,508 | INFO | Checkpoint: 3008/379830 (0.8%); fila ativa: 64; CPU: 55.6%; RSS agregado: 10.08 GiB; ETA: 19.0 min.
+2026-11-20 19:24:01,690 | INFO | Checkpoint: 3072/379830 (0.8%); fila ativa: 64; CPU: 54.0%; RSS agregado: 10.10 GiB; ETA: 19.0 min.
+2026-11-20 19:24:01,883 | INFO | Checkpoint: 3136/379830 (0.8%); fila ativa: 64; CPU: 55.3%; RSS agregado: 10.13 GiB; ETA: 19.0 min.
+2026-11-20 19:24:02,065 | INFO | Checkpoint: 3200/379830 (0.8%); fila ativa: 64; CPU: 53.8%; RSS agregado: 10.16 GiB; ETA: 19.0 min.
+2026-11-20 19:24:02,266 | INFO | Checkpoint: 3264/379830 (0.9%); fila ativa: 64; CPU: 53.7%; RSS agregado: 10.19 GiB; ETA: 19.0 min.
+2026-11-20 19:24:02,450 | INFO | Checkpoint: 3328/379830 (0.9%); fila ativa: 64; CPU: 54.2%; RSS agregado: 10.21 GiB; ETA: 19.0 min.
+2026-11-20 19:24:02,646 | INFO | Checkpoint: 3392/379830 (0.9%); fila ativa: 64; CPU: 59.0%; RSS agregado: 10.24 GiB; ETA: 19.0 min.
+2026-11-20 19:24:02,836 | INFO | Checkpoint: 3456/379830 (0.9%); fila ativa: 64; CPU: 55.1%; RSS agregado: 10.27 GiB; ETA: 18.9 min.
+2026-11-20 19:24:03,018 | INFO | Checkpoint: 3520/379830 (0.9%); fila ativa: 64; CPU: 54.8%; RSS agregado: 10.29 GiB; ETA: 18.9 min.
+2026-11-20 19:24:03,206 | INFO | Checkpoint: 3584/379830 (0.9%); fila ativa: 64; CPU: 53.8%; RSS agregado: 10.32 GiB; ETA: 18.9 min.
+2026-11-20 19:24:03,396 | INFO | Checkpoint: 3648/379830 (1.0%); fila ativa: 64; CPU: 55.7%; RSS agregado: 10.35 GiB; ETA: 18.9 min.
+2026-11-20 19:24:03,585 | INFO | Checkpoint: 3712/379830 (1.0%); fila ativa: 64; CPU: 59.7%; RSS agregado: 10.38 GiB; ETA: 18.9 min.
+2026-11-20 19:24:03,775 | INFO | Checkpoint: 3776/379830 (1.0%); fila ativa: 64; CPU: 59.9%; RSS agregado: 10.41 GiB; ETA: 18.9 min.
+2026-11-20 19:24:03,987 | INFO | Checkpoint: 3840/379830 (1.0%); fila ativa: 64; CPU: 57.8%; RSS agregado: 10.44 GiB; ETA: 18.9 min.
+2026-11-20 19:24:04,167 | INFO | Checkpoint: 3904/379830 (1.0%); fila ativa: 64; CPU: 54.9%; RSS agregado: 10.47 GiB; ETA: 18.9 min.
+2026-11-20 19:24:04,351 | INFO | Checkpoint: 3968/379830 (1.0%); fila ativa: 64; CPU: 55.9%; RSS agregado: 10.50 GiB; ETA: 18.9 min.
+2026-11-20 19:24:04,545 | INFO | Checkpoint: 4032/379830 (1.1%); fila ativa: 64; CPU: 55.0%; RSS agregado: 10.53 GiB; ETA: 18.9 min.
+2026-11-20 19:24:04,739 | INFO | Checkpoint: 4096/379830 (1.1%); fila ativa: 64; CPU: 57.1%; RSS agregado: 10.57 GiB; ETA: 18.9 min.
+2026-11-20 19:24:04,928 | INFO | Checkpoint: 4160/379830 (1.1%); fila ativa: 64; CPU: 57.9%; RSS agregado: 10.60 GiB; ETA: 18.9 min.
+2026-11-20 19:24:05,107 | INFO | Checkpoint: 4224/379830 (1.1%); fila ativa: 64; CPU: 55.2%; RSS agregado: 10.62 GiB; ETA: 18.8 min.
+2026-11-20 19:24:05,299 | INFO | Checkpoint: 4288/379830 (1.1%); fila ativa: 64; CPU: 55.2%; RSS agregado: 10.65 GiB; ETA: 18.8 min.
+2026-11-20 19:24:05,491 | INFO | Checkpoint: 4352/379830 (1.1%); fila ativa: 64; CPU: 55.5%; RSS agregado: 10.68 GiB; ETA: 18.8 min.
+2026-11-20 19:24:05,675 | INFO | Checkpoint: 4416/379830 (1.2%); fila ativa: 64; CPU: 58.9%; RSS agregado: 10.71 GiB; ETA: 18.8 min.
+2026-11-20 19:24:05,859 | INFO | Checkpoint: 4480/379830 (1.2%); fila ativa: 64; CPU: 55.3%; RSS agregado: 10.74 GiB; ETA: 18.8 min.
+2026-11-20 19:24:06,052 | INFO | Checkpoint: 4544/379830 (1.2%); fila ativa: 64; CPU: 57.4%; RSS agregado: 10.77 GiB; ETA: 18.8 min.
+2026-11-20 19:24:06,242 | INFO | Checkpoint: 4608/379830 (1.2%); fila ativa: 64; CPU: 55.1%; RSS agregado: 10.80 GiB; ETA: 18.8 min.
+2026-11-20 19:24:06,425 | INFO | Checkpoint: 4672/379830 (1.2%); fila ativa: 64; CPU: 55.9%; RSS agregado: 10.83 GiB; ETA: 18.8 min.
+2026-11-20 19:24:06,615 | INFO | Checkpoint: 4736/379830 (1.2%); fila ativa: 64; CPU: 54.8%; RSS agregado: 10.86 GiB; ETA: 18.8 min.
+2026-11-20 19:24:06,796 | INFO | Checkpoint: 4800/379830 (1.3%); fila ativa: 64; CPU: 58.4%; RSS agregado: 10.89 GiB; ETA: 18.7 min.
+2026-11-20 19:24:06,983 | INFO | Checkpoint: 4864/379830 (1.3%); fila ativa: 64; CPU: 55.0%; RSS agregado: 10.92 GiB; ETA: 18.7 min.
+2026-11-20 19:24:07,182 | INFO | Checkpoint: 4928/379830 (1.3%); fila ativa: 64; CPU: 56.4%; RSS agregado: 10.96 GiB; ETA: 18.7 min.
+2026-11-20 19:24:07,360 | INFO | Checkpoint: 4992/379830 (1.3%); fila ativa: 64; CPU: 55.6%; RSS agregado: 10.99 GiB; ETA: 18.7 min.
+2026-11-20 19:24:07,539 | INFO | Checkpoint: 5056/379830 (1.3%); fila ativa: 64; CPU: 55.0%; RSS agregado: 11.01 GiB; ETA: 18.7 min.
+2026-11-20 19:24:07,730 | INFO | Checkpoint: 5120/379830 (1.3%); fila ativa: 64; CPU: 54.5%; RSS agregado: 11.04 GiB; ETA: 18.7 min.
+2026-11-20 19:24:07,921 | INFO | Checkpoint: 5184/379830 (1.4%); fila ativa: 64; CPU: 55.2%; RSS agregado: 11.08 GiB; ETA: 18.7 min.
+2026-11-20 19:24:08,098 | INFO | Checkpoint: 5248/379830 (1.4%); fila ativa: 64; CPU: 54.4%; RSS agregado: 11.10 GiB; ETA: 18.7 min.
+2026-11-20 19:24:08,287 | INFO | Checkpoint: 5312/379830 (1.4%); fila ativa: 64; CPU: 56.5%; RSS agregado: 11.13 GiB; ETA: 18.7 min.
+2026-11-20 19:24:08,477 | INFO | Checkpoint: 5376/379830 (1.4%); fila ativa: 64; CPU: 55.4%; RSS agregado: 11.17 GiB; ETA: 18.7 min.
+2026-11-20 19:24:08,669 | INFO | Checkpoint: 5440/379830 (1.4%); fila ativa: 64; CPU: 57.2%; RSS agregado: 11.19 GiB; ETA: 18.7 min.
+2026-11-20 19:24:08,857 | INFO | Checkpoint: 5504/379830 (1.4%); fila ativa: 64; CPU: 58.3%; RSS agregado: 11.22 GiB; ETA: 18.7 min.
+2026-11-20 19:24:09,050 | INFO | Checkpoint: 5568/379830 (1.5%); fila ativa: 64; CPU: 55.2%; RSS agregado: 11.25 GiB; ETA: 18.7 min.
+2026-11-20 19:24:09,237 | INFO | Checkpoint: 5632/379830 (1.5%); fila ativa: 64; CPU: 54.3%; RSS agregado: 11.29 GiB; ETA: 18.6 min.
+2026-11-20 19:24:09,422 | INFO | Checkpoint: 5696/379830 (1.5%); fila ativa: 64; CPU: 61.7%; RSS agregado: 11.31 GiB; ETA: 18.6 min.
+2026-11-20 19:24:09,640 | INFO | Checkpoint: 5760/379830 (1.5%); fila ativa: 64; CPU: 57.3%; RSS agregado: 11.35 GiB; ETA: 18.7 min.
+2026-11-20 19:24:09,808 | INFO | Checkpoint: 5824/379830 (1.5%); fila ativa: 64; CPU: 58.1%; RSS agregado: 11.37 GiB; ETA: 18.6 min.
+2026-11-20 19:24:10,001 | INFO | Checkpoint: 5888/379830 (1.6%); fila ativa: 64; CPU: 55.1%; RSS agregado: 11.40 GiB; ETA: 18.6 min.
+2026-11-20 19:24:10,174 | INFO | Checkpoint: 5952/379830 (1.6%); fila ativa: 64; CPU: 54.7%; RSS agregado: 11.43 GiB; ETA: 18.6 min.
+2026-11-20 19:24:10,375 | INFO | Checkpoint: 6016/379830 (1.6%); fila ativa: 64; CPU: 55.6%; RSS agregado: 11.46 GiB; ETA: 18.6 min.
+2026-11-20 19:24:10,565 | INFO | Checkpoint: 6080/379830 (1.6%); fila ativa: 64; CPU: 57.1%; RSS agregado: 11.49 GiB; ETA: 18.6 min.
+2026-11-20 19:24:10,751 | INFO | Checkpoint: 6144/379830 (1.6%); fila ativa: 64; CPU: 58.5%; RSS agregado: 11.52 GiB; ETA: 18.6 min.
+2026-11-20 19:24:10,949 | INFO | Checkpoint: 6208/379830 (1.6%); fila ativa: 64; CPU: 58.2%; RSS agregado: 11.55 GiB; ETA: 18.6 min.
+2026-11-20 19:24:11,139 | INFO | Checkpoint: 6272/379830 (1.7%); fila ativa: 64; CPU: 55.2%; RSS agregado: 11.58 GiB; ETA: 18.6 min.
+2026-11-20 19:24:11,327 | INFO | Checkpoint: 6336/379830 (1.7%); fila ativa: 64; CPU: 56.0%; RSS agregado: 11.61 GiB; ETA: 18.6 min.
+2026-11-20 19:24:11,515 | INFO | Checkpoint: 6400/379830 (1.7%); fila ativa: 64; CPU: 54.3%; RSS agregado: 11.64 GiB; ETA: 18.6 min.
+2026-11-20 19:24:11,708 | INFO | Checkpoint: 6464/379830 (1.7%); fila ativa: 64; CPU: 55.3%; RSS agregado: 11.66 GiB; ETA: 18.6 min.
+2026-11-20 19:24:11,902 | INFO | Checkpoint: 6528/379830 (1.7%); fila ativa: 64; CPU: 55.3%; RSS agregado: 11.69 GiB; ETA: 18.6 min.
+2026-11-20 19:24:12,093 | INFO | Checkpoint: 6592/379830 (1.7%); fila ativa: 64; CPU: 55.0%; RSS agregado: 11.72 GiB; ETA: 18.6 min.
+2026-11-20 19:24:12,281 | INFO | Checkpoint: 6656/379830 (1.8%); fila ativa: 64; CPU: 56.6%; RSS agregado: 11.75 GiB; ETA: 18.6 min.
+2026-11-20 19:24:12,472 | INFO | Checkpoint: 6720/379830 (1.8%); fila ativa: 64; CPU: 53.3%; RSS agregado: 11.77 GiB; ETA: 18.6 min.
+2026-11-20 19:24:12,652 | INFO | Checkpoint: 6784/379830 (1.8%); fila ativa: 64; CPU: 53.6%; RSS agregado: 11.80 GiB; ETA: 18.6 min.
+2026-11-20 19:24:12,851 | INFO | Checkpoint: 6848/379830 (1.8%); fila ativa: 64; CPU: 57.2%; RSS agregado: 11.83 GiB; ETA: 18.6 min.
+2026-11-20 19:24:13,048 | INFO | Checkpoint: 6912/379830 (1.8%); fila ativa: 64; CPU: 56.2%; RSS agregado: 11.86 GiB; ETA: 18.6 min.
+2026-11-20 19:24:13,240 | INFO | Checkpoint: 6976/379830 (1.8%); fila ativa: 64; CPU: 54.8%; RSS agregado: 11.88 GiB; ETA: 18.6 min.
+2026-11-20 19:24:13,433 | INFO | Checkpoint: 7040/379830 (1.9%); fila ativa: 64; CPU: 54.5%; RSS agregado: 11.91 GiB; ETA: 18.6 min.
+2026-11-20 19:24:13,611 | INFO | Checkpoint: 7104/379830 (1.9%); fila ativa: 64; CPU: 56.6%; RSS agregado: 11.94 GiB; ETA: 18.5 min.
+2026-11-20 19:24:13,799 | INFO | Checkpoint: 7168/379830 (1.9%); fila ativa: 64; CPU: 55.5%; RSS agregado: 11.96 GiB; ETA: 18.5 min.
+2026-11-20 19:24:14,006 | INFO | Checkpoint: 7232/379830 (1.9%); fila ativa: 64; CPU: 56.0%; RSS agregado: 11.99 GiB; ETA: 18.6 min.
+2026-11-20 19:24:14,192 | INFO | Checkpoint: 7296/379830 (1.9%); fila ativa: 64; CPU: 53.7%; RSS agregado: 12.02 GiB; ETA: 18.5 min.
+2026-11-20 19:24:14,380 | INFO | Checkpoint: 7360/379830 (1.9%); fila ativa: 64; CPU: 55.4%; RSS agregado: 12.05 GiB; ETA: 18.5 min.
+2026-11-20 19:24:14,572 | INFO | Checkpoint: 7424/379830 (2.0%); fila ativa: 64; CPU: 53.6%; RSS agregado: 12.08 GiB; ETA: 18.5 min.
+2026-11-20 19:24:14,765 | INFO | Checkpoint: 7488/379830 (2.0%); fila ativa: 64; CPU: 53.5%; RSS agregado: 12.10 GiB; ETA: 18.5 min.
+2026-11-20 19:24:14,959 | INFO | Checkpoint: 7552/379830 (2.0%); fila ativa: 64; CPU: 56.3%; RSS agregado: 12.13 GiB; ETA: 18.5 min.
+2026-11-20 19:24:15,156 | INFO | Checkpoint: 7616/379830 (2.0%); fila ativa: 64; CPU: 57.2%; RSS agregado: 12.16 GiB; ETA: 18.5 min.
+2026-11-20 19:24:15,350 | INFO | Checkpoint: 7680/379830 (2.0%); fila ativa: 64; CPU: 55.3%; RSS agregado: 12.19 GiB; ETA: 18.5 min.
+2026-11-20 19:24:15,532 | INFO | Checkpoint: 7744/379830 (2.0%); fila ativa: 64; CPU: 53.8%; RSS agregado: 12.21 GiB; ETA: 18.5 min.
+2026-11-20 19:24:15,729 | INFO | Checkpoint: 7808/379830 (2.1%); fila ativa: 64; CPU: 54.3%; RSS agregado: 12.24 GiB; ETA: 18.5 min.
+2026-11-20 19:24:15,921 | INFO | Checkpoint: 7872/379830 (2.1%); fila ativa: 64; CPU: 59.4%; RSS agregado: 12.27 GiB; ETA: 18.5 min.
+2026-11-20 19:24:16,110 | INFO | Checkpoint: 7936/379830 (2.1%); fila ativa: 64; CPU: 54.9%; RSS agregado: 12.29 GiB; ETA: 18.5 min.
+2026-11-20 19:24:16,300 | INFO | Checkpoint: 8000/379830 (2.1%); fila ativa: 64; CPU: 57.0%; RSS agregado: 12.32 GiB; ETA: 18.5 min.
+2026-11-20 19:24:16,484 | INFO | Checkpoint: 8064/379830 (2.1%); fila ativa: 64; CPU: 55.1%; RSS agregado: 12.35 GiB; ETA: 18.5 min.
+2026-11-20 19:24:16,671 | INFO | Checkpoint: 8128/379830 (2.1%); fila ativa: 64; CPU: 53.5%; RSS agregado: 12.38 GiB; ETA: 18.5 min.
+2026-11-20 19:24:16,863 | INFO | Checkpoint: 8192/379830 (2.2%); fila ativa: 64; CPU: 54.9%; RSS agregado: 12.41 GiB; ETA: 18.5 min.
+2026-11-20 19:24:17,053 | INFO | Checkpoint: 8256/379830 (2.2%); fila ativa: 64; CPU: 57.2%; RSS agregado: 12.43 GiB; ETA: 18.5 min.
+2026-11-20 19:24:17,252 | INFO | Checkpoint: 8320/379830 (2.2%); fila ativa: 64; CPU: 55.1%; RSS agregado: 12.46 GiB; ETA: 18.5 min.
+2026-11-20 19:24:17,447 | INFO | Checkpoint: 8384/379830 (2.2%); fila ativa: 64; CPU: 56.5%; RSS agregado: 12.49 GiB; ETA: 18.5 min.
+2026-11-20 19:24:17,632 | INFO | Checkpoint: 8448/379830 (2.2%); fila ativa: 64; CPU: 54.4%; RSS agregado: 12.51 GiB; ETA: 18.5 min.
+2026-11-20 19:24:17,820 | INFO | Checkpoint: 8512/379830 (2.2%); fila ativa: 64; CPU: 55.1%; RSS agregado: 12.54 GiB; ETA: 18.5 min.
+2026-11-20 19:24:18,012 | INFO | Checkpoint: 8576/379830 (2.3%); fila ativa: 64; CPU: 54.4%; RSS agregado: 12.57 GiB; ETA: 18.5 min.
+2026-11-20 19:24:18,200 | INFO | Checkpoint: 8640/379830 (2.3%); fila ativa: 64; CPU: 54.8%; RSS agregado: 12.60 GiB; ETA: 18.5 min.
+2026-11-20 19:24:18,386 | INFO | Checkpoint: 8704/379830 (2.3%); fila ativa: 64; CPU: 55.3%; RSS agregado: 12.63 GiB; ETA: 18.5 min.
+2026-11-20 19:24:18,577 | INFO | Checkpoint: 8768/379830 (2.3%); fila ativa: 64; CPU: 56.4%; RSS agregado: 12.66 GiB; ETA: 18.5 min.
+2026-11-20 19:24:18,765 | INFO | Checkpoint: 8832/379830 (2.3%); fila ativa: 64; CPU: 58.4%; RSS agregado: 12.68 GiB; ETA: 18.5 min.
+2026-11-20 19:24:18,959 | INFO | Checkpoint: 8896/379830 (2.3%); fila ativa: 64; CPU: 55.3%; RSS agregado: 12.71 GiB; ETA: 18.5 min.
+2026-11-20 19:24:19,158 | INFO | Checkpoint: 8960/379830 (2.4%); fila ativa: 64; CPU: 58.1%; RSS agregado: 12.75 GiB; ETA: 18.5 min.
+2026-11-20 19:24:19,348 | INFO | Checkpoint: 9024/379830 (2.4%); fila ativa: 64; CPU: 54.8%; RSS agregado: 12.78 GiB; ETA: 18.5 min.
+2026-11-20 19:24:19,531 | INFO | Checkpoint: 9088/379830 (2.4%); fila ativa: 64; CPU: 55.6%; RSS agregado: 12.81 GiB; ETA: 18.4 min.
+2026-11-20 19:24:19,717 | INFO | Checkpoint: 9152/379830 (2.4%); fila ativa: 64; CPU: 56.2%; RSS agregado: 12.83 GiB; ETA: 18.4 min.
+2026-11-20 19:24:19,910 | INFO | Checkpoint: 9216/379830 (2.4%); fila ativa: 64; CPU: 55.4%; RSS agregado: 12.86 GiB; ETA: 18.4 min.
+2026-11-20 19:24:20,101 | INFO | Checkpoint: 9280/379830 (2.4%); fila ativa: 64; CPU: 54.4%; RSS agregado: 12.89 GiB; ETA: 18.4 min.
+2026-11-20 19:24:20,289 | INFO | Checkpoint: 9344/379830 (2.5%); fila ativa: 64; CPU: 54.8%; RSS agregado: 12.91 GiB; ETA: 18.4 min.
+2026-11-20 19:24:20,481 | INFO | Checkpoint: 9408/379830 (2.5%); fila ativa: 64; CPU: 53.7%; RSS agregado: 12.94 GiB; ETA: 18.4 min.
+2026-11-20 19:24:20,656 | INFO | Checkpoint: 9472/379830 (2.5%); fila ativa: 64; CPU: 55.0%; RSS agregado: 12.97 GiB; ETA: 18.4 min.
+2026-11-20 19:24:20,853 | INFO | Checkpoint: 9536/379830 (2.5%); fila ativa: 64; CPU: 56.7%; RSS agregado: 13.00 GiB; ETA: 18.4 min.
+2026-11-20 19:24:21,056 | INFO | Checkpoint: 9600/379830 (2.5%); fila ativa: 64; CPU: 56.7%; RSS agregado: 13.03 GiB; ETA: 18.4 min.
+2026-11-20 19:24:21,256 | INFO | Checkpoint: 9664/379830 (2.5%); fila ativa: 64; CPU: 57.1%; RSS agregado: 13.06 GiB; ETA: 18.4 min.
+2026-11-20 19:24:21,452 | INFO | Checkpoint: 9728/379830 (2.6%); fila ativa: 64; CPU: 55.6%; RSS agregado: 13.09 GiB; ETA: 18.4 min.
+2026-11-20 19:24:21,622 | INFO | Checkpoint: 9792/379830 (2.6%); fila ativa: 64; CPU: 55.1%; RSS agregado: 13.11 GiB; ETA: 18.4 min.
+2026-11-20 19:24:21,811 | INFO | Checkpoint: 9856/379830 (2.6%); fila ativa: 64; CPU: 55.6%; RSS agregado: 13.14 GiB; ETA: 18.4 min.
+2026-11-20 19:24:22,008 | INFO | Checkpoint: 9920/379830 (2.6%); fila ativa: 64; CPU: 54.7%; RSS agregado: 13.17 GiB; ETA: 18.4 min.
+2026-11-20 19:24:22,198 | INFO | Checkpoint: 9984/379830 (2.6%); fila ativa: 64; CPU: 54.2%; RSS agregado: 13.20 GiB; ETA: 18.4 min.
+2026-11-20 19:24:22,382 | INFO | Checkpoint: 10048/379830 (2.6%); fila ativa: 64; CPU: 54.1%; RSS agregado: 13.22 GiB; ETA: 18.4 min.
+2026-11-20 19:24:22,577 | INFO | Checkpoint: 10112/379830 (2.7%); fila ativa: 64; CPU: 54.6%; RSS agregado: 13.25 GiB; ETA: 18.4 min.
+2026-11-20 19:24:22,755 | INFO | Checkpoint: 10176/379830 (2.7%); fila ativa: 64; CPU: 54.0%; RSS agregado: 13.28 GiB; ETA: 18.4 min.
+2026-11-20 19:24:22,944 | INFO | Checkpoint: 10240/379830 (2.7%); fila ativa: 64; CPU: 55.9%; RSS agregado: 13.31 GiB; ETA: 18.4 min.
+2026-11-20 19:24:23,136 | INFO | Checkpoint: 10304/379830 (2.7%); fila ativa: 64; CPU: 55.7%; RSS agregado: 13.33 GiB; ETA: 18.4 min.
+2026-11-20 19:24:23,326 | INFO | Checkpoint: 10368/379830 (2.7%); fila ativa: 64; CPU: 59.3%; RSS agregado: 13.36 GiB; ETA: 18.4 min.
+2026-11-20 19:24:23,515 | INFO | Checkpoint: 10432/379830 (2.7%); fila ativa: 64; CPU: 55.8%; RSS agregado: 13.39 GiB; ETA: 18.4 min.
+2026-11-20 19:24:23,710 | INFO | Checkpoint: 10496/379830 (2.8%); fila ativa: 64; CPU: 56.1%; RSS agregado: 13.42 GiB; ETA: 18.4 min.
+2026-11-20 19:24:23,894 | INFO | Checkpoint: 10560/379830 (2.8%); fila ativa: 64; CPU: 55.4%; RSS agregado: 13.44 GiB; ETA: 18.4 min.
+2026-11-20 19:24:24,082 | INFO | Checkpoint: 10624/379830 (2.8%); fila ativa: 64; CPU: 55.4%; RSS agregado: 13.47 GiB; ETA: 18.4 min.
+2026-11-20 19:24:24,271 | INFO | Checkpoint: 10688/379830 (2.8%); fila ativa: 64; CPU: 56.1%; RSS agregado: 13.50 GiB; ETA: 18.3 min.
+2026-11-20 19:24:24,451 | INFO | Checkpoint: 10752/379830 (2.8%); fila ativa: 64; CPU: 55.2%; RSS agregado: 13.53 GiB; ETA: 18.3 min.
+2026-11-20 19:24:24,646 | INFO | Checkpoint: 10816/379830 (2.8%); fila ativa: 64; CPU: 54.8%; RSS agregado: 13.56 GiB; ETA: 18.3 min.
+2026-11-20 19:24:24,830 | INFO | Checkpoint: 10880/379830 (2.9%); fila ativa: 64; CPU: 56.5%; RSS agregado: 13.58 GiB; ETA: 18.3 min.
+2026-11-20 19:24:25,012 | INFO | Checkpoint: 10944/379830 (2.9%); fila ativa: 64; CPU: 54.8%; RSS agregado: 13.61 GiB; ETA: 18.3 min.
+2026-11-20 19:24:25,200 | INFO | Checkpoint: 11008/379830 (2.9%); fila ativa: 64; CPU: 55.3%; RSS agregado: 13.64 GiB; ETA: 18.3 min.
+2026-11-20 19:24:25,392 | INFO | Checkpoint: 11072/379830 (2.9%); fila ativa: 64; CPU: 59.7%; RSS agregado: 13.67 GiB; ETA: 18.3 min.
+2026-11-20 19:24:25,575 | INFO | Checkpoint: 11136/379830 (2.9%); fila ativa: 64; CPU: 55.3%; RSS agregado: 13.69 GiB; ETA: 18.3 min.
+2026-11-20 19:24:25,767 | INFO | Checkpoint: 11200/379830 (2.9%); fila ativa: 64; CPU: 55.2%; RSS agregado: 13.72 GiB; ETA: 18.3 min.
+2026-11-20 19:24:25,950 | INFO | Checkpoint: 11264/379830 (3.0%); fila ativa: 64; CPU: 57.7%; RSS agregado: 13.75 GiB; ETA: 18.3 min.
+2026-11-20 19:24:26,150 | INFO | Checkpoint: 11328/379830 (3.0%); fila ativa: 64; CPU: 57.5%; RSS agregado: 13.78 GiB; ETA: 18.3 min.
+2026-11-20 19:24:26,328 | INFO | Checkpoint: 11392/379830 (3.0%); fila ativa: 64; CPU: 57.0%; RSS agregado: 13.80 GiB; ETA: 18.3 min.
+2026-11-20 19:24:26,507 | INFO | Checkpoint: 11456/379830 (3.0%); fila ativa: 64; CPU: 56.2%; RSS agregado: 13.83 GiB; ETA: 18.3 min.
+2026-11-20 19:24:26,718 | INFO | Checkpoint: 11520/379830 (3.0%); fila ativa: 64; CPU: 54.4%; RSS agregado: 13.86 GiB; ETA: 18.3 min.
+2026-11-20 19:24:26,893 | INFO | Checkpoint: 11584/379830 (3.0%); fila ativa: 64; CPU: 55.3%; RSS agregado: 13.89 GiB; ETA: 18.3 min.
+2026-11-20 19:24:27,086 | INFO | Checkpoint: 11648/379830 (3.1%); fila ativa: 64; CPU: 58.4%; RSS agregado: 13.92 GiB; ETA: 18.3 min.
+2026-11-20 19:24:27,282 | INFO | Checkpoint: 11712/379830 (3.1%); fila ativa: 64; CPU: 55.7%; RSS agregado: 13.95 GiB; ETA: 18.3 min.
+2026-11-20 19:24:27,473 | INFO | Checkpoint: 11776/379830 (3.1%); fila ativa: 64; CPU: 59.9%; RSS agregado: 13.98 GiB; ETA: 18.3 min.
+2026-11-20 19:24:27,669 | INFO | Checkpoint: 11840/379830 (3.1%); fila ativa: 64; CPU: 56.8%; RSS agregado: 14.01 GiB; ETA: 18.3 min.
+2026-11-20 19:24:27,867 | INFO | Checkpoint: 11904/379830 (3.1%); fila ativa: 64; CPU: 55.8%; RSS agregado: 14.04 GiB; ETA: 18.3 min.
+2026-11-20 19:24:28,040 | INFO | Checkpoint: 11968/379830 (3.2%); fila ativa: 64; CPU: 54.8%; RSS agregado: 14.07 GiB; ETA: 18.3 min.
+2026-11-20 19:24:28,240 | INFO | Checkpoint: 12032/379830 (3.2%); fila ativa: 64; CPU: 56.2%; RSS agregado: 14.10 GiB; ETA: 18.3 min.
+2026-11-20 19:24:28,426 | INFO | Checkpoint: 12096/379830 (3.2%); fila ativa: 64; CPU: 55.7%; RSS agregado: 14.13 GiB; ETA: 18.3 min.
+2026-11-20 19:24:28,608 | INFO | Checkpoint: 12160/379830 (3.2%); fila ativa: 64; CPU: 55.6%; RSS agregado: 14.16 GiB; ETA: 18.2 min.
+2026-11-20 19:24:28,799 | INFO | Checkpoint: 12224/379830 (3.2%); fila ativa: 64; CPU: 57.7%; RSS agregado: 14.19 GiB; ETA: 18.2 min.
+2026-11-20 19:24:28,994 | INFO | Checkpoint: 12288/379830 (3.2%); fila ativa: 64; CPU: 55.4%; RSS agregado: 14.22 GiB; ETA: 18.2 min.
+2026-11-20 19:24:29,175 | INFO | Checkpoint: 12352/379830 (3.3%); fila ativa: 64; CPU: 55.9%; RSS agregado: 14.25 GiB; ETA: 18.2 min.
+2026-11-20 19:24:29,361 | INFO | Checkpoint: 12416/379830 (3.3%); fila ativa: 64; CPU: 56.0%; RSS agregado: 14.28 GiB; ETA: 18.2 min.
+2026-11-20 19:24:29,554 | INFO | Checkpoint: 12480/379830 (3.3%); fila ativa: 64; CPU: 58.7%; RSS agregado: 14.31 GiB; ETA: 18.2 min.
+2026-11-20 19:24:29,741 | INFO | Checkpoint: 12544/379830 (3.3%); fila ativa: 64; CPU: 55.8%; RSS agregado: 14.34 GiB; ETA: 18.2 min.
+2026-11-20 19:24:29,944 | INFO | Checkpoint: 12608/379830 (3.3%); fila ativa: 64; CPU: 55.5%; RSS agregado: 14.37 GiB; ETA: 18.2 min.
+2026-11-20 19:24:30,132 | INFO | Checkpoint: 12672/379830 (3.3%); fila ativa: 64; CPU: 55.0%; RSS agregado: 14.40 GiB; ETA: 18.2 min.
+2026-11-20 19:24:30,314 | INFO | Checkpoint: 12736/379830 (3.4%); fila ativa: 64; CPU: 56.9%; RSS agregado: 14.43 GiB; ETA: 18.2 min.
+2026-11-20 19:24:30,498 | INFO | Checkpoint: 12800/379830 (3.4%); fila ativa: 64; CPU: 54.6%; RSS agregado: 14.46 GiB; ETA: 18.2 min.
+2026-11-20 19:24:30,688 | INFO | Checkpoint: 12864/379830 (3.4%); fila ativa: 64; CPU: 55.2%; RSS agregado: 14.49 GiB; ETA: 18.2 min.
+2026-11-20 19:24:30,873 | INFO | Checkpoint: 12928/379830 (3.4%); fila ativa: 64; CPU: 56.9%; RSS agregado: 14.52 GiB; ETA: 18.2 min.
+2026-11-20 19:24:31,064 | INFO | Checkpoint: 12992/379830 (3.4%); fila ativa: 64; CPU: 58.3%; RSS agregado: 14.55 GiB; ETA: 18.2 min.
+2026-11-20 19:24:31,244 | INFO | Checkpoint: 13056/379830 (3.4%); fila ativa: 64; CPU: 57.4%; RSS agregado: 14.58 GiB; ETA: 18.2 min.
+2026-11-20 19:24:31,434 | INFO | Checkpoint: 13120/379830 (3.5%); fila ativa: 64; CPU: 56.1%; RSS agregado: 14.61 GiB; ETA: 18.2 min.
+2026-11-20 19:24:31,628 | INFO | Checkpoint: 13184/379830 (3.5%); fila ativa: 64; CPU: 56.9%; RSS agregado: 14.64 GiB; ETA: 18.2 min.
+2026-11-20 19:24:31,818 | INFO | Checkpoint: 13248/379830 (3.5%); fila ativa: 64; CPU: 56.2%; RSS agregado: 14.67 GiB; ETA: 18.2 min.
+2026-11-20 19:24:32,004 | INFO | Checkpoint: 13312/379830 (3.5%); fila ativa: 64; CPU: 55.5%; RSS agregado: 14.70 GiB; ETA: 18.2 min.
+2026-11-20 19:24:32,195 | INFO | Checkpoint: 13376/379830 (3.5%); fila ativa: 64; CPU: 56.5%; RSS agregado: 14.73 GiB; ETA: 18.2 min.
+2026-11-20 19:24:32,390 | INFO | Checkpoint: 13440/379830 (3.5%); fila ativa: 64; CPU: 55.7%; RSS agregado: 14.76 GiB; ETA: 18.2 min.
+2026-11-20 19:24:32,566 | INFO | Checkpoint: 13504/379830 (3.6%); fila ativa: 64; CPU: 55.1%; RSS agregado: 14.79 GiB; ETA: 18.2 min.
+2026-11-20 19:24:32,761 | INFO | Checkpoint: 13568/379830 (3.6%); fila ativa: 64; CPU: 55.3%; RSS agregado: 14.82 GiB; ETA: 18.2 min.
+2026-11-20 19:24:32,936 | INFO | Checkpoint: 13632/379830 (3.6%); fila ativa: 64; CPU: 56.0%; RSS agregado: 14.84 GiB; ETA: 18.2 min.
+2026-11-20 19:24:33,124 | INFO | Checkpoint: 13696/379830 (3.6%); fila ativa: 64; CPU: 55.0%; RSS agregado: 14.87 GiB; ETA: 18.1 min.
+2026-11-20 19:24:33,320 | INFO | Checkpoint: 13760/379830 (3.6%); fila ativa: 64; CPU: 57.5%; RSS agregado: 14.90 GiB; ETA: 18.1 min.
+2026-11-20 19:24:33,514 | INFO | Checkpoint: 13824/379830 (3.6%); fila ativa: 64; CPU: 55.9%; RSS agregado: 14.93 GiB; ETA: 18.1 min.
+2026-11-20 19:24:33,726 | INFO | Checkpoint: 13888/379830 (3.7%); fila ativa: 64; CPU: 63.7%; RSS agregado: 14.96 GiB; ETA: 18.1 min.
+2026-11-20 19:24:33,910 | INFO | Checkpoint: 13952/379830 (3.7%); fila ativa: 64; CPU: 59.3%; RSS agregado: 14.99 GiB; ETA: 18.1 min.
+2026-11-20 19:24:34,091 | INFO | Checkpoint: 14016/379830 (3.7%); fila ativa: 64; CPU: 55.5%; RSS agregado: 15.01 GiB; ETA: 18.1 min.
+2026-11-20 19:24:34,283 | INFO | Checkpoint: 14080/379830 (3.7%); fila ativa: 64; CPU: 56.2%; RSS agregado: 15.04 GiB; ETA: 18.1 min.
+2026-11-20 19:24:34,463 | INFO | Checkpoint: 14144/379830 (3.7%); fila ativa: 64; CPU: 56.6%; RSS agregado: 15.07 GiB; ETA: 18.1 min.
+2026-11-20 19:24:34,667 | INFO | Checkpoint: 14208/379830 (3.7%); fila ativa: 64; CPU: 54.7%; RSS agregado: 15.10 GiB; ETA: 18.1 min.
+2026-11-20 19:24:34,865 | INFO | Checkpoint: 14272/379830 (3.8%); fila ativa: 64; CPU: 55.8%; RSS agregado: 15.13 GiB; ETA: 18.1 min.
+2026-11-20 19:24:35,049 | INFO | Checkpoint: 14336/379830 (3.8%); fila ativa: 64; CPU: 55.3%; RSS agregado: 15.15 GiB; ETA: 18.1 min.
+2026-11-20 19:24:35,225 | INFO | Checkpoint: 14400/379830 (3.8%); fila ativa: 64; CPU: 55.0%; RSS agregado: 15.18 GiB; ETA: 18.1 min.
+2026-11-20 19:24:35,421 | INFO | Checkpoint: 14464/379830 (3.8%); fila ativa: 64; CPU: 54.6%; RSS agregado: 15.21 GiB; ETA: 18.1 min.
+2026-11-20 19:24:35,607 | INFO | Checkpoint: 14528/379830 (3.8%); fila ativa: 64; CPU: 55.3%; RSS agregado: 15.23 GiB; ETA: 18.1 min.
+2026-11-20 19:24:35,798 | INFO | Checkpoint: 14592/379830 (3.8%); fila ativa: 64; CPU: 57.4%; RSS agregado: 15.26 GiB; ETA: 18.1 min.
+2026-11-20 19:24:35,997 | INFO | Checkpoint: 14656/379830 (3.9%); fila ativa: 64; CPU: 54.4%; RSS agregado: 15.29 GiB; ETA: 18.1 min.
+2026-11-20 19:24:36,192 | INFO | Checkpoint: 14720/379830 (3.9%); fila ativa: 64; CPU: 56.9%; RSS agregado: 15.32 GiB; ETA: 18.1 min.
+2026-11-20 19:24:36,383 | INFO | Checkpoint: 14784/379830 (3.9%); fila ativa: 64; CPU: 55.7%; RSS agregado: 15.34 GiB; ETA: 18.1 min.
+2026-11-20 19:24:36,575 | INFO | Checkpoint: 14848/379830 (3.9%); fila ativa: 64; CPU: 56.1%; RSS agregado: 15.37 GiB; ETA: 18.1 min.
+2026-11-20 19:24:36,758 | INFO | Checkpoint: 14912/379830 (3.9%); fila ativa: 64; CPU: 54.9%; RSS agregado: 15.40 GiB; ETA: 18.1 min.
+2026-11-20 19:24:38,550 | INFO | Checkpoint: 14976/379830 (3.9%); fila ativa: 64; CPU: 52.2%; RSS agregado: 16.50 GiB; ETA: 18.7 min.
+2026-11-20 19:24:39,763 | INFO | Checkpoint: 15040/379830 (4.0%); fila ativa: 64; CPU: 100.0%; RSS agregado: 16.54 GiB; ETA: 19.1 min.
+2026-11-20 19:24:41,023 | INFO | Checkpoint: 15104/379830 (4.0%); fila ativa: 64; CPU: 100.0%; RSS agregado: 16.54 GiB; ETA: 19.6 min.
+2026-11-20 19:24:42,351 | INFO | Checkpoint: 15168/379830 (4.0%); fila ativa: 64; CPU: 100.0%; RSS agregado: 16.58 GiB; ETA: 20.0 min.
+2026-11-20 19:24:43,702 | INFO | Checkpoint: 15232/379830 (4.0%); fila ativa: 64; CPU: 100.0%; RSS agregado: 16.58 GiB; ETA: 20.5 min.
+2026-11-20 19:24:44,894 | INFO | Checkpoint: 15296/379830 (4.0%); fila ativa: 64; CPU: 99.9%; RSS agregado: 16.61 GiB; ETA: 20.9 min.
+2026-11-20 19:24:46,179 | INFO | Checkpoint: 15360/379830 (4.0%); fila ativa: 64; CPU: 100.0%; RSS agregado: 16.61 GiB; ETA: 21.3 min.
+2026-11-20 19:24:47,433 | INFO | Checkpoint: 15424/379830 (4.1%); fila ativa: 64; CPU: 100.0%; RSS agregado: 16.63 GiB; ETA: 21.7 min.
+2026-11-20 19:24:48,731 | INFO | Checkpoint: 15488/379830 (4.1%); fila ativa: 64; CPU: 100.0%; RSS agregado: 16.69 GiB; ETA: 22.1 min.
+2026-11-20 19:24:50,002 | INFO | Checkpoint: 15552/379830 (4.1%); fila ativa: 64; CPU: 100.0%; RSS agregado: 16.70 GiB; ETA: 22.5 min.
+2026-11-20 19:24:51,273 | INFO | Checkpoint: 15616/379830 (4.1%); fila ativa: 64; CPU: 100.0%; RSS agregado: 16.75 GiB; ETA: 22.9 min.
+2026-11-20 19:24:52,526 | INFO | Checkpoint: 15680/379830 (4.1%); fila ativa: 64; CPU: 100.0%; RSS agregado: 16.79 GiB; ETA: 23.3 min.
+2026-11-20 19:24:53,816 | INFO | Checkpoint: 15744/379830 (4.1%); fila ativa: 64; CPU: 100.0%; RSS agregado: 16.80 GiB; ETA: 23.7 min.
+2026-11-20 19:24:55,065 | INFO | Checkpoint: 15808/379830 (4.2%); fila ativa: 64; CPU: 100.0%; RSS agregado: 16.82 GiB; ETA: 24.1 min.
+2026-11-20 19:24:56,341 | INFO | Checkpoint: 15872/379830 (4.2%); fila ativa: 64; CPU: 99.9%; RSS agregado: 16.83 GiB; ETA: 24.4 min.
+2026-11-20 19:24:57,665 | INFO | Checkpoint: 15936/379830 (4.2%); fila ativa: 64; CPU: 99.9%; RSS agregado: 16.84 GiB; ETA: 24.8 min.
+2026-11-20 19:24:58,939 | INFO | Checkpoint: 16000/379830 (4.2%); fila ativa: 64; CPU: 100.0%; RSS agregado: 16.88 GiB; ETA: 25.2 min.
+2026-11-20 19:25:00,097 | INFO | Checkpoint: 16064/379830 (4.2%); fila ativa: 64; CPU: 99.9%; RSS agregado: 16.94 GiB; ETA: 25.6 min.
+2026-11-20 19:25:01,420 | INFO | Checkpoint: 16128/379830 (4.2%); fila ativa: 64; CPU: 99.8%; RSS agregado: 16.90 GiB; ETA: 25.9 min.
+2026-11-20 19:25:02,639 | INFO | Checkpoint: 16192/379830 (4.3%); fila ativa: 64; CPU: 100.0%; RSS agregado: 16.93 GiB; ETA: 26.3 min.
+2026-11-20 19:25:03,972 | INFO | Checkpoint: 16256/379830 (4.3%); fila ativa: 64; CPU: 100.0%; RSS agregado: 16.95 GiB; ETA: 26.7 min.
+2026-11-20 19:25:05,226 | INFO | Checkpoint: 16320/379830 (4.3%); fila ativa: 64; CPU: 100.0%; RSS agregado: 16.96 GiB; ETA: 27.0 min.
+2026-11-20 19:25:06,528 | INFO | Checkpoint: 16384/379830 (4.3%); fila ativa: 64; CPU: 100.0%; RSS agregado: 16.99 GiB; ETA: 27.4 min.
+2026-11-20 19:25:07,813 | INFO | Checkpoint: 16448/379830 (4.3%); fila ativa: 64; CPU: 100.0%; RSS agregado: 16.99 GiB; ETA: 27.8 min.
+2026-11-20 19:25:09,046 | INFO | Checkpoint: 16512/379830 (4.3%); fila ativa: 64; CPU: 99.7%; RSS agregado: 17.03 GiB; ETA: 28.1 min.
+2026-11-20 19:25:10,295 | INFO | Checkpoint: 16576/379830 (4.4%); fila ativa: 64; CPU: 99.8%; RSS agregado: 17.07 GiB; ETA: 28.5 min.
+2026-11-20 19:25:11,550 | INFO | Checkpoint: 16640/379830 (4.4%); fila ativa: 64; CPU: 100.0%; RSS agregado: 17.09 GiB; ETA: 28.8 min.
+2026-11-20 19:25:12,830 | INFO | Checkpoint: 16704/379830 (4.4%); fila ativa: 64; CPU: 100.0%; RSS agregado: 17.11 GiB; ETA: 29.1 min.
+2026-11-20 19:25:14,053 | INFO | Checkpoint: 16768/379830 (4.4%); fila ativa: 64; CPU: 99.9%; RSS agregado: 17.12 GiB; ETA: 29.5 min.
+2026-11-20 19:25:15,344 | INFO | Checkpoint: 16832/379830 (4.4%); fila ativa: 64; CPU: 99.9%; RSS agregado: 17.15 GiB; ETA: 29.8 min.
+2026-11-20 19:25:16,608 | INFO | Checkpoint: 16896/379830 (4.4%); fila ativa: 64; CPU: 100.0%; RSS agregado: 17.17 GiB; ETA: 30.1 min.
+2026-11-20 19:25:17,907 | INFO | Checkpoint: 16960/379830 (4.5%); fila ativa: 64; CPU: 100.0%; RSS agregado: 17.17 GiB; ETA: 30.5 min.
+2026-11-20 19:25:19,167 | INFO | Checkpoint: 17024/379830 (4.5%); fila ativa: 64; CPU: 100.0%; RSS agregado: 17.25 GiB; ETA: 30.8 min.
+2026-11-20 19:25:20,449 | INFO | Checkpoint: 17088/379830 (4.5%); fila ativa: 64; CPU: 99.9%; RSS agregado: 17.25 GiB; ETA: 31.2 min.
+2026-11-20 19:25:21,718 | INFO | Checkpoint: 17152/379830 (4.5%); fila ativa: 64; CPU: 100.0%; RSS agregado: 17.25 GiB; ETA: 31.5 min.
+2026-11-20 19:25:23,065 | INFO | Checkpoint: 17216/379830 (4.5%); fila ativa: 64; CPU: 100.0%; RSS agregado: 17.26 GiB; ETA: 31.8 min.
+2026-11-20 19:25:24,329 | INFO | Checkpoint: 17280/379830 (4.5%); fila ativa: 64; CPU: 99.9%; RSS agregado: 17.31 GiB; ETA: 32.1 min.
+2026-11-20 19:25:25,582 | INFO | Checkpoint: 17344/379830 (4.6%); fila ativa: 64; CPU: 100.0%; RSS agregado: 17.37 GiB; ETA: 32.5 min.
+2026-11-20 19:25:26,878 | INFO | Checkpoint: 17408/379830 (4.6%); fila ativa: 64; CPU: 100.0%; RSS agregado: 17.35 GiB; ETA: 32.8 min.
+2026-11-20 19:25:28,118 | INFO | Checkpoint: 17472/379830 (4.6%); fila ativa: 64; CPU: 99.8%; RSS agregado: 17.44 GiB; ETA: 33.1 min.
+2026-11-20 19:25:29,365 | INFO | Checkpoint: 17536/379830 (4.6%); fila ativa: 64; CPU: 100.0%; RSS agregado: 17.38 GiB; ETA: 33.4 min.
+2026-11-20 19:25:30,619 | INFO | Checkpoint: 17600/379830 (4.6%); fila ativa: 64; CPU: 100.0%; RSS agregado: 17.41 GiB; ETA: 33.7 min.
+2026-11-20 19:25:31,893 | INFO | Checkpoint: 17664/379830 (4.7%); fila ativa: 64; CPU: 99.9%; RSS agregado: 17.46 GiB; ETA: 34.0 min.
+2026-11-20 19:25:33,187 | INFO | Checkpoint: 17728/379830 (4.7%); fila ativa: 64; CPU: 100.0%; RSS agregado: 17.45 GiB; ETA: 34.3 min.
+2026-11-20 19:25:34,466 | INFO | Checkpoint: 17792/379830 (4.7%); fila ativa: 64; CPU: 100.0%; RSS agregado: 17.47 GiB; ETA: 34.6 min.
+2026-11-20 19:25:35,696 | INFO | Checkpoint: 17856/379830 (4.7%); fila ativa: 64; CPU: 100.0%; RSS agregado: 17.51 GiB; ETA: 34.9 min.
+2026-11-20 19:25:36,926 | INFO | Checkpoint: 17920/379830 (4.7%); fila ativa: 64; CPU: 99.9%; RSS agregado: 17.54 GiB; ETA: 35.2 min.
+2026-11-20 19:25:38,206 | INFO | Checkpoint: 17984/379830 (4.7%); fila ativa: 64; CPU: 99.8%; RSS agregado: 17.56 GiB; ETA: 35.5 min.
+2026-11-20 19:25:39,453 | INFO | Checkpoint: 18048/379830 (4.8%); fila ativa: 64; CPU: 99.9%; RSS agregado: 17.57 GiB; ETA: 35.8 min.
+2026-11-20 19:25:40,687 | INFO | Checkpoint: 18112/379830 (4.8%); fila ativa: 64; CPU: 99.9%; RSS agregado: 17.61 GiB; ETA: 36.0 min.
+2026-11-20 19:25:41,991 | INFO | Checkpoint: 18176/379830 (4.8%); fila ativa: 64; CPU: 100.0%; RSS agregado: 17.67 GiB; ETA: 36.3 min.
+2026-11-20 19:25:43,312 | INFO | Checkpoint: 18240/379830 (4.8%); fila ativa: 64; CPU: 99.9%; RSS agregado: 17.65 GiB; ETA: 36.6 min.
+2026-11-20 19:25:44,590 | INFO | Checkpoint: 18304/379830 (4.8%); fila ativa: 64; CPU: 100.0%; RSS agregado: 17.67 GiB; ETA: 36.9 min.
+2026-11-20 19:25:45,817 | INFO | Checkpoint: 18368/379830 (4.8%); fila ativa: 64; CPU: 99.8%; RSS agregado: 17.68 GiB; ETA: 37.2 min.
+2026-11-20 19:25:47,085 | INFO | Checkpoint: 18432/379830 (4.9%); fila ativa: 64; CPU: 100.0%; RSS agregado: 17.73 GiB; ETA: 37.5 min.
+2026-11-20 19:25:48,367 | INFO | Checkpoint: 18496/379830 (4.9%); fila ativa: 64; CPU: 100.0%; RSS agregado: 17.76 GiB; ETA: 37.8 min.
+2026-11-20 19:25:49,652 | INFO | Checkpoint: 18560/379830 (4.9%); fila ativa: 64; CPU: 100.0%; RSS agregado: 17.74 GiB; ETA: 38.0 min.
+2026-11-20 19:25:50,928 | INFO | Checkpoint: 18624/379830 (4.9%); fila ativa: 64; CPU: 99.9%; RSS agregado: 17.81 GiB; ETA: 38.3 min.
+2026-11-20 19:25:52,199 | INFO | Checkpoint: 18688/379830 (4.9%); fila ativa: 64; CPU: 100.0%; RSS agregado: 17.81 GiB; ETA: 38.6 min.
+2026-11-20 19:25:53,505 | INFO | Checkpoint: 18752/379830 (4.9%); fila ativa: 64; CPU: 100.0%; RSS agregado: 17.86 GiB; ETA: 38.9 min.
+2026-11-20 19:25:54,773 | INFO | Checkpoint: 18816/379830 (5.0%); fila ativa: 64; CPU: 99.9%; RSS agregado: 17.87 GiB; ETA: 39.1 min.
+2026-11-20 19:25:56,086 | INFO | Checkpoint: 18880/379830 (5.0%); fila ativa: 64; CPU: 99.9%; RSS agregado: 17.89 GiB; ETA: 39.4 min.
+2026-11-20 19:25:57,366 | INFO | Checkpoint: 18944/379830 (5.0%); fila ativa: 64; CPU: 100.0%; RSS agregado: 17.93 GiB; ETA: 39.7 min.
+2026-11-20 19:25:58,583 | INFO | Checkpoint: 19008/379830 (5.0%); fila ativa: 64; CPU: 99.9%; RSS agregado: 17.96 GiB; ETA: 39.9 min.
+2026-11-20 19:25:59,836 | INFO | Checkpoint: 19072/379830 (5.0%); fila ativa: 64; CPU: 100.0%; RSS agregado: 18.00 GiB; ETA: 40.2 min.
+2026-11-20 19:26:01,127 | INFO | Checkpoint: 19136/379830 (5.0%); fila ativa: 64; CPU: 100.0%; RSS agregado: 18.02 GiB; ETA: 40.4 min.
+2026-11-20 19:26:02,457 | INFO | Checkpoint: 19200/379830 (5.1%); fila ativa: 64; CPU: 100.0%; RSS agregado: 18.01 GiB; ETA: 40.7 min.
+2026-11-20 19:26:03,720 | INFO | Checkpoint: 19264/379830 (5.1%); fila ativa: 64; CPU: 99.9%; RSS agregado: 18.03 GiB; ETA: 41.0 min.
+2026-11-20 19:26:05,022 | INFO | Checkpoint: 19328/379830 (5.1%); fila ativa: 64; CPU: 100.0%; RSS agregado: 18.06 GiB; ETA: 41.2 min.
+2026-11-20 19:26:06,279 | INFO | Checkpoint: 19392/379830 (5.1%); fila ativa: 64; CPU: 100.0%; RSS agregado: 18.11 GiB; ETA: 41.5 min.
+2026-11-20 19:26:07,603 | INFO | Checkpoint: 19456/379830 (5.1%); fila ativa: 64; CPU: 100.0%; RSS agregado: 18.11 GiB; ETA: 41.7 min.
+2026-11-20 19:26:08,836 | INFO | Checkpoint: 19520/379830 (5.1%); fila ativa: 64; CPU: 99.8%; RSS agregado: 18.19 GiB; ETA: 42.0 min.
+2026-11-20 19:45:40,776 | INFO | 
+========================================================================
+COMPRESSAO FFmpeg + RECONSTRUCAO + METRICAS
+[CMD]   /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/.venv/bin/python /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/src/codeco/main.py
+========================================================================
+2026-11-20 19:45:40,776 | INFO | 
+Preparacao da execucao
+------------------------------------------------------------------------
+2026-11-20 19:45:48,572 | INFO | Log: /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/results/logs/ffmpeg.log
+2026-11-20 19:45:48,572 | INFO | Checkpoint: /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/data/cache/checkpoints.sqlite3
+2026-11-20 19:45:48,572 | INFO | Resultado CSV: /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/results/tables/ffmpeg_metrics.csv
+2026-11-20 19:45:48,572 | INFO | FFmpeg: 9.0.2
+2026-11-20 19:45:48,572 | INFO | Entrada PCM: /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/data/cache/baseline_pcm
+2026-11-20 19:45:48,572 | INFO | Fingerprint: 4e7f056a4f8e9cea58bfedfb6b197ae36c3c17ce73535f1d563a5fe8ccdb0cf3
+2026-11-20 19:45:48,572 | INFO | Clipes: ecosoundset=14954, pteroset_ppa1=10368
+2026-11-20 19:45:48,572 | INFO | Condicoes: 1 baseline + 14 FFmpeg; tarefas: 379830
+2026-11-20 19:45:48,572 | INFO | Nucleos fisicos: 8; processos persistentes: 8
+2026-11-20 19:45:48,572 | INFO | Janela da fila: 64; checkpoint: 64 resultados; tentativas: 3
+2026-11-20 19:45:50,179 | INFO | 
+Processamento
+------------------------------------------------------------------------
+2026-11-20 19:45:50,179 | INFO | Retomada: 379830 concluidas; 0 pendentes.
+2026-11-20 19:45:59,874 | INFO | 
+Execucao concluida
+------------------------------------------------------------------------
+2026-11-20 19:45:59,874 | INFO | Resultados: 379830 linhas em /home/filipe/Documentos/Mestrado/SeriesTemporais/CodEco/results/tables/ffmpeg_metrics.csv
+2026-11-20 19:45:59,874 | INFO | Tempo total: 11.3 s

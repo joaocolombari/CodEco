@@ -16,6 +16,28 @@ class CodecoPath:
     def discover(cls) -> "CodecoPath":
         return cls(Path(__file__).resolve().parents[2])
 
+    def project_relative(self, path: str | Path) -> str:
+        """Serialize a project-owned path independently of the checkout location."""
+        candidate = Path(path)
+        absolute = candidate if candidate.is_absolute() else self.root / candidate
+        try:
+            relative = absolute.resolve().relative_to(self.root.resolve())
+        except ValueError as error:
+            raise ValueError(f"Caminho fora da raiz do projeto: {path}") from error
+        return relative.as_posix()
+
+    def project_path(self, path: str | Path) -> Path:
+        """Resolve one persisted project-relative path against this checkout."""
+        relative = Path(path)
+        if relative.is_absolute() or ".." in relative.parts:
+            raise ValueError(f"Caminho de projeto deve ser relativo: {path}")
+        resolved = (self.root / relative).resolve()
+        try:
+            resolved.relative_to(self.root.resolve())
+        except ValueError as error:
+            raise ValueError(f"Caminho fora da raiz do projeto: {path}") from error
+        return resolved
+
     @property
     def src(self) -> Path:
         return self.root / "src"
