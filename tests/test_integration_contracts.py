@@ -17,7 +17,7 @@ sys.path.insert(0, str(ROOT / "src"))
 from codeco.acoustic_indices import _entropy
 from codeco.alignment import normalized_cross_correlation_align
 from codeco.experiment_config import experiment_config
-from codeco.environment import _uv_executable
+from codeco.environment import _check_environment, _uv_executable
 from codeco.protocol import PROTOCOL, adapt_for_perch
 from codeco.corpora import (
     CORPUS_MANIFESTS,
@@ -75,6 +75,31 @@ class EnvironmentTests(unittest.TestCase):
 
             self.assertEqual(observed, executable.resolve())
             self.assertEqual(version, "0.12.0")
+
+    def test_active_environment_check_does_not_mutate_packages(self) -> None:
+        root = Path("/tmp/codeco-environment-test")
+        uv = Path("/tmp/codeco-environment-test-uv")
+        with (
+            patch(
+                "codeco.environment._uv_executable",
+                return_value=(uv, "0.12.0"),
+            ),
+            patch("codeco.environment.subprocess.run") as run,
+        ):
+            _check_environment(SimpleNamespace(root=root))
+
+        run.assert_called_once_with(
+            [
+                str(uv),
+                "sync",
+                "--project",
+                str(root),
+                "--locked",
+                "--inexact",
+                "--check",
+            ],
+            check=True,
+        )
 
 
 class ProtocolTests(unittest.TestCase):

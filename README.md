@@ -206,16 +206,20 @@ Em CPU — inclusive macOS sem GPU NVIDIA — execute:
 
 ```bash
 uv python install 3.12
-uv sync --locked
+uv sync --locked --extra notebook
 . .venv/bin/activate
 ```
 
 Em um servidor Linux com CUDA, a aceleração é opcional:
 
 ```bash
-uv sync --locked --extra gpu
+uv sync --locked --extra gpu --extra notebook
 . .venv/bin/activate
 ```
+
+Execute a sincronização no terminal, antes de iniciar ou reiniciar o kernel.
+Durante a execução, os notebooks apenas conferem o lock e nunca instalam ou
+removem pacotes do processo Python que está em uso.
 
 O ambiente alternativo abaixo serve apenas para notebooks legados e inspeção.
 Ele **não substitui o `uv` no pipeline integrado**, pois não valida `uv.lock`:

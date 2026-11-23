@@ -601,10 +601,43 @@ def _sync_environment(paths: CodecoPath) -> None:
     LOGGER.info("uv %s validado: %s", uv_version, uv)
     LOGGER.info("Sincronizando os pacotes fixados em uv.lock...")
     subprocess.run(
-        [str(uv), "sync", "--project", str(paths.root), "--locked"],
+        [
+            str(uv),
+            "sync",
+            "--project",
+            str(paths.root),
+            "--locked",
+            "--inexact",
+        ],
         check=True,
     )
     LOGGER.info("Pacotes do ambiente sincronizados.")
+
+
+def _check_environment(paths: CodecoPath) -> None:
+    """Validate the active environment without mutating a running kernel."""
+    uv, uv_version = _uv_executable(paths)
+    LOGGER.info("uv %s validado: %s", uv_version, uv)
+    LOGGER.info("Conferindo os pacotes fixados em uv.lock sem alterar o ambiente...")
+    command = [
+        str(uv),
+        "sync",
+        "--project",
+        str(paths.root),
+        "--locked",
+        "--inexact",
+        "--check",
+    ]
+    try:
+        subprocess.run(command, check=True)
+    except subprocess.CalledProcessError as exc:
+        raise VirtualEnvironmentError(
+            "O ambiente ativo nao corresponde ao uv.lock. Feche ou reinicie o "
+            "kernel depois de executar no terminal:\n"
+            f"cd {paths.root}\n"
+            "uv sync --locked --extra notebook"
+        ) from exc
+    LOGGER.info("Ambiente ativo compativel com uv.lock.")
 
 
 def _virtual_environment(paths: CodecoPath) -> Path:
@@ -671,7 +704,7 @@ def virtual_env() -> EnvironmentState:
             LOGGER.info("%s: %s", name, value if value is not None else "dinamico")
 
     _section("Pacotes do ambiente")
-    _sync_environment(paths)
+    _check_environment(paths)
 
     _section("Dependencias do sistema")
     system = _system_environment(paths, variables)

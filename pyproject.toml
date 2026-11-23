@@ -44,6 +44,10 @@ uv-version = "0.12.0"
 # CUDA is an accelerator, not an installation requirement.  CPU-only hosts
 # install the base project; Linux GPU hosts may opt in with `uv sync --extra gpu`.
 gpu = ["tensorflow[and-cuda]==2.21.0"]
+notebook = [
+    "ipykernel>=6.29,<8",
+    "jupyterlab>=4.2,<5",
+]
 
 [project.scripts]
 codeco = "codeco.main:main"
