@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import sys
 import unittest
 from pathlib import Path
@@ -87,6 +88,29 @@ class ProtocolTests(unittest.TestCase):
                 seed=rule.seed,
             )
             self.assertEqual(len(selected), expected[corpus])
+
+
+class NotebookIntegrationTests(unittest.TestCase):
+    def test_foundation_notebook_uses_optimized_pipeline(self) -> None:
+        notebook_path = ROOT / "notebooks" / "experimental" / "07_foundation_models.ipynb"
+        notebook = json.loads(notebook_path.read_text(encoding="utf-8"))
+        source = "\n".join(
+            str(cell.get("source", "")) for cell in notebook["cells"]
+        )
+
+        self.assertIn(
+            "from codeco.embeddings import run as run_embeddings",
+            source,
+        )
+        self.assertIn(
+            "from codeco.classify import run as run_classification",
+            source,
+        )
+        self.assertIn("paths.tables", source)
+        self.assertNotIn(
+            "from classify_embeddings import run_classification",
+            source,
+        )
 
 
 if __name__ == "__main__":

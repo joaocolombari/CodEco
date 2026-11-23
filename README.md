@@ -335,40 +335,30 @@ tabelas locais antes de começar, mostra quantos WAVs encontrou e registra cada
 condição executada; ele não termina mais silenciosamente quando o áudio está
 ausente.
 
-### 8. Execução completa no EASNCloud
+### 8. Execução otimizada no EASNCloud
 
-Primeiro execute os notebooks 01–04. Depois, para uma execução retomável do
-pipeline não interativo:
+Primeiro execute os notebooks 01–04. Para a matriz completa, use o runner
+integrado, paralelo e retomável:
 
 ```bash
 . .venv/bin/activate
-python scripts/run_pipeline.py --skip-existing
-```
-
-Para executar apenas preparação e avaliação dos codecs, sem modelos
-fundacionais:
-
-```bash
-python scripts/run_pipeline.py --only data flops eval --skip-existing
-```
-
-Para processar um único corpus ou um único modelo:
-
-```bash
-python scripts/run_pipeline.py --datasets ecosoundset --models birdnet --skip-existing
-python scripts/run_pipeline.py --datasets pteroset_ppa1 --models perch --skip-existing
-```
-
-O runner integrado, paralelo e retomável incorporado na branch de integração
-é executado com:
-
-```bash
 python -m codeco.main
 ```
 
 Ele valida primeiro o freeze 1.3.0, cria `results/run-metadata.json`, prepara o
 cache PCM e executa FFmpeg, EnCodec, BirdNET, Perch, classificação, análises e
-figuras. Para inspecionar etapas individualmente, use os módulos correspondentes:
+figuras. As reconstruções FFmpeg usam os núcleos físicos da CPU; a inferência
+usa um worker persistente em CPU quando não há CUDA ou um worker por GPU quando
+há. Filas limitadas evitam acumular todas as reconstruções em memória.
+
+Para executar somente modelos ou corpora específicos, use os parâmetros do
+`07_foundation_models.ipynb`. Defina `RUN_EMBEDDINGS=True` e, depois,
+`RUN_CLASSIFICATION=True`; `DATASETS`, `MODELS`, `CODECS` e
+`MAX_CLIPS_PER_DATASET` controlam o recorte. A execução final usa `CODECS=None`
+e `MAX_CLIPS_PER_DATASET=None`.
+
+Para inspecionar ou executar etapas individualmente, use os módulos
+correspondentes:
 
 ```bash
 python -m codeco.environment

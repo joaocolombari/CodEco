@@ -928,42 +928,251 @@ elif not results.empty:
     ),
     "07_foundation_models.ipynb": notebook(
         "07 — BirdNET, Perch e utilidade preditiva",
-        "Audita as entradas dos modelos e reúne macro-F1, acurácia balanceada, matrizes de confusão e distâncias entre embeddings.",
+        "Executa o pipeline paralelo e retomável de embeddings e classificação. BirdNET e Perch compartilham o mesmo recorte e os mesmos protocolos, com fallback explícito para CPU.",
         [
+            markdown(r"""
+## Backend usado neste notebook
+
+Este notebook chama diretamente os módulos otimizados de `src/codeco` incorporados da implementação do Filipe:
+
+- reconstruções FFmpeg distribuídas entre os núcleos físicos da CPU;
+- filas limitadas entre reconstrução e inferência, sem reter todas as reconstruções;
+- batches adaptativos para BirdNET e Perch;
+- um worker persistente por GPU quando CUDA está disponível;
+- um worker TensorFlow em CPU quando não há GPU, mantendo a reconstrução paralela;
+- EnCodec persistente em GPU ou fallback em CPU;
+- checkpoint SQLite, escrita incremental e retomada automática.
+
+O antigo `scripts/classify_embeddings.py`, que reconstruía uma janela por vez, **não é usado aqui**.
+"""),
+            markdown(r"""
+## Parâmetros editáveis
+
+- `RUN_EMBEDDINGS`: gera ou retoma embeddings; é a etapa pesada.
+- `RUN_CLASSIFICATION`: treina e avalia as cabeças usando embeddings existentes; pode ser executada separadamente.
+- `DATASETS`: corpora incluídos.
+- `MODELS`: `birdnet`, `perch` ou ambos; a ordem é BirdNET → Perch.
+- `CODECS`: `None` executa a matriz completa. Um piloto pode usar, por exemplo, `['baseline', 'flac', 'mp3']`. A baseline é obrigatória.
+- `MAX_CLIPS_PER_DATASET`: `None` usa o recorte completo. Um inteiro positivo é apenas benchmark estratificado.
+- `HEAD`: `linear` ou `mlp`.
+- `FORCE=False`: reutiliza checkpoints; `True` invalida deliberadamente a execução compatível.
+- `BATCH_SIZE`: lote inicial. Com GPU, o backend calibra até `MAX_BATCH_SIZE`.
+
+Os resultados finais devem usar `MAX_CLIPS_PER_DATASET=None` e `CODECS=None`.
+"""),
             code(r"""
+RUN_EMBEDDINGS = False
 RUN_CLASSIFICATION = False
+
+DATASETS = ["ecosoundset", "pteroset_ppa1"]
 MODELS = ["birdnet", "perch"]
+CODECS = None
+MAX_CLIPS_PER_DATASET = None
 HEAD = "linear"
+SEED = 42
+BATCH_SIZE = 32
+MAX_BATCH_SIZE = 512
+FORCE = False
+"""),
+            markdown(r"""
+## Adaptação das entradas
+
+Os codecs sempre recebem a janela canônica de 4 s, mono, 48 kHz e PCM16-equivalente. A adaptação acontece somente na entrada do modelo:
+
+- BirdNET: recorte central de 3 s a 48 kHz;
+- Perch: reamostragem para 32 kHz e padding simétrico de 0,5 s, totalizando 5 s.
+
+O padding do Perch não entra no payload nem nas métricas de reconstrução.
 """),
             code(r"""
 from codeco.protocol import adapter_audit
 import pandas as pd
-pd.Series(adapter_audit(), name="valor").to_frame()
+
+adapter_table = pd.Series(adapter_audit(), name="valor").to_frame()
+display(adapter_table)
+"""),
+            markdown(r"""
+## Plano de execução
+
+Cada condição selecionada será aplicada a todas as janelas do recorte. Sem CUDA, a inferência neural usa CPU, mas as reconstruções FFmpeg continuam paralelas e os checkpoints permanecem compatíveis.
 """),
             code(r"""
-if RUN_CLASSIFICATION:
-    from classify_embeddings import run_classification
-    import config as C
-    for corpus in C.DATASETS:
-        for model in MODELS:
-            run_classification(corpus, model, HEAD)
+from codeco.codeco_path import CodecoPath
+from codeco.birdnet_embeddings import CONDITIONS
+
+valid_models = ("birdnet", "perch")
+valid_datasets = ("ecosoundset", "pteroset_ppa1")
+ordered_models = [model for model in valid_models if model in MODELS]
+if len(ordered_models) != len(set(MODELS)) or set(MODELS) - set(valid_models):
+    raise ValueError(f"MODELS inválido: {MODELS}")
+if len(DATASETS) != len(set(DATASETS)) or set(DATASETS) - set(valid_datasets):
+    raise ValueError(f"DATASETS inválido: {DATASETS}")
+if CODECS is not None and "baseline" not in CODECS:
+    raise ValueError("CODECS deve incluir 'baseline', necessária para o pareamento.")
+if MAX_CLIPS_PER_DATASET is not None and MAX_CLIPS_PER_DATASET < 1:
+    raise ValueError("MAX_CLIPS_PER_DATASET deve ser None ou um inteiro positivo.")
+
+paths = CodecoPath.discover()
+condition_count = len(CONDITIONS) if CODECS is None else sum(
+    condition.codec in set(CODECS) for condition in CONDITIONS
+)
+plan = pd.DataFrame([
+    {
+        "corpus": dataset,
+        "modelos": ", ".join(ordered_models),
+        "condições": condition_count,
+        "limite_piloto": MAX_CLIPS_PER_DATASET,
+        "head": HEAD,
+        "forçar_recálculo": FORCE,
+    }
+    for dataset in DATASETS
+])
+display(plan)
+"""),
+            markdown(r"""
+## Fase 1 — embeddings paralelos e retomáveis
+
+A preparação cria uma baseline PCM canônica uma única vez. Cada condição passa por reconstrução e inferência em streaming. O terminal informa pendências, checkpoints retomados, workers, batches, tempo e caminhos dos artefatos.
+
+Interromper a célula não invalida lotes checkpointados. Execute novamente com os mesmos parâmetros para continuar.
+"""),
+            code(r"""
+embedding_indices = {
+    model: paths.tables / f"{model}_embeddings.csv"
+    for model in ordered_models
+}
+
+if RUN_EMBEDDINGS:
+    from codeco.environment import virtual_env
+    from codeco.prepare_table import prepare_baseline
+    from codeco.embeddings import run as run_embeddings
+
+    environment = virtual_env()
+    baseline = prepare_baseline()
+    embedding_outputs = run_embeddings(
+        models=ordered_models,
+        datasets=DATASETS,
+        codecs=CODECS,
+        max_clips_per_dataset=MAX_CLIPS_PER_DATASET,
+        seed=SEED,
+        batch_size=BATCH_SIZE,
+        max_batch_size=MAX_BATCH_SIZE,
+        force=FORCE,
+        baseline=baseline,
+        environment=environment,
+    )
+    embedding_indices = dict(zip(ordered_models, embedding_outputs, strict=True))
 else:
-    print("Classificação não executada. O padding do Perch já foi validado acima.")
+    print("Embeddings não executados; procurando índices existentes em results/tables/.")
+
+embedding_status = pd.DataFrame([
+    {
+        "modelo": model,
+        "índice": str(path.relative_to(ROOT)),
+        "disponível": path.is_file(),
+    }
+    for model, path in embedding_indices.items()
+])
+display(embedding_status)
+"""),
+            markdown(r"""
+## Fase 2 — classificação sobre embeddings congelados
+
+Esta fase não reabre áudio nem executa codecs:
+
+- `train_orig_test_comp`: treina na baseline e testa na reconstrução; mede robustez sem adaptação;
+- `train_comp_test_comp`: treina e testa na mesma condição; mede recuperação por adaptação;
+- `clean_to_clean`: referência sem compressão.
+
+Cada condição concluída é salva imediatamente no checkpoint e no CSV disponível.
 """),
             code(r"""
-import config as C
+classification_outputs = []
+if RUN_CLASSIFICATION:
+    missing_indices = [str(path) for path in embedding_indices.values() if not path.is_file()]
+    if missing_indices:
+        raise FileNotFoundError(
+            "Índices ausentes; execute RUN_EMBEDDINGS=True primeiro: "
+            + ", ".join(missing_indices)
+        )
+    from codeco.classify import run as run_classification
+
+    classification_outputs = run_classification(
+        models=ordered_models,
+        datasets=DATASETS,
+        head=HEAD,
+        seed=SEED,
+        force=FORCE,
+        embeddings_indices=embedding_indices,
+    )
+else:
+    print("Classificação não executada. Ative-a quando os embeddings existirem.")
+"""),
+            markdown(r"""
+## Resultados produzidos
+
+Cada linha representa um **corpus × modelo × codec × configuração × protocolo**:
+
+| Coluna | Interpretação |
+|---|---|
+| `dataset`, `foundation_model`, `head` | Corpus, modelo fundacional e cabeça classificadora. |
+| `codec`, `setting`, `protocol` | Condição aplicada e protocolo de treino/teste. |
+| `f1_macro` | Média do F1 das classes; maior é melhor. |
+| `balanced_accuracy` | Média da acurácia balanceada por classe; maior é melhor. |
+| `embedding_euclidean_*` | Distância pareada; zero é identidade. A escala depende do modelo. |
+| `embedding_cosine_mean` | Similaridade angular média; 1 é identidade. |
+| `embedding_correlation_mean` | Correlação média entre componentes; 1 é identidade. |
+
+Compare métricas apenas dentro do mesmo corpus, modelo, head e protocolo. Distâncias euclidianas de BirdNET e Perch não são diretamente comparáveis.
+"""),
+            code(r"""
 tables = []
-for corpus in C.DATASETS:
-    for model in MODELS:
-        path = C.OUT_DIR / f"classification_{corpus}_{model}_{HEAD}.csv"
+for corpus in DATASETS:
+    for model in ordered_models:
+        path = paths.tables / f"classification_{corpus}_{model}_{HEAD}.csv"
         if path.is_file():
-            table = pd.read_csv(path); table["source_file"] = path.name; tables.append(table)
+            table = pd.read_csv(path)
+            table["source_file"] = str(path.relative_to(ROOT))
+            tables.append(table)
 classification = pd.concat(tables, ignore_index=True) if tables else pd.DataFrame()
 if classification.empty:
     print("Nenhum resultado de classificação disponível.")
 else:
-    classification.to_csv(REPORTS / "foundation_model_summary.csv", index=False)
+    summary_path = REPORTS / "foundation_model_summary.csv"
+    classification.to_csv(summary_path, index=False)
+    print(f"Resumo consolidado: {summary_path.relative_to(ROOT)}")
     display(classification)
+"""),
+            markdown(r"""
+## Variação em relação à baseline
+
+As colunas `delta_*` subtraem o resultado `clean_to_clean` do mesmo corpus, modelo e head. Zero significa manutenção; valores negativos indicam degradação. Os protocolos permanecem separados.
+"""),
+            code(r"""
+if not classification.empty:
+    baseline_metrics = (classification[classification.codec == "baseline"]
+        [["dataset", "foundation_model", "head", "f1_macro", "balanced_accuracy"]]
+        .rename(columns={
+            "f1_macro": "baseline_f1_macro",
+            "balanced_accuracy": "baseline_balanced_accuracy",
+        }))
+    classification_deltas = classification.merge(
+        baseline_metrics,
+        on=["dataset", "foundation_model", "head"],
+        how="left",
+        validate="many_to_one",
+    )
+    classification_deltas["delta_f1_macro"] = (
+        classification_deltas.f1_macro - classification_deltas.baseline_f1_macro
+    )
+    classification_deltas["delta_balanced_accuracy"] = (
+        classification_deltas.balanced_accuracy
+        - classification_deltas.baseline_balanced_accuracy
+    )
+    delta_path = REPORTS / "foundation_model_deltas.csv"
+    classification_deltas.to_csv(delta_path, index=False)
+    print(f"Deltas pareados à baseline: {delta_path.relative_to(ROOT)}")
+    display(classification_deltas)
 """),
         ],
     ),
