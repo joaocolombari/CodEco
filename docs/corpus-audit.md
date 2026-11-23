@@ -14,13 +14,15 @@ compartilhados entre treino, validação e teste.
 O **PteroSet/PPA1 foi liberado para análise** como réplica em aves. O recorte
 usa fontes WAV a 192 kHz, 108 gravações, 29 grupos local–gravador e 10.368
 janelas determinísticas de quatro segundos. Dez espécies satisfazem o suporte
-mínimo. O arquivo de áudio necessário tem 15,3 GB, em vez dos 86,4 GB do corpus
-completo.
+mínimo. O download PPA1 tem 15,3 GB e seus 108 WAVs extraídos ocupam
+aproximadamente 18,0 GB, ainda muito abaixo dos 86,4 GB do corpus completo.
 
 O ZIP oficial do PPA1 foi verificado por tamanho, MD5 e SHA-256. Todos os 108
 WAVs foram lidos integralmente dentro do arquivo, o que também valida o CRC do
 ZIP, e tiveram estrutura RIFF, formato, frequência, canais, duração e SHA-256
-conferidos. No ECOSoundSet, os dois arquivos oficiais passaram por tamanho,
+conferidos. Para execução, eles são extraídos atomicamente em
+`data/audio/pteroset_ppa1/` e seus SHA-256 são conferidos novamente. No
+ECOSoundSet, os dois arquivos oficiais passaram por tamanho,
 MD5 e SHA-256; os 15.097 WAVs tiveram cabeçalhos e hashes conferidos.
 
 ## Fontes congeladas

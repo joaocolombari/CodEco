@@ -14,6 +14,13 @@ from codeco.acoustic_indices import _entropy
 from codeco.alignment import normalized_cross_correlation_align
 from codeco.experiment_config import experiment_config
 from codeco.protocol import PROTOCOL, adapt_for_perch
+from codeco.corpora import (
+    CORPUS_MANIFESTS,
+    SelectionRule,
+    deterministic_balanced_training_sample,
+    load_frozen_manifest,
+    select_classes,
+)
 
 
 class AlignmentTests(unittest.TestCase):
@@ -66,6 +73,20 @@ class ProtocolTests(unittest.TestCase):
             if item.kind == "ffmpeg"
         ]
         self.assertEqual(observed, expected)
+
+    def test_selected_corpus_sizes_are_reproducible(self) -> None:
+        expected = {"ecosoundset": 7_127, "pteroset_ppa1": 777}
+        rule = SelectionRule(k_sigma=1.0, minimum_groups=3, seed=42)
+        for corpus in CORPUS_MANIFESTS:
+            frozen = load_frozen_manifest(corpus, ROOT)
+            _, metadata = select_classes(frozen, rule)
+            selected, _ = deterministic_balanced_training_sample(
+                frozen,
+                metadata["selected_classes"],
+                quota=metadata["count_cutoff"],
+                seed=rule.seed,
+            )
+            self.assertEqual(len(selected), expected[corpus])
 
 
 if __name__ == "__main__":

@@ -26,6 +26,14 @@ import pandas as pd
 from tqdm import tqdm
 
 from codeco.codeco_path import CodecoPath
+from codeco.corpora import (
+    CORPUS_MANIFESTS,
+    SelectionRule,
+    deterministic_balanced_training_sample,
+    load_frozen_manifest,
+    select_classes,
+)
+from codeco.experiment_config import experiment_config
 
 
 CLIP_SECONDS = 4.0
@@ -173,6 +181,26 @@ def _manifest_sha256(path: Path) -> str:
     with path.open("rb") as stream:
         for block in iter(lambda: stream.read(8 * 1024 * 1024), b""):
             digest.update(block)
+    return digest.hexdigest()
+
+
+def _source_definition_sha256(paths: CodecoPath) -> str:
+    """Hash the lock, manifests and selection configuration as one definition."""
+    sources = (
+        paths.manifest,
+        *paths.frozen_manifests,
+        paths.root / "configs" / "experiment-v1.json",
+    )
+    digest = hashlib.sha256()
+    for path in sources:
+        if not path.is_file():
+            raise FileNotFoundError(f"Definicao experimental ausente: {path}")
+        digest.update(paths.project_relative(path).encode("utf-8"))
+        digest.update(b"\0")
+        with path.open("rb") as stream:
+            for block in iter(lambda: stream.read(8 * 1024 * 1024), b""):
+                digest.update(block)
+        digest.update(b"\0")
     return digest.hexdigest()
 
 
@@ -414,7 +442,7 @@ def baseline_pcm_cache_status(
         expected_protocol = {
             "cache_kind": "baseline_pcm",
             "schema_version": PCM_CACHE_SCHEMA_VERSION,
-            "manifest_sha256": _manifest_sha256(locations.manifest),
+            "manifest_sha256": _source_definition_sha256(locations),
             "sample_rate": SAMPLE_RATE,
             "clip_seconds": CLIP_SECONDS,
             "bit_depth": BIT_DEPTH,
@@ -653,25 +681,26 @@ def _refresh_audio_available(table: pa.Table) -> tuple[pa.Table, int]:
 
 
 def _read_windows(paths: CodecoPath) -> pa.Table:
-    """Adapt the two authoritative CSV freezes to the optimized runner schema."""
+    """Rebuild the auditable selected slice from authoritative CSV freezes."""
     records: list[dict[str, object]] = []
-    for manifest in paths.frozen_manifests:
-        if not manifest.is_file():
-            raise FileNotFoundError(f"Manifesto congelado nao encontrado: {manifest}")
-        frame = pd.read_csv(manifest, keep_default_na=False)
-        if "freeze_status" in frame:
-            frame = frame.loc[frame["freeze_status"] == "frozen_analysis_released"]
-        required = {
-            "corpus", "window_id", "source_file_name", "source_split",
-            "source_group_id", "target_labels",
-        }
-        missing = required - set(frame.columns)
-        if missing:
-            raise ValueError(
-                f"{manifest}: colunas ausentes: {', '.join(sorted(missing))}"
-            )
+    selection = experiment_config()["class_selection"]
+    rule = SelectionRule(
+        k_sigma=float(selection["k_sigma"]),
+        minimum_groups=int(selection["minimum_groups"]),
+        seed=int(selection["seed"]),
+        fit_split=str(selection["fit_split"]),
+    )
+    for corpus in CORPUS_MANIFESTS:
+        frozen = load_frozen_manifest(corpus, paths.root)
+        _, metadata = select_classes(frozen, rule)
+        frame, _ = deterministic_balanced_training_sample(
+            frozen,
+            metadata["selected_classes"],
+            quota=int(metadata["count_cutoff"]),
+            seed=rule.seed,
+        )
         for row in frame.to_dict(orient="records"):
-            dataset = str(row["corpus"])
+            dataset = corpus
             start = (
                 float(row.get("window_start_s", 0.0) or 0.0)
                 if dataset == "pteroset_ppa1"
@@ -687,8 +716,8 @@ def _read_windows(paths: CodecoPath) -> pa.Table:
                         row.get("source_audio_relative_path", "") or ""
                     ),
                     "window_start_s": start,
-                    "source_split": str(row["source_split"]),
-                    "target_labels": str(row.get("target_labels", "") or ""),
+                    "source_split": str(row["split"]),
+                    "target_labels": str(row.get("labels", "") or ""),
                     "source_group_id": str(row["source_group_id"]),
                 }
             )
@@ -812,7 +841,7 @@ def _prepare_table(
     cache_file = _cache_path(paths)
     LOGGER.info("Cache: %s", cache_file)
     hash_started = time.perf_counter()
-    manifest_sha256 = _manifest_sha256(paths.manifest)
+    manifest_sha256 = _source_definition_sha256(paths)
     LOGGER.info(
         "SHA-256 do manifesto: %s (%.3f s).",
         manifest_sha256,
@@ -906,7 +935,7 @@ def prepare_baseline() -> BaselineState:
     """Prepare the canonical baseline once for the integrated pipeline."""
     paths = CodecoPath.discover()
     table = _prepare_table()
-    manifest_sha256 = _manifest_sha256(paths.manifest)
+    manifest_sha256 = _source_definition_sha256(paths)
     pcm_cache_dir, pcm_index = _prepare_pcm_cache(
         table,
         paths,

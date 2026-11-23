@@ -143,7 +143,8 @@ PyTorch e bibliotecas bioacústicas usadas aqui.
 
 ### 1. Requisitos da máquina
 
-- aproximadamente **55 GiB livres** para os dois corpora;
+- aproximadamente **75 GiB livres** para instalar os dois corpora mantendo os
+  arquivos oficiais e os WAVs extraídos;
 - pelo menos 16 GiB de RAM para o piloto; a execução completa é recomendada no
   EASNCloud;
 - acesso à internet para os corpora e, no primeiro uso, para EnCodec, BirdNET
@@ -262,7 +263,7 @@ Instalações parciais:
 ```bash
 ./scripts/install_frozen_corpora.sh metadata     # sem áudio
 ./scripts/install_frozen_corpora.sh ecosoundset  # insetos; requer 38 GiB livres
-./scripts/install_frozen_corpora.sh pteroset     # aves; requer 17 GiB livres
+./scripts/install_frozen_corpora.sh pteroset     # aves; requer 34 GiB livres
 ```
 
 Para conferir novamente uma instalação completa:
@@ -275,6 +276,12 @@ A especificação legível por máquina está em
 [`data/freeze-spec-v1.json`](data/freeze-spec-v1.json). Áudio e downloads ficam
 em `data/audio/` e `data/downloads/`; checkouts auxiliares ficam em
 `external/`. Eles são grandes, reproduzíveis e ignorados pelo Git.
+
+O PPA1 é primeiro auditado dentro do ZIP e depois seus 108 WAVs são extraídos
+atomicamente para `data/audio/pteroset_ppa1/`. Uma instalação correta ocupa
+aproximadamente 15,3 GB no ZIP e 18,0 GB nos WAVs extraídos. A verificação
+final exige os arquivos físicos e confere novamente tamanho e SHA-256; ter
+somente o ZIP verificado não é considerado uma instalação completa.
 
 ### 6. Gerar as tabelas locais e os notebooks
 
@@ -290,6 +297,11 @@ python scripts/build_experiment_notebooks.py
 A saída de `scripts/data.py` deve informar um número de áudios disponíveis
 maior que zero para cada corpus instalado. Isso não altera o freeze nem as
 classes: apenas resolve os caminhos na máquina atual.
+
+Com `K_SIGMA=1`, `MINIMUM_GROUPS=3` e semente 42, os recortes atuais possuem
+7.127 janelas do ECOSoundSet e 777 do PteroSet/PPA1. Esses números são menores
+que os manifests brutos porque representam a seleção e o balanceamento do
+treino; todos os 108 WAVs físicos do PPA1 continuam instalados.
 
 ### 7. Executar a sequência auditável
 

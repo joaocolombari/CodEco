@@ -101,7 +101,24 @@ def verify_pteroset() -> None:
     require(summary["archive_md5"] == archive["md5"], "PPA1 archive MD5")
     require(summary["archive_sha256"] == archive["sha256"], "PPA1 archive SHA-256")
     require((ROOT / summary["archive_relative_path"]).is_file(), "PPA1 archive is missing")
-    print("PteroSet/PPA1 audio freeze verified")
+    audio_root = ROOT / "data" / "audio" / "pteroset_ppa1"
+    require(audio_root.is_dir(), "PPA1 extracted audio directory is missing")
+    for row in rows:
+        path = audio_root / row["audio_file"]
+        require(path.is_file(), f"missing extracted PPA1 WAV: {row['audio_file']}")
+        require(
+            path.stat().st_size == int(row["zip_uncompressed_bytes"]),
+            f"PPA1 extracted size mismatch: {row['audio_file']}",
+        )
+        require(
+            sha256_file(path) == row["sha256"],
+            f"PPA1 extracted SHA-256 mismatch: {row['audio_file']}",
+        )
+    require(
+        len(list(audio_root.glob("*.wav"))) == expected["wav_members"],
+        "PPA1 extracted WAV count",
+    )
+    print("PteroSet/PPA1 archive and extracted audio freeze verified")
 
 
 def main() -> None:

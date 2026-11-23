@@ -19,6 +19,11 @@ margem operacional segura e deverá ser concluída no EASNCloud.
 | Espaço livre observado | aproximadamente 17 GiB; 92% do volume em uso |
 | PPA1 já armazenado | 15.257.785.797 bytes; aproximadamente 14,21 GiB |
 
+> Atualização da integração: o valor acima corresponde somente ao ZIP. O
+> pipeline precisa também dos 108 WAVs extraídos, que somam 17.957.380.752
+> bytes (aproximadamente 16,72 GiB). No servidor, reserve cerca de 31 GiB para
+> ZIP + WAVs do PPA1 e 75 GiB para a instalação completa dos dois corpora.
+
 O processamento deve usar leitura incremental, batches pequenos e somente um
 modelo residente por vez. O corpus nunca deve ser carregado integralmente na
 RAM. Modelos fundacionais ou codecs neurais deverão iniciar com batch entre 1 e
@@ -33,6 +38,8 @@ RAM. Modelos fundacionais ou codecs neurais deverão iniciar com batch entre 1 e
 | Master PPA1, mono/48 kHz/PCM16 | 3,71 GiB |
 | Masters dos dois corpora | 9,11 GiB |
 | Arquivos oficiais `Split recordings1/2` | 22.869.982.595 bytes; aproximadamente 21,30 GiB |
+| WAVs PPA1 extraídos | 17.957.380.752 bytes; aproximadamente 16,72 GiB |
+| ZIP oficial PPA1 | 15.257.785.797 bytes; aproximadamente 14,21 GiB |
 
 Os dois arquivos compactados do ECOSoundSet, sozinhos, já excedem o espaço
 livre. Mesmo uma extração seletiva por streaming deixaria pouco espaço após os

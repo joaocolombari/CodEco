@@ -35,9 +35,9 @@ if [[ "${TARGET}" == "metadata" ]]; then
   exit 0
 fi
 
-required_gib=55
+required_gib=75
 if [[ "${TARGET}" == "ecosoundset" ]]; then required_gib=38; fi
-if [[ "${TARGET}" == "pteroset" ]]; then required_gib=17; fi
+if [[ "${TARGET}" == "pteroset" ]]; then required_gib=34; fi
 python3 - "${ROOT_DIR}" "${required_gib}" <<'PY'
 import shutil, sys
 root, required = sys.argv[1], int(sys.argv[2])
@@ -53,6 +53,7 @@ PY
 if [[ "${TARGET}" == "all" || "${TARGET}" == "pteroset" ]]; then
   bash "${ROOT_DIR}/scripts/download_pteroset_ppa1.sh"
   python3 "${ROOT_DIR}/scripts/verify_pteroset_ppa1.py"
+  python3 "${ROOT_DIR}/scripts/extract_pteroset_ppa1.py"
 fi
 
 if [[ "${TARGET}" == "all" || "${TARGET}" == "ecosoundset" ]]; then
