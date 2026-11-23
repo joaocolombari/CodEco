@@ -571,45 +571,329 @@ if not results.empty:
     ),
     "06_acoustic_indices.ipynb": notebook(
         "06 — Preservação dos índices ecoacústicos",
-        "Apresenta a configuração congelada e calcula erros e correlações pareadas por índice, corpus, codec e bitrate.",
+        "Compara, janela a janela, os índices calculados no áudio original e no áudio reconstruído. A análise separa erro absoluto, viés, preservação da ordenação e concordância, porque correlação isolada não demonstra que os valores foram preservados.",
         [
-            code(r"""
-from pathlib import Path
-print((ROOT / "configs" / "acoustic-indices-v1.yaml").read_text())
+            markdown(r"""
+## Pergunta e unidade de análise
+
+Para cada janela de teste de 4 s, calculamos os mesmos índices duas vezes:
+
+1. no áudio PCM de referência (`baseline/orig`);
+2. no áudio reconstruído por uma configuração de codec.
+
+O pareamento usa `dataset + clip_id`. Portanto, cada linha da tabela pareada representa **a mesma janela sob uma condição de codificação**, e não médias de espécies ou gravações inteiras. A condição é definida por `codec + setting`.
+
+O objetivo não é exigir que todos os índices tenham a mesma escala. ACI, BIO, entropias e NDSI possuem domínios diferentes; por isso, erros brutos são interpretados dentro de cada índice e a visualização comparativa usa erro normalizado pelo desvio-padrão da referência.
+"""),
+            markdown(r"""
+## Definições congeladas
+
+O YAML abaixo é a especificação normativa usada pelo código: frequência de amostragem, STFT, bandas, limiares, fórmulas e casos especiais. Alterá-lo muda o experimento.
+
+Resumo dos índices:
+
+| Coluna | Domínio típico | O que resume | Papel no protocolo |
+|---|---:|---|---|
+| `idx_ACI` | ≥ 0 | Variação temporal da magnitude dentro de cada bin espectral. | Primário |
+| `idx_ADI` | 0 a 1 | Diversidade de ocupação entre bandas de 1 kHz. | Primário |
+| `idx_AEI` | 0 a 1 | Desigualdade da ocupação das bandas, via Gini. | Primário |
+| `idx_Ht` | 0 a 1 | Entropia temporal do envelope RMS. | Componente reportado |
+| `idx_Hf` | 0 a 1 | Entropia espectral da potência média. | Componente reportado |
+| `idx_H` | 0 a 1 | Entropia acústica composta: `Ht × Hf`. | Primário |
+| `idx_BIO_2_24` | ≥ 0 | Área espectral acima do nível mínimo entre 2 e 24 kHz. | Primário |
+| `idx_BIO_2_8` | ≥ 0 | Versão entre 2 e 8 kHz, mantida como ponte com a literatura. | Sensibilidade |
+| `idx_NDSI_CLASSIC` | −1 a 1 | Contraste entre 1–2 kHz e 2–11 kHz. | Sensibilidade |
+| `idx_NDSI_EXTENDED` | −1 a 1 | Contraste entre 1–2 kHz e 2–24 kHz. | Sensibilidade |
+
+Esses valores não possuem uma interpretação ecológica universal por janela. Aqui eles são usados para medir se a transformação do áudio altera uma estatística definida do sinal.
 """),
             code(r"""
+from pathlib import Path
+indices_config_path = ROOT / "configs" / "acoustic-indices-v1.yaml"
+print(f"Configuração normativa: {indices_config_path.relative_to(ROOT)}\n")
+print(indices_config_path.read_text())
+"""),
+            markdown(r"""
+## Entrada e cobertura do pareamento
+
+O notebook lê o mesmo `results.csv` produzido no notebook 05. Antes de calcular estatísticas, ele verifica:
+
+- se existe no máximo uma baseline para cada `dataset + clip_id`;
+- se cada reconstrução encontra sua janela de referência;
+- quantas janelas de referência realmente aparecem em cada condição.
+
+Na tabela `pair_coverage`, cada linha é uma condição em um corpus:
+
+- `paired_rows`: pares reconstrução–referência disponíveis;
+- `unique_windows`: janelas distintas nesses pares;
+- `baseline_windows`: total de janelas de referência daquele corpus;
+- `coverage_percent`: porcentagem das baselines coberta pela condição;
+- `bitrate_kbps_mean`: bitrate efetivo médio da condição.
+
+Cobertura inferior a 100% indica avaliação parcial ou falha em alguma condição; não deve ser confundida com desempenho do codec.
+"""),
+            code(r"""
+import numpy as np
 import pandas as pd
 import config as C
+
 results_path = C.OUT_DIR / "results.csv"
-results = pd.read_csv(results_path) if results_path.is_file() else pd.DataFrame()
+results = (pd.read_csv(results_path, dtype={"clip_id": str})
+           if results_path.is_file() else pd.DataFrame())
 index_columns = [column for column in results.columns if column.startswith("idx_")]
-print("Índices disponíveis:", index_columns)
+
+if results.empty:
+    print("Execute primeiro a avaliação do notebook 05.")
+else:
+    required = {"dataset", "clip_id", "codec", "setting", "bitrate_kbps", *index_columns}
+    missing = sorted(required - set(results.columns))
+    if missing:
+        raise ValueError(f"results.csv incompatível; colunas ausentes: {missing}")
+    baseline = results.loc[results.codec == "baseline", ["dataset", "clip_id", *index_columns]].copy()
+    duplicated_baseline = baseline.duplicated(["dataset", "clip_id"], keep=False)
+    if duplicated_baseline.any():
+        raise ValueError(f"Há {int(duplicated_baseline.sum())} baselines duplicadas.")
+    reconstructed = results.loc[results.codec != "baseline"].copy()
+    paired = reconstructed.merge(
+        baseline,
+        on=["dataset", "clip_id"],
+        how="inner",
+        suffixes=("", "_reference"),
+        validate="many_to_one",
+    )
+    baseline_counts = (baseline.groupby("dataset", as_index=False)
+                       .agg(baseline_windows=("clip_id", "nunique")))
+    pair_coverage = (paired.groupby(["dataset", "codec", "setting"], as_index=False)
+                     .agg(paired_rows=("clip_id", "size"),
+                          unique_windows=("clip_id", "nunique"),
+                          bitrate_kbps_mean=("bitrate_kbps", "mean"))
+                     .merge(baseline_counts, on="dataset", validate="many_to_one"))
+    pair_coverage["coverage_percent"] = (
+        100 * pair_coverage["unique_windows"] / pair_coverage["baseline_windows"]
+    )
+    print(f"Entrada: {results_path.relative_to(ROOT)}")
+    print("Índices encontrados:", ", ".join(index_columns))
+    display(pair_coverage)
+"""),
+            markdown(r"""
+## Tabela de preservação por condição e índice
+
+Cada linha de `index_summary` resume **um corpus × codec × configuração × índice**. As colunas significam:
+
+| Coluna | Interpretação |
+|---|---|
+| `n_pairs` | Número de janelas com valores finitos na referência e na reconstrução. |
+| `reference_mean`, `reference_std` | Média e desvio-padrão do índice no áudio original. Definem a escala observada naquele corpus. |
+| `reconstructed_mean`, `reconstructed_std` | Média e dispersão depois da codificação e reconstrução. |
+| `bias` | Média de `reconstruído − referência`. Positivo indica deslocamento para cima; negativo, para baixo. Pode ser próximo de zero mesmo com erros grandes que se cancelam. |
+| `mae` | Média de `|reconstruído − referência|`. Mede o tamanho típico do erro na unidade original do índice. Menor é melhor. |
+| `rmse` | Raiz do erro quadrático médio. Dá maior peso a janelas com erros extremos. Menor é melhor. |
+| `standardized_bias` | `bias / desvio-padrão da referência`. Permite comparar a magnitude do deslocamento entre índices. Zero é o alvo. |
+| `normalized_mae` | `MAE / desvio-padrão da referência`. Zero é o alvo; 1 significa erro médio do tamanho de um desvio-padrão natural da referência. |
+| `pearson` | Preservação de relação linear. Pode ser alta mesmo com deslocamento ou mudança de escala. |
+| `spearman` | Preservação da ordenação das janelas. Pode ser alta mesmo que os valores absolutos estejam errados. |
+| `ccc` | Coeficiente de concordância de Lin. Combina correlação, viés e diferença de escala; 1 representa concordância perfeita. |
+
+Pearson, Spearman e CCC ficam `NaN` quando há menos de quatro pares válidos ou variância nula. Não usamos erro percentual como métrica principal porque vários índices podem assumir zero ou, no caso do NDSI, valores negativos.
 """),
             code(r"""
 if not results.empty and index_columns:
-    from analyze import ccc
     from scipy.stats import pearsonr, spearmanr
-    import numpy as np
 
-    baseline = results[results.codec == "baseline"][["dataset", "clip_id", *index_columns]]
-    paired = results[results.codec != "baseline"].merge(baseline, on=["dataset", "clip_id"], suffixes=("", "_reference"))
     rows = []
     for keys, group in paired.groupby(["dataset", "codec", "setting"]):
         for index in index_columns:
-            a = group[f"{index}_reference"].to_numpy(float); b = group[index].to_numpy(float)
+            a = group[f"{index}_reference"].to_numpy(float)
+            b = group[index].to_numpy(float)
             ok = np.isfinite(a) & np.isfinite(b)
-            if ok.sum() > 3 and a[ok].std() > 0 and b[ok].std() > 0:
-                rows.append({"dataset": keys[0], "codec": keys[1], "setting": keys[2], "index": index,
-                             "signed_error": float(np.mean(b[ok] - a[ok])),
-                             "absolute_error": float(np.mean(np.abs(b[ok] - a[ok]))),
-                             "pearson": pearsonr(a[ok], b[ok]).statistic,
-                             "spearman": spearmanr(a[ok], b[ok]).statistic,
-                             "ccc": ccc(a[ok], b[ok])})
+            if not ok.any():
+                continue
+            reference, decoded = a[ok], b[ok]
+            delta = decoded - reference
+            reference_std = float(reference.std(ddof=0))
+            decoded_std = float(decoded.std(ddof=0))
+            correlations_valid = len(reference) > 3 and reference_std > 0 and decoded_std > 0
+            pearson_value = float(pearsonr(reference, decoded).statistic) if correlations_valid else np.nan
+            spearman_value = float(spearmanr(reference, decoded).statistic) if correlations_valid else np.nan
+            if correlations_valid:
+                covariance = float(np.cov(reference, decoded, ddof=0)[0, 1])
+                denominator = reference.var() + decoded.var() + (reference.mean() - decoded.mean()) ** 2
+                ccc_value = float(2 * covariance / denominator) if denominator > 0 else np.nan
+            else:
+                ccc_value = np.nan
+            bias = float(delta.mean())
+            mae = float(np.abs(delta).mean())
+            rows.append({
+                "dataset": keys[0], "codec": keys[1], "setting": keys[2], "index": index,
+                "n_pairs": int(len(reference)),
+                "bitrate_kbps_mean": float(group.loc[ok, "bitrate_kbps"].mean()),
+                "reference_mean": float(reference.mean()), "reference_std": reference_std,
+                "reconstructed_mean": float(decoded.mean()), "reconstructed_std": decoded_std,
+                "bias": bias, "mae": mae, "rmse": float(np.sqrt(np.mean(delta ** 2))),
+                "standardized_bias": bias / reference_std if reference_std > 0 else np.nan,
+                "normalized_mae": mae / reference_std if reference_std > 0 else np.nan,
+                "pearson": pearson_value, "spearman": spearman_value, "ccc": ccc_value,
+            })
     index_summary = pd.DataFrame(rows)
-    index_summary.to_csv(REPORTS / "index_preservation.csv", index=False)
+    summary_path = REPORTS / "index_preservation.csv"
+    index_summary.to_csv(summary_path, index=False)
+    print(f"Resumo por condição e índice: {summary_path.relative_to(ROOT)}")
     display(index_summary)
 else:
     print("Execute primeiro a avaliação do notebook 05.")
+"""),
+            markdown(r"""
+## Diagnósticos ordenados
+
+As tabelas abaixo não impõem um limiar arbitrário de “aceitável”. Elas apenas destacam onde olhar:
+
+1. `largest_normalized_errors`: maiores erros absolutos após normalização pela variabilidade natural do índice;
+2. `largest_agreement_gaps`: casos em que Spearman permanece alto, mas CCC cai. Isso sugere que a ordenação das janelas foi preservada melhor que seus valores absolutos, geralmente por viés ou mudança de escala;
+3. `best_ccc_by_index`: maior concordância observada para cada corpus e índice. Serve como referência interna, não como prova de equivalência.
+"""),
+            code(r"""
+if not results.empty and not index_summary.empty:
+    diagnostic_columns = [
+        "dataset", "codec", "setting", "index", "n_pairs",
+        "bitrate_kbps_mean", "standardized_bias", "normalized_mae",
+        "pearson", "spearman", "ccc",
+    ]
+    largest_normalized_errors = (index_summary
+        .sort_values("normalized_mae", ascending=False)
+        .loc[:, diagnostic_columns]
+        .head(15))
+    agreement_gaps = index_summary.assign(agreement_gap=index_summary.spearman - index_summary.ccc)
+    largest_agreement_gaps = (agreement_gaps
+        .sort_values("agreement_gap", ascending=False)
+        .loc[:, [*diagnostic_columns, "agreement_gap"]]
+        .head(15))
+    best_ccc_by_index = (index_summary.dropna(subset=["ccc"])
+        .sort_values("ccc", ascending=False)
+        .groupby(["dataset", "index"], as_index=False)
+        .head(1)
+        .loc[:, diagnostic_columns])
+
+    print("Maiores erros normalizados")
+    display(largest_normalized_errors)
+    print("Ordenação preservada melhor que concordância absoluta")
+    display(largest_agreement_gaps)
+    print("Maior CCC observado em cada corpus e índice")
+    display(best_ccc_by_index)
+"""),
+            markdown(r"""
+## Figura 1 — mapa de concordância e erro normalizado
+
+Para cada corpus, as linhas são configurações de codec e as colunas são índices:
+
+- painel esquerdo: CCC, com 1 como concordância perfeita, 0 como ausência de concordância e valores negativos como discordância;
+- painel direito: MAE normalizado pelo desvio-padrão da referência, com 0 como ausência de erro.
+
+O painel de erro é limitado visualmente no percentil 95 para impedir que poucos valores extremos apaguem o contraste do restante. Os valores exatos permanecem em `index_preservation.csv`. Células cinzas indicam estatística indisponível.
+"""),
+            code(r"""
+if not results.empty and not index_summary.empty:
+    import matplotlib.pyplot as plt
+
+    figures_dir = REPORTS / "figures"
+    figures_dir.mkdir(parents=True, exist_ok=True)
+    preferred_order = [index for index in C.PLOT_INDICES if index in index_columns]
+    for dataset, dataset_summary in index_summary.groupby("dataset"):
+        work = dataset_summary.copy()
+        work["condition"] = work["codec"] + " | " + work["setting"]
+        ccc_matrix = work.pivot(index="condition", columns="index", values="ccc").reindex(columns=preferred_order)
+        nmae_matrix = work.pivot(index="condition", columns="index", values="normalized_mae").reindex(
+            index=ccc_matrix.index, columns=preferred_order
+        )
+        finite_nmae = nmae_matrix.to_numpy(float)[np.isfinite(nmae_matrix.to_numpy(float))]
+        nmae_limit = max(float(np.quantile(finite_nmae, 0.95)), 1e-9) if finite_nmae.size else 1.0
+
+        height = max(5.0, 0.34 * len(ccc_matrix.index))
+        fig, axes = plt.subplots(1, 2, figsize=(16, height), constrained_layout=True)
+        ccc_image = axes[0].imshow(
+            np.ma.masked_invalid(ccc_matrix.to_numpy(float)), aspect="auto",
+            cmap="coolwarm", vmin=-1, vmax=1,
+        )
+        nmae_image = axes[1].imshow(
+            np.ma.masked_invalid(nmae_matrix.to_numpy(float)), aspect="auto",
+            cmap="viridis", vmin=0, vmax=nmae_limit,
+        )
+        for axis, title in zip(axes, ("CCC (maior é melhor)", "MAE normalizado (menor é melhor)")):
+            axis.set_title(title)
+            axis.set_xticks(range(len(preferred_order)), [name.removeprefix("idx_") for name in preferred_order], rotation=45, ha="right")
+            axis.set_yticks(range(len(ccc_matrix.index)), ccc_matrix.index, fontsize=7)
+            axis.set_xlabel("índice ecoacústico")
+        axes[0].set_ylabel("codec | configuração")
+        fig.colorbar(ccc_image, ax=axes[0], shrink=0.8)
+        fig.colorbar(nmae_image, ax=axes[1], shrink=0.8, label=f"escala visual até P95 = {nmae_limit:.3g}")
+        fig.suptitle(f"Preservação dos índices — {dataset}")
+        output = figures_dir / f"index_preservation_heatmap_{dataset}.png"
+        fig.savefig(output, dpi=160, bbox_inches="tight")
+        print(f"Figura: {output.relative_to(ROOT)}")
+        plt.show()
+"""),
+            markdown(r"""
+## Figura 2 — referência contra reconstrução
+
+O gráfico abaixo mostra as janelas individuais para um índice escolhido. Cada painel usa, para um codec, sua configuração de **menor bitrate efetivo médio** disponível naquele corpus. Isso expõe a condição mais agressiva sem produzir dezenas de painéis.
+
+- eixo x: índice no áudio original;
+- eixo y: índice após reconstrução;
+- linha tracejada: igualdade perfeita (`y = x`);
+- nuvem deslocada paralelamente à diagonal: viés;
+- inclinação diferente da diagonal: mudança de escala;
+- dispersão ao redor da diagonal: erro variável entre janelas;
+- poucos pontos distantes: janelas especialmente sensíveis.
+
+Altere `SCATTER_INDEX` para inspecionar outro índice. Essa seleção muda apenas a figura, não os resultados calculados.
+"""),
+            code(r"""
+SCATTER_INDEX = "idx_ACI"
+
+if not results.empty and SCATTER_INDEX in index_columns:
+    import matplotlib.pyplot as plt
+
+    condition_rates = (paired.groupby(["dataset", "codec", "setting"], as_index=False)
+                       .agg(bitrate_kbps_mean=("bitrate_kbps", "mean")))
+    lowest_rate_conditions = (condition_rates.sort_values("bitrate_kbps_mean")
+                              .groupby(["dataset", "codec"], as_index=False)
+                              .head(1))
+    figures_dir = REPORTS / "figures"
+    figures_dir.mkdir(parents=True, exist_ok=True)
+
+    for dataset, chosen in lowest_rate_conditions.groupby("dataset"):
+        panels = list(chosen.itertuples(index=False))
+        columns = min(3, len(panels))
+        rows_count = int(np.ceil(len(panels) / columns))
+        fig, axes = plt.subplots(rows_count, columns, figsize=(4.2 * columns, 4 * rows_count), squeeze=False)
+        for axis, condition in zip(axes.ravel(), panels):
+            group = paired.loc[
+                (paired.dataset == dataset)
+                & (paired.codec == condition.codec)
+                & (paired.setting == condition.setting)
+            ]
+            reference = group[f"{SCATTER_INDEX}_reference"].to_numpy(float)
+            decoded = group[SCATTER_INDEX].to_numpy(float)
+            valid = np.isfinite(reference) & np.isfinite(decoded)
+            reference, decoded = reference[valid], decoded[valid]
+            axis.scatter(reference, decoded, s=14, alpha=0.55)
+            if len(reference):
+                low = float(min(reference.min(), decoded.min()))
+                high = float(max(reference.max(), decoded.max()))
+                axis.plot([low, high], [low, high], "k--", linewidth=1)
+            axis.set_title(f"{condition.codec} | {condition.setting}\n{condition.bitrate_kbps_mean:.1f} kbit/s", fontsize=9)
+            axis.set_xlabel("referência")
+            axis.set_ylabel("reconstruído")
+            axis.grid(True, alpha=0.2)
+        for axis in axes.ravel()[len(panels):]:
+            axis.set_visible(False)
+        fig.suptitle(f"{dataset} — {SCATTER_INDEX} — menor bitrate de cada codec")
+        fig.tight_layout()
+        output = figures_dir / f"index_scatter_{dataset}_{SCATTER_INDEX}.png"
+        fig.savefig(output, dpi=160, bbox_inches="tight")
+        print(f"Figura: {output.relative_to(ROOT)}")
+        plt.show()
+elif not results.empty:
+    print(f"Índice inválido: {SCATTER_INDEX}. Escolha um de: {index_columns}")
 """),
         ],
     ),
