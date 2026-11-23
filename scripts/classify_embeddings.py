@@ -38,25 +38,69 @@ def adapt_for_perch(x_4s: np.ndarray, sr: int = C.SR) -> np.ndarray:
 
 
 class BirdNETExtractor:
-    """Extrator de embeddings do BirdNET v2.4 diretamente em memoria via TFLite."""
-    def __init__(self):
-        try:
-            from birdnetlib.analyzer import Analyzer
-            self.analyzer = Analyzer()
-            self.interp = self.analyzer.interpreter
-            self.in_idx = self.interp.get_input_details()[0]["index"]
-            self.emb_idx = self.analyzer.embeddings_layer_index
-        except ImportError:
-            raise ImportError("Instale `birdnetlib` e `tflite-runtime` (ou `tensorflow`).")
+    """Extrator oficial BirdNET v2.4 via assinatura SavedModel ``embeddings``."""
 
-    def extract_batch(self, clips_5s: list[np.ndarray]) -> np.ndarray:
+    EMBEDDING_DIMENSION = 1024
+
+    def __init__(self, batch_size: int = 32):
+        try:
+            import os
+
+            # birdnet reads this variable during import.  The same directory is
+            # used by the integrated pipeline, so the ~120 MB model is shared.
+            os.environ.setdefault(
+                "BIRDNET_APP_DATA",
+                str(C.ROOT / "data" / "models" / "birdnet"),
+            )
+            import birdnet
+            import tensorflow as tf
+        except ImportError as error:
+            raise ImportError(
+                "Instale as dependencias congeladas com `uv sync --locked`; "
+                "BirdNET requer os pacotes `birdnet` e `tensorflow`."
+            ) from error
+
+        if batch_size < 1:
+            raise ValueError("BirdNET batch_size deve ser positivo.")
+        for gpu in tf.config.list_physical_devices("GPU"):
+            try:
+                tf.config.experimental.set_memory_growth(gpu, True)
+            except RuntimeError:
+                # TensorFlow may already be initialized by another notebook cell.
+                pass
+
+        model = birdnet.load("acoustic", "2.4", "pb")
+        saved_model = tf.saved_model.load(str(model.model_path))
+        if "embeddings" not in saved_model.signatures:
+            raise RuntimeError("BirdNET v2.4 sem assinatura `embeddings`.")
+        self.tf = tf
+        self.encode = saved_model.signatures["embeddings"]
+        self.batch_size = int(batch_size)
+
+    def extract_batch(self, clips_4s: list[np.ndarray]) -> np.ndarray:
         embs = []
-        for x in clips_5s:
-            x_3s = adapt_for_birdnet(x, C.SR)[None, :]  # (1, 144000)
-            self.interp.set_tensor(self.in_idx, x_3s)
-            self.interp.invoke()
-            emb = self.interp.get_tensor(self.emb_idx)[0]
-            embs.append(emb.astype(np.float32))
+        for start in range(0, len(clips_4s), self.batch_size):
+            batch = np.stack(
+                [adapt_for_birdnet(x, C.SR) for x in clips_4s[start : start + self.batch_size]],
+                axis=0,
+            ).astype(np.float32, copy=False)
+            outputs = self.encode(
+                inputs=self.tf.convert_to_tensor(batch, dtype=self.tf.float32)
+            )
+            if "embeddings" not in outputs:
+                raise RuntimeError(
+                    f"Saida BirdNET sem `embeddings`: {sorted(outputs)}"
+                )
+            embeddings = outputs["embeddings"].numpy().astype(np.float32, copy=False)
+            expected = (len(batch), self.EMBEDDING_DIMENSION)
+            if embeddings.shape != expected:
+                raise RuntimeError(
+                    f"Forma inesperada dos embeddings BirdNET: "
+                    f"{embeddings.shape}; esperada {expected}."
+                )
+            embs.append(embeddings)
+        if not embs:
+            return np.empty((0, self.EMBEDDING_DIMENSION), dtype=np.float32)
         return np.vstack(embs)
 
 
