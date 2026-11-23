@@ -5,6 +5,7 @@ model-input rules come from ``src/codeco/protocol.py`` so scripts and
 notebooks cannot silently diverge.
 """
 from pathlib import Path
+import json
 import shutil
 import sys
 
@@ -69,13 +70,20 @@ AE_QUANT_LEVELS = 256                 # niveis no treino (8 bits/elemento)
 AE_EVAL_LEVELS = (16, 64, 256)        # niveis na avaliacao (4, 6 e 8 bits -> gera curva R-D)
 
 # ---------------- Codecs e configuracoes (bitrates em kbps, mono) ----------------
+EXPERIMENT_CONFIG = json.loads(
+    (ROOT / "configs/experiment-v1.json").read_text(encoding="utf-8")
+)
+_CODEC_SPEC = EXPERIMENT_CONFIG["codecs"]
 CODECS = {
-    "flac":    [dict(compression_level=5)],
-    "mp3":     [dict(bitrate_kbps=b) for b in (32, 64, 128)],
-    "aac":     [dict(bitrate_kbps=b) for b in (64, 96, 128)],
-    "opus":    [dict(bitrate_kbps=b) for b in (12, 24, 48, 96)],
-    "lc3":     [dict(bitrate_kbps=b) for b in (32, 64, 96)],
-    "encodec": [dict(bandwidth_kbps=b, model_name="facebook/encodec_48khz") for b in (6, 12, 24)],
+    "flac": [dict(compression_level=level) for level in _CODEC_SPEC["flac"]["compression_levels"]],
+    "mp3": [dict(bitrate_kbps=b) for b in _CODEC_SPEC["mp3"]["bitrates_kbps"]],
+    "aac": [dict(bitrate_kbps=b) for b in _CODEC_SPEC["aac"]["bitrates_kbps"]],
+    "opus": [dict(bitrate_kbps=b) for b in _CODEC_SPEC["opus"]["bitrates_kbps"]],
+    "lc3": [dict(bitrate_kbps=b) for b in _CODEC_SPEC["lc3"]["bitrates_kbps"]],
+    "encodec": [
+        dict(bandwidth_kbps=b, model_name=_CODEC_SPEC["encodec"]["model"])
+        for b in _CODEC_SPEC["encodec"]["bitrates_kbps"]
+    ],
 }
 
 AUTOENCODERS_ENABLED_BY_DEFAULT = False

@@ -7,6 +7,15 @@ data/derived/
 data/downloads/
 data/music/
 
+# Resumable pipeline state and regenerated reports. Published result snapshots
+# must be promoted deliberately to a versioned release, never committed by a run.
+data/cache/
+data/checkpoints/
+data/prepared/
+data/samples/
+data/tests/
+results/
+
 # Local caches and environments.
 .venv/
 .tools/

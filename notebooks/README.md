@@ -46,12 +46,19 @@ desativadas para evitar downloads ou execuções completas acidentais.
    computacional, armazenamento e transmissão.
 9. **`09_summary.ipynb`** — tabelas finais, curvas de compromisso e testes das
    hipóteses.
+10. **`10_integrated_pipeline.ipynb`** — interface auditável do runner
+    otimizado: configuração única, hashes, backend CPU/GPU, checkpoints e
+    execução explícita por etapa.
 
 Os três primeiros notebooks funcionam apenas com os manifests versionados. As
 rotinas pesadas permanecem disponíveis como scripts não interativos para o
 EASNCloud e os notebooks usam os mesmos módulos de `src/codeco` e `scripts/`.
 Os autoencoders permanecem desativados por padrão até a correção de comprimento
 e a serialização auditável do payload.
+
+O notebook 10 não contém uma segunda implementação. Ele chama diretamente
+`src/codeco`, a mesma biblioteca usada por `python -m codeco.main`. Assim, uma
+execução interativa e uma execução remota produzem os mesmos caches e tabelas.
 
 O hop de 1 s está implementado para futuras segmentações de gravações
 contínuas, mas não reescreve os manifests congelados atuais. Uma resegmentação

@@ -1,0 +1,72 @@
+from __future__ import annotations
+
+import sys
+import unittest
+from pathlib import Path
+
+import numpy as np
+
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "src"))
+
+from codeco.acoustic_indices import _entropy
+from codeco.alignment import normalized_cross_correlation_align
+from codeco.experiment_config import experiment_config
+from codeco.protocol import PROTOCOL, adapt_for_perch
+
+
+class AlignmentTests(unittest.TestCase):
+    def test_signed_positive_lag(self) -> None:
+        rng = np.random.default_rng(42)
+        reference = rng.normal(size=12_000).astype(np.float32)
+        decoded = np.pad(reference, (137, 0))
+        result = normalized_cross_correlation_align(reference, decoded, 512)
+        self.assertEqual(result.lag_samples, 137)
+        self.assertGreater(result.score, 0.999)
+        np.testing.assert_allclose(result.audio, reference, atol=1e-6)
+
+    def test_signed_negative_lag(self) -> None:
+        rng = np.random.default_rng(7)
+        reference = rng.normal(size=12_000).astype(np.float32)
+        result = normalized_cross_correlation_align(reference, reference[91:], 512)
+        self.assertEqual(result.lag_samples, -91)
+        np.testing.assert_allclose(result.audio[91:], reference[91:], atol=1e-6)
+
+
+class MetricTests(unittest.TestCase):
+    def test_entropy_uses_fixed_support(self) -> None:
+        self.assertAlmostEqual(_entropy(np.ones(4)), 1.0)
+        self.assertAlmostEqual(_entropy(np.array([1.0, 0.0, 0.0, 0.0])), 0.0)
+        expected = -(0.5 * np.log(0.5) * 2) / np.log(4)
+        self.assertAlmostEqual(_entropy(np.array([1.0, 1.0, 0.0, 0.0])), expected)
+
+
+class ProtocolTests(unittest.TestCase):
+    def test_perch_padding_does_not_change_codec_window(self) -> None:
+        canonical = np.ones(PROTOCOL.window_samples, dtype=np.float32)
+        perch = adapt_for_perch(canonical)
+        self.assertEqual(len(perch), round(5 * 32_000))
+        self.assertEqual(np.count_nonzero(perch[:16_000]), 0)
+        self.assertEqual(np.count_nonzero(perch[-16_000:]), 0)
+
+    def test_executable_matrix_is_frozen(self) -> None:
+        codecs = experiment_config()["codecs"]
+        self.assertEqual(codecs["mp3"]["bitrates_kbps"], [32, 64, 128])
+        self.assertEqual(codecs["opus"]["bitrates_kbps"], [12, 24, 48, 96])
+        self.assertEqual(codecs["lc3"]["bitrates_kbps"], [32, 64, 96])
+
+        from codeco.birdnet_embeddings import CONDITIONS as embedding_conditions
+        from codeco.ffmpeg import CONDITIONS as ffmpeg_conditions
+
+        expected = [(item.codec, item.setting) for item in ffmpeg_conditions]
+        observed = [
+            (item.codec, item.setting)
+            for item in embedding_conditions
+            if item.kind == "ffmpeg"
+        ]
+        self.assertEqual(observed, expected)
+
+
+if __name__ == "__main__":
+    unittest.main()

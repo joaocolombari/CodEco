@@ -1,0 +1,834 @@
+{
+  "version": "1",
+  "protocol": {
+    "sample_rate": 48000,
+    "clip_seconds": 4.0,
+    "bit_depth": 16
+  },
+  "selection": {
+    "ecosoundset": {
+      "classes": [
+        "Roeseliana roeselii",
+        "Gryllus campestris"
+      ],
+      "per_class": {
+        "train": 10,
+        "val": 5,
+        "test": 5
+      }
+    },
+    "pteroset_ppa1": {
+      "classes": [
+        "Cyanocorax violaceus",
+        "Rupornis magnirostris"
+      ],
+      "per_class": {
+        "train": 10,
+        "val": 5,
+        "test": 5
+      }
+    }
+  },
+  "examples": [
+    {
+      "dataset": "ecosoundset",
+      "clip_id": "148503",
+      "relative_path": "ecosoundset/source/train/Soundscape_DoAr_19VII2024_41118_split_16_20.wav",
+      "start": 0.0,
+      "end": 4.0,
+      "labels": "Roeseliana roeselii",
+      "split": "train",
+      "source_group_id": "1060"
+    },
+    {
+      "dataset": "ecosoundset",
+      "clip_id": "182506",
+      "relative_path": "ecosoundset/source/train/Soundscape_DoAr_23VII2024_43380_split_8_12.wav",
+      "start": 0.0,
+      "end": 4.0,
+      "labels": "Roeseliana roeselii",
+      "split": "train",
+      "source_group_id": "1103"
+    },
+    {
+      "dataset": "ecosoundset",
+      "clip_id": "177179",
+      "relative_path": "ecosoundset/source/train/Soundscape_DoAr_01VII2024_43025_split_0_4.wav",
+      "start": 0.0,
+      "end": 4.0,
+      "labels": "Roeseliana roeselii",
+      "split": "train",
+      "source_group_id": "1104"
+    },
+    {
+      "dataset": "ecosoundset",
+      "clip_id": "177269",
+      "relative_path": "ecosoundset/source/train/Soundscape_DoAr_03VII2024_43031_split_0_4.wav",
+      "start": 0.0,
+      "end": 4.0,
+      "labels": "Roeseliana roeselii",
+      "split": "train",
+      "source_group_id": "1105"
+    },
+    {
+      "dataset": "ecosoundset",
+      "clip_id": "177323",
+      "relative_path": "ecosoundset/source/train/Soundscape_DoAr_05VII2024_43034_split_36_40.wav",
+      "start": 0.0,
+      "end": 4.0,
+      "labels": "Roeseliana roeselii",
+      "split": "train",
+      "source_group_id": "1107"
+    },
+    {
+      "dataset": "ecosoundset",
+      "clip_id": "177329",
+      "relative_path": "ecosoundset/source/train/Soundscape_DoAr_08VII2024_43035_split_0_4.wav",
+      "start": 0.0,
+      "end": 4.0,
+      "labels": "Roeseliana roeselii",
+      "split": "train",
+      "source_group_id": "1108"
+    },
+    {
+      "dataset": "ecosoundset",
+      "clip_id": "177390",
+      "relative_path": "ecosoundset/source/train/Soundscape_DoAr_29VI2024_43039_split_4_8.wav",
+      "start": 0.0,
+      "end": 4.0,
+      "labels": "Roeseliana roeselii",
+      "split": "train",
+      "source_group_id": "1111"
+    },
+    {
+      "dataset": "ecosoundset",
+      "clip_id": "182452",
+      "relative_path": "ecosoundset/source/train/Soundscape_DoAr_22VII2024_43376_split_32_36.wav",
+      "start": 0.0,
+      "end": 4.0,
+      "labels": "Roeseliana roeselii",
+      "split": "train",
+      "source_group_id": "1113"
+    },
+    {
+      "dataset": "ecosoundset",
+      "clip_id": "177707",
+      "relative_path": "ecosoundset/source/train/Soundscape_DoAr_21VII2024_43060_split_12_16.wav",
+      "start": 0.0,
+      "end": 4.0,
+      "labels": "Roeseliana roeselii",
+      "split": "train",
+      "source_group_id": "1119"
+    },
+    {
+      "dataset": "ecosoundset",
+      "clip_id": "178034",
+      "relative_path": "ecosoundset/source/train/Soundscape_DoAr_08VII2024_43082_split_0_4.wav",
+      "start": 0.0,
+      "end": 4.0,
+      "labels": "Roeseliana roeselii",
+      "split": "train",
+      "source_group_id": "1122"
+    },
+    {
+      "dataset": "ecosoundset",
+      "clip_id": "177464",
+      "relative_path": "ecosoundset/source/train/Soundscape_DoAr_15VI2024_43044_split_0_4.wav",
+      "start": 0.0,
+      "end": 4.0,
+      "labels": "Gryllus campestris",
+      "split": "train",
+      "source_group_id": "1114"
+    },
+    {
+      "dataset": "ecosoundset",
+      "clip_id": "184135",
+      "relative_path": "ecosoundset/source/train/Soundscape_DoAr_23VI2024_43488_split_44_48.wav",
+      "start": 0.0,
+      "end": 4.0,
+      "labels": "Gryllus campestris",
+      "split": "train",
+      "source_group_id": "1222"
+    },
+    {
+      "dataset": "ecosoundset",
+      "clip_id": "184514",
+      "relative_path": "ecosoundset/source/train/Soundscape_DoAr_25VI2024_43514_split_0_4.wav",
+      "start": 0.0,
+      "end": 4.0,
+      "labels": "Gryllus campestris",
+      "split": "train",
+      "source_group_id": "1224"
+    },
+    {
+      "dataset": "ecosoundset",
+      "clip_id": "184964",
+      "relative_path": "ecosoundset/source/train/Soundscape_DoAr_13VI2024_43544_split_0_4.wav",
+      "start": 0.0,
+      "end": 4.0,
+      "labels": "Gryllus campestris",
+      "split": "train",
+      "source_group_id": "1226"
+    },
+    {
+      "dataset": "ecosoundset",
+      "clip_id": "4416",
+      "relative_path": "ecosoundset/source/train/FocalRecording_ElMa_03X2022_997_split_0_4.wav",
+      "start": 0.0,
+      "end": 4.0,
+      "labels": "Gryllus campestris",
+      "split": "train",
+      "source_group_id": "164"
+    },
+    {
+      "dataset": "ecosoundset",
+      "clip_id": "4473",
+      "relative_path": "ecosoundset/source/train/FocalRecording_ElMa_21V2024_1007_split_0_4.wav",
+      "start": 0.0,
+      "end": 4.0,
+      "labels": "Gryllus campestris",
+      "split": "train",
+      "source_group_id": "168"
+    },
+    {
+      "dataset": "ecosoundset",
+      "clip_id": "7998",
+      "relative_path": "ecosoundset/source/train/FocalRecording_LaPe_26VIII2022_1598_split_0_4.wav",
+      "start": 0.0,
+      "end": 4.0,
+      "labels": "Gryllus campestris",
+      "split": "train",
+      "source_group_id": "261"
+    },
+    {
+      "dataset": "ecosoundset",
+      "clip_id": "77535",
+      "relative_path": "ecosoundset/source/train/Soundscape_ElMa_27IV2022_25473_split_0_4.wav",
+      "start": 0.0,
+      "end": 4.0,
+      "labels": "Gryllus campestris",
+      "split": "train",
+      "source_group_id": "295"
+    },
+    {
+      "dataset": "ecosoundset",
+      "clip_id": "77700",
+      "relative_path": "ecosoundset/source/train/Soundscape_ElMa_28IV2022_25484_split_0_4.wav",
+      "start": 0.0,
+      "end": 4.0,
+      "labels": "Gryllus campestris",
+      "split": "train",
+      "source_group_id": "296"
+    },
+    {
+      "dataset": "ecosoundset",
+      "clip_id": "82162",
+      "relative_path": "ecosoundset/source/train/Soundscape_ElMa_07V2022_25974_split_0_4.wav",
+      "start": 0.0,
+      "end": 4.0,
+      "labels": "Gryllus campestris",
+      "split": "train",
+      "source_group_id": "384"
+    },
+    {
+      "dataset": "ecosoundset",
+      "clip_id": "6436",
+      "relative_path": "ecosoundset/source/val/FocalRecording_ElMa_09X2023_1388_split_0_4.wav",
+      "start": 0.0,
+      "end": 4.0,
+      "labels": "Roeseliana roeselii",
+      "split": "val",
+      "source_group_id": "108"
+    },
+    {
+      "dataset": "ecosoundset",
+      "clip_id": "183839",
+      "relative_path": "ecosoundset/source/val/Soundscape_DoAr_18VII2024_43469_split_0_4.wav",
+      "start": 0.0,
+      "end": 4.0,
+      "labels": "Roeseliana roeselii",
+      "split": "val",
+      "source_group_id": "1102"
+    },
+    {
+      "dataset": "ecosoundset",
+      "clip_id": "177410",
+      "relative_path": "ecosoundset/source/val/Soundscape_DoAr_09VIII2024_43040_split_24_28.wav",
+      "start": 0.0,
+      "end": 4.0,
+      "labels": "Roeseliana roeselii",
+      "split": "val",
+      "source_group_id": "1112"
+    },
+    {
+      "dataset": "ecosoundset",
+      "clip_id": "178362",
+      "relative_path": "ecosoundset/source/val/Soundscape_DoAr_28VII2024_43103_split_52_56.wav",
+      "start": 0.0,
+      "end": 4.0,
+      "labels": "Roeseliana roeselii",
+      "split": "val",
+      "source_group_id": "1131"
+    },
+    {
+      "dataset": "ecosoundset",
+      "clip_id": "178941",
+      "relative_path": "ecosoundset/source/val/Soundscape_DoAr_30VII2024_43142_split_28_32.wav",
+      "start": 0.0,
+      "end": 4.0,
+      "labels": "Roeseliana roeselii",
+      "split": "val",
+      "source_group_id": "1141"
+    },
+    {
+      "dataset": "ecosoundset",
+      "clip_id": "182114",
+      "relative_path": "ecosoundset/source/val/Soundscape_DoAr_12VI2024_43354_split_0_4.wav",
+      "start": 0.0,
+      "end": 4.0,
+      "labels": "Gryllus campestris",
+      "split": "val",
+      "source_group_id": "1198"
+    },
+    {
+      "dataset": "ecosoundset",
+      "clip_id": "77775",
+      "relative_path": "ecosoundset/source/val/Soundscape_ElMa_30IV2022_25489_split_0_4.wav",
+      "start": 0.0,
+      "end": 4.0,
+      "labels": "Gryllus campestris",
+      "split": "val",
+      "source_group_id": "297"
+    },
+    {
+      "dataset": "ecosoundset",
+      "clip_id": "82012",
+      "relative_path": "ecosoundset/source/val/Soundscape_ElMa_06V2022_25964_split_0_4.wav",
+      "start": 0.0,
+      "end": 4.0,
+      "labels": "Gryllus campestris",
+      "split": "val",
+      "source_group_id": "383"
+    },
+    {
+      "dataset": "ecosoundset",
+      "clip_id": "182117",
+      "relative_path": "ecosoundset/source/val/Soundscape_DoAr_12VI2024_43354_split_12_16.wav",
+      "start": 0.0,
+      "end": 4.0,
+      "labels": "Gryllus campestris",
+      "split": "val",
+      "source_group_id": "1198"
+    },
+    {
+      "dataset": "ecosoundset",
+      "clip_id": "77778",
+      "relative_path": "ecosoundset/source/val/Soundscape_ElMa_30IV2022_25489_split_12_16.wav",
+      "start": 0.0,
+      "end": 4.0,
+      "labels": "Gryllus campestris",
+      "split": "val",
+      "source_group_id": "297"
+    },
+    {
+      "dataset": "ecosoundset",
+      "clip_id": "177288",
+      "relative_path": "ecosoundset/source/test/Soundscape_DoAr_04VII2024_43032_split_16_20.wav",
+      "start": 0.0,
+      "end": 4.0,
+      "labels": "Roeseliana roeselii",
+      "split": "test",
+      "source_group_id": "1106"
+    },
+    {
+      "dataset": "ecosoundset",
+      "clip_id": "179209",
+      "relative_path": "ecosoundset/source/test/Soundscape_DoAr_24VII2024_43160_split_20_24.wav",
+      "start": 0.0,
+      "end": 4.0,
+      "labels": "Roeseliana roeselii",
+      "split": "test",
+      "source_group_id": "1144"
+    },
+    {
+      "dataset": "ecosoundset",
+      "clip_id": "179222",
+      "relative_path": "ecosoundset/source/test/Soundscape_DoAr_25VII2024_43161_split_12_16.wav",
+      "start": 0.0,
+      "end": 4.0,
+      "labels": "Roeseliana roeselii",
+      "split": "test",
+      "source_group_id": "1145"
+    },
+    {
+      "dataset": "ecosoundset",
+      "clip_id": "181028",
+      "relative_path": "ecosoundset/source/test/Soundscape_DoAr_14VII2024_43281_split_36_40.wav",
+      "start": 0.0,
+      "end": 4.0,
+      "labels": "Roeseliana roeselii",
+      "split": "test",
+      "source_group_id": "1177"
+    },
+    {
+      "dataset": "ecosoundset",
+      "clip_id": "181420",
+      "relative_path": "ecosoundset/source/test/Soundscape_DoAr_15VIII2024_43307_split_44_48.wav",
+      "start": 0.0,
+      "end": 4.0,
+      "labels": "Roeseliana roeselii",
+      "split": "test",
+      "source_group_id": "1184"
+    },
+    {
+      "dataset": "ecosoundset",
+      "clip_id": "183449",
+      "relative_path": "ecosoundset/source/test/Soundscape_DoAr_16VI2024_43443_split_0_4.wav",
+      "start": 0.0,
+      "end": 4.0,
+      "labels": "Gryllus campestris",
+      "split": "test",
+      "source_group_id": "1216"
+    },
+    {
+      "dataset": "ecosoundset",
+      "clip_id": "184589",
+      "relative_path": "ecosoundset/source/test/Soundscape_DoAr_26VI2024_43519_split_0_4.wav",
+      "start": 0.0,
+      "end": 4.0,
+      "labels": "Gryllus campestris",
+      "split": "test",
+      "source_group_id": "1225"
+    },
+    {
+      "dataset": "ecosoundset",
+      "clip_id": "220737",
+      "relative_path": "ecosoundset/source/test/Soundscape_AnCh_08VI2021_44397_split_0_4.wav",
+      "start": 0.0,
+      "end": 4.0,
+      "labels": "Gryllus campestris",
+      "split": "test",
+      "source_group_id": "1369"
+    },
+    {
+      "dataset": "ecosoundset",
+      "clip_id": "221942",
+      "relative_path": "ecosoundset/source/test/Soundscape_AnCh_30V2021_44647_split_0_4.wav",
+      "start": 0.0,
+      "end": 4.0,
+      "labels": "Gryllus campestris",
+      "split": "test",
+      "source_group_id": "1379"
+    },
+    {
+      "dataset": "ecosoundset",
+      "clip_id": "82702",
+      "relative_path": "ecosoundset/source/test/Soundscape_ElMa_11V2022_26010_split_0_4.wav",
+      "start": 0.0,
+      "end": 4.0,
+      "labels": "Gryllus campestris",
+      "split": "test",
+      "source_group_id": "388"
+    },
+    {
+      "dataset": "pteroset_ppa1",
+      "clip_id": "segment-361-0018-w0",
+      "relative_path": "pteroset_ppa1/G6403_20240218.wav",
+      "start": 162.0,
+      "end": 166.0,
+      "labels": "Cyanocorax violaceus",
+      "split": "train",
+      "source_group_id": "PPA1|P11|G6403"
+    },
+    {
+      "dataset": "pteroset_ppa1",
+      "clip_id": "segment-352-0024-w1",
+      "relative_path": "pteroset_ppa1/G6404_20240218.wav",
+      "start": 220.0,
+      "end": 224.0,
+      "labels": "Cyanocorax violaceus",
+      "split": "train",
+      "source_group_id": "PPA1|P12|G6404"
+    },
+    {
+      "dataset": "pteroset_ppa1",
+      "clip_id": "segment-338-0012-w0",
+      "relative_path": "pteroset_ppa1/G6406_20240219.wav",
+      "start": 108.0,
+      "end": 112.0,
+      "labels": "Cyanocorax violaceus",
+      "split": "train",
+      "source_group_id": "PPA1|P13|G6406"
+    },
+    {
+      "dataset": "pteroset_ppa1",
+      "clip_id": "segment-517-0026-w0",
+      "relative_path": "pteroset_ppa1/G6413_20240218.wav",
+      "start": 234.0,
+      "end": 238.0,
+      "labels": "Cyanocorax violaceus",
+      "split": "train",
+      "source_group_id": "PPA1|P15|G6413"
+    },
+    {
+      "dataset": "pteroset_ppa1",
+      "clip_id": "segment-281-0014-w0",
+      "relative_path": "pteroset_ppa1/G6414_20240218.wav",
+      "start": 126.0,
+      "end": 130.0,
+      "labels": "Cyanocorax violaceus",
+      "split": "train",
+      "source_group_id": "PPA1|P16|G6414"
+    },
+    {
+      "dataset": "pteroset_ppa1",
+      "clip_id": "segment-453-0027-w0",
+      "relative_path": "pteroset_ppa1/G6419_20240218.wav",
+      "start": 243.0,
+      "end": 247.0,
+      "labels": "Cyanocorax violaceus",
+      "split": "train",
+      "source_group_id": "PPA1|P18|G6419"
+    },
+    {
+      "dataset": "pteroset_ppa1",
+      "clip_id": "segment-404-0015-w1",
+      "relative_path": "pteroset_ppa1/G6421_20240218.wav",
+      "start": 139.0,
+      "end": 143.0,
+      "labels": "Cyanocorax violaceus",
+      "split": "train",
+      "source_group_id": "PPA1|P19|G6421"
+    },
+    {
+      "dataset": "pteroset_ppa1",
+      "clip_id": "segment-471-0015-w1",
+      "relative_path": "pteroset_ppa1/G6370_20240218.wav",
+      "start": 139.0,
+      "end": 143.0,
+      "labels": "Cyanocorax violaceus",
+      "split": "train",
+      "source_group_id": "PPA1|P1|G6370"
+    },
+    {
+      "dataset": "pteroset_ppa1",
+      "clip_id": "segment-87-0014-w1",
+      "relative_path": "pteroset_ppa1/G6428_20240219.wav",
+      "start": 130.0,
+      "end": 134.0,
+      "labels": "Cyanocorax violaceus",
+      "split": "train",
+      "source_group_id": "PPA1|P21|G6428"
+    },
+    {
+      "dataset": "pteroset_ppa1",
+      "clip_id": "segment-101-0023-w0",
+      "relative_path": "pteroset_ppa1/G6437_20240219.wav",
+      "start": 207.0,
+      "end": 211.0,
+      "labels": "Cyanocorax violaceus",
+      "split": "train",
+      "source_group_id": "PPA1|P24|G6437"
+    },
+    {
+      "dataset": "pteroset_ppa1",
+      "clip_id": "segment-361-0013-w0",
+      "relative_path": "pteroset_ppa1/G6403_20240218.wav",
+      "start": 117.0,
+      "end": 121.0,
+      "labels": "Rupornis magnirostris",
+      "split": "train",
+      "source_group_id": "PPA1|P11|G6403"
+    },
+    {
+      "dataset": "pteroset_ppa1",
+      "clip_id": "segment-352-0019-w0",
+      "relative_path": "pteroset_ppa1/G6404_20240218.wav",
+      "start": 171.0,
+      "end": 175.0,
+      "labels": "Rupornis magnirostris",
+      "split": "train",
+      "source_group_id": "PPA1|P12|G6404"
+    },
+    {
+      "dataset": "pteroset_ppa1",
+      "clip_id": "segment-366-0020-w0",
+      "relative_path": "pteroset_ppa1/G6406_20240218.wav",
+      "start": 180.0,
+      "end": 184.0,
+      "labels": "Rupornis magnirostris",
+      "split": "train",
+      "source_group_id": "PPA1|P13|G6406"
+    },
+    {
+      "dataset": "pteroset_ppa1",
+      "clip_id": "segment-517-0021-w1",
+      "relative_path": "pteroset_ppa1/G6413_20240218.wav",
+      "start": 193.0,
+      "end": 197.0,
+      "labels": "Rupornis magnirostris",
+      "split": "train",
+      "source_group_id": "PPA1|P15|G6413"
+    },
+    {
+      "dataset": "pteroset_ppa1",
+      "clip_id": "segment-281-0021-w1",
+      "relative_path": "pteroset_ppa1/G6414_20240218.wav",
+      "start": 193.0,
+      "end": 197.0,
+      "labels": "Rupornis magnirostris",
+      "split": "train",
+      "source_group_id": "PPA1|P16|G6414"
+    },
+    {
+      "dataset": "pteroset_ppa1",
+      "clip_id": "segment-187-0034-w0",
+      "relative_path": "pteroset_ppa1/G6419_20240221.wav",
+      "start": 306.0,
+      "end": 310.0,
+      "labels": "Rupornis magnirostris",
+      "split": "train",
+      "source_group_id": "PPA1|P18|G6419"
+    },
+    {
+      "dataset": "pteroset_ppa1",
+      "clip_id": "segment-555-0025-w1",
+      "relative_path": "pteroset_ppa1/G6421_20240220.wav",
+      "start": 229.0,
+      "end": 233.0,
+      "labels": "Rupornis magnirostris",
+      "split": "train",
+      "source_group_id": "PPA1|P19|G6421"
+    },
+    {
+      "dataset": "pteroset_ppa1",
+      "clip_id": "segment-140-0016-w0",
+      "relative_path": "pteroset_ppa1/G6370_20240220.wav",
+      "start": 144.0,
+      "end": 148.0,
+      "labels": "Rupornis magnirostris",
+      "split": "train",
+      "source_group_id": "PPA1|P1|G6370"
+    },
+    {
+      "dataset": "pteroset_ppa1",
+      "clip_id": "segment-265-0022-w1",
+      "relative_path": "pteroset_ppa1/G6428_20240218.wav",
+      "start": 202.0,
+      "end": 206.0,
+      "labels": "Rupornis magnirostris",
+      "split": "train",
+      "source_group_id": "PPA1|P21|G6428"
+    },
+    {
+      "dataset": "pteroset_ppa1",
+      "clip_id": "segment-425-0017-w1",
+      "relative_path": "pteroset_ppa1/G6455_20240219.wav",
+      "start": 157.0,
+      "end": 161.0,
+      "labels": "Rupornis magnirostris",
+      "split": "train",
+      "source_group_id": "PPA1|P27|G6455"
+    },
+    {
+      "dataset": "pteroset_ppa1",
+      "clip_id": "segment-339-0018-w0",
+      "relative_path": "pteroset_ppa1/G6398_20240218.wav",
+      "start": 162.0,
+      "end": 166.0,
+      "labels": "Cyanocorax violaceus",
+      "split": "val",
+      "source_group_id": "PPA1|P10|G6398"
+    },
+    {
+      "dataset": "pteroset_ppa1",
+      "clip_id": "segment-98-0016-w0",
+      "relative_path": "pteroset_ppa1/G6418_20240218.wav",
+      "start": 144.0,
+      "end": 148.0,
+      "labels": "Cyanocorax violaceus",
+      "split": "val",
+      "source_group_id": "PPA1|P17|G6418"
+    },
+    {
+      "dataset": "pteroset_ppa1",
+      "clip_id": "segment-363-0035-w0",
+      "relative_path": "pteroset_ppa1/G6381_20240218.wav",
+      "start": 315.0,
+      "end": 319.0,
+      "labels": "Cyanocorax violaceus",
+      "split": "val",
+      "source_group_id": "PPA1|P4|G6381"
+    },
+    {
+      "dataset": "pteroset_ppa1",
+      "clip_id": "segment-158-0034-w0",
+      "relative_path": "pteroset_ppa1/G6394_20240218.wav",
+      "start": 306.0,
+      "end": 310.0,
+      "labels": "Cyanocorax violaceus",
+      "split": "val",
+      "source_group_id": "PPA1|P7|G6394"
+    },
+    {
+      "dataset": "pteroset_ppa1",
+      "clip_id": "segment-339-0031-w0",
+      "relative_path": "pteroset_ppa1/G6398_20240218.wav",
+      "start": 279.0,
+      "end": 283.0,
+      "labels": "Cyanocorax violaceus",
+      "split": "val",
+      "source_group_id": "PPA1|P10|G6398"
+    },
+    {
+      "dataset": "pteroset_ppa1",
+      "clip_id": "segment-339-0020-w0",
+      "relative_path": "pteroset_ppa1/G6398_20240218.wav",
+      "start": 180.0,
+      "end": 184.0,
+      "labels": "Rupornis magnirostris",
+      "split": "val",
+      "source_group_id": "PPA1|P10|G6398"
+    },
+    {
+      "dataset": "pteroset_ppa1",
+      "clip_id": "segment-304-0019-w0",
+      "relative_path": "pteroset_ppa1/G6381_20240219.wav",
+      "start": 171.0,
+      "end": 175.0,
+      "labels": "Rupornis magnirostris",
+      "split": "val",
+      "source_group_id": "PPA1|P4|G6381"
+    },
+    {
+      "dataset": "pteroset_ppa1",
+      "clip_id": "segment-158-0015-w0",
+      "relative_path": "pteroset_ppa1/G6394_20240218.wav",
+      "start": 135.0,
+      "end": 139.0,
+      "labels": "Rupornis magnirostris",
+      "split": "val",
+      "source_group_id": "PPA1|P7|G6394"
+    },
+    {
+      "dataset": "pteroset_ppa1",
+      "clip_id": "segment-339-0020-w1",
+      "relative_path": "pteroset_ppa1/G6398_20240218.wav",
+      "start": 184.0,
+      "end": 188.0,
+      "labels": "Rupornis magnirostris",
+      "split": "val",
+      "source_group_id": "PPA1|P10|G6398"
+    },
+    {
+      "dataset": "pteroset_ppa1",
+      "clip_id": "segment-472-0021-w1",
+      "relative_path": "pteroset_ppa1/G6381_20240220.wav",
+      "start": 193.0,
+      "end": 197.0,
+      "labels": "Rupornis magnirostris",
+      "split": "val",
+      "source_group_id": "PPA1|P4|G6381"
+    },
+    {
+      "dataset": "pteroset_ppa1",
+      "clip_id": "segment-464-0013-w0",
+      "relative_path": "pteroset_ppa1/G6408_20240219.wav",
+      "start": 117.0,
+      "end": 121.0,
+      "labels": "Cyanocorax violaceus",
+      "split": "test",
+      "source_group_id": "PPA1|P14|G6408"
+    },
+    {
+      "dataset": "pteroset_ppa1",
+      "clip_id": "segment-261-0035-w0",
+      "relative_path": "pteroset_ppa1/G6429_20240221.wav",
+      "start": 315.0,
+      "end": 319.0,
+      "labels": "Cyanocorax violaceus",
+      "split": "test",
+      "source_group_id": "PPA1|P22|G6429"
+    },
+    {
+      "dataset": "pteroset_ppa1",
+      "clip_id": "segment-135-0013-w0",
+      "relative_path": "pteroset_ppa1/G6460_20240218.wav",
+      "start": 117.0,
+      "end": 121.0,
+      "labels": "Cyanocorax violaceus",
+      "split": "test",
+      "source_group_id": "PPA1|P28|G6460"
+    },
+    {
+      "dataset": "pteroset_ppa1",
+      "clip_id": "segment-445-0014-w0",
+      "relative_path": "pteroset_ppa1/G6383_20240219.wav",
+      "start": 126.0,
+      "end": 130.0,
+      "labels": "Cyanocorax violaceus",
+      "split": "test",
+      "source_group_id": "PPA1|P5|G6383"
+    },
+    {
+      "dataset": "pteroset_ppa1",
+      "clip_id": "segment-125-0031-w0",
+      "relative_path": "pteroset_ppa1/G6395_20240218.wav",
+      "start": 279.0,
+      "end": 283.0,
+      "labels": "Cyanocorax violaceus",
+      "split": "test",
+      "source_group_id": "PPA1|P8|G6395"
+    },
+    {
+      "dataset": "pteroset_ppa1",
+      "clip_id": "segment-360-0020-w1",
+      "relative_path": "pteroset_ppa1/G6408_20240218.wav",
+      "start": 184.0,
+      "end": 188.0,
+      "labels": "Rupornis magnirostris",
+      "split": "test",
+      "source_group_id": "PPA1|P14|G6408"
+    },
+    {
+      "dataset": "pteroset_ppa1",
+      "clip_id": "segment-292-0019-w0",
+      "relative_path": "pteroset_ppa1/G6460_20240220.wav",
+      "start": 171.0,
+      "end": 175.0,
+      "labels": "Rupornis magnirostris",
+      "split": "test",
+      "source_group_id": "PPA1|P28|G6460"
+    },
+    {
+      "dataset": "pteroset_ppa1",
+      "clip_id": "segment-445-0015-w0",
+      "relative_path": "pteroset_ppa1/G6383_20240219.wav",
+      "start": 135.0,
+      "end": 139.0,
+      "labels": "Rupornis magnirostris",
+      "split": "test",
+      "source_group_id": "PPA1|P5|G6383"
+    },
+    {
+      "dataset": "pteroset_ppa1",
+      "clip_id": "segment-125-0020-w0",
+      "relative_path": "pteroset_ppa1/G6395_20240218.wav",
+      "start": 180.0,
+      "end": 184.0,
+      "labels": "Rupornis magnirostris",
+      "split": "test",
+      "source_group_id": "PPA1|P8|G6395"
+    },
+    {
+      "dataset": "pteroset_ppa1",
+      "clip_id": "segment-360-0021-w0",
+      "relative_path": "pteroset_ppa1/G6408_20240218.wav",
+      "start": 189.0,
+      "end": 193.0,
+      "labels": "Rupornis magnirostris",
+      "split": "test",
+      "source_group_id": "PPA1|P14|G6408"
+    }
+  ]
+}

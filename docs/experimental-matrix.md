@@ -106,15 +106,17 @@ outra, e as contagens atingidas são registradas explicitamente.
 |---|---|---|---|---|---|
 | R0 | Referência | PCM s16le | 768 kbit/s | Sim, referência | Sim |
 | R1 | Sem perdas | FLAC | Taxa observada | Sim, exato | Sim |
-| L1 | Legado | MP3 | 96 e 320 kbit/s | Sim, aproximado | Sim |
+| L1 | Legado | MP3 | 32, 64 e 128 kbit/s | Sim, aproximado | Sim |
 | A1 | Perceptual opcional | AAC-LC mono/48 kHz | 64, 96 e 128 kbit/s no piloto | Sim, aproximado | Sim |
-| M1 | Moderno | Opus | 16, 24, 32, 48, 64 e 96 kbit/s | Sim, aproximado | Sim |
-| M2 | Moderno | LC3, 48 kHz, frame de 10 ms | 16, 24, 32, 48, 64 e 96 kbit/s, se suportados | Sim, aproximado | Sim |
+| M1 | Moderno | Opus | 12, 24, 48 e 96 kbit/s | Sim, aproximado | Sim |
+| M2 | Moderno | LC3, 48 kHz, frame de 10 ms | 32, 64 e 96 kbit/s | Sim, aproximado | Sim |
 
-MP3 em 96 e 320 kbit/s reproduz condições presentes na literatura. Ele não
-precisa ocupar todos os pontos da curva de baixo bitrate. Para Opus e LC3, o
-piloto poderá retirar níveis redundantes, mas não acrescentará níveis depois
-de aberto o teste final. LC3plus não integra a matriz: suas extensões de alta
+MP3 em 96 e 320 kbit/s permanece como referência da literatura, mas a grade
+executável usa 32, 64 e 128 kbit/s para cobrir o regime comparável aos codecs
+modernos sem acrescentar uma condição isolada de payload muito alto. Opus usa
+12, 24, 48 e 96 kbit/s; LC3 usa 32, 64 e 96 kbit/s. Essas listas são idênticas
+em `scripts/config.py` e `src/codeco/ffmpeg.py`. LC3plus não integra a matriz:
+suas extensões de alta
 resolução e menor duração de frame não são necessárias ao sinal mono/48 kHz de
 quatro segundos e acrescentariam uma condição com licenciamento distinto.
 

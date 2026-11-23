@@ -1,0 +1,17 @@
+{
+  "version": "1.0.0",
+  "sample_rate_hz": 48000,
+  "bit_depth": 16,
+  "channels": 1,
+  "window_seconds": 4.0,
+  "segment_hop_seconds": 1.0,
+  "seed": 42,
+  "codecs": {
+    "flac": {"compression_levels": [5]},
+    "mp3": {"bitrates_kbps": [32, 64, 128]},
+    "aac": {"profile": "aac_low", "bitrates_kbps": [64, 96, 128]},
+    "opus": {"vbr": true, "application": "audio", "bitrates_kbps": [12, 24, 48, 96]},
+    "lc3": {"frame_duration_ms": 10, "high_resolution": false, "bitrates_kbps": [32, 64, 96]},
+    "encodec": {"model": "facebook/encodec_48khz", "bitrates_kbps": [6, 12, 24]}
+  }
+}

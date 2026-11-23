@@ -192,6 +192,24 @@ comandos seguintes devem ser executados na raiz do clone, onde este README e
 
 ### 3. Criar o ambiente Python
 
+O pipeline integrado usa Python 3.12 e o lock versionado. Em CPU — inclusive
+macOS sem GPU NVIDIA — execute:
+
+```bash
+uv python install 3.12
+uv sync --locked
+. .venv/bin/activate
+```
+
+Em um servidor Linux com CUDA, a aceleração é opcional:
+
+```bash
+uv sync --locked --extra gpu
+. .venv/bin/activate
+```
+
+Sem `uv`, o ambiente legado dos notebooks continua disponível:
+
 ```bash
 python3 -m venv .venv
 . .venv/bin/activate
@@ -210,6 +228,9 @@ O primeiro comando deve apontar para `codeco/.venv/bin/python`. O arquivo
 `requirements.txt` da raiz é propositalmente vazio: os instaladores dos
 corpora usam apenas a biblioteca padrão. O ambiente experimental completo é a
 combinação de `requirements-notebook.txt` e `scripts/requirements.txt` acima.
+CUDA nunca é requisito funcional: EnCodec, BirdNET, Perch e a classificação
+possuem caminho CPU. A execução sem GPU é substancialmente mais lenta, mas usa
+os mesmos manifests, condições, checkpoints e formatos de resultado.
 
 ### 4. Instalar e validar o LC3
 
@@ -293,6 +314,8 @@ Abra e execute os notebooks nesta ordem:
 8. `08_compute_cost.ipynb` — FLOPs para redes neurais e tempo/instruções para
    codecs tradicionais;
 9. `09_summary.ipynb` — tabelas e curvas finais.
+10. `10_integrated_pipeline.ipynb` — inspeciona a configuração única, o
+    ambiente, a proveniência e executa as mesmas etapas do runner otimizado.
 
 No notebook 04, `RUN_SMOKE_TEST=True` já vem ativado. EnCodec baixa os pesos
 `facebook/encodec_48khz` no primeiro uso. O piloto dos corpora reconstrói as
@@ -324,6 +347,34 @@ python scripts/run_pipeline.py --datasets ecosoundset --models birdnet --skip-ex
 python scripts/run_pipeline.py --datasets pteroset_ppa1 --models perch --skip-existing
 ```
 
+O runner integrado, paralelo e retomável incorporado na branch de integração
+é executado com:
+
+```bash
+python -m codeco.main
+```
+
+Ele valida primeiro o freeze 1.3.0, cria `results/run-metadata.json`, prepara o
+cache PCM e executa FFmpeg, EnCodec, BirdNET, Perch, classificação, análises e
+figuras. Para inspecionar etapas individualmente, use os módulos correspondentes:
+
+```bash
+python -m codeco.environment
+python -m codeco.prepare_table
+python -m codeco.ffmpeg
+python -m codeco.encodec
+python -m codeco.embeddings
+python -m codeco.classify
+python -m codeco.analyze
+python -m codeco.graph
+```
+
+Checkpoints ficam em `data/checkpoints/` e caches em `data/cache/`. Interromper
+e repetir o comando retoma somente as unidades ainda não concluídas. Use
+`python -m codeco.main --clean` apenas quando quiser descartar deliberadamente
+caches e resultados derivados; os corpora, downloads, modelos e manifests são
+preservados.
+
 Os autoencoders próprios permanecem desativados. Não use
 `--include-autoencoders` até a validação de comprimento e serialização do
 payload. EnCodec não é um desses autoencoders: ele já integra a grade normal.
@@ -333,6 +384,8 @@ payload. EnCodec não é um desses autoencoders: ele já integra a grade normal.
 - `data/derived/experiment/` — tabelas, caches, métricas e classificações;
 - `data/derived/experiment/cache/` — embeddings reaproveitáveis;
 - `reports/` — auditorias e figuras produzidas pelos notebooks;
+- `results/` — tabelas, logs, gráficos e proveniência do runner integrado;
+- `data/cache/` e `data/checkpoints/` — cache PCM, embeddings e retomada;
 - `.tools/ffmpeg-lc3/9.0.2/` — FFmpeg local usado exclusivamente para LC3.
 
 Esses artefatos são ignorados pelo Git. Para compartilhar resultados, registre
@@ -348,6 +401,8 @@ necessárias.
   `./scripts/install_ffmpeg_lc3.sh` e confirme o round-trip.
 - **EnCodec informa ausência de `torch` ou `transformers`:** ative `.venv` e
   reinstale `scripts/requirements.txt`.
+- **A máquina não tem CUDA:** não é erro. O log deve informar o fallback CPU;
+  reduza primeiro `max_clips_per_dataset` para estimar o tempo local.
 - **O notebook aberto não reflete uma atualização:** feche-o, execute
   `python scripts/build_experiment_notebooks.py` e abra novamente.
 - **Perch/BirdNET ou EnCodec iniciam um download:** isso é esperado apenas na
@@ -542,14 +597,21 @@ desfechos depois que os primeiros resultados forem vistos.
 - [x] baixar e auditar os 15.097 WAVs selecionados no EASNCloud; 14.954 foram liberados e 143 clipes curtos foram excluídos sem padding;
 - [x] organizar o protocolo em nove notebooks auditáveis;
 - [x] implementar seleção parametrizada de classes e adaptadores BirdNET/Perch;
+- [x] integrar execução paralela, checkpoints, cache PCM e gravação atômica;
+- [x] preservar execução CPU e aceleração CUDA opcional;
+- [x] corrigir alinhamento temporal normalizado e entropias com suporte fixo;
+- [x] salvar probabilidades e calibrar limiares exclusivamente na validação;
+- [x] acrescentar erros pareados, bootstrap por grupo, ajuste BH e Pareto;
 - [ ] confirmar licenças e implementações dos codecs;
-- [ ] implementar e validar o pipeline de referência;
+- [x] implementar o pipeline de referência;
+- [ ] validar a execução completa pós-integração nos dois corpora;
 - [ ] executar o piloto de payload e escolher a grade final de bitrates.
 
 ## Documentação
 
 - [Triagem e síntese da literatura](docs/literature-screening.md)
 - [Matriz experimental](docs/experimental-matrix.md)
+- [Auditoria da integração e correções metodológicas](docs/integration-audit.md)
 - [Plano dos notebooks](notebooks/README.md)
 - [Auditoria e congelamento dos corpora](docs/corpus-audit.md)
 - [Capacidade local e plano de execução](docs/storage-plan.md)

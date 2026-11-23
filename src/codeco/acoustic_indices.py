@@ -1,15 +1,12 @@
-"""Versioned implementation of ``configs/acoustic-indices-v1.yaml``.
+"""Frozen acoustic-index implementation used by the CodEco experiment."""
 
-The same functions are used for the reference and every decoded condition.
-No gain normalization is applied after decoding.
-"""
 from __future__ import annotations
 
 import numpy as np
 from scipy.signal.windows import hann
 
 
-VERSION = "1.0.0"
+VERSION = "1.1.0"
 SR = 48_000
 N_FFT = 1024
 HOP = 512
@@ -43,19 +40,23 @@ def _entropy(values: np.ndarray) -> float:
     total = values.sum()
     if total <= 0 or len(values) <= 1:
         return 0.0
-    p = values / total
-    p = p[p > 0]
-    if len(p) <= 1:
-        return 0.0
-    return float(-np.sum(p * np.log(p)) / np.log(len(p)))
+    probabilities = values / total
+    positive = probabilities[probabilities > 0]
+    # The zero bins contribute exactly zero to Shannon entropy but remain part
+    # of the fixed support used for normalization.  Normalizing by the number
+    # of non-zero bins made ADI/Hf depend spuriously on codec-created zeros.
+    return float(-np.sum(positive * np.log(positive)) / np.log(len(probabilities)))
 
 
 def _gini(values: np.ndarray) -> float:
     values = np.sort(np.maximum(np.asarray(values, dtype=np.float64), 0.0))
     if values.size == 0 or values.sum() == 0:
         return 0.0
-    n = len(values)
-    return float((2 * np.sum((np.arange(n) + 1) * values) / (n * values.sum())) - (n + 1) / n)
+    count = len(values)
+    return float(
+        2 * np.sum((np.arange(count) + 1) * values) / (count * values.sum())
+        - (count + 1) / count
+    )
 
 
 def _band(freqs: np.ndarray, low: float, high: float) -> np.ndarray:
@@ -63,11 +64,10 @@ def _band(freqs: np.ndarray, low: float, high: float) -> np.ndarray:
 
 
 def _aci(x: np.ndarray) -> float:
-    block_samples = SR
     values = []
-    for start in range(0, len(x), block_samples):
-        block = x[start : start + block_samples]
-        if len(block) != block_samples:
+    for start in range(0, len(x), SR):
+        block = x[start : start + SR]
+        if len(block) != SR:
             continue
         freqs, magnitude, _, _ = _spectrum(block)
         selected = magnitude[_band(freqs, 500, 24_000)]
@@ -104,24 +104,25 @@ def _ndsi(freqs: np.ndarray, power: np.ndarray, bio_high: float) -> float:
 
 
 def acoustic_indices_v1(x: np.ndarray) -> dict[str, float]:
+    """Calculate the version-1 indices for one exact four-second clip."""
     x = np.asarray(x, dtype=np.float64).reshape(-1)
     if len(x) != 4 * SR:
-        raise ValueError(f"acoustic-indices-v1 expects exactly {4 * SR} samples; received {len(x)}")
-    freqs, magnitude, amplitude_dbfs, power = _spectrum(x)
+        raise ValueError(
+            f"acoustic-indices-v1 expects exactly {4 * SR} samples; received {len(x)}"
+        )
+    freqs, _, amplitude_dbfs, power = _spectrum(x)
     occupancies = _occupancies(freqs, amplitude_dbfs)
-
     rms_frames = np.sqrt(np.mean(_frames(x) ** 2, axis=1))
-    ht = _entropy(rms_frames)
-    hf_mask = _band(freqs, 500, 24_000)
-    hf = _entropy(power[hf_mask].mean(axis=1))
-
+    temporal_entropy = _entropy(rms_frames)
+    spectral_mask = _band(freqs, 500, 24_000)
+    spectral_entropy = _entropy(power[spectral_mask].mean(axis=1))
     return {
         "idx_ACI": _aci(x),
         "idx_ADI": _entropy(occupancies),
         "idx_AEI": _gini(occupancies),
-        "idx_Ht": ht,
-        "idx_Hf": hf,
-        "idx_H": ht * hf,
+        "idx_Ht": temporal_entropy,
+        "idx_Hf": spectral_entropy,
+        "idx_H": temporal_entropy * spectral_entropy,
         "idx_BIO_2_24": _bio(freqs, amplitude_dbfs, 2000, 24_000),
         "idx_BIO_2_8": _bio(freqs, amplitude_dbfs, 2000, 8000),
         "idx_NDSI_CLASSIC": _ndsi(freqs, power, 11_000),
