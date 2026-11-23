@@ -17,7 +17,7 @@ sys.path.insert(0, str(ROOT / "src"))
 from codeco.acoustic_indices import _entropy
 from codeco.alignment import normalized_cross_correlation_align
 from codeco.experiment_config import experiment_config
-from codeco.environment import _check_environment, _uv_executable
+from codeco.environment import _check_environment, _ffmpeg_version, _uv_executable
 from codeco.protocol import PROTOCOL, adapt_for_perch
 from codeco.corpora import (
     CORPUS_MANIFESTS,
@@ -55,6 +55,15 @@ class MetricTests(unittest.TestCase):
 
 
 class EnvironmentTests(unittest.TestCase):
+    def test_system_ffmpeg_uses_capability_validation_not_lc3_pin(self) -> None:
+        completed = SimpleNamespace(
+            stdout="ffmpeg version 8.0.1-3ubuntu2 Copyright FFmpeg developers\n"
+        )
+        with patch("codeco.environment.subprocess.run", return_value=completed):
+            version = _ffmpeg_version(Path("/usr/bin/ffmpeg"), "Linux")
+
+        self.assertEqual(version, "8.0.1-3ubuntu2")
+
     def test_uv_is_found_inside_project_virtual_environment(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:
             root = Path(temporary_directory)

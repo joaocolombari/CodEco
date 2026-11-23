@@ -257,6 +257,11 @@ o FFmpeg do sistema, e termina somente depois de um round-trip real. A saída
 esperada termina com `LC3 round-trip verified`. O pipeline usa esse executável
 somente para LC3; FLAC, MP3, AAC e Opus usam o FFmpeg do sistema.
 
+Para o FFmpeg do sistema, a validação é baseada nas capacidades realmente
+usadas: presença dos encoders e round-trip de FLAC, MP3, AAC e Opus. A versão
+encontrada é registrada nos resultados, mas não precisa coincidir com a cópia
+9.0.2 fixada para LC3.
+
 ### 5. Instalar exatamente os corpora congelados
 
 Para os dois corpora:

@@ -234,7 +234,11 @@ def _ffmpeg_output(executable: Path, option: str) -> str:
     return process.stdout
 
 
-def _ffmpeg_version(executable: Path, operating_system: str) -> str:
+def _ffmpeg_version(
+    executable: Path,
+    operating_system: str,
+    required_version: str | None = None,
+) -> str:
     try:
         process = subprocess.run(
             [str(executable), "-version"],
@@ -255,11 +259,11 @@ def _ffmpeg_version(executable: Path, operating_system: str) -> str:
             f"Nao foi possivel identificar a versao do FFmpeg em {executable}.",
         )
     version = match.group(1)
-    if version != RECOMMENDED_FFMPEG_VERSION:
+    if required_version is not None and version != required_version:
         raise _installation_request(
             operating_system,
-            f"FFmpeg {version} encontrado em {executable}; a versao recomendada e "
-            f"{RECOMMENDED_FFMPEG_VERSION}.",
+            f"FFmpeg {version} encontrado em {executable}; esta instalacao requer "
+            f"a versao fixada {required_version}.",
         )
     return version
 
@@ -362,7 +366,11 @@ def _ffmpeg_installation(operating_system: str) -> FFmpegInstallation:
         if not candidate.is_file():
             continue
         try:
-            candidate_version = _ffmpeg_version(candidate, operating_system)
+            candidate_version = _ffmpeg_version(
+                candidate,
+                operating_system,
+                required_version=RECOMMENDED_FFMPEG_VERSION,
+            )
             encoders = _ffmpeg_output(candidate, "-encoders")
             decoders = _ffmpeg_output(candidate, "-decoders")
         except SystemDependencyError:
