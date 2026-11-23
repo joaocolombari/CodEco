@@ -160,14 +160,35 @@ def _uv_installation_instruction(version: str) -> str:
 
 def _uv_executable(paths: CodecoPath) -> tuple[Path, str]:
     required_version = _required_uv_version(paths)
-    candidate = shutil.which("uv")
+    executable_name = "uv.exe" if platform.system() == "Windows" else "uv"
+    virtual_environment_bin = (
+        "Scripts" if platform.system() == "Windows" else "bin"
+    )
+    candidates = [
+        shutil.which("uv"),
+        str(
+            paths.root
+            / ".venv"
+            / virtual_environment_bin
+            / executable_name
+        ),
+        str(Path.home() / ".local" / "bin" / executable_name),
+    ]
+    candidate = next(
+        (
+            Path(value).expanduser()
+            for value in dict.fromkeys(candidates)
+            if value is not None and Path(value).expanduser().is_file()
+        ),
+        None,
+    )
     if candidate is None:
         raise SystemDependencyError(
-            f"uv {required_version} nao foi encontrado no PATH. Instale a versao "
-            "fixada pelo projeto e tente novamente.\n"
+            f"uv {required_version} nao foi encontrado no PATH, em .venv ou em "
+            "~/.local/bin. Instale a versao fixada pelo projeto e tente novamente.\n"
             f"{_uv_installation_instruction(required_version)}"
         )
-    executable = Path(candidate).resolve()
+    executable = candidate.resolve()
     try:
         process = subprocess.run(
             [str(executable), "--version"],

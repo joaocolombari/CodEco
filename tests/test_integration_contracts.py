@@ -2,8 +2,11 @@ from __future__ import annotations
 
 import json
 import sys
+import tempfile
 import unittest
 from pathlib import Path
+from types import SimpleNamespace
+from unittest.mock import patch
 
 import numpy as np
 
@@ -14,6 +17,7 @@ sys.path.insert(0, str(ROOT / "src"))
 from codeco.acoustic_indices import _entropy
 from codeco.alignment import normalized_cross_correlation_align
 from codeco.experiment_config import experiment_config
+from codeco.environment import _uv_executable
 from codeco.protocol import PROTOCOL, adapt_for_perch
 from codeco.corpora import (
     CORPUS_MANIFESTS,
@@ -48,6 +52,29 @@ class MetricTests(unittest.TestCase):
         self.assertAlmostEqual(_entropy(np.array([1.0, 0.0, 0.0, 0.0])), 0.0)
         expected = -(0.5 * np.log(0.5) * 2) / np.log(4)
         self.assertAlmostEqual(_entropy(np.array([1.0, 1.0, 0.0, 0.0])), expected)
+
+
+class EnvironmentTests(unittest.TestCase):
+    def test_uv_is_found_inside_project_virtual_environment(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            (root / "pyproject.toml").write_text(
+                '[tool.codeco.environment]\nuv-version = "0.12.0"\n',
+                encoding="utf-8",
+            )
+            executable = root / ".venv" / "bin" / "uv"
+            executable.parent.mkdir(parents=True)
+            executable.write_text(
+                "#!/bin/sh\nprintf 'uv 0.12.0\\n'\n",
+                encoding="utf-8",
+            )
+            executable.chmod(0o755)
+
+            with patch("codeco.environment.shutil.which", return_value=None):
+                observed, version = _uv_executable(SimpleNamespace(root=root))
+
+            self.assertEqual(observed, executable.resolve())
+            self.assertEqual(version, "0.12.0")
 
 
 class ProtocolTests(unittest.TestCase):

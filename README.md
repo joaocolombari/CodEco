@@ -193,8 +193,16 @@ comandos seguintes devem ser executados na raiz do clone, onde este README e
 
 ### 3. Criar o ambiente Python
 
-O pipeline integrado usa Python 3.12 e o lock versionado. Em CPU — inclusive
-macOS sem GPU NVIDIA — execute:
+O pipeline integrado usa Python 3.12, `uv` 0.12.0 ou superior e o lock
+versionado. Instale o `uv` na conta do usuário, sem `sudo`:
+
+```bash
+curl -LsSf https://astral.sh/uv/0.12.0/install.sh | sh
+export PATH="$HOME/.local/bin:$PATH"
+uv --version
+```
+
+Em CPU — inclusive macOS sem GPU NVIDIA — execute:
 
 ```bash
 uv python install 3.12
@@ -209,7 +217,8 @@ uv sync --locked --extra gpu
 . .venv/bin/activate
 ```
 
-Sem `uv`, o ambiente legado dos notebooks continua disponível:
+O ambiente alternativo abaixo serve apenas para notebooks legados e inspeção.
+Ele **não substitui o `uv` no pipeline integrado**, pois não valida `uv.lock`:
 
 ```bash
 python3 -m venv .venv
