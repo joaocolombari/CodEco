@@ -427,9 +427,52 @@ else:
     ),
     "05_reconstruction_metrics.ipynb": notebook(
         "05 — Payload e qualidade da reconstrução",
-        "Executa ou lê a avaliação pareada de bytes, compressão, SNR e similaridade log-Mel para exatamente as mesmas janelas.",
+        "Executa ou lê a avaliação pareada do payload e da reconstrução. A unidade experimental é uma janela de teste de 4 s: o áudio original e todas as condições de codec são comparados usando o mesmo conteúdo.",
         [
+            markdown(r"""
+## O que este notebook faz
+
+Para cada janela disponível no **split de teste**, o runner registra primeiro a referência PCM (`baseline/orig`) e depois uma linha para cada combinação de codec e configuração. Assim, uma linha não representa uma espécie nem um arquivo físico inteiro: representa **uma janela de 4 s sob uma condição de codificação**.
+
+A chave que deve identificar uma linha de forma única é:
+
+`dataset + clip_id + codec + setting`
+
+O arquivo é incremental. Se a execução for interrompida, as chaves já gravadas são mantidas e o runner continua nas ausentes. Portanto, um `results.csv` existente pode ser apenas parcial enquanto o processamento não terminar. Se o protocolo ou a matriz de codecs mudar, resultados antigos não devem ser misturados silenciosamente com os novos.
+"""),
+            markdown(r"""
+## Controle da execução
+
+- `False`: não processa áudio; apenas lê e descreve `data/derived/experiment/results.csv`, se ele existir.
+- `True`: percorre as janelas de teste com áudio disponível e acrescenta ao CSV as condições ainda ausentes.
+
+O limite atual é de até **200 janelas por corpus**, amostradas de forma determinística com a semente 42. O notebook 04 deve passar antes desta execução completa.
+"""),
             code("RUN_FULL_EVALUATION = False  # altere somente no EASNCloud após validar o notebook 04"),
+            markdown(r"""
+## Tabela detalhada: uma linha por janela e condição
+
+O artefato primário é `data/derived/experiment/results.csv`. As colunas têm os seguintes significados:
+
+| Coluna | Unidade | Interpretação |
+|---|---:|---|
+| `dataset` | — | Corpus de origem (`ecosoundset` ou `pteroset_ppa1`). |
+| `clip_id` | — | Identificador estável da janela no manifest. É a unidade usada para parear original e reconstruções. |
+| `codec` | — | Método avaliado. `baseline` é o áudio PCM de referência, sem compressão. |
+| `setting` | — | Parametrização concreta, como bitrate, nível FLAC ou largura de banda do EnCodec. Duas configurações do mesmo codec são condições diferentes. |
+| `nbytes` | bytes/janela | Payload de uma janela de 4 s. Para FFmpeg, é o tamanho real do arquivo codificado, incluindo o contêiner. Para EnCodec, é uma estimativa do código empacotado e escalas, não um arquivo serializado completo. Não inclui tamanho do modelo nem cabeçalhos de rede. A baseline PCM16 mono tem 384.000 bytes. |
+| `bitrate_kbps` | kbit/s | Bitrate efetivo calculado como `nbytes × 8 / 4 s / 1000`; não é apenas o bitrate nominal solicitado ao encoder. Menor significa menor transmissão por segundo. |
+| `compression_ratio` | razão | `bytes da baseline / nbytes`. Valor 1 significa nenhum ganho; 4 significa payload quatro vezes menor. Maior é melhor apenas quanto a tamanho. |
+| `lag` | amostras | Deslocamento temporal removido antes das métricas. A 48 kHz, 48 amostras correspondem a 1 ms. Não é uma métrica de qualidade; documenta a compensação do atraso do codec. |
+| `snr_db` | dB | Relação entre energia do sinal original e energia do erro após alinhamento. Maior indica menor erro de forma de onda. Pode ser negativa; `inf` aparece na baseline porque o erro é zero. |
+| `mel_mae_db` | dB por célula | Média do erro absoluto entre os dois log-Mel espectrogramas. Menor é melhor. |
+| `mel_rmse_db` | dB por célula | Raiz do erro quadrático médio no log-Mel; penaliza mais os erros grandes. Menor é melhor. |
+| `mel_ssim` | adimensional | Similaridade estrutural entre os log-Mel espectrogramas. 1 indica identidade; maior é melhor. |
+| `mel_cosine` | adimensional | Cosseno entre os log-Mel vetorizados após deslocamento do piso de −100 dB. Próximo de 1 indica orientação espectral semelhante, mas não garante igualdade de energia. |
+| `idx_*` | depende do índice | Índices ecoacústicos calculados no original ou na reconstrução. Eles são preservados aqui por janela, mas a comparação pareada é feita no notebook 06. |
+
+As métricas Mel usam potência (`power=2`), 128 bandas, FFT de 2.048 amostras, hop de 512 amostras, faixa de 0 a 24 kHz e piso de −100 dB. Todas são calculadas **depois** do alinhamento temporal.
+"""),
             code(r"""
 import pandas as pd
 import config as C
@@ -440,30 +483,89 @@ if RUN_FULL_EVALUATION:
 
 results_path = C.OUT_DIR / "results.csv"
 if results_path.is_file():
-    results = pd.read_csv(results_path)
-    display(results.head())
+    results = pd.read_csv(results_path, dtype={"clip_id": str})
+    key_columns = ["dataset", "clip_id", "codec", "setting"]
+    missing_columns = [column for column in key_columns if column not in results]
+    if missing_columns:
+        raise ValueError(f"results.csv incompatível; colunas ausentes: {missing_columns}")
+    duplicates = results.duplicated(key_columns, keep=False)
+    if duplicates.any():
+        raise ValueError(f"Há {int(duplicates.sum())} linhas com chave experimental repetida.")
+
+    coverage = (results.groupby(["dataset", "codec", "setting"], as_index=False)
+                .agg(linhas=("clip_id", "size"),
+                     janelas_unicas=("clip_id", "nunique")))
+    print(f"Artefato detalhado: {results_path.relative_to(ROOT)}")
+    print(f"{len(results):,} linhas; {results['clip_id'].nunique():,} clip_ids distintos")
+    display(coverage)
+    display(results.head(10))
 else:
     results = pd.DataFrame()
     print(f"Ainda não há resultados em {results_path.relative_to(ROOT)}")
 """),
+            markdown(r"""
+### Como ler as duas saídas acima
+
+- `coverage` tem uma linha por **corpus × codec × configuração**. `linhas` é o número de avaliações gravadas e `janelas_unicas` é o número de janelas distintas. Esses valores devem coincidir dentro de cada condição; diferenças entre condições indicam execução parcial.
+- A segunda tabela mostra as primeiras dez linhas do artefato detalhado. Para um mesmo `dataset + clip_id`, compare a linha `baseline/orig` com as linhas dos codecs. Não se deve comparar uma janela de um corpus com outra janela diferente.
+- Células ausentes (`NaN`) não significam automaticamente qualidade zero. Elas indicam métrica não calculada, falha anterior ou artefato incompatível e precisam ser investigadas antes da agregação.
+"""),
+            markdown(r"""
+## Resumo por condição
+
+A tabela seguinte agrega as janelas, mas mantém separados corpus, codec e configuração. Cada linha passa a representar **uma condição experimental inteira**, e não mais uma janela.
+
+- `n_windows`: janelas distintas que contribuíram para a linha;
+- colunas terminadas em `_mean`: média entre essas janelas;
+- colunas terminadas em `_std`: desvio-padrão amostral entre janelas, isto é, a variabilidade do resultado dentro da condição;
+- `compression_ratio_mean`: redução média relativa aos 384.000 bytes da baseline.
+
+O resumo exclui a baseline porque suas métricas de reconstrução são triviais (`SNR = inf`, erros Mel = 0 e similaridades = 1). O CSV detalhado continua contendo a baseline para os pareamentos posteriores.
+"""),
             code(r"""
 if not results.empty:
     summary = (results[results.codec != "baseline"]
-               .groupby(["dataset", "codec", "setting"], as_index=False)
-               .agg(bytes_mean=("nbytes", "mean"), bitrate_kbps=("bitrate_kbps", "mean"),
-                    snr_db=("snr_db", "mean"), mel_rmse_db=("mel_rmse_db", "mean"),
-                    mel_ssim=("mel_ssim", "mean")))
-    summary.to_csv(REPORTS / "reconstruction_summary.csv", index=False)
+               .groupby(["dataset", "codec", "setting"], as_index=False, dropna=False)
+               .agg(n_windows=("clip_id", "nunique"),
+                    bytes_mean=("nbytes", "mean"), bytes_std=("nbytes", "std"),
+                    bitrate_kbps_mean=("bitrate_kbps", "mean"),
+                    compression_ratio_mean=("compression_ratio", "mean"),
+                    snr_db_mean=("snr_db", "mean"), snr_db_std=("snr_db", "std"),
+                    mel_mae_db_mean=("mel_mae_db", "mean"),
+                    mel_rmse_db_mean=("mel_rmse_db", "mean"),
+                    mel_rmse_db_std=("mel_rmse_db", "std"),
+                    mel_ssim_mean=("mel_ssim", "mean"), mel_ssim_std=("mel_ssim", "std"),
+                    mel_cosine_mean=("mel_cosine", "mean")))
+    summary_path = REPORTS / "reconstruction_summary.csv"
+    summary.to_csv(summary_path, index=False)
+    print(f"Resumo por condição: {summary_path.relative_to(ROOT)}")
     display(summary)
+"""),
+            markdown(r"""
+## Curva payload–distorção
+
+Cada ponto do gráfico representa **uma linha da tabela-resumo**: a média de uma configuração de codec em um corpus. Não são janelas individuais.
+
+- eixo x: bitrate efetivo médio em escala logarítmica; mais à esquerda significa menos dados transmitidos;
+- eixo y: SSIM log-Mel médio; mais acima significa maior preservação da estrutura tempo–frequência;
+- a região desejável é o canto superior esquerdo;
+- linhas apenas conectam configurações do mesmo codec e corpus para facilitar a leitura; não representam uma interpolação medida;
+- o gráfico é descritivo. Os desvios-padrão estão na tabela e não constituem intervalos de confiança.
 """),
             code(r"""
 if not results.empty:
     import matplotlib.pyplot as plt
     fig, ax = plt.subplots(figsize=(8, 5))
     for (dataset, codec), group in summary.groupby(["dataset", "codec"]):
-        ax.scatter(group.bitrate_kbps, group.mel_ssim, label=f"{dataset} — {codec}")
-    ax.set_xscale("log"); ax.set(xlabel="bitrate efetivo (kbit/s)", ylabel="SSIM log-Mel")
-    ax.legend(fontsize=7); fig.tight_layout(); plt.show()
+        group = group.sort_values("bitrate_kbps_mean")
+        ax.plot(group.bitrate_kbps_mean, group.mel_ssim_mean, "o-",
+                label=f"{dataset} — {codec}")
+    ax.set_xscale("log")
+    ax.set(xlabel="bitrate efetivo médio (kbit/s)", ylabel="SSIM log-Mel médio")
+    ax.grid(True, which="both", alpha=0.25)
+    ax.legend(fontsize=7)
+    fig.tight_layout()
+    plt.show()
 """),
         ],
     ),
