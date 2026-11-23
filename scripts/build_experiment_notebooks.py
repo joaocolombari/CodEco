@@ -832,9 +832,9 @@ if not results.empty and not index_summary.empty:
         plt.show()
 """),
             markdown(r"""
-## Figura 2 — referência contra reconstrução
+## Figura 2 — referência contra reconstrução para toda a matriz
 
-O gráfico abaixo mostra as janelas individuais para um índice escolhido. Cada painel usa, para um codec, sua configuração de **menor bitrate efetivo médio** disponível naquele corpus. Isso expõe a condição mais agressiva sem produzir dezenas de painéis.
+A célula abaixo gera automaticamente **uma figura para cada corpus × índice**. Dentro de cada figura há um painel para cada combinação de codec e configuração disponível. Portanto, uma única execução cobre todos os índices e bitrates presentes em `results.csv`.
 
 - eixo x: índice no áudio original;
 - eixo y: índice após reconstrução;
@@ -842,58 +842,87 @@ O gráfico abaixo mostra as janelas individuais para um índice escolhido. Cada 
 - nuvem deslocada paralelamente à diagonal: viés;
 - inclinação diferente da diagonal: mudança de escala;
 - dispersão ao redor da diagonal: erro variável entre janelas;
-- poucos pontos distantes: janelas especialmente sensíveis.
+- poucos pontos distantes: janelas especialmente sensíveis;
+- o título de cada painel informa configuração, bitrate efetivo médio, CCC e MAE normalizado.
 
-Altere `SCATTER_INDEX` para inspecionar outro índice. Essa seleção muda apenas a figura, não os resultados calculados.
+`SCATTER_INDICES` recebe por padrão todos os índices encontrados. Ele pode ser reduzido apenas para uma inspeção rápida. `DISPLAY_SCATTERS=False` continua gerando e salvando todas as figuras, mas evita incorporá-las como saída visual do notebook — útil para não criar um `.ipynb` muito pesado.
 """),
             code(r"""
-SCATTER_INDEX = "idx_ACI"
+SCATTER_INDICES = list(index_columns)
+DISPLAY_SCATTERS = True
 
-if not results.empty and SCATTER_INDEX in index_columns:
+if not results.empty and SCATTER_INDICES:
     import matplotlib.pyplot as plt
+
+    unknown_indices = sorted(set(SCATTER_INDICES) - set(index_columns))
+    if unknown_indices:
+        raise ValueError(f"Índices inválidos: {unknown_indices}. Disponíveis: {index_columns}")
 
     condition_rates = (paired.groupby(["dataset", "codec", "setting"], as_index=False)
                        .agg(bitrate_kbps_mean=("bitrate_kbps", "mean")))
-    lowest_rate_conditions = (condition_rates.sort_values("bitrate_kbps_mean")
-                              .groupby(["dataset", "codec"], as_index=False)
-                              .head(1))
     figures_dir = REPORTS / "figures"
     figures_dir.mkdir(parents=True, exist_ok=True)
+    scatter_outputs = []
 
-    for dataset, chosen in lowest_rate_conditions.groupby("dataset"):
-        panels = list(chosen.itertuples(index=False))
-        columns = min(3, len(panels))
+    for dataset, dataset_conditions in condition_rates.groupby("dataset"):
+        panels = list(dataset_conditions.sort_values(["codec", "bitrate_kbps_mean"]).itertuples(index=False))
+        columns = min(4, len(panels))
         rows_count = int(np.ceil(len(panels) / columns))
-        fig, axes = plt.subplots(rows_count, columns, figsize=(4.2 * columns, 4 * rows_count), squeeze=False)
-        for axis, condition in zip(axes.ravel(), panels):
-            group = paired.loc[
-                (paired.dataset == dataset)
-                & (paired.codec == condition.codec)
-                & (paired.setting == condition.setting)
-            ]
-            reference = group[f"{SCATTER_INDEX}_reference"].to_numpy(float)
-            decoded = group[SCATTER_INDEX].to_numpy(float)
-            valid = np.isfinite(reference) & np.isfinite(decoded)
-            reference, decoded = reference[valid], decoded[valid]
-            axis.scatter(reference, decoded, s=14, alpha=0.55)
-            if len(reference):
-                low = float(min(reference.min(), decoded.min()))
-                high = float(max(reference.max(), decoded.max()))
-                axis.plot([low, high], [low, high], "k--", linewidth=1)
-            axis.set_title(f"{condition.codec} | {condition.setting}\n{condition.bitrate_kbps_mean:.1f} kbit/s", fontsize=9)
-            axis.set_xlabel("referência")
-            axis.set_ylabel("reconstruído")
-            axis.grid(True, alpha=0.2)
-        for axis in axes.ravel()[len(panels):]:
-            axis.set_visible(False)
-        fig.suptitle(f"{dataset} — {SCATTER_INDEX} — menor bitrate de cada codec")
-        fig.tight_layout()
-        output = figures_dir / f"index_scatter_{dataset}_{SCATTER_INDEX}.png"
-        fig.savefig(output, dpi=160, bbox_inches="tight")
-        print(f"Figura: {output.relative_to(ROOT)}")
-        plt.show()
+        for scatter_index in SCATTER_INDICES:
+            fig, axes = plt.subplots(
+                rows_count, columns,
+                figsize=(3.6 * columns, 3.45 * rows_count),
+                squeeze=False,
+            )
+            for axis, condition in zip(axes.ravel(), panels):
+                group = paired.loc[
+                    (paired.dataset == dataset)
+                    & (paired.codec == condition.codec)
+                    & (paired.setting == condition.setting)
+                ]
+                reference = group[f"{scatter_index}_reference"].to_numpy(float)
+                decoded = group[scatter_index].to_numpy(float)
+                valid = np.isfinite(reference) & np.isfinite(decoded)
+                reference, decoded = reference[valid], decoded[valid]
+                axis.scatter(reference, decoded, s=12, alpha=0.5)
+                if len(reference):
+                    low = float(min(reference.min(), decoded.min()))
+                    high = float(max(reference.max(), decoded.max()))
+                    axis.plot([low, high], [low, high], "k--", linewidth=0.9)
+                metrics_row = index_summary.loc[
+                    (index_summary.dataset == dataset)
+                    & (index_summary.codec == condition.codec)
+                    & (index_summary.setting == condition.setting)
+                    & (index_summary["index"] == scatter_index)
+                ]
+                if metrics_row.empty:
+                    metric_label = "CCC/MAE-n indisponíveis"
+                else:
+                    metric = metrics_row.iloc[0]
+                    metric_label = f"CCC={metric.ccc:.3f} | MAE-n={metric.normalized_mae:.3f}"
+                axis.set_title(
+                    f"{condition.codec} | {condition.setting}\n"
+                    f"{condition.bitrate_kbps_mean:.1f} kbit/s | {metric_label}",
+                    fontsize=7.5,
+                )
+                axis.set_xlabel("referência")
+                axis.set_ylabel("reconstruído")
+                axis.grid(True, alpha=0.2)
+            for axis in axes.ravel()[len(panels):]:
+                axis.set_visible(False)
+            fig.suptitle(f"{dataset} — {scatter_index} — todas as condições", fontsize=12)
+            fig.tight_layout()
+            output = figures_dir / f"index_scatter_{dataset}_{scatter_index}.png"
+            fig.savefig(output, dpi=160, bbox_inches="tight")
+            scatter_outputs.append(output)
+            if DISPLAY_SCATTERS:
+                plt.show()
+            plt.close(fig)
+
+    print(f"{len(scatter_outputs)} figuras de dispersão geradas em {figures_dir.relative_to(ROOT)}")
+    display(pd.DataFrame({"figura": [str(path.relative_to(ROOT)) for path in scatter_outputs]}))
 elif not results.empty:
-    print(f"Índice inválido: {SCATTER_INDEX}. Escolha um de: {index_columns}")
+    print("Nenhum índice selecionado em SCATTER_INDICES.")
 """),
         ],
     ),
