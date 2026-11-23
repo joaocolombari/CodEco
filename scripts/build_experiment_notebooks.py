@@ -127,9 +127,24 @@ natural_distribution.groupby("corpus").head(15)
     ),
     "02_class_selection.ipynb": notebook(
         "02 — Seleção e balanceamento das classes",
-        "Torna visível o efeito do hiperparâmetro k, escolhe classes usando apenas o treino e congela o recorte reproduzível de cada corpus.",
+        """Este notebook define quais classes têm suporte suficiente para participar do experimento sem consultar validação ou teste.
+
+Para cada classe $i$, contamos somente suas janelas de treino, $c_i$, e trabalhamos com $z_i=\\log(1+c_i)$. A transformação reduz a assimetria da distribuição: uma classe com milhares de exemplos deixa de dominar numericamente outra com dezenas. Calculamos então a média $\\mu_z$ e o desvio-padrão $\\sigma_z$ dessas contagens transformadas e definimos o corte
+
+$$T_z = \\mu_z-k\\sigma_z, \\qquad c_{\\min}=\\lceil e^{T_z}-1\\rceil.$$
+
+Aqui, **$k$ é o número de desvios-padrão que deslocamos o corte para baixo da média**. Ele não é o número de classes, não é aprendido pelo classificador e não tem relação com k-NN ou k-means. Com $k=0$, o corte fica na média das contagens em escala logarítmica. Com $k=1$, aceitamos classes até um desvio-padrão abaixo dela. Aumentar $k$ reduz $c_{\\min}$ e inclui classes mais raras; diminuir $k$ torna o recorte mais conservador. Independentemente de $k$, uma classe ainda precisa aparecer no número mínimo de grupos de gravação, evitando selecionar uma espécie sustentada por muitas janelas de uma única origem.
+
+O notebook mostra a análise de sensibilidade para vários valores de $k$, aplica o valor escolhido usando apenas o treino e congela o recorte. Depois, o treino é subamostrado de forma determinística para uma cota comum; validação e teste mantêm sua distribuição natural. A média e o desvio-padrão são usados como uma regra operacional interpretável na escala $\\log(1+c)$ — não como afirmação de que as contagens originais seguem perfeitamente uma Gaussiana.""",
         [
-            markdown("## Parâmetros editáveis\n\n`k_sigma` maior inclui mais classes e reduz o suporte mínimo. Validação e teste preservam a distribuição natural; somente o treino recebe subamostragem determinística."),
+            markdown("""## Parâmetros editáveis
+
+- `K_SIGMA` controla quão abaixo da média logarítmica colocamos o corte. **Quanto maior, mais inclusivo**: entram classes menos frequentes e a cota comum do treino diminui.
+- `MINIMUM_GROUPS` é uma proteção independente contra pseudorreplicação: uma classe precisa ocorrer em pelo menos esse número de grupos de gravação.
+- `SENSITIVITY_K` contém apenas os valores comparados na análise de sensibilidade; ele não executa uma busca orientada pelo teste.
+- `SEED` torna a subamostragem do treino reproduzível.
+
+O valor final de `K_SIGMA` deve ser decidido observando suporte e diversidade no **treino**, antes de examinar o desempenho no teste. Validação e teste não são balanceados artificialmente."""),
             code(r"""
 K_SIGMA = {"ecosoundset": 1.0, "pteroset_ppa1": 1.0}
 MINIMUM_GROUPS = {"ecosoundset": 3, "pteroset_ppa1": 3}
