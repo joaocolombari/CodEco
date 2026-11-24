@@ -369,6 +369,12 @@ figuras. As reconstruções FFmpeg usam os núcleos físicos da CPU; a inferênc
 usa um worker persistente em CPU quando não há CUDA ou um worker por GPU quando
 há. Filas limitadas evitam acumular todas as reconstruções em memória.
 
+Sem CUDA, o EnCodec usa lotes de uma janela e grava checkpoint após cada
+janela. Essa configuração limita a memória e torna interrupções retomáveis; o
+resultado numérico é o mesmo, embora a execução neural em CPU continue muito
+mais lenta que em GPU. Em CUDA, permanecem os lotes adaptativos orientados à
+VRAM.
+
 Para executar somente modelos ou corpora específicos, use os parâmetros do
 `07_foundation_models.ipynb`. Defina `RUN_EMBEDDINGS=True` e, depois,
 `RUN_CLASSIFICATION=True`; `DATASETS`, `MODELS`, `CODECS` e

@@ -523,6 +523,7 @@ def _stage_encodec_audio(
     stage_file: Path,
     encodec_pool: object,
     producer_batch_size: int,
+    checkpoint_size: int,
 ) -> tuple[int, int]:
     import queue
     import threading
@@ -604,16 +605,16 @@ def _stage_encodec_audio(
             buffer.extend(indices)
             received += len(indices)
             progress.update(len(indices))
-            while len(buffer) >= backend.CHECKPOINT_SIZE:
+            while len(buffer) >= checkpoint_size:
                 staged.flush()
                 _checkpoint_staging(
                     connection,
                     fingerprint,
                     dataset,
                     condition.identifier,
-                    buffer[: backend.CHECKPOINT_SIZE],
+                    buffer[:checkpoint_size],
                 )
-                buffer = buffer[backend.CHECKPOINT_SIZE :]
+                buffer = buffer[checkpoint_size:]
         producer.join(timeout=30)
         if not status_queue.empty():
             kind, detail = status_queue.get_nowait()
@@ -1197,10 +1198,31 @@ def _run_perch(arguments: EmbeddingRun) -> Path:
                 "carregado uma unica vez; o Perch ainda nao esta residente.",
                 len(staging_jobs),
             )
+            encodec_workers, encodec_initial_batch, encodec_max_batch = (
+                backend._encodec_pool_parameters(
+                    gpu_indices,
+                    arguments.batch_size,
+                    arguments.max_batch_size,
+                )
+            )
+            encodec_job_size = (
+                backend.CHECKPOINT_SIZE if gpu_indices else 1
+            )
+            encodec_checkpoint_size = (
+                backend.CHECKPOINT_SIZE if gpu_indices else 1
+            )
+            LOGGER.info(
+                "EnCodec %s | workers=%d | batch=%d | lote=%d | checkpoint=%d.",
+                "GPU" if gpu_indices else "CPU",
+                len(encodec_workers),
+                encodec_initial_batch,
+                encodec_job_size,
+                encodec_checkpoint_size,
+            )
             encodec_pool = backend._start_encodec_pool(
-                gpu_indices or [None],
-                arguments.batch_size,
-                arguments.max_batch_size,
+                encodec_workers,
+                encodec_initial_batch,
+                encodec_max_batch,
                 arguments.encodec_memory_fraction,
                 center_for_birdnet=False,
             )
@@ -1223,7 +1245,8 @@ def _run_perch(arguments: EmbeddingRun) -> Path:
                     condition,
                     stage_file,
                     encodec_pool,
-                    backend.CHECKPOINT_SIZE,
+                    encodec_job_size,
+                    encodec_checkpoint_size,
                 )
     finally:
         if encodec_pool is not None:

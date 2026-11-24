@@ -580,7 +580,7 @@ def _encodec_worker(
                             )
                         peak = float(statistics["peak_bytes"])
                         free = float(statistics["free_before_bytes"])
-                        if peak < free * memory_fraction:
+                        if gpu_index is not None and peak < free * memory_fraction:
                             batch_size = min(max_batch_size, max(batch_size, size * 2))
                         position += size
                         break
@@ -722,6 +722,17 @@ def _start_encodec_pool(
         output_queue.close()
         output_queue.join_thread()
         raise
+
+
+def _encodec_pool_parameters(
+    gpu_indices: Sequence[int],
+    initial_batch_size: int,
+    max_batch_size: int,
+) -> tuple[list[int | None], int, int]:
+    """Use throughput batches on GPU and bounded one-clip jobs on CPU."""
+    if gpu_indices:
+        return list(gpu_indices), initial_batch_size, max_batch_size
+    return [None], 1, 1
 
 
 def _stop_encodec_pool(pool: EncodecPool) -> None:
@@ -1040,6 +1051,7 @@ def _process_condition(
     embedding_queue: object,
     embedding_output: object,
     producer_batch_size: int,
+    checkpoint_size: int = CHECKPOINT_SIZE,
     embedding_dimension: int = EMBEDDING_DIMENSION,
 ) -> tuple[int, int, int, float]:
     condition_started = time.perf_counter()
@@ -1120,7 +1132,7 @@ def _process_condition(
             buffer.extend(indices)
             received += len(indices)
             progress.update(len(indices))
-            while len(buffer) >= CHECKPOINT_SIZE:
+            while len(buffer) >= checkpoint_size:
                 embeddings.flush()
                 _checkpoint_batch(
                     connection,
@@ -1128,9 +1140,9 @@ def _process_condition(
                     dataset,
                     condition.identifier,
                     clips,
-                    buffer[:CHECKPOINT_SIZE],
+                    buffer[:checkpoint_size],
                 )
-                buffer = buffer[CHECKPOINT_SIZE:]
+                buffer = buffer[checkpoint_size:]
         producer.join(timeout=30)
         if not status.empty():
             kind, detail = status.get_nowait()
@@ -1401,6 +1413,11 @@ def run(
     records = []
     started = time.perf_counter()
     producer_batch_size = max_batch_size if gpu_indices else batch_size
+    encodec_workers, encodec_initial_batch, encodec_max_batch = (
+        _encodec_pool_parameters(gpu_indices, batch_size, max_batch_size)
+    )
+    encodec_job_size = producer_batch_size if gpu_indices else 1
+    encodec_checkpoint_size = CHECKPOINT_SIZE if gpu_indices else 1
     encodec_pool: EncodecPool | None = None
     try:
         now = _utc_now()
@@ -1464,13 +1481,17 @@ def run(
                 )
                 if needs_encodec:
                     LOGGER.info(
-                        "Iniciando EnCodec persistente em %s.",
-                        "GPU" if gpu_indices else "CPU (fallback portavel)",
+                        "Iniciando EnCodec persistente em %s | workers=%d | "
+                        "batch=%d | checkpoint=%d.",
+                        "GPU" if gpu_indices else "CPU (um clipe por lote)",
+                        len(encodec_workers),
+                        encodec_initial_batch,
+                        encodec_checkpoint_size,
                     )
                     encodec_pool = _start_encodec_pool(
-                        gpu_indices or [None],
-                        batch_size,
-                        max_batch_size,
+                        encodec_workers,
+                        encodec_initial_batch,
+                        encodec_max_batch,
                         encodec_memory_fraction,
                     )
 
@@ -1494,7 +1515,16 @@ def run(
                     encodec_pool=encodec_pool,
                     embedding_queue=embedding_queue,
                     embedding_output=embedding_output,
-                    producer_batch_size=producer_batch_size,
+                    producer_batch_size=(
+                        encodec_job_size
+                        if condition.kind == "encodec"
+                        else producer_batch_size
+                    ),
+                    checkpoint_size=(
+                        encodec_checkpoint_size
+                        if condition.kind == "encodec"
+                        else CHECKPOINT_SIZE
+                    ),
                 )
                 records.append(
                     {

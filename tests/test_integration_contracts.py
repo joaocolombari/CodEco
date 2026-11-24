@@ -112,6 +112,26 @@ class EnvironmentTests(unittest.TestCase):
 
 
 class ProtocolTests(unittest.TestCase):
+    def test_encodec_cpu_uses_single_clip_jobs(self) -> None:
+        from codeco.birdnet_embeddings import _encodec_pool_parameters
+
+        workers, initial_batch, maximum_batch = _encodec_pool_parameters(
+            [], 32, 512
+        )
+        self.assertEqual(workers, [None])
+        self.assertEqual(initial_batch, 1)
+        self.assertEqual(maximum_batch, 1)
+
+    def test_encodec_gpu_preserves_throughput_batches(self) -> None:
+        from codeco.birdnet_embeddings import _encodec_pool_parameters
+
+        workers, initial_batch, maximum_batch = _encodec_pool_parameters(
+            [0, 1], 32, 512
+        )
+        self.assertEqual(workers, [0, 1])
+        self.assertEqual(initial_batch, 32)
+        self.assertEqual(maximum_batch, 512)
+
     def test_perch_padding_does_not_change_codec_window(self) -> None:
         canonical = np.ones(PROTOCOL.window_samples, dtype=np.float32)
         perch = adapt_for_perch(canonical)
