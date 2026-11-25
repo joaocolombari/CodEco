@@ -950,7 +950,15 @@ def _stratified_split_sample(
                 random_state=seed,
             )
             _, chosen = next(splitter.split(np.zeros(len(candidates)), labels[candidates]))
-            selected.update(int(candidates[index]) for index in chosen)
+            chosen_candidates = candidates[np.asarray(chosen, dtype=int)]
+            # Some iterative-stratification releases may return more rows than
+            # an integer ``test_size`` when multilabel constraints are tight.
+            # The benchmark contract requires an exact per-split quota; the
+            # mandatory two positives per class were already selected above.
+            if len(chosen_candidates) > remaining:
+                order = np.argsort(rank[chosen_candidates], kind="stable")
+                chosen_candidates = chosen_candidates[order[:remaining]]
+            selected.update(int(index) for index in chosen_candidates)
 
     if len(selected) < target:
         candidates = np.array(
