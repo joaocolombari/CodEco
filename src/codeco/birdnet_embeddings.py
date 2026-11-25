@@ -1088,10 +1088,43 @@ def _process_condition(
     condition_started = time.perf_counter()
     condition_id = f"{dataset}:{condition.identifier}"
     completed = _completed_indices(connection, fingerprint, dataset, condition.identifier)
-    pending = [index for index in range(len(clips)) if index not in completed]
     embeddings = _prepare_embedding_file(
         embedding_file, len(clips), embedding_dimension
     )
+    if completed:
+        completed_array = np.asarray(sorted(completed), dtype=np.int64)
+        sample_positions = np.linspace(
+            0,
+            len(completed_array) - 1,
+            min(len(completed_array), 32),
+            dtype=np.int64,
+        )
+        sample_indices = completed_array[sample_positions]
+        try:
+            _validate_embedding_values(
+                np.asarray(embeddings[sample_indices]),
+                context=str(embedding_file),
+            )
+        except RuntimeError as error:
+            LOGGER.warning(
+                "[CACHE INVALIDO] %s | %s: %s Regenerando a condicao.",
+                dataset,
+                condition.setting,
+                error,
+            )
+            del embeddings
+            embedding_file.unlink(missing_ok=True)
+            embeddings = _prepare_embedding_file(
+                embedding_file, len(clips), embedding_dimension
+            )
+            with connection:
+                connection.execute(
+                    """DELETE FROM birdnet_embeddings
+                       WHERE fingerprint=? AND dataset=? AND condition_id=?""",
+                    (fingerprint, dataset, condition.identifier),
+                )
+            completed = set()
+    pending = [index for index in range(len(clips)) if index not in completed]
     if not pending:
         LOGGER.info("[CACHE HIT] %s | %s: %d embeddings.", dataset, condition.setting, len(clips))
         return len(clips), len(completed), 0, time.perf_counter() - condition_started
