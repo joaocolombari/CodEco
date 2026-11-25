@@ -989,7 +989,9 @@ Os codecs sempre recebem a janela canônica de 4 s, mono, 48 kHz e PCM16-equival
 - BirdNET: recorte central de 3 s a 48 kHz;
 - Perch: reamostragem para 32 kHz e padding simétrico de 0,5 s, totalizando 5 s.
 
-O padding do Perch não entra no payload nem nas métricas de reconstrução.
+O padding do Perch não entra no payload nem nas métricas de reconstrução. O
+backend seleciona automaticamente a exportação oficial `perch_v2/2` em GPU e
+`perch_v2_cpu/1` em CPU; a variante CPU declara os mesmos pesos do modelo GPU.
 """),
             code(r"""
 from codeco.protocol import adapter_audit

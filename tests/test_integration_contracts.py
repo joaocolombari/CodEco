@@ -112,6 +112,19 @@ class EnvironmentTests(unittest.TestCase):
 
 
 class ProtocolTests(unittest.TestCase):
+    def test_perch_uses_device_compatible_official_export(self) -> None:
+        from codeco.embeddings import (
+            PERCH_CPU_MODEL_HANDLE,
+            PERCH_GPU_MODEL_HANDLE,
+            _perch_model_handle,
+        )
+
+        self.assertEqual(_perch_model_handle(0), PERCH_CPU_MODEL_HANDLE)
+        self.assertIn("perch_v2_cpu/1", PERCH_CPU_MODEL_HANDLE)
+        self.assertEqual(_perch_model_handle(1), PERCH_GPU_MODEL_HANDLE)
+        self.assertEqual(_perch_model_handle(4), PERCH_GPU_MODEL_HANDLE)
+        self.assertIn("perch_v2/2", PERCH_GPU_MODEL_HANDLE)
+
     def test_encodec_cpu_uses_single_clip_jobs(self) -> None:
         from codeco.birdnet_embeddings import _encodec_pool_parameters
 
