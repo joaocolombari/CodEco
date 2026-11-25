@@ -1456,6 +1456,27 @@ def run(
             dataset_tables[str(dataset)] = dataset_clips
             clips_files[str(dataset)] = clips_file
 
+        from codeco.embedding_cache import seed_compatible_embeddings
+
+        imported = 0
+        if not force:
+            imported = seed_compatible_embeddings(
+                paths=paths,
+                model="birdnet",
+                model_version=MODEL_VERSION,
+                fingerprint=fingerprint,
+                datasets=dataset_tables,
+                conditions=selected_conditions,
+                cache_root=cache_root,
+                connection=connection,
+                logger=LOGGER,
+            )
+        if imported:
+            LOGGER.info(
+                "%d caches compatíveis importados de índices anteriores/handoffs.",
+                imported,
+            )
+
         processing_conditions = tuple(
             condition for condition in selected_conditions if condition.kind != "encodec"
         ) + tuple(

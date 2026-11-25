@@ -1158,6 +1158,27 @@ def _run_perch(arguments: EmbeddingRun) -> Path:
                 (fingerprint,),
             )
         staging_connection.commit()
+
+        from codeco.embedding_cache import seed_compatible_embeddings
+
+        imported = 0
+        if not arguments.force:
+            imported = seed_compatible_embeddings(
+                paths=paths,
+                model="perch",
+                model_version="perch_v2/2",
+                fingerprint=fingerprint,
+                datasets=dataset_tables,
+                conditions=selected_conditions,
+                cache_root=cache_root,
+                connection=staging_connection,
+                logger=LOGGER,
+            )
+        if imported:
+            LOGGER.info(
+                "%d caches compatíveis importados de índices anteriores/handoffs.",
+                imported,
+            )
         encodec_conditions = tuple(
             condition
             for condition in selected_conditions

@@ -941,7 +941,14 @@ Este notebook chama diretamente os módulos otimizados de `src/codeco` incorpora
 - um worker persistente por GPU quando CUDA está disponível;
 - um worker TensorFlow em CPU quando não há GPU, mantendo a reconstrução paralela;
 - EnCodec persistente em GPU ou fallback em CPU;
-- checkpoint SQLite, escrita incremental e retomada automática.
+- checkpoint SQLite, escrita incremental e retomada automática;
+- importação validada de caches produzidos por uma rodada parcial ou recebidos
+  em `data/**/handoff/`, mesmo quando o fingerprint da matriz completa difere.
+
+Antes de importar, o pipeline confere modelo e versão, codec e configuração,
+ordem exata dos clipes, número de linhas, dimensão e tipo do vetor. Um cache
+compatível aparece no log como `[CACHE IMPORT]` e passa a ser tratado como
+checkpoint da execução atual, sem executar novamente o codec ou o modelo.
 
 O antigo `scripts/classify_embeddings.py`, que reconstruía uma janela por vez, **não é usado aqui**.
 """),
@@ -955,7 +962,7 @@ O antigo `scripts/classify_embeddings.py`, que reconstruía uma janela por vez, 
 - `CODECS`: `None` executa a matriz completa. Um piloto pode usar, por exemplo, `['baseline', 'flac', 'mp3']`. A baseline é obrigatória.
 - `MAX_CLIPS_PER_DATASET`: `None` usa o recorte completo. Um inteiro positivo é apenas benchmark estratificado.
 - `HEAD`: `linear` ou `mlp`.
-- `FORCE=False`: reutiliza checkpoints; `True` invalida deliberadamente a execução compatível.
+- `FORCE=False`: reutiliza checkpoints e handoffs compatíveis; `True` invalida deliberadamente toda reutilização.
 - `BATCH_SIZE`: lote inicial. Com GPU, o backend calibra até `MAX_BATCH_SIZE`.
 
 Os resultados finais devem usar `MAX_CLIPS_PER_DATASET=None` e `CODECS=None`.
