@@ -83,6 +83,7 @@ def _valid_embedding(
     embeddings_file: object,
     rows: int,
     dimension: int,
+    model: str,
 ) -> Path | None:
     try:
         candidate = paths.project_path(str(embeddings_file))
@@ -93,6 +94,17 @@ def _valid_embedding(
         return None
     for start in range(0, rows, 4096):
         if not np.isfinite(np.asarray(values[start : start + 4096])).all():
+            return None
+    if model == "birdnet" and rows:
+        from codeco.birdnet_embeddings import _validate_embedding_values
+
+        sample_indices = np.linspace(0, rows - 1, min(rows, 32), dtype=np.int64)
+        try:
+            _validate_embedding_values(
+                np.asarray(values[sample_indices]),
+                context=str(candidate),
+            )
+        except RuntimeError:
             return None
     return candidate
 
@@ -167,7 +179,7 @@ def seed_compatible_embeddings(
                 if not _same_clips(paths, row.clips_file, expected_ids):
                     continue
                 source = _valid_embedding(
-                    paths, row.embeddings_file, len(clips), dimension
+                    paths, row.embeddings_file, len(clips), dimension, model
                 )
                 if source is None:
                     continue

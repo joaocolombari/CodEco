@@ -786,6 +786,39 @@ def _load_source_index(
     paths = CodecoPath.discover()
     for column in ("clips_file", "embeddings_file"):
         table[column] = table[column].map(lambda value: str(paths.project_path(value)))
+    for row in table.itertuples(index=False):
+        embedding_path = Path(str(row.embeddings_file))
+        try:
+            values = np.load(embedding_path, mmap_mode="r")
+        except (OSError, ValueError) as error:
+            raise ValueError(
+                f"Nao foi possivel validar os embeddings em {embedding_path}."
+            ) from error
+        expected_rows = int(row.clips)
+        if values.ndim != 2 or values.shape[0] != expected_rows:
+            raise ValueError(
+                f"Formato de embeddings incompativel em {embedding_path}: {values.shape}"
+            )
+        if expected_rows:
+            sample_indices = np.linspace(
+                0, expected_rows - 1, min(expected_rows, 32), dtype=np.int64
+            )
+            sample = np.asarray(values[sample_indices])
+            if not np.isfinite(sample).all():
+                raise ValueError(f"Embeddings nao finitos em {embedding_path}.")
+        if foundation_model == "birdnet" and expected_rows:
+            from codeco.birdnet_embeddings import _validate_embedding_values
+
+            try:
+                _validate_embedding_values(
+                    sample,
+                    context=str(embedding_path),
+                )
+            except RuntimeError as error:
+                raise ValueError(
+                    f"{error} Rode novamente a fase 1 do notebook 07; "
+                    "o cache antigo sera descartado automaticamente."
+                ) from error
     return table.reset_index(drop=True)
 
 

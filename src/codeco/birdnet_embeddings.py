@@ -49,7 +49,7 @@ from codeco.prepare_table import (
 
 
 PHASE = "birdnet_embeddings"
-IMPLEMENTATION_VERSION = "2"
+IMPLEMENTATION_VERSION = "3"
 MODEL_VERSION = "2.4"
 SAMPLE_RATE = 48_000
 CLIP_SECONDS = 4.0
@@ -222,6 +222,30 @@ def _center_birdnet(audio: np.ndarray) -> np.ndarray:
     return audio[start : start + MODEL_SAMPLES].astype(np.float32, copy=False)
 
 
+def _validate_embedding_values(
+    values: np.ndarray,
+    *,
+    context: str,
+) -> np.ndarray:
+    """Reject a degenerate BirdNET representation before it is cached."""
+
+    array = np.asarray(values)
+    if array.ndim != 2 or array.shape[1] != EMBEDDING_DIMENSION:
+        raise RuntimeError(
+            f"Embeddings BirdNET com forma invalida em {context}: {array.shape}."
+        )
+    if not np.isfinite(array).all():
+        raise RuntimeError(f"Embeddings BirdNET nao finitos em {context}.")
+    feature_spread = np.ptp(array.astype(np.float64, copy=False), axis=1)
+    if not np.any(feature_spread > 1e-8):
+        raise RuntimeError(
+            "Embeddings BirdNET degenerados em "
+            f"{context}: todos os vetores possuem 1.024 componentes constantes. "
+            "O artefato nao pode ser reutilizado; execute novamente a fase 1."
+        )
+    return array
+
+
 def _embedding_worker(
     worker_id: int,
     gpu_index: int | None,
@@ -266,6 +290,13 @@ def _embedding_worker(
             result = result.numpy().astype(np.float32, copy=False)
             if result.shape != (len(values), EMBEDDING_DIMENSION):
                 raise RuntimeError(f"Forma inesperada: {result.shape}")
+            _validate_embedding_values(
+                result,
+                context=(
+                    f"worker {worker_id} "
+                    f"({'CPU' if gpu_index is None else f'GPU {gpu_index}'})"
+                ),
+            )
             return result
 
         selected = initial_batch_size

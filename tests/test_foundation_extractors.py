@@ -31,10 +31,14 @@ class BirdNETExtractorTests(unittest.TestCase):
 
         def encode(*, inputs: np.ndarray) -> dict[str, _FakeTensor]:
             batch_sizes.append(len(inputs))
-            values = np.repeat(
-                inputs.mean(axis=1, keepdims=True),
+            feature_axis = np.linspace(
+                -1.0,
+                1.0,
                 BirdNETExtractor.EMBEDDING_DIMENSION,
-                axis=1,
+                dtype=np.float32,
+            )[None, :]
+            values = (
+                inputs.mean(axis=1, keepdims=True) + feature_axis
             ).astype(np.float32)
             return {"embeddings": _FakeTensor(values)}
 
