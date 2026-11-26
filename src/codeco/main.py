@@ -3,12 +3,17 @@
 from __future__ import annotations
 
 import argparse
+import os
 import shutil
 from pathlib import Path
 from typing import Any
 
-from codeco.codeco_path import CodecoPath
+from codeco.codeco_path import TEST_MODE_VARIABLE, CodecoPath, test_mode
 from codeco.environment import virtual_env
+
+
+# --test measures each codec on two repeated clips instead of twenty.
+TEST_FLOPS_REPEATS = 2
 
 
 class Codeco:
@@ -44,9 +49,14 @@ class Codeco:
             raise RuntimeError(
                 "datasets() deve ser concluido antes de prepare_baseline()."
             )
-        from codeco.prepare_table import prepare_baseline
+        if test_mode():
+            from codeco.prepare_table import load_standalone_examples
 
-        state = prepare_baseline()
+            state = load_standalone_examples()
+        else:
+            from codeco.prepare_table import prepare_baseline
+
+            state = prepare_baseline()
         self.context["baseline"] = state
         return self
 
@@ -56,7 +66,12 @@ class Codeco:
             raise RuntimeError("datasets() deve ser concluido antes de flops().")
         from codeco.flops import run
 
-        table = run(environment=self.context["environment"])
+        if test_mode():
+            table = run(
+                n_repeats=TEST_FLOPS_REPEATS, environment=self.context["environment"]
+            )
+        else:
+            table = run(environment=self.context["environment"])
         self.context["flops"] = table
         return self
 
@@ -172,12 +187,13 @@ def _clean_generated_state(paths: CodecoPath) -> tuple[Path, ...]:
         paths.samples,
         paths.results,
     )
+    generated = paths.tests / "pipeline" if test_mode() else paths.data
     allowed = {
-        (paths.data / "cache").absolute(),
-        (paths.data / "checkpoints").absolute(),
-        (paths.data / "prepared").absolute(),
-        (paths.data / "samples").absolute(),
-        (paths.root / "results").absolute(),
+        (generated / "cache").absolute(),
+        (generated / "checkpoints").absolute(),
+        (generated / "prepared").absolute(),
+        (generated / "samples").absolute(),
+        (generated / "results" if test_mode() else paths.root / "results").absolute(),
     }
     preserved = {
         paths.datasets.absolute(),
@@ -220,7 +236,16 @@ def _parse_arguments() -> argparse.Namespace:
         action="store_true",
         help=(
             "Remove caches e resultados gerados antes da execucao, preservando "
-            "data/datasets, data/downloads, data/models e data/tests."
+            "data/datasets, data/downloads, data/models e data/tests. "
+            "Com --test, limpa apenas data/tests/pipeline."
+        ),
+    )
+    parser.add_argument(
+        "--test",
+        action="store_true",
+        help=(
+            "Executa o pipeline completo e rapido com os exemplos fixos de "
+            "config/standalone-examples.json, gravando tudo em data/tests/pipeline."
         ),
     )
     return parser.parse_args()
@@ -229,6 +254,9 @@ def _parse_arguments() -> argparse.Namespace:
 def main() -> None:
     """Execute the first integrated pipeline stage."""
     arguments = _parse_arguments()
+    if arguments.test:
+        # Set before any path is resolved; spawned workers inherit it.
+        os.environ[TEST_MODE_VARIABLE] = "1"
     if arguments.clean:
         _clean_generated_state(CodecoPath.discover())
     (

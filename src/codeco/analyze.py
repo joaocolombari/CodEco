@@ -3,15 +3,18 @@
 from __future__ import annotations
 
 import logging
+import multiprocessing
 import os
 import subprocess
 import sys
 import tempfile
 import time
+from concurrent.futures import ProcessPoolExecutor
 from pathlib import Path
 
 import numpy as np
 import pandas as pd
+import psutil
 from scipy.stats import pearsonr, spearmanr
 from sklearn.metrics import balanced_accuracy_score, f1_score
 
@@ -107,31 +110,78 @@ def _classification_metrics(y_true: np.ndarray, prediction: np.ndarray) -> tuple
     return f1, balanced
 
 
+def _group_confusion_counts(
+    y_true: np.ndarray,
+    prediction: np.ndarray,
+    group_positions: np.ndarray,
+    group_count: int,
+) -> np.ndarray:
+    """Per-group TP, FP, FN and TN for every class: shape (groups, 4, classes)."""
+    truth = np.asarray(y_true, dtype=bool)
+    predicted = np.asarray(prediction, dtype=bool)
+    events = np.stack(
+        [truth & predicted, ~truth & predicted, truth & ~predicted, ~truth & ~predicted],
+        axis=1,
+    ).astype(np.int64)
+    counts = np.zeros((group_count, 4, truth.shape[1]), dtype=np.int64)
+    np.add.at(counts, group_positions, events)
+    return counts
+
+
+def _metrics_from_counts(counts: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
+    """Macro F1 and mean per-class balanced accuracy, as sklearn computes them.
+
+    ``counts`` has shape (replicates, 4, classes). F1 follows sklearn's
+    ``2*tp / (true_sum + pred_sum)`` with ``zero_division=0``. Balanced
+    accuracy averages the recalls of the binary labels present in y_true,
+    exactly like ``balanced_accuracy_score`` drops undefined recalls.
+    """
+    tp, fp, fn, tn = (counts[:, index, :].astype(np.float64) for index in range(4))
+    true_sum = tp + fn
+    pred_sum = tp + fp
+    denominator = true_sum + pred_sum
+    with np.errstate(divide="ignore", invalid="ignore"):
+        f1 = np.where(denominator > 0, (2.0 * tp) / denominator, 0.0)
+        recall_positive = np.where(true_sum > 0, tp / true_sum, np.nan)
+        negative_sum = tn + fp
+        recall_negative = np.where(negative_sum > 0, tn / negative_sum, np.nan)
+    defined = np.isfinite(recall_negative).astype(np.float64) + np.isfinite(recall_positive)
+    balanced_per_class = (
+        np.nan_to_num(recall_negative) + np.nan_to_num(recall_positive)
+    ) / defined
+    return f1.mean(axis=-1), balanced_per_class.mean(axis=-1)
+
+
 def _classification_bootstrap(
     y_true: np.ndarray,
     baseline_prediction: np.ndarray,
     candidate_prediction: np.ndarray,
     groups: np.ndarray,
     seed: int,
+    replicates: int | None = None,
 ) -> dict[str, float]:
+    replicates = BOOTSTRAP_REPLICATES if replicates is None else replicates
     unique = np.unique(groups.astype(str))
-    grouped = {group: np.flatnonzero(groups.astype(str) == group) for group in unique}
     if len(unique) < 2:
         return {name: float("nan") for name in (
             "f1_delta_ci_low", "f1_delta_ci_high", "balanced_delta_ci_low",
             "balanced_delta_ci_high", "f1_noninferiority_p", "balanced_noninferiority_p",
         )}
+    group_positions = np.searchsorted(unique, groups.astype(str))
     rng = np.random.default_rng(seed)
-    f1_deltas, balanced_deltas = [], []
-    for _ in range(BOOTSTRAP_REPLICATES):
+    weights = np.empty((replicates, len(unique)), dtype=np.int64)
+    for replicate in range(replicates):
         selected = rng.choice(unique, size=len(unique), replace=True)
-        indices = np.concatenate([grouped[group] for group in selected])
-        baseline = _classification_metrics(y_true[indices], baseline_prediction[indices])
-        candidate = _classification_metrics(y_true[indices], candidate_prediction[indices])
-        f1_deltas.append(candidate[0] - baseline[0])
-        balanced_deltas.append(candidate[1] - baseline[1])
-    f1_values = np.asarray(f1_deltas)
-    balanced_values = np.asarray(balanced_deltas)
+        weights[replicate] = np.bincount(
+            np.searchsorted(unique, selected), minlength=len(unique)
+        )
+    deltas = []
+    for prediction in (baseline_prediction, candidate_prediction):
+        by_group = _group_confusion_counts(y_true, prediction, group_positions, len(unique))
+        replicate_counts = np.einsum("rg,gkc->rkc", weights, by_group)
+        deltas.append(_metrics_from_counts(replicate_counts))
+    f1_values = deltas[1][0] - deltas[0][0]
+    balanced_values = deltas[1][1] - deltas[0][1]
     return {
         "f1_delta_ci_low": float(np.quantile(f1_values, 0.025)),
         "f1_delta_ci_high": float(np.quantile(f1_values, 0.975)),
@@ -140,6 +190,10 @@ def _classification_bootstrap(
         "f1_noninferiority_p": float(np.mean(f1_values <= -0.02)),
         "balanced_noninferiority_p": float(np.mean(balanced_values <= -0.02)),
     }
+
+
+def _classification_bootstrap_task(arguments: tuple) -> dict[str, float]:
+    return _classification_bootstrap(*arguments)
 
 
 def _configure_logging(paths: CodecoPath, log_path: Path | None = None) -> Path:
@@ -538,6 +592,7 @@ def run(
     _write_csv(alignment, alignment_output)
 
     classification_rows = []
+    pending_bootstraps = []
     probability_roots = sorted(
         paths.cache.rglob("probabilities_baseline_orig.npz")
     )
@@ -581,27 +636,48 @@ def run(
                 for protocol, probabilities, thresholds in protocols:
                     prediction = (probabilities >= thresholds[None, :]).astype(np.int8)
                     metrics = _classification_metrics(y_test, prediction)
-                    intervals = _classification_bootstrap(
-                        y_test,
-                        baseline_prediction,
-                        prediction,
-                        groups,
-                        BOOTSTRAP_SEED + len(classification_rows),
-                    )
-                    classification_rows.append(
-                        {
-                            "dataset": dataset, "foundation_model": foundation_model,
-                            "head": head, "codec": codec, "setting": setting,
-                            "protocol": protocol, "f1_macro": metrics[0],
-                            "delta_f1_macro": metrics[0] - baseline_metrics[0],
-                            **intervals,
-                            "f1_noninferior_margin_0_02": intervals["f1_delta_ci_low"] >= -0.02,
-                            "balanced_accuracy": metrics[1],
-                            "delta_balanced_accuracy": metrics[1] - baseline_metrics[1],
-                            "balanced_accuracy_noninferior_margin_0_02": intervals["balanced_delta_ci_low"] >= -0.02,
-                            "inference_scope": "cluster bootstrap by source_group_id",
-                        }
-                    )
+                    # The seed depends on the row position, as in the sequential
+                    # version; the bootstrap itself runs later, in parallel.
+                    pending_bootstraps.append((
+                        len(classification_rows),
+                        (y_test, baseline_prediction, prediction, groups,
+                         BOOTSTRAP_SEED + len(classification_rows),
+                         BOOTSTRAP_REPLICATES),
+                        {"dataset": dataset, "foundation_model": foundation_model,
+                         "head": head, "codec": codec, "setting": setting,
+                         "protocol": protocol, "metrics": metrics,
+                         "baseline_metrics": baseline_metrics},
+                    ))
+                    classification_rows.append(None)
+
+    if pending_bootstraps:
+        workers = max(1, min(psutil.cpu_count(logical=False) or 1, len(pending_bootstraps)))
+        LOGGER.info(
+            "Bootstrap da classificacao: %d comparacoes | %d processos.",
+            len(pending_bootstraps), workers,
+        )
+        with ProcessPoolExecutor(
+            max_workers=workers, mp_context=multiprocessing.get_context("spawn")
+        ) as pool:
+            all_intervals = list(pool.map(
+                _classification_bootstrap_task,
+                [arguments for _, arguments, _ in pending_bootstraps],
+                chunksize=max(1, len(pending_bootstraps) // (4 * workers)),
+            ))
+        for (position, _, row), intervals in zip(pending_bootstraps, all_intervals):
+            metrics, baseline_metrics = row["metrics"], row["baseline_metrics"]
+            classification_rows[position] = {
+                "dataset": row["dataset"], "foundation_model": row["foundation_model"],
+                "head": row["head"], "codec": row["codec"], "setting": row["setting"],
+                "protocol": row["protocol"], "f1_macro": metrics[0],
+                "delta_f1_macro": metrics[0] - baseline_metrics[0],
+                **intervals,
+                "f1_noninferior_margin_0_02": intervals["f1_delta_ci_low"] >= -0.02,
+                "balanced_accuracy": metrics[1],
+                "delta_balanced_accuracy": metrics[1] - baseline_metrics[1],
+                "balanced_accuracy_noninferior_margin_0_02": intervals["balanced_delta_ci_low"] >= -0.02,
+                "inference_scope": "cluster bootstrap by source_group_id",
+            }
 
     # Backward-compatible screening for legacy tables without probabilities.
     if not classification_rows:

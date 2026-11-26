@@ -2,8 +2,17 @@
 
 from __future__ import annotations
 
+import os
 from dataclasses import dataclass
 from pathlib import Path
+
+
+TEST_MODE_VARIABLE = "CODECO_TEST_MODE"
+
+
+def test_mode() -> bool:
+    """True when ``python -m codeco.main --test`` is running (inherited by child processes)."""
+    return os.environ.get(TEST_MODE_VARIABLE) == "1"
 
 
 @dataclass(frozen=True)
@@ -55,8 +64,13 @@ class CodecoPath:
         return self.data / "models"
 
     @property
+    def generated(self) -> Path:
+        """Parent of every generated directory; isolated under data/tests in test mode."""
+        return self.tests / "pipeline" if test_mode() else self.data
+
+    @property
     def prepared(self) -> Path:
-        return self.data / "prepared"
+        return self.generated / "prepared"
 
     @property
     def downloads(self) -> Path:
@@ -76,7 +90,7 @@ class CodecoPath:
 
     @property
     def samples(self) -> Path:
-        return self.data / "samples"
+        return self.generated / "samples"
 
     @property
     def tests(self) -> Path:
@@ -84,7 +98,7 @@ class CodecoPath:
 
     @property
     def cache(self) -> Path:
-        return self.data / "cache"
+        return self.generated / "cache"
 
     @property
     def baseline_pcm(self) -> Path:
@@ -92,11 +106,11 @@ class CodecoPath:
 
     @property
     def checkpoints(self) -> Path:
-        return self.data / "checkpoints"
+        return self.generated / "checkpoints"
 
     @property
     def results(self) -> Path:
-        return self.root / "results"
+        return self.generated / "results" if test_mode() else self.root / "results"
 
     @property
     def logs(self) -> Path:

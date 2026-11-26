@@ -1107,7 +1107,9 @@ def _process_condition(
     embeddings = _prepare_embedding_file(
         embedding_file, len(clips), embedding_dimension
     )
-    if completed:
+    # This processor is shared with Perch (1,536 dimensions); the degenerate
+    # cache check below is specific to BirdNET's 1,024-dimensional output.
+    if completed and embedding_dimension == EMBEDDING_DIMENSION:
         completed_array = np.asarray(sorted(completed), dtype=np.int64)
         sample_positions = np.linspace(
             0,
