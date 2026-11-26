@@ -340,6 +340,8 @@ def _gpu_binary_mlp(
     velocities = [torch.zeros_like(value) for value in parameters]
     best = [value.clone() for value in parameters]
     best_score = -np.inf
+    # sklearn MLPClassifier without early stopping stops on the training loss.
+    best_loss = np.inf
     no_improvement = 0
     adam_step = 0
     sample_indices = np.arange(len(fit_indices), dtype=int)
@@ -353,6 +355,7 @@ def _gpu_binary_mlp(
         for epoch in range(MAX_ITER):
             epochs = epoch + 1
             epoch_loss = torch.zeros((), dtype=torch.float32, device=device)
+            epoch_regularization = torch.zeros((), dtype=torch.float32, device=device)
             sample_indices = sklearn_shuffle(
                 sample_indices, random_state=random_state
             )
@@ -368,6 +371,10 @@ def _gpu_binary_mlp(
                         yb * torch.log(probabilities)
                         + (1.0 - yb) * torch.log1p(-probabilities)
                     ).sum()
+                )
+                # sklearn adds 0.5*alpha*||W||^2 once per batch, before the update.
+                epoch_regularization.add_(
+                    0.5 * ALPHA * (parameters[0].square().sum() + parameters[2].square().sum())
                 )
                 delta2 = output - yb
                 count = len(local)
@@ -429,6 +436,21 @@ def _gpu_binary_mlp(
                 if score > best_score:
                     best_score = score
                     best = [value.clone() for value in parameters]
+                if no_improvement > 10:
+                    stopped_early = True
+                    break
+            else:
+                # Same rule as sklearn's _update_no_improvement_count with
+                # early_stopping=False: tol=1e-4, n_iter_no_change=10.
+                training_loss = float(
+                    ((epoch_loss + epoch_regularization) / len(fit_indices)).cpu()
+                )
+                if training_loss > best_loss - 1e-4:
+                    no_improvement += 1
+                else:
+                    no_improvement = 0
+                if training_loss < best_loss:
+                    best_loss = training_loss
                 if no_improvement > 10:
                     stopped_early = True
                     break

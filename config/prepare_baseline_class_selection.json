@@ -1,0 +1,10 @@
+{
+  "class_selection": {
+    "k_sigma": 1.0,
+    "minimum_groups": 3,
+    "seed": 42,
+    "fit_split": "train",
+    "balance_training_to_count_cutoff": true,
+    "preserve_natural_validation_and_test": true
+  }
+}

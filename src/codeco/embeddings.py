@@ -32,9 +32,13 @@ from codeco.prepare_table import (
 
 
 MODEL_ORDER = ("birdnet", "perch")
-PERCH_MODEL_HANDLE = (
+PERCH_GPU_MODEL_HANDLE = (
     "https://www.kaggle.com/models/google/bird-vocalization-classifier/"
     "TensorFlow2/perch_v2/2"
+)
+PERCH_CPU_MODEL_HANDLE = (
+    "https://www.kaggle.com/models/google/bird-vocalization-classifier/"
+    "TensorFlow2/perch_v2_cpu/1"
 )
 MAX_ATTEMPTS = 3
 MIN_THROUGHPUT_GAIN = 0.05
@@ -43,28 +47,11 @@ LOGGER = logging.getLogger("codeco.embeddings")
 
 
 def _adapt_for_perch(audio: np.ndarray) -> np.ndarray:
-    """Apply the frozen 4 s/48 kHz -> 5 s/32 kHz Perch protocol."""
-    import soxr
+    """Apply the frozen Perch protocol from ``config/signal_protocol.json``."""
+    from codeco.protocol import adapt_for_perch
 
     values = np.asarray(audio, dtype=np.float32).reshape(-1)
-    expected = 4 * 48_000
-    if len(values) != expected:
-        raise ValueError(
-            f"Perch espera {expected} amostras (4 s a 48 kHz); recebeu {len(values)}."
-        )
-    resampled = soxr.resample(values, 48_000, 32_000, quality="HQ").astype(
-        np.float32, copy=False
-    )
-    target = 5 * 32_000
-    missing = target - len(resampled)
-    if missing < 0:
-        start = -missing // 2
-        return resampled[start : start + target]
-    return np.pad(
-        resampled,
-        (missing // 2, missing - missing // 2),
-        mode="constant",
-    ).astype(np.float32, copy=False)
+    return adapt_for_perch(values)
 
 
 def _configure_logging(paths: CodecoPath, log_path: Path | None = None) -> Path:
@@ -83,7 +70,13 @@ def _configure_logging(paths: CodecoPath, log_path: Path | None = None) -> Path:
     return log
 
 
-def _resolve_perch_model(cache: Path) -> str:
+def _perch_model_handle(gpu_count: int) -> str:
+    """Select the official Perch v2 export supported by the runtime device."""
+
+    return PERCH_GPU_MODEL_HANDLE if gpu_count else PERCH_CPU_MODEL_HANDLE
+
+
+def _resolve_perch_model(cache: Path, model_handle: str) -> str:
     cache.mkdir(parents=True, exist_ok=True)
     environment = os.environ.copy()
     environment["TFHUB_CACHE_DIR"] = str(cache)
@@ -92,7 +85,7 @@ def _resolve_perch_model(cache: Path) -> str:
         "print(hub.resolve(sys.argv[1]))"
     )
     process = subprocess.run(
-        [sys.executable, "-c", command, PERCH_MODEL_HANDLE],
+        [sys.executable, "-c", command, model_handle],
         check=True,
         capture_output=True,
         text=True,
@@ -523,6 +516,7 @@ def _stage_encodec_audio(
     stage_file: Path,
     encodec_pool: object,
     producer_batch_size: int,
+    checkpoint_size: int,
 ) -> tuple[int, int]:
     import queue
     import threading
@@ -604,16 +598,16 @@ def _stage_encodec_audio(
             buffer.extend(indices)
             received += len(indices)
             progress.update(len(indices))
-            while len(buffer) >= backend.CHECKPOINT_SIZE:
+            while len(buffer) >= checkpoint_size:
                 staged.flush()
                 _checkpoint_staging(
                     connection,
                     fingerprint,
                     dataset,
                     condition.identifier,
-                    buffer[: backend.CHECKPOINT_SIZE],
+                    buffer[:checkpoint_size],
                 )
-                buffer = buffer[backend.CHECKPOINT_SIZE :]
+                buffer = buffer[checkpoint_size:]
         producer.join(timeout=30)
         if not status_queue.empty():
             kind, detail = status_queue.get_nowait()
@@ -875,10 +869,15 @@ def _run_perch(arguments: EmbeddingRun) -> Path:
         arguments.seed,
     )
     if arguments.environment is None:
-        ffmpeg, ffmpeg_version = _ffmpeg_installation()
+        ffmpeg_system, ffmpeg_lc3, ffmpeg_version = _ffmpeg_installation()
     else:
-        ffmpeg = arguments.environment.system.ffmpeg.executable
-        ffmpeg_version = arguments.environment.system.ffmpeg.version
+        ffmpeg_system = arguments.environment.system.ffmpeg.executable
+        ffmpeg_lc3 = arguments.environment.system.ffmpeg.lc3_executable
+        ffmpeg_version = (
+            f"system={arguments.environment.system.ffmpeg.version}; "
+            f"lc3={arguments.environment.system.ffmpeg.lc3_version}"
+        )
+    ffmpeg = (ffmpeg_system, ffmpeg_lc3)
     cpu_workers = max(1, psutil.cpu_count(logical=False) or 1)
     gpu_count = (
         backend._tensorflow_gpu_count()
@@ -894,10 +893,15 @@ def _run_perch(arguments: EmbeddingRun) -> Path:
     if not selected_conditions:
         raise ValueError("Nenhuma configuracao de codec selecionada para o Perch.")
 
-    LOGGER.info("Resolvendo modelo Perch: %s", PERCH_MODEL_HANDLE)
+    model_handle = _perch_model_handle(gpu_count)
+    LOGGER.info(
+        "Resolvendo modelo Perch (%s): %s",
+        "GPU" if gpu_indices else "CPU",
+        model_handle,
+    )
     tfhub_cache = paths.models / "tensorflow_hub"
     os.environ["TFHUB_CACHE_DIR"] = str(tfhub_cache)
-    model_path = _resolve_perch_model(tfhub_cache)
+    model_path = _resolve_perch_model(tfhub_cache, model_handle)
     sample_row = clips.iloc[0]
     sample = (
         _load_clip(str(sample_row["path"]), float(sample_row["start"]))
@@ -929,7 +933,7 @@ def _run_perch(arguments: EmbeddingRun) -> Path:
         "selection": selection.to_dict("records"),
         "conditions": [asdict(condition) for condition in selected_conditions],
         "foundation_model": "perch",
-        "model_handle": PERCH_MODEL_HANDLE,
+        "model_handle": model_handle,
         "seed": arguments.seed,
         "batch_size": arguments.batch_size,
         "max_batch_size": arguments.max_batch_size,
@@ -1005,7 +1009,7 @@ def _run_perch(arguments: EmbeddingRun) -> Path:
                 continue
             calibration_metadata = {
                 "version": PERCH_CALIBRATION_VERSION,
-                "model_handle": PERCH_MODEL_HANDLE,
+                "model_handle": model_handle,
                 "logical_worker": worker_id,
                 "initial_batch_size": arguments.batch_size,
                 "max_batch_size": useful_batch_limit,
@@ -1152,6 +1156,27 @@ def _run_perch(arguments: EmbeddingRun) -> Path:
                 (fingerprint,),
             )
         staging_connection.commit()
+
+        from codeco.embedding_cache import seed_compatible_embeddings
+
+        imported = 0
+        if not arguments.force:
+            imported = seed_compatible_embeddings(
+                paths=paths,
+                model="perch",
+                model_version="perch_v2/2",
+                fingerprint=fingerprint,
+                datasets=dataset_tables,
+                conditions=selected_conditions,
+                cache_root=cache_root,
+                connection=staging_connection,
+                logger=LOGGER,
+            )
+        if imported:
+            LOGGER.info(
+                "%d caches compatíveis importados de índices anteriores/handoffs.",
+                imported,
+            )
         encodec_conditions = tuple(
             condition
             for condition in selected_conditions
@@ -1185,8 +1210,6 @@ def _run_perch(arguments: EmbeddingRun) -> Path:
                 staging_jobs.append((condition, dataset, dataset_clips, stage_file))
 
         if staging_jobs:
-            if not gpu_indices:
-                raise RuntimeError("ENCODEC requer GPU CUDA.")
             LOGGER.info("\nPreparacao das reconstrucoes ENCODEC")
             LOGGER.info("%s", "-" * 72)
             LOGGER.info(
@@ -1194,10 +1217,31 @@ def _run_perch(arguments: EmbeddingRun) -> Path:
                 "carregado uma unica vez; o Perch ainda nao esta residente.",
                 len(staging_jobs),
             )
+            encodec_workers, encodec_initial_batch, encodec_max_batch = (
+                backend._encodec_pool_parameters(
+                    gpu_indices,
+                    arguments.batch_size,
+                    arguments.max_batch_size,
+                )
+            )
+            encodec_job_size = (
+                backend.CHECKPOINT_SIZE if gpu_indices else 1
+            )
+            encodec_checkpoint_size = (
+                backend.CHECKPOINT_SIZE if gpu_indices else 1
+            )
+            LOGGER.info(
+                "EnCodec %s | workers=%d | batch=%d | lote=%d | checkpoint=%d.",
+                "GPU" if gpu_indices else "CPU",
+                len(encodec_workers),
+                encodec_initial_batch,
+                encodec_job_size,
+                encodec_checkpoint_size,
+            )
             encodec_pool = backend._start_encodec_pool(
-                gpu_indices,
-                arguments.batch_size,
-                arguments.max_batch_size,
+                encodec_workers,
+                encodec_initial_batch,
+                encodec_max_batch,
                 arguments.encodec_memory_fraction,
                 center_for_birdnet=False,
             )
@@ -1220,7 +1264,8 @@ def _run_perch(arguments: EmbeddingRun) -> Path:
                     condition,
                     stage_file,
                     encodec_pool,
-                    backend.CHECKPOINT_SIZE,
+                    encodec_job_size,
+                    encodec_checkpoint_size,
                 )
     finally:
         if encodec_pool is not None:

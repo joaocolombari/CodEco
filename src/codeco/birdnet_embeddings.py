@@ -39,6 +39,7 @@ from sklearn.preprocessing import MultiLabelBinarizer
 from tqdm import tqdm
 
 from codeco.codeco_path import CodecoPath
+from codeco.protocol import PROTOCOL
 from codeco.environment import EnvironmentState, configure_model_environment
 from codeco.prepare_table import (
     BaselineState,
@@ -49,12 +50,17 @@ from codeco.prepare_table import (
 
 
 PHASE = "birdnet_embeddings"
-IMPLEMENTATION_VERSION = "2"
+IMPLEMENTATION_VERSION = "3"
 MODEL_VERSION = "2.4"
-SAMPLE_RATE = 48_000
-CLIP_SECONDS = 4.0
-CLIP_SAMPLES = 192_000
-MODEL_SAMPLES = 144_000
+SAMPLE_RATE = PROTOCOL.sample_rate_hz
+CLIP_SECONDS = PROTOCOL.window_seconds
+CLIP_SAMPLES = PROTOCOL.window_samples
+MODEL_SAMPLES = round(PROTOCOL.birdnet_seconds * PROTOCOL.birdnet_sample_rate_hz)
+if PROTOCOL.birdnet_sample_rate_hz != SAMPLE_RATE:
+    raise ValueError(
+        "BirdNET recebe o recorte central sem reamostragem; o protocolo exige "
+        "birdnet_sample_rate_hz igual a sample_rate_hz."
+    )
 EMBEDDING_DIMENSION = 1024
 CHECKPOINT_SIZE = 64
 MAX_ATTEMPTS = 3
@@ -88,68 +94,33 @@ class EncodecPool:
     workers: list[mp.Process]
 
 
-CONDITIONS = (
-    EmbeddingCondition("baseline", "orig", "ffmpeg"),
-    EmbeddingCondition(
-        "flac", "compression_level=5", "ffmpeg", "flac",
-        ("-c:a", "flac", "-compression_level", "5"),
-    ),
-    EmbeddingCondition(
-        "mp3", "bitrate_kbps=32", "ffmpeg", "mp3",
-        ("-c:a", "libmp3lame", "-b:a", "32k"),
-    ),
-    EmbeddingCondition(
-        "mp3", "bitrate_kbps=64", "ffmpeg", "mp3",
-        ("-c:a", "libmp3lame", "-b:a", "64k"),
-    ),
-    EmbeddingCondition(
-        "mp3", "bitrate_kbps=128", "ffmpeg", "mp3",
-        ("-c:a", "libmp3lame", "-b:a", "128k"),
-    ),
-    EmbeddingCondition(
-        "aac", "bitrate_kbps=64", "ffmpeg", "m4a",
-        ("-c:a", "aac", "-profile:a", "aac_low", "-b:a", "64k"),
-    ),
-    EmbeddingCondition(
-        "aac", "bitrate_kbps=96", "ffmpeg", "m4a",
-        ("-c:a", "aac", "-profile:a", "aac_low", "-b:a", "96k"),
-    ),
-    EmbeddingCondition(
-        "aac", "bitrate_kbps=128", "ffmpeg", "m4a",
-        ("-c:a", "aac", "-profile:a", "aac_low", "-b:a", "128k"),
-    ),
-    EmbeddingCondition(
-        "opus", "bitrate_kbps=12", "ffmpeg", "opus",
-        ("-c:a", "libopus", "-b:a", "12k", "-vbr", "on", "-application", "audio"),
-    ),
-    EmbeddingCondition(
-        "opus", "bitrate_kbps=24", "ffmpeg", "opus",
-        ("-c:a", "libopus", "-b:a", "24k", "-vbr", "on", "-application", "audio"),
-    ),
-    EmbeddingCondition(
-        "opus", "bitrate_kbps=48", "ffmpeg", "opus",
-        ("-c:a", "libopus", "-b:a", "48k", "-vbr", "on", "-application", "audio"),
-    ),
-    EmbeddingCondition(
-        "opus", "bitrate_kbps=96", "ffmpeg", "opus",
-        ("-c:a", "libopus", "-b:a", "96k", "-vbr", "on", "-application", "audio"),
-    ),
-    EmbeddingCondition(
-        "lc3", "bitrate_kbps=32", "ffmpeg", "lc3",
-        ("-c:a", "liblc3", "-b:a", "32k", "-frame_duration", "10", "-high_resolution", "0"),
-    ),
-    EmbeddingCondition(
-        "lc3", "bitrate_kbps=64", "ffmpeg", "lc3",
-        ("-c:a", "liblc3", "-b:a", "64k", "-frame_duration", "10", "-high_resolution", "0"),
-    ),
-    EmbeddingCondition(
-        "lc3", "bitrate_kbps=96", "ffmpeg", "lc3",
-        ("-c:a", "liblc3", "-b:a", "96k", "-frame_duration", "10", "-high_resolution", "0"),
-    ),
-    EmbeddingCondition("encodec", "bandwidth_kbps=6,model=encodec_48khz", "encodec", bandwidth_kbps=6),
-    EmbeddingCondition("encodec", "bandwidth_kbps=12,model=encodec_48khz", "encodec", bandwidth_kbps=12),
-    EmbeddingCondition("encodec", "bandwidth_kbps=24,model=encodec_48khz", "encodec", bandwidth_kbps=24),
-)
+def _conditions() -> tuple[EmbeddingCondition, ...]:
+    from codeco.encodec import CONDITIONS as encodec_conditions
+    from codeco.ffmpeg import CONDITIONS as ffmpeg_conditions
+
+    classical = tuple(
+        EmbeddingCondition(
+            condition.codec,
+            condition.setting,
+            "ffmpeg",
+            condition.extension,
+            condition.encoder_arguments,
+        )
+        for condition in ffmpeg_conditions
+    )
+    neural = tuple(
+        EmbeddingCondition(
+            condition.codec,
+            condition.setting,
+            "encodec",
+            bandwidth_kbps=condition.bandwidth_kbps,
+        )
+        for condition in encodec_conditions
+    )
+    return classical + neural
+
+
+CONDITIONS = _conditions()
 
 
 def _utc_now() -> str:
@@ -257,6 +228,30 @@ def _center_birdnet(audio: np.ndarray) -> np.ndarray:
     return audio[start : start + MODEL_SAMPLES].astype(np.float32, copy=False)
 
 
+def _validate_embedding_values(
+    values: np.ndarray,
+    *,
+    context: str,
+) -> np.ndarray:
+    """Reject a degenerate BirdNET representation before it is cached."""
+
+    array = np.asarray(values)
+    if array.ndim != 2 or array.shape[1] != EMBEDDING_DIMENSION:
+        raise RuntimeError(
+            f"Embeddings BirdNET com forma invalida em {context}: {array.shape}."
+        )
+    if not np.isfinite(array).all():
+        raise RuntimeError(f"Embeddings BirdNET nao finitos em {context}.")
+    feature_spread = np.ptp(array.astype(np.float64, copy=False), axis=1)
+    if not np.any(feature_spread > 1e-8):
+        raise RuntimeError(
+            "Embeddings BirdNET degenerados em "
+            f"{context}: todos os vetores possuem 1.024 componentes constantes. "
+            "O artefato nao pode ser reutilizado; execute novamente a fase 1."
+        )
+    return array
+
+
 def _embedding_worker(
     worker_id: int,
     gpu_index: int | None,
@@ -301,6 +296,13 @@ def _embedding_worker(
             result = result.numpy().astype(np.float32, copy=False)
             if result.shape != (len(values), EMBEDDING_DIMENSION):
                 raise RuntimeError(f"Forma inesperada: {result.shape}")
+            _validate_embedding_values(
+                result,
+                context=(
+                    f"worker {worker_id} "
+                    f"({'CPU' if gpu_index is None else f'GPU {gpu_index}'})"
+                ),
+            )
             return result
 
         selected = initial_batch_size
@@ -544,7 +546,7 @@ def _produce_ffmpeg(
 
 
 def _encodec_worker(
-    gpu_index: int,
+    gpu_index: int | None,
     model_name: str,
     initial_batch_size: int,
     max_batch_size: int,
@@ -553,14 +555,15 @@ def _encodec_worker(
     input_queue: object,
     output_queue: object,
 ) -> None:
-    os.environ["CUDA_VISIBLE_DEVICES"] = str(gpu_index)
+    os.environ["CUDA_VISIBLE_DEVICES"] = "" if gpu_index is None else str(gpu_index)
     try:
         import torch
         from transformers import EncodecModel
         from codeco.encodec import EvaluationTask, _align_to_reference, _encodec_chunk, _is_cuda_oom
 
-        device = torch.device("cuda:0")
-        torch.cuda.set_device(device)
+        device = torch.device("cpu" if gpu_index is None else "cuda:0")
+        if gpu_index is not None:
+            torch.cuda.set_device(device)
         model = EncodecModel.from_pretrained(model_name).to(device).eval()
         codebook_bits = int(math.ceil(math.log2(model.config.codebook_size)))
         channels = int(model.config.audio_channels)
@@ -614,13 +617,13 @@ def _encodec_worker(
                             )
                         peak = float(statistics["peak_bytes"])
                         free = float(statistics["free_before_bytes"])
-                        if peak < free * memory_fraction:
+                        if gpu_index is not None and peak < free * memory_fraction:
                             batch_size = min(max_batch_size, max(batch_size, size * 2))
                         position += size
                         break
                     except BaseException as error:
                         failures += 1
-                        if _is_cuda_oom(torch, error):
+                        if gpu_index is not None and _is_cuda_oom(torch, error):
                             torch.cuda.empty_cache()
                             size = max(1, size // 2)
                             batch_size = size
@@ -706,12 +709,14 @@ def _produce_encodec(
 
 
 def _start_encodec_pool(
-    gpu_indices: Sequence[int],
+    gpu_indices: Sequence[int | None],
     initial_batch_size: int,
     max_batch_size: int,
     memory_fraction: float,
     center_for_birdnet: bool = True,
 ) -> EncodecPool:
+    from codeco.encodec import MODEL_NAME as encodec_model_name
+
     context = mp.get_context("spawn")
     input_queue = context.Queue(maxsize=max(2, len(gpu_indices) * 2))
     output_queue = context.Queue()
@@ -720,7 +725,7 @@ def _start_encodec_pool(
             target=_encodec_worker,
             args=(
                 index,
-                "facebook/encodec_48khz",
+                encodec_model_name,
                 initial_batch_size,
                 max_batch_size,
                 memory_fraction,
@@ -728,7 +733,7 @@ def _start_encodec_pool(
                 input_queue,
                 output_queue,
             ),
-            name=f"BirdNET-ENCODEC-{index}",
+            name=f"BirdNET-ENCODEC-{'CPU' if index is None else index}",
         )
         for index in gpu_indices
     ]
@@ -743,7 +748,8 @@ def _start_encodec_pool(
             if message["kind"] != "ready":
                 raise RuntimeError(f"Mensagem ENCODEC inesperada: {message['kind']}")
             ready += 1
-            LOGGER.info("Worker ENCODEC GPU %d pronto; modelo persistente carregado.", message["gpu_index"])
+            label = "CPU" if message["gpu_index"] is None else f"GPU {message['gpu_index']}"
+            LOGGER.info("Worker ENCODEC %s pronto; modelo persistente carregado.", label)
         return EncodecPool(input_queue, output_queue, workers)
     except BaseException:
         for worker in workers:
@@ -755,6 +761,17 @@ def _start_encodec_pool(
         output_queue.close()
         output_queue.join_thread()
         raise
+
+
+def _encodec_pool_parameters(
+    gpu_indices: Sequence[int],
+    initial_batch_size: int,
+    max_batch_size: int,
+) -> tuple[list[int | None], int, int]:
+    """Use throughput batches on GPU and bounded one-clip jobs on CPU."""
+    if gpu_indices:
+        return list(gpu_indices), initial_batch_size, max_batch_size
+    return [None], 1, 1
 
 
 def _stop_encodec_pool(pool: EncodecPool) -> None:
@@ -941,7 +958,15 @@ def _stratified_split_sample(
                 random_state=seed,
             )
             _, chosen = next(splitter.split(np.zeros(len(candidates)), labels[candidates]))
-            selected.update(int(candidates[index]) for index in chosen)
+            chosen_candidates = candidates[np.asarray(chosen, dtype=int)]
+            # Some iterative-stratification releases may return more rows than
+            # an integer ``test_size`` when multilabel constraints are tight.
+            # The benchmark contract requires an exact per-split quota; the
+            # mandatory two positives per class were already selected above.
+            if len(chosen_candidates) > remaining:
+                order = np.argsort(rank[chosen_candidates], kind="stable")
+                chosen_candidates = chosen_candidates[order[:remaining]]
+            selected.update(int(index) for index in chosen_candidates)
 
     if len(selected) < target:
         candidates = np.array(
@@ -1067,21 +1092,55 @@ def _process_condition(
     clips: pd.DataFrame,
     condition: EmbeddingCondition,
     embedding_file: Path,
-    ffmpeg: Path,
+    ffmpeg: tuple[Path, Path],
     cpu_workers: int,
     encodec_pool: EncodecPool | None,
     embedding_queue: object,
     embedding_output: object,
     producer_batch_size: int,
+    checkpoint_size: int = CHECKPOINT_SIZE,
     embedding_dimension: int = EMBEDDING_DIMENSION,
 ) -> tuple[int, int, int, float]:
     condition_started = time.perf_counter()
     condition_id = f"{dataset}:{condition.identifier}"
     completed = _completed_indices(connection, fingerprint, dataset, condition.identifier)
-    pending = [index for index in range(len(clips)) if index not in completed]
     embeddings = _prepare_embedding_file(
         embedding_file, len(clips), embedding_dimension
     )
+    if completed:
+        completed_array = np.asarray(sorted(completed), dtype=np.int64)
+        sample_positions = np.linspace(
+            0,
+            len(completed_array) - 1,
+            min(len(completed_array), 32),
+            dtype=np.int64,
+        )
+        sample_indices = completed_array[sample_positions]
+        try:
+            _validate_embedding_values(
+                np.asarray(embeddings[sample_indices]),
+                context=str(embedding_file),
+            )
+        except RuntimeError as error:
+            LOGGER.warning(
+                "[CACHE INVALIDO] %s | %s: %s Regenerando a condicao.",
+                dataset,
+                condition.setting,
+                error,
+            )
+            del embeddings
+            embedding_file.unlink(missing_ok=True)
+            embeddings = _prepare_embedding_file(
+                embedding_file, len(clips), embedding_dimension
+            )
+            with connection:
+                connection.execute(
+                    """DELETE FROM birdnet_embeddings
+                       WHERE fingerprint=? AND dataset=? AND condition_id=?""",
+                    (fingerprint, dataset, condition.identifier),
+                )
+            completed = set()
+    pending = [index for index in range(len(clips)) if index not in completed]
     if not pending:
         LOGGER.info("[CACHE HIT] %s | %s: %d embeddings.", dataset, condition.setting, len(clips))
         return len(clips), len(completed), 0, time.perf_counter() - condition_started
@@ -1101,7 +1160,7 @@ def _process_condition(
             condition,
             clips,
             pending,
-            ffmpeg,
+            ffmpeg[1] if condition.codec == "lc3" else ffmpeg[0],
             cpu_workers,
             producer_batch_size,
             embedding_queue,
@@ -1153,7 +1212,7 @@ def _process_condition(
             buffer.extend(indices)
             received += len(indices)
             progress.update(len(indices))
-            while len(buffer) >= CHECKPOINT_SIZE:
+            while len(buffer) >= checkpoint_size:
                 embeddings.flush()
                 _checkpoint_batch(
                     connection,
@@ -1161,9 +1220,9 @@ def _process_condition(
                     dataset,
                     condition.identifier,
                     clips,
-                    buffer[:CHECKPOINT_SIZE],
+                    buffer[:checkpoint_size],
                 )
-                buffer = buffer[CHECKPOINT_SIZE:]
+                buffer = buffer[checkpoint_size:]
         producer.join(timeout=30)
         if not status.empty():
             kind, detail = status.get_nowait()
@@ -1283,10 +1342,15 @@ def run(
         seed,
     )
     if environment is None:
-        ffmpeg, ffmpeg_version = _ffmpeg_installation()
+        ffmpeg_system, ffmpeg_lc3, ffmpeg_version = _ffmpeg_installation()
     else:
-        ffmpeg = environment.system.ffmpeg.executable
-        ffmpeg_version = environment.system.ffmpeg.version
+        ffmpeg_system = environment.system.ffmpeg.executable
+        ffmpeg_lc3 = environment.system.ffmpeg.lc3_executable
+        ffmpeg_version = (
+            f"system={environment.system.ffmpeg.version}; "
+            f"lc3={environment.system.ffmpeg.lc3_version}"
+        )
+    ffmpeg = (ffmpeg_system, ffmpeg_lc3)
     cpu_workers = max(1, psutil.cpu_count(logical=False) or 1)
     gpu_count = (
         _tensorflow_gpu_count()
@@ -1429,6 +1493,11 @@ def run(
     records = []
     started = time.perf_counter()
     producer_batch_size = max_batch_size if gpu_indices else batch_size
+    encodec_workers, encodec_initial_batch, encodec_max_batch = (
+        _encodec_pool_parameters(gpu_indices, batch_size, max_batch_size)
+    )
+    encodec_job_size = producer_batch_size if gpu_indices else 1
+    encodec_checkpoint_size = CHECKPOINT_SIZE if gpu_indices else 1
     encodec_pool: EncodecPool | None = None
     try:
         now = _utc_now()
@@ -1467,6 +1536,27 @@ def run(
             dataset_tables[str(dataset)] = dataset_clips
             clips_files[str(dataset)] = clips_file
 
+        from codeco.embedding_cache import seed_compatible_embeddings
+
+        imported = 0
+        if not force:
+            imported = seed_compatible_embeddings(
+                paths=paths,
+                model="birdnet",
+                model_version=MODEL_VERSION,
+                fingerprint=fingerprint,
+                datasets=dataset_tables,
+                conditions=selected_conditions,
+                cache_root=cache_root,
+                connection=connection,
+                logger=LOGGER,
+            )
+        if imported:
+            LOGGER.info(
+                "%d caches compatíveis importados de índices anteriores/handoffs.",
+                imported,
+            )
+
         processing_conditions = tuple(
             condition for condition in selected_conditions if condition.kind != "encodec"
         ) + tuple(
@@ -1491,19 +1581,18 @@ def run(
                     for dataset, dataset_clips in dataset_tables.items()
                 )
                 if needs_encodec:
-                    if not gpu_indices:
-                        raise RuntimeError(
-                            "ENCODEC requer GPU; nenhuma GPU CUDA foi detectada. "
-                            "O fallback ProtoBuf/CPU do BirdNET permanece ativo para "
-                            "baseline e FFmpeg."
-                        )
                     LOGGER.info(
-                        "Iniciando pool ENCODEC persistente: um carregamento por GPU."
+                        "Iniciando EnCodec persistente em %s | workers=%d | "
+                        "batch=%d | checkpoint=%d.",
+                        "GPU" if gpu_indices else "CPU (um clipe por lote)",
+                        len(encodec_workers),
+                        encodec_initial_batch,
+                        encodec_checkpoint_size,
                     )
                     encodec_pool = _start_encodec_pool(
-                        gpu_indices,
-                        batch_size,
-                        max_batch_size,
+                        encodec_workers,
+                        encodec_initial_batch,
+                        encodec_max_batch,
                         encodec_memory_fraction,
                     )
 
@@ -1527,7 +1616,16 @@ def run(
                     encodec_pool=encodec_pool,
                     embedding_queue=embedding_queue,
                     embedding_output=embedding_output,
-                    producer_batch_size=producer_batch_size,
+                    producer_batch_size=(
+                        encodec_job_size
+                        if condition.kind == "encodec"
+                        else producer_batch_size
+                    ),
+                    checkpoint_size=(
+                        encodec_checkpoint_size
+                        if condition.kind == "encodec"
+                        else CHECKPOINT_SIZE
+                    ),
                 )
                 records.append(
                     {

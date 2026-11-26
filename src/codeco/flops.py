@@ -329,6 +329,42 @@ def _format_results(table):
     return "\n\n--------------------------\n\n".join(blocks)
 
 
+# ---- Notebook 08 (integration scripts/flops.py) counting, kept side by side ----
+# thop/ptflops on the whole encode()/decode() calls. It does not include the RVQ
+# codebook search, which the pipeline count above adds explicitly.
+def _notebook08_encodec_flops(wav, model_name, bandwidths):
+    """EnCodec FLOPs and parameters exactly as notebook 08 measures them."""
+    import torch
+    from transformers import EncodecModel
+
+    from codeco.benchmark.notebook08_flops import (
+        _EncodecDecoderWrapper,
+        _EncodecEncoderWrapper,
+        _count_neural_flops as count,
+    )
+
+    model = EncodecModel.from_pretrained(model_name).eval()
+    x_t = torch.from_numpy(wav).float()[None, None]
+    x_t = x_t.repeat(1, model.config.audio_channels, 1)
+    results = {}
+    for bandwidth in bandwidths:
+        enc_wrapper = _EncodecEncoderWrapper(model, float(bandwidth))
+        enc_flops, enc_params = count(enc_wrapper, x_t)
+        with torch.no_grad():
+            enc_out = model.encode(x_t, bandwidth=float(bandwidth))
+        dec_wrapper = _EncodecDecoderWrapper(model, enc_out.audio_scales)
+        dec_flops, dec_params = count(dec_wrapper, enc_out.audio_codes)
+        results[float(bandwidth)] = {
+            "nb08_iot_enc_flops": enc_flops,
+            "nb08_iot_enc_gflops_per_s": (enc_flops / SECONDS) / 1e9,
+            "nb08_iot_enc_params": enc_params,
+            "nb08_srv_dec_flops": dec_flops,
+            "nb08_srv_dec_gflops_per_s": (dec_flops / SECONDS) / 1e9,
+            "nb08_srv_dec_params": dec_params,
+        }
+    return results
+
+
 def run(
     n_repeats=20,
     use_perf=True,
@@ -360,7 +396,13 @@ def run(
                         "dec_instructions_per_s_audio",
                     ]
                 ].isna().all().all()
-                if use_perf and missing_perf:
+                missing_notebook08 = "nb08_iot_enc_flops" not in existing.columns
+                if missing_notebook08:
+                    LOGGER.warning(
+                        "Resultado existente nao possui a contagem do notebook 08; recalculando: %s",
+                        output,
+                    )
+                elif use_perf and missing_perf:
                     LOGGER.warning(
                         "Resultado existente nao possui contadores perf; recalculando: %s",
                         output,
@@ -404,7 +446,12 @@ def run(
     with tqdm(total=len(configs) + 3, unit="config", dynamic_ncols=True, file=sys.stdout) as bar:
         for condition in configs:
             bar.set_description_str(f"{condition.codec} {condition.setting}")
-            result = _measure_ffmpeg_batch(condition, wav, n_repeats, use_perf, ffmpeg.executable, fp_event)
+            executable = (
+                ffmpeg.lc3_executable
+                if condition.codec == "lc3"
+                else ffmpeg.executable
+            )
+            result = _measure_ffmpeg_batch(condition, wav, n_repeats, use_perf, executable, fp_event)
             rows.append(dict(codec=condition.codec, setting=condition.setting, type="dsp_c", **result))
             LOGGER.info(f"{condition.codec.upper():5} {condition.setting:24}  enc {1000*result['enc_cpu_s_per_clip']:7.2f}"
                   f"  dec {1000*result['dec_cpu_s_per_clip']:7.2f}")
@@ -416,7 +463,11 @@ def run(
             for condition in ENCODEC_CONDITIONS
             if condition.codec == "encodec"
         ]
+        notebook08 = _notebook08_encodec_flops(
+            wav, MODEL_NAME, [condition.bandwidth_kbps for condition in neural_conditions]
+        )
         for row in _neural_rows(wav, n_repeats, use_perf, MODEL_NAME, neural_conditions):
+            row.update(notebook08[float(row["bandwidth_kbps"])])
             rows.append(row)
             LOGGER.info("%d kb/s  %d codebooks  enc %.3f  dec %.3f",
                         row["bandwidth_kbps"], row["codebooks"], row["enc_gflops_clip"], row["dec_gflops_clip"])
@@ -456,4 +507,3 @@ if __name__ == "__main__":
     except Exception:
         LOGGER.exception("Falha no benchmark.")
         raise SystemExit(1) from None
-

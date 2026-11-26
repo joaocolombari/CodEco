@@ -13,4 +13,3 @@ data/samples/
 data/tests/
 data/cache/
 data/checkpoints/
-results/tables/ffmpeg_metrics.csv

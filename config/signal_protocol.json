@@ -1,0 +1,14 @@
+{
+  "signal_protocol": {
+    "sample_rate_hz": 48000,
+    "bit_depth": 16,
+    "channels": 1,
+    "window_seconds": 4.0,
+    "segment_hop_seconds": 1.0,
+    "birdnet_seconds": 3.0,
+    "birdnet_sample_rate_hz": 48000,
+    "perch_seconds": 5.0,
+    "perch_sample_rate_hz": 32000,
+    "perch_padding": "symmetric_zero"
+  }
+}

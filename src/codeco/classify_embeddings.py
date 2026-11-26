@@ -42,7 +42,7 @@ from codeco.codeco_path import CodecoPath
 from codeco.prepare_table import TqdmLoggingHandler
 
 
-IMPLEMENTATION_VERSION = "2"
+IMPLEMENTATION_VERSION = "3"
 DEFAULT_SEED = 42
 DEFAULT_FOUNDATION_MODEL = "birdnet"
 MLP_MAX_ITER = 300
@@ -68,6 +68,9 @@ RESULT_COLUMNS = (
     "embedding_correlation_mean",
     "f1_macro",
     "balanced_accuracy",
+    "threshold_mean",
+    "threshold_min",
+    "threshold_max",
 )
 SOURCE_COLUMNS = (
     "dataset",
@@ -120,6 +123,7 @@ def _gpu_configuration_worker(
     tasks,
     completed,
     baseline_model,
+    clean_thresholds: np.ndarray,
     targets: np.ndarray,
     train: np.ndarray,
     validation: np.ndarray,
@@ -130,10 +134,7 @@ def _gpu_configuration_worker(
 ) -> None:
     try:
         import torch
-        from codeco.benchmark.birdnet_classification_benchmark import (
-            _torch_predict,
-            _torch_train,
-        )
+        from codeco.benchmark.birdnet_classification_benchmark import _torch_train
 
         device = torch.device(f"cuda:{gpu}")
         torch.cuda.set_device(device)
@@ -147,9 +148,10 @@ def _gpu_configuration_worker(
             try:
                 compressed = np.load(source["embeddings_file"], mmap_mode="r")
                 started = time.perf_counter()
-                real_prediction = _torch_predict(
+                real_probabilities = _torch_predict_probabilities(
                     torch, clean, compressed[test], device
                 )
+                real_prediction = _apply_thresholds(real_probabilities, clean_thresholds)
                 real_inference_seconds = time.perf_counter() - started
                 matched, matched_training_seconds = _torch_train(
                     torch,
@@ -158,15 +160,24 @@ def _gpu_configuration_worker(
                     train,
                     device,
                     seed,
-                    early_stopping=early_stopping,
+                    early_stopping=False,
                     monitor=validation if monitor_training else None,
                 )
                 started = time.perf_counter()
-                matched_validation_prediction = _torch_predict(
+                matched_validation_probabilities = _torch_predict_probabilities(
                     torch, matched, compressed[validation], device
                 )
-                matched_prediction = _torch_predict(
+                matched_thresholds = _tune_thresholds(
+                    targets[validation], matched_validation_probabilities
+                )
+                matched_probabilities = _torch_predict_probabilities(
                     torch, matched, compressed[test], device
+                )
+                matched_prediction = _apply_thresholds(
+                    matched_probabilities, matched_thresholds
+                )
+                matched_validation_prediction = _apply_thresholds(
+                    matched_validation_probabilities, matched_thresholds
                 )
                 matched_inference_seconds = time.perf_counter() - started
                 completed.put(
@@ -175,8 +186,11 @@ def _gpu_configuration_worker(
                         "gpu": gpu,
                         "gpu_name": gpu_name,
                         "real_prediction": real_prediction,
+                        "real_probabilities": real_probabilities,
                         "matched_validation_prediction": matched_validation_prediction,
                         "matched_prediction": matched_prediction,
+                        "matched_probabilities": matched_probabilities,
+                        "matched_thresholds": matched_thresholds,
                         "real_inference_seconds": real_inference_seconds,
                         "matched_training_seconds": matched_training_seconds,
                         "matched_inference_seconds": matched_inference_seconds,
@@ -384,12 +398,85 @@ def _build_classifier(head: str, seed: int, early_stopping: bool = True):
             activation="relu",
             alpha=1e-3,
             max_iter=MLP_MAX_ITER,
-            early_stopping=early_stopping,
+            # sklearn's built-in early stopping draws a random validation
+            # fraction from training.  That breaks recording-group isolation.
+            # We use fixed training iterations and tune decision thresholds on
+            # the explicit group-safe validation split below.
+            early_stopping=False,
             random_state=seed,
         )
     else:
         raise ValueError(f"Head desconhecida: {head}")
     return make_pipeline(StandardScaler(), OneVsRestClassifier(base))
+
+
+def _predict_probabilities(classifier, values: np.ndarray) -> np.ndarray:
+    probabilities = np.asarray(classifier.predict_proba(values), dtype=np.float64)
+    if probabilities.ndim == 1:
+        probabilities = probabilities[:, None]
+    return probabilities
+
+
+def _torch_predict_probabilities(torch, model, values, device) -> np.ndarray:
+    """GPU counterpart of ``_predict_probabilities`` for the CUDA MLP."""
+    from codeco.benchmark.birdnet_classification_benchmark import _gpu_forward
+
+    scaled = model["scaler"].transform(values).astype(np.float32, copy=False)
+    x = torch.as_tensor(scaled, dtype=torch.float32, device=device)
+    columns = []
+    with torch.no_grad():
+        for binary in model["models"]:
+            if binary["constant"] is not None:
+                column = torch.full(
+                    (len(x),), float(binary["constant"]), dtype=torch.float32, device=device
+                )
+            else:
+                probability, _ = _gpu_forward(torch, x, binary["parameters"])
+                column = probability[:, 0]
+            columns.append(column)
+        probabilities = torch.stack(columns, dim=1).cpu().numpy()
+    return np.asarray(probabilities, dtype=np.float64)
+
+
+def _tune_thresholds(y_true: np.ndarray, probabilities: np.ndarray) -> np.ndarray:
+    """Select one F1-maximizing threshold per class on validation only."""
+    grid = np.linspace(0.05, 0.95, 181)
+    thresholds = np.empty(y_true.shape[1], dtype=np.float64)
+    for index in range(y_true.shape[1]):
+        scores = [
+            f1_score(
+                y_true[:, index],
+                probabilities[:, index] >= threshold,
+                zero_division=0,
+            )
+            for threshold in grid
+        ]
+        # Deterministic tie break: closest to 0.5, then lower threshold.
+        best = max(range(len(grid)), key=lambda i: (scores[i], -abs(grid[i] - 0.5), -grid[i]))
+        thresholds[index] = grid[best]
+    return thresholds
+
+
+def _apply_thresholds(probabilities: np.ndarray, thresholds: np.ndarray) -> np.ndarray:
+    return (np.asarray(probabilities) >= np.asarray(thresholds)[None, :]).astype(np.int8)
+
+
+def _threshold_summary(thresholds: np.ndarray) -> dict[str, float]:
+    return {
+        "threshold_mean": float(np.mean(thresholds)),
+        "threshold_min": float(np.min(thresholds)),
+        "threshold_max": float(np.max(thresholds)),
+    }
+
+
+def _atomic_npz(path: Path, **arrays: np.ndarray) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = path.with_name(f".{path.name}.{os.getpid()}.tmp.npz")
+    try:
+        np.savez_compressed(temporary, **arrays)
+        os.replace(temporary, path)
+    finally:
+        temporary.unlink(missing_ok=True)
 
 
 def _classification_metrics(y_true: np.ndarray, y_pred: np.ndarray) -> dict[str, float]:
@@ -579,6 +666,7 @@ def _cpu_condition_initializer(
     clips_file: str,
     baseline_file: str,
     clean_classifier,
+    clean_thresholds: np.ndarray,
     head: str,
     seed: int,
     early_stopping: bool,
@@ -596,6 +684,7 @@ def _cpu_condition_initializer(
         test=clips["split"].eq("test").to_numpy(),
         original=np.load(baseline_file, mmap_mode="r"),
         clean_classifier=clean_classifier,
+        clean_thresholds=np.asarray(clean_thresholds),
         head=head,
         seed=seed,
         early_stopping=early_stopping,
@@ -611,8 +700,11 @@ def _cpu_condition_task(source: dict[str, str]) -> dict[str, object]:
     compressed = np.load(source["embeddings_file"], mmap_mode="r")
     with threadpool_limits(limits=1):
         started = time.perf_counter()
-        real_prediction = _CPU_CONDITION_STATE["clean_classifier"].predict(
-            compressed[test]
+        real_probabilities = _predict_probabilities(
+            _CPU_CONDITION_STATE["clean_classifier"], compressed[test]
+        )
+        real_prediction = _apply_thresholds(
+            real_probabilities, _CPU_CONDITION_STATE["clean_thresholds"]
         )
         real_inference_seconds = time.perf_counter() - started
         matched = _build_classifier(
@@ -630,14 +722,28 @@ def _cpu_condition_task(source: dict[str, str]) -> dict[str, object]:
             matched, str(_CPU_CONDITION_STATE["head"])
         )
         started = time.perf_counter()
-        matched_prediction = matched.predict(compressed[test])
+        matched_validation_probabilities = _predict_probabilities(
+            matched, compressed[validation]
+        )
+        matched_thresholds = _tune_thresholds(
+            targets[validation], matched_validation_probabilities
+        )
+        matched_probabilities = _predict_probabilities(matched, compressed[test])
+        matched_prediction = _apply_thresholds(
+            matched_probabilities, matched_thresholds
+        )
         matched_inference_seconds = time.perf_counter() - started
-        matched_validation_prediction = matched.predict(compressed[validation])
+        matched_validation_prediction = _apply_thresholds(
+            matched_validation_probabilities, matched_thresholds
+        )
     return {
         **source,
         "preservation": _embedding_preservation(original[test], compressed[test]),
         "real_prediction": real_prediction,
+        "real_probabilities": real_probabilities,
         "matched_prediction": matched_prediction,
+        "matched_probabilities": matched_probabilities,
+        "matched_thresholds": matched_thresholds,
         "matched_validation_prediction": matched_validation_prediction,
         "real_inference_seconds": real_inference_seconds,
         "matched_training_seconds": matched_training_seconds,
@@ -712,6 +818,39 @@ def _load_source_index(
     paths = CodecoPath.discover()
     for column in ("clips_file", "embeddings_file"):
         table[column] = table[column].map(lambda value: str(paths.project_path(value)))
+    for row in table.itertuples(index=False):
+        embedding_path = Path(str(row.embeddings_file))
+        try:
+            values = np.load(embedding_path, mmap_mode="r")
+        except (OSError, ValueError) as error:
+            raise ValueError(
+                f"Nao foi possivel validar os embeddings em {embedding_path}."
+            ) from error
+        expected_rows = int(row.clips)
+        if values.ndim != 2 or values.shape[0] != expected_rows:
+            raise ValueError(
+                f"Formato de embeddings incompativel em {embedding_path}: {values.shape}"
+            )
+        if expected_rows:
+            sample_indices = np.linspace(
+                0, expected_rows - 1, min(expected_rows, 32), dtype=np.int64
+            )
+            sample = np.asarray(values[sample_indices])
+            if not np.isfinite(sample).all():
+                raise ValueError(f"Embeddings nao finitos em {embedding_path}.")
+        if foundation_model == "birdnet" and expected_rows:
+            from codeco.birdnet_embeddings import _validate_embedding_values
+
+            try:
+                _validate_embedding_values(
+                    sample,
+                    context=str(embedding_path),
+                )
+            except RuntimeError as error:
+                raise ValueError(
+                    f"{error} Rode novamente a fase 1 do notebook 07; "
+                    "o cache antigo sera descartado automaticamente."
+                ) from error
     return table.reset_index(drop=True)
 
 
@@ -728,7 +867,7 @@ def _load_clips(source: pd.DataFrame) -> pd.DataFrame:
     if not path.is_file():
         raise FileNotFoundError(f"Indice de clipes nao encontrado: {path}")
     clips = pd.read_parquet(path)
-    required = {"row_index", "clip_id", "labels", "split"}
+    required = {"row_index", "clip_id", "labels", "split", "source_group_id"}
     missing = required - set(clips.columns)
     if missing:
         raise ValueError(f"clips.parquet sem colunas: {', '.join(sorted(missing))}")
@@ -738,6 +877,12 @@ def _load_clips(source: pd.DataFrame) -> pd.DataFrame:
         raise ValueError("row_index de clips.parquet nao e continuo a partir de zero.")
     if len(clips) != int(source.iloc[0]["clips"]):
         raise ValueError("Quantidade de clipes diverge do indice de embeddings.")
+    leakage = clips.groupby("source_group_id")["split"].nunique()
+    if (leakage > 1).any():
+        examples = ", ".join(map(str, leakage[leakage > 1].index[:5]))
+        raise ValueError(
+            "Vazamento de grupos entre splits; exemplos: " + examples
+        )
     return clips
 
 
@@ -778,9 +923,11 @@ def _fingerprint(
         "head": head,
         "seed": seed,
         "conditions": conditions,
+        "validation_protocol": "explicit group-safe validation split",
+        "decision_thresholds": "per-class F1 optimum on validation only",
+        "sklearn_internal_early_stopping": False,
     }
-    if not early_stopping:
-        metadata["early_stopping"] = False
+    metadata["early_stopping_requested"] = bool(early_stopping)
     encoded = json.dumps(metadata, ensure_ascii=False, sort_keys=True).encode("utf-8")
     return hashlib.sha256(encoded).hexdigest(), metadata
 
@@ -984,14 +1131,13 @@ def _classify_dataset(
     x_original = _load_embeddings(str(baseline["embeddings_file"]), len(clips))
     torch_module = None
     torch_device = None
-    torch_train = torch_predict = None
+    torch_train = None
     if head == "mlp":
         try:
             import torch
 
             if torch.cuda.is_available():
                 from codeco.benchmark.birdnet_classification_benchmark import (
-                    _torch_predict as benchmark_torch_predict,
                     _torch_train as benchmark_torch_train,
                 )
 
@@ -1004,7 +1150,6 @@ def _classify_dataset(
                 torch.backends.cuda.matmul.allow_tf32 = False
                 torch_module = torch
                 torch_train = benchmark_torch_train
-                torch_predict = benchmark_torch_predict
                 LOGGER.info(
                     "Backend: PyTorch/CUDA | GPU %d: %s.",
                     gpu,
@@ -1014,9 +1159,9 @@ def _classify_dataset(
             LOGGER.warning("PyTorch/CUDA indisponivel; usando fallback CPU.")
 
     if plot_training_curves and torch_module is None:
-        raise RuntimeError(
-            "--plot-training-curves exige o backend PyTorch/CUDA para registrar "
-            "loss de treino e validacao em todas as epocas."
+        LOGGER.warning(
+            "Curvas sklearn registram loss de treino; desempenho de validacao "
+            "e calculado separadamente no split explicito."
         )
 
     LOGGER.info("Treinando %s na baseline: %d clipes.", head.upper(), int(train.sum()))
@@ -1029,13 +1174,15 @@ def _classify_dataset(
             train,
             torch_device,
             seed,
-            early_stopping=early_stopping,
+            # Same rule as _build_classifier: no random validation split drawn
+            # from training; thresholds use the explicit validation split.
+            early_stopping=False,
             monitor=validation if plot_training_curves else None,
         )
         baseline_training_epochs = _torch_training_epochs(classifier)
         baseline_loss_curves = _torch_loss_curves(classifier)
         baseline_validation_loss_curves = _torch_validation_loss_curves(classifier)
-        predict = lambda values: torch_predict(
+        predict_proba = lambda values: _torch_predict_probabilities(
             torch_module, classifier, values, torch_device
         )
     else:
@@ -1045,19 +1192,28 @@ def _classify_dataset(
         baseline_training_epochs = _sklearn_training_epochs(classifier, head)
         baseline_loss_curves = _sklearn_loss_curves(classifier, head)
         baseline_validation_loss_curves = []
-        predict = classifier.predict
+        predict_proba = lambda values: _predict_probabilities(classifier, values)
         physical_cores = max(1, psutil.cpu_count(logical=False) or 1)
         LOGGER.info(
             "Backend: CPU | pool de %d processos (nucleos fisicos).", physical_cores
         )
     validation_started = time.perf_counter()
-    validation_prediction = predict(x_original[validation])
+    validation_probabilities = predict_proba(x_original[validation])
+    baseline_thresholds = _tune_thresholds(
+        y_all[validation], validation_probabilities
+    )
+    validation_prediction = _apply_thresholds(
+        validation_probabilities, baseline_thresholds
+    )
     validation_inference_seconds = time.perf_counter() - validation_started
 
     baseline_key = ("baseline", "orig", "clean_to_clean")
     processed = 0
     baseline_test_started = time.perf_counter()
-    baseline_test_prediction = predict(x_original[test])
+    baseline_test_probabilities = predict_proba(x_original[test])
+    baseline_test_prediction = _apply_thresholds(
+        baseline_test_probabilities, baseline_thresholds
+    )
     baseline_test_inference_seconds = time.perf_counter() - baseline_test_started
     baseline_processed = baseline_key not in results
     if baseline_key not in results:
@@ -1074,13 +1230,31 @@ def _classify_dataset(
                 "embedding_cosine_mean": 1.0,
                 "embedding_correlation_mean": 1.0,
             },
-            _classification_metrics(y_all[test], baseline_test_prediction),
+            {
+                **_classification_metrics(y_all[test], baseline_test_prediction),
+                **_threshold_summary(baseline_thresholds),
+            },
         )
         _checkpoint_result(connection, fingerprint, result)
         results[baseline_key] = result
         _atomic_npy(
             multilabel_confusion_matrix(y_all[test], baseline_test_prediction),
             cache / "cm_baseline_orig.npy",
+        )
+        _atomic_npz(
+            cache / "probabilities_baseline_orig.npz",
+            dataset=np.asarray(dataset),
+            foundation_model=np.asarray(foundation_model),
+            head=np.asarray(head),
+            codec=np.asarray("baseline"),
+            setting=np.asarray("orig"),
+            validation=validation_probabilities,
+            test=baseline_test_probabilities,
+            thresholds=baseline_thresholds,
+            y_validation=y_all[validation],
+            y_test=y_all[test],
+            test_groups=clips.loc[test, "source_group_id"].astype(str).to_numpy(dtype=str),
+            classes=np.asarray(binarizer.classes_, dtype=str),
         )
         processed += 1
         _write_available_results(results, expected, output)
@@ -1171,6 +1345,9 @@ def _classify_dataset(
         matched_validation_prediction,
         matched_prediction,
         timings,
+        real_probabilities=None,
+        matched_probabilities=None,
+        matched_thresholds=None,
     ) -> None:
         nonlocal processed
         real_key = (str(row.codec), str(row.setting), "train_orig_test_comp")
@@ -1186,7 +1363,10 @@ def _classify_dataset(
                 str(row.setting),
                 "train_orig_test_comp",
                 preservation,
-                _classification_metrics(y_all[test], real_prediction),
+                {
+                    **_classification_metrics(y_all[test], real_prediction),
+                    **_threshold_summary(baseline_thresholds),
+                },
             )
             _checkpoint_result(connection, fingerprint, result)
             results[real_key] = result
@@ -1208,11 +1388,41 @@ def _classify_dataset(
                 str(row.setting),
                 "train_comp_test_comp",
                 preservation,
-                _classification_metrics(y_all[test], matched_prediction),
+                {
+                    **_classification_metrics(y_all[test], matched_prediction),
+                    **_threshold_summary(
+                        baseline_thresholds
+                        if matched_thresholds is None
+                        else matched_thresholds
+                    ),
+                },
             )
             _checkpoint_result(connection, fingerprint, result)
             results[matched_key] = result
             processed += 1
+        safe = hashlib.sha256(
+            f"{row.codec}\0{row.setting}".encode("utf-8")
+        ).hexdigest()[:12]
+        if real_probabilities is not None and matched_probabilities is not None:
+            _atomic_npz(
+                cache / f"probabilities_{row.codec}_{safe}.npz",
+                dataset=np.asarray(dataset),
+                foundation_model=np.asarray(foundation_model),
+                head=np.asarray(head),
+                codec=np.asarray(str(row.codec)),
+                setting=np.asarray(str(row.setting)),
+                clean_to_compressed=np.asarray(real_probabilities),
+                matched=np.asarray(matched_probabilities),
+                clean_thresholds=baseline_thresholds,
+                matched_thresholds=(
+                    baseline_thresholds
+                    if matched_thresholds is None
+                    else np.asarray(matched_thresholds)
+                ),
+                y_test=y_all[test],
+                test_groups=clips.loc[test, "source_group_id"].astype(str).to_numpy(dtype=str),
+                classes=np.asarray(binarizer.classes_, dtype=str),
+            )
         _write_available_results(results, expected, output)
         number = condition_numbers[(str(row.codec), str(row.setting))]
         condition_id, family, condition_name, role = _experimental_condition(
@@ -1364,6 +1574,7 @@ def _classify_dataset(
                     task_queues[gpu],
                     completed_queue,
                     baseline_for_workers,
+                    baseline_thresholds,
                     y_all,
                     train,
                     validation,
@@ -1426,6 +1637,9 @@ def _classify_dataset(
                     data["matched_validation_prediction"],
                     data["matched_prediction"],
                     data,
+                    real_probabilities=data["real_probabilities"],
+                    matched_probabilities=data["matched_probabilities"],
+                    matched_thresholds=data["matched_thresholds"],
                 )
                 progress.set_postfix_str(
                     f"GPU {data['gpu']} | {str(row.codec).upper()} | {row.setting}"
@@ -1455,7 +1669,8 @@ def _classify_dataset(
             x_compressed = _load_embeddings(str(row.embeddings_file), len(clips))
             preservation = _embedding_preservation(x_original[test], x_compressed[test])
             started = time.perf_counter()
-            real_prediction = predict(x_compressed[test])
+            real_probabilities = predict_proba(x_compressed[test])
+            real_prediction = _apply_thresholds(real_probabilities, baseline_thresholds)
             real_inference_seconds = time.perf_counter() - started
             matched, matched_training_seconds = torch_train(
                 torch_module,
@@ -1464,19 +1679,28 @@ def _classify_dataset(
                 train,
                 torch_device,
                 seed,
-                early_stopping=early_stopping,
+                early_stopping=False,
                 monitor=validation if plot_training_curves else None,
             )
             training_epochs = _torch_training_epochs(matched)
             loss_curves = _torch_loss_curves(matched)
             validation_loss_curves = _torch_validation_loss_curves(matched)
             started = time.perf_counter()
-            matched_prediction = torch_predict(
+            matched_validation_probabilities = _torch_predict_probabilities(
+                torch_module, matched, x_compressed[validation], torch_device
+            )
+            matched_thresholds = _tune_thresholds(
+                y_all[validation], matched_validation_probabilities
+            )
+            matched_probabilities = _torch_predict_probabilities(
                 torch_module, matched, x_compressed[test], torch_device
             )
+            matched_prediction = _apply_thresholds(
+                matched_probabilities, matched_thresholds
+            )
             matched_inference_seconds = time.perf_counter() - started
-            matched_validation_prediction = torch_predict(
-                torch_module, matched, x_compressed[validation], torch_device
+            matched_validation_prediction = _apply_thresholds(
+                matched_validation_probabilities, matched_thresholds
             )
             save_condition(
                 row,
@@ -1492,6 +1716,9 @@ def _classify_dataset(
                     "loss_curves": loss_curves,
                     "validation_loss_curves": validation_loss_curves,
                 },
+                real_probabilities=real_probabilities,
+                matched_probabilities=matched_probabilities,
+                matched_thresholds=matched_thresholds,
             )
             progress.update()
     elif pending_rows:
@@ -1504,6 +1731,7 @@ def _classify_dataset(
                 str(source.iloc[0]["clips_file"]),
                 str(baseline["embeddings_file"]),
                 classifier,
+                baseline_thresholds,
                 head,
                 seed,
                 early_stopping,
@@ -1530,6 +1758,9 @@ def _classify_dataset(
                     data["matched_validation_prediction"],
                     data["matched_prediction"],
                     data,
+                    real_probabilities=data["real_probabilities"],
+                    matched_probabilities=data["matched_probabilities"],
+                    matched_thresholds=data["matched_thresholds"],
                 )
                 progress.set_postfix_str(f"{str(row.codec).upper()} | {row.setting}")
                 progress.update()

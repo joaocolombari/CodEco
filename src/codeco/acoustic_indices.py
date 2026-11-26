@@ -5,9 +5,11 @@ from __future__ import annotations
 import numpy as np
 from scipy.signal.windows import hann
 
+from codeco.protocol import PROTOCOL
 
-VERSION = "1.0.0"
-SR = 48_000
+
+VERSION = "1.1.0"
+SR = PROTOCOL.sample_rate_hz
 N_FFT = 1024
 HOP = 512
 EPS = 1e-12
@@ -41,10 +43,11 @@ def _entropy(values: np.ndarray) -> float:
     if total <= 0 or len(values) <= 1:
         return 0.0
     probabilities = values / total
-    probabilities = probabilities[probabilities > 0]
-    if len(probabilities) <= 1:
-        return 0.0
-    return float(-np.sum(probabilities * np.log(probabilities)) / np.log(len(probabilities)))
+    positive = probabilities[probabilities > 0]
+    # The zero bins contribute exactly zero to Shannon entropy but remain part
+    # of the fixed support used for normalization.  Normalizing by the number
+    # of non-zero bins made ADI/Hf depend spuriously on codec-created zeros.
+    return float(-np.sum(positive * np.log(positive)) / np.log(len(probabilities)))
 
 
 def _gini(values: np.ndarray) -> float:

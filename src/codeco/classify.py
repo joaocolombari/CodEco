@@ -72,6 +72,22 @@ def _run_perch(arguments: ClassificationRun) -> list[Path]:
     )
 
 
+CLASSIFICATION_HEADS_FILE_NAME = "classification_heads.json"
+VALID_HEADS = ("linear", "mlp")
+
+
+def classification_heads() -> tuple[str, ...]:
+    """Heads trained by the pipeline, read from ``config/classification_heads.json``."""
+    import json
+
+    path = CodecoPath.discover().config / CLASSIFICATION_HEADS_FILE_NAME
+    heads = tuple(json.loads(path.read_text(encoding="utf-8"))["classification"]["heads"])
+    invalid = sorted(set(heads) - set(VALID_HEADS))
+    if not heads or invalid or len(set(heads)) != len(heads):
+        raise ValueError(f"Cabecas de classificacao invalidas em {path}: {list(heads)}")
+    return heads
+
+
 BACKENDS = {
     "birdnet": ClassificationBackend("birdnet", _run_birdnet, migrated=True),
     "perch": ClassificationBackend("perch", _run_perch, migrated=True),

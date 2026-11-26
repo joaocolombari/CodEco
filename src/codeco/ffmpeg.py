@@ -26,13 +26,14 @@ import numpy as np
 import pandas as pd
 import psutil
 import soundfile as sf
-from scipy import signal
 from tqdm import tqdm
 
 from codeco.acoustic_indices import VERSION as ACOUSTIC_INDICES_VERSION
 from codeco.acoustic_indices import acoustic_indices_v1
+from codeco.alignment import normalized_cross_correlation_align
 from codeco.codeco_path import CodecoPath
-from codeco.environment import EnvironmentState
+from codeco.environment import EnvironmentState, _ffmpeg_installation as _environment_ffmpeg
+from codeco.codec_config import codec_config
 from codeco.prepare_table import (
     BIT_DEPTH,
     CLIP_SECONDS,
@@ -83,27 +84,31 @@ class EvaluationTask:
         return self.dataset, self.clip_id, self.codec, self.setting
 
 
-CONDITIONS = (
-    CodecCondition("baseline", "orig", "", ()),
-    CodecCondition("flac", "compression_level=5", "flac", ("-c:a", "flac", "-compression_level", "5")),
-    CodecCondition("mp3", "bitrate_kbps=32", "mp3", ("-c:a", "libmp3lame", "-b:a", "32k")),
-    CodecCondition("mp3", "bitrate_kbps=64", "mp3", ("-c:a", "libmp3lame", "-b:a", "64k")),
-    CodecCondition("mp3", "bitrate_kbps=128", "mp3", ("-c:a", "libmp3lame", "-b:a", "128k")),
-    CodecCondition("aac", "bitrate_kbps=64", "m4a", ("-c:a", "aac", "-profile:a", "aac_low", "-b:a", "64k")),
-    CodecCondition("aac", "bitrate_kbps=96", "m4a", ("-c:a", "aac", "-profile:a", "aac_low", "-b:a", "96k")),
-    CodecCondition("aac", "bitrate_kbps=128", "m4a", ("-c:a", "aac", "-profile:a", "aac_low", "-b:a", "128k")),
-    CodecCondition("opus", "bitrate_kbps=12", "opus", ("-c:a", "libopus", "-b:a", "12k", "-vbr", "on", "-application", "audio")),
-    CodecCondition("opus", "bitrate_kbps=24", "opus", ("-c:a", "libopus", "-b:a", "24k", "-vbr", "on", "-application", "audio")),
-    CodecCondition("opus", "bitrate_kbps=48", "opus", ("-c:a", "libopus", "-b:a", "48k", "-vbr", "on", "-application", "audio")),
-    CodecCondition("opus", "bitrate_kbps=96", "opus", ("-c:a", "libopus", "-b:a", "96k", "-vbr", "on", "-application", "audio")),
-    CodecCondition("lc3", "bitrate_kbps=32", "lc3", ("-c:a", "liblc3", "-b:a", "32k", "-frame_duration", "10", "-high_resolution", "0")),
-    CodecCondition("lc3", "bitrate_kbps=64", "lc3", ("-c:a", "liblc3", "-b:a", "64k", "-frame_duration", "10", "-high_resolution", "0")),
-    CodecCondition("lc3", "bitrate_kbps=96", "lc3", ("-c:a", "liblc3", "-b:a", "96k", "-frame_duration", "10", "-high_resolution", "0")),
-)
+def _conditions() -> tuple[CodecCondition, ...]:
+    config = codec_config()
+    rows = [CodecCondition("baseline", "orig", "", ())]
+    for level in config["flac"]["compression_levels"]:
+        rows.append(CodecCondition("flac", f"compression_level={level}", "flac", ("-c:a", "flac", "-compression_level", str(level))))
+    for codec, encoder, extension in (("mp3", "libmp3lame", "mp3"), ("aac", "aac", "m4a"), ("opus", "libopus", "opus"), ("lc3", "liblc3", "lc3")):
+        for bitrate in config[codec]["bitrates_kbps"]:
+            arguments = ["-c:a", encoder]
+            if codec == "aac":
+                arguments += ["-profile:a", config[codec]["profile"]]
+            arguments += ["-b:a", f"{bitrate}k"]
+            if codec == "opus":
+                arguments += ["-vbr", "on" if config[codec]["vbr"] else "off", "-application", config[codec]["application"]]
+            if codec == "lc3":
+                arguments += ["-frame_duration", str(config[codec]["frame_duration_ms"]), "-high_resolution", "1" if config[codec]["high_resolution"] else "0"]
+            rows.append(CodecCondition(codec, f"bitrate_kbps={bitrate}", extension, tuple(arguments)))
+    return tuple(rows)
+
+
+CONDITIONS = _conditions()
 
 RESULT_COLUMNS = (
     "dataset", "clip_id", "codec", "setting", "nbytes", "bitrate_kbps",
-    "compression_ratio", "lag", "snr_db", "mel_mae_db", "mel_rmse_db",
+    "compression_ratio", "lag", "lag_samples", "lag_seconds", "alignment_score",
+    "snr_db", "mel_mae_db", "mel_rmse_db", "raw_snr_db", "raw_mel_rmse_db",
     "mel_ssim", "mel_cosine", "idx_ACI", "idx_ADI", "idx_AEI", "idx_Ht",
     "idx_Hf", "idx_H", "idx_BIO_2_24", "idx_BIO_2_8", "idx_NDSI_CLASSIC",
     "idx_NDSI_EXTENDED",
@@ -156,27 +161,12 @@ def _physical_cores() -> int:
     return max(1, psutil.cpu_count(logical=False) or 1)
 
 
-def _ffmpeg_installation() -> tuple[Path, str]:
-    local = Path.home() / ".local" / "ffmpeg-lc3" / "9.0.2" / "bin" / "ffmpeg"
-    discovered = str(local) if platform.system() == "Linux" and local.is_file() else shutil.which("ffmpeg")
-    if discovered is None:
-        raise RuntimeError("FFmpeg nao encontrado no PATH.")
-    executable = Path(discovered).resolve()
-    version_process = subprocess.run(
-        [str(executable), "-version"], check=True, capture_output=True, text=True
+def _ffmpeg_installation() -> tuple[Path, Path, str]:
+    installation = _environment_ffmpeg(platform.system())
+    versions = (
+        f"system={installation.version}; lc3={installation.lc3_version}"
     )
-    version_line = version_process.stdout.splitlines()[0]
-    encoders = subprocess.run(
-        [str(executable), "-hide_banner", "-encoders"],
-        check=True,
-        capture_output=True,
-        text=True,
-    ).stdout
-    required = ("aac", "flac", "libmp3lame", "libopus", "liblc3")
-    missing = [encoder for encoder in required if encoder not in encoders]
-    if missing:
-        raise RuntimeError(f"Encoders FFmpeg ausentes: {', '.join(missing)}")
-    return executable, version_line
+    return installation.executable, installation.lc3_executable, versions
 
 
 def _load_clip(path: str, start: float) -> np.ndarray:
@@ -218,17 +208,9 @@ def _load_task_clip(task: EvaluationTask) -> np.ndarray:
 
 
 def _align_to_reference(reference: np.ndarray, decoded: np.ndarray) -> tuple[np.ndarray, int]:
-    length = len(reference)
-    decoded = np.pad(decoded, (0, max(0, length + MAX_LAG - len(decoded))))
-    segment_length = min(length, SAMPLE_RATE)
-    correlation = signal.correlate(
-        decoded[: segment_length + MAX_LAG],
-        reference[:segment_length],
-        mode="valid",
-        method="fft",
-    )
-    lag = int(np.argmax(correlation))
-    return decoded[lag : lag + length].astype(np.float32), lag
+    """Compatibility wrapper around the signed normalized implementation."""
+    result = normalized_cross_correlation_align(reference, decoded, MAX_LAG)
+    return result.audio, result.lag_samples
 
 
 def _run_ffmpeg(command: list[str]) -> None:
@@ -248,11 +230,16 @@ def _baseline_result(task: EvaluationTask, audio: np.ndarray) -> dict[str, objec
         "bitrate_kbps": audio.size * BIT_DEPTH / CLIP_SECONDS / 1000,
         "compression_ratio": 1.0,
         "lag": 0,
+        "lag_samples": 0,
+        "lag_seconds": 0.0,
+        "alignment_score": 1.0,
         "snr_db": float("inf"),
         "mel_mae_db": 0.0,
         "mel_rmse_db": 0.0,
         "mel_ssim": 1.0,
         "mel_cosine": 1.0,
+        "raw_snr_db": float("inf"),
+        "raw_mel_rmse_db": 0.0,
         **acoustic_indices_v1(audio),
     }
 
@@ -287,7 +274,14 @@ def _evaluate_task(task: EvaluationTask) -> dict[str, object]:
         decoded, _ = sf.read(decoded_path, dtype="float32", always_2d=False)
     if decoded.ndim > 1:
         decoded = decoded.mean(axis=1)
-    aligned, lag = _align_to_reference(reference, decoded)
+    from codeco.metrics import reconstruction_metrics
+
+    raw = decoded[: len(reference)]
+    if len(raw) < len(reference):
+        raw = np.pad(raw, (0, len(reference) - len(raw)))
+    raw_metrics = reconstruction_metrics(reference, raw)
+    alignment = normalized_cross_correlation_align(reference, decoded, MAX_LAG)
+    aligned, lag = alignment.audio, alignment.lag_samples
     return {
         "dataset": task.dataset,
         "clip_id": task.clip_id,
@@ -297,6 +291,11 @@ def _evaluate_task(task: EvaluationTask) -> dict[str, object]:
         "bitrate_kbps": encoded_bytes * 8 / CLIP_SECONDS / 1000,
         "compression_ratio": (reference.size * BIT_DEPTH // 8) / encoded_bytes,
         "lag": lag,
+        "lag_samples": lag,
+        "lag_seconds": lag / SAMPLE_RATE,
+        "alignment_score": alignment.score,
+        "raw_snr_db": raw_metrics["snr_db"],
+        "raw_mel_rmse_db": raw_metrics["mel_rmse_db"],
         **reconstruction_metrics(reference, aligned),
     }
 
@@ -306,10 +305,13 @@ def _select_clips(
     datasets: Sequence[str] | None,
     max_per_dataset: int | None,
     seed: int,
+    split: str | None = None,
 ) -> pd.DataFrame:
     table = baseline.table.to_pandas()
     if datasets is not None:
         table = table[table["dataset"].isin(datasets)].copy()
+    if split is not None:
+        table = table[table["split"] == split].copy()
     selected = table[table["audio_available"].astype(bool)].copy()
     if selected.empty:
         raise ValueError("Nenhum clipe disponivel.")
@@ -356,7 +358,11 @@ def _select_clips(
     return result
 
 
-def _build_tasks(clips: pd.DataFrame, ffmpeg: Path) -> list[EvaluationTask]:
+def _build_tasks(
+    clips: pd.DataFrame,
+    ffmpeg: Path,
+    lc3_ffmpeg: Path,
+) -> list[EvaluationTask]:
     tasks = []
     ordinal = 0
     for dataset, dataset_clips in clips.groupby("dataset", sort=False):
@@ -373,7 +379,7 @@ def _build_tasks(clips: pd.DataFrame, ffmpeg: Path) -> list[EvaluationTask]:
                         setting=condition.setting,
                         extension=condition.extension,
                         encoder_arguments=condition.encoder_arguments,
-                        ffmpeg=str(ffmpeg),
+                        ffmpeg=str(lc3_ffmpeg if condition.codec == "lc3" else ffmpeg),
                         pcm_file=(
                             None if pd.isna(row.pcm_file) else str(row.pcm_file)
                         ),
@@ -736,6 +742,7 @@ def run(
     datasets: Sequence[str] | None = None,
     max_clips_per_dataset: int | None = DEFAULT_MAX_CLIPS_PER_DATASET,
     seed: int = DEFAULT_SEED,
+    split: str | None = None,
     checkpoint_path: Path | None = None,
     output_path: Path | None = None,
     log_path: Path | None = None,
@@ -750,18 +757,23 @@ def run(
 
     _section("Preparacao da execucao")
     if environment is None:
-        ffmpeg, ffmpeg_version = _ffmpeg_installation()
+        ffmpeg, lc3_ffmpeg, ffmpeg_version = _ffmpeg_installation()
     else:
         ffmpeg = environment.system.ffmpeg.executable
-        ffmpeg_version = environment.system.ffmpeg.version
+        lc3_ffmpeg = environment.system.ffmpeg.lc3_executable
+        ffmpeg_version = (
+            f"system={environment.system.ffmpeg.version}; "
+            f"lc3={environment.system.ffmpeg.lc3_version}"
+        )
     workers = _physical_cores()
     clips = _select_clips(
         baseline,
         datasets,
         max_clips_per_dataset,
         seed,
+        split,
     )
-    tasks = _build_tasks(clips, ffmpeg)
+    tasks = _build_tasks(clips, ffmpeg, lc3_ffmpeg)
     persisted_selection = clips[
         ["dataset", "clip_id", "path", "start", "pcm_file", "pcm_row"]
     ].copy()
@@ -782,7 +794,7 @@ def run(
         "manifest_sha256": baseline.manifest_sha256,
         "selection_sha256": selection_sha256,
         "datasets": list(dict.fromkeys(clips["dataset"].astype(str))),
-        "split": None,
+        "split": split,
         "max_clips_per_dataset": max_clips_per_dataset,
         "seed": seed,
         "conditions": [asdict(condition) for condition in CONDITIONS],

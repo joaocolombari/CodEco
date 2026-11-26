@@ -1,0 +1,7 @@
+{
+  "codec_evaluation": {
+    "split": "test",
+    "max_clips_per_dataset": 200,
+    "seed": 42
+  }
+}

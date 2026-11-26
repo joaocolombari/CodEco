@@ -28,13 +28,14 @@ import numpy as np
 import pandas as pd
 import psutil
 import soundfile as sf
-from scipy import signal
 from tqdm import tqdm
 
 from codeco.acoustic_indices import VERSION as ACOUSTIC_INDICES_VERSION
 from codeco.acoustic_indices import acoustic_indices_v1
+from codeco.alignment import normalized_cross_correlation_align
 from codeco.codeco_path import CodecoPath
 from codeco.environment import EnvironmentState, configure_model_environment
+from codeco.codec_config import codec_config
 from codeco.prepare_table import (
     BIT_DEPTH,
     CLIP_SECONDS,
@@ -48,7 +49,7 @@ from codeco.prepare_table import (
 
 PHASE = "encodec_metrics"
 IMPLEMENTATION_VERSION = "1"
-MODEL_NAME = "facebook/encodec_48khz"
+MODEL_NAME = codec_config()["encodec"]["model"]
 CLIP_SAMPLES = round(SAMPLE_RATE * CLIP_SECONDS)
 MAX_LAG = 4096
 CHECKPOINT_SIZE = 64
@@ -116,15 +117,20 @@ class PipelineStats:
     gpu_rows: tuple[dict[str, object], ...]
 
 
-CONDITIONS = (
-    EncodecCondition("encodec", "bandwidth_kbps=6,model=encodec_48khz", 6.0),
-    EncodecCondition("encodec", "bandwidth_kbps=12,model=encodec_48khz", 12.0),
-    EncodecCondition("encodec", "bandwidth_kbps=24,model=encodec_48khz", 24.0),
+_ENCODEC_CONFIG = codec_config()["encodec"]
+CONDITIONS = tuple(
+    EncodecCondition(
+        "encodec",
+        f"bandwidth_kbps={bitrate},model=encodec_48khz",
+        float(bitrate),
+    )
+    for bitrate in _ENCODEC_CONFIG["bitrates_kbps"]
 )
 
 RESULT_COLUMNS = (
     "dataset", "clip_id", "codec", "setting", "nbytes", "bitrate_kbps",
-    "compression_ratio", "lag", "snr_db", "mel_mae_db", "mel_rmse_db",
+    "compression_ratio", "lag", "lag_samples", "lag_seconds", "alignment_score",
+    "snr_db", "mel_mae_db", "mel_rmse_db", "raw_snr_db", "raw_mel_rmse_db",
     "mel_ssim", "mel_cosine", "idx_ACI", "idx_ADI", "idx_AEI", "idx_Ht",
     "idx_Hf", "idx_H", "idx_BIO_2_24", "idx_BIO_2_8", "idx_NDSI_CLASSIC",
     "idx_NDSI_EXTENDED",
@@ -240,17 +246,8 @@ def _load_task_clip(task: EvaluationTask) -> np.ndarray:
 
 
 def _align_to_reference(reference: np.ndarray, decoded: np.ndarray) -> tuple[np.ndarray, int]:
-    length = len(reference)
-    decoded = np.pad(decoded, (0, max(0, length + MAX_LAG - len(decoded))))
-    segment_length = min(length, SAMPLE_RATE)
-    correlation = signal.correlate(
-        decoded[: segment_length + MAX_LAG],
-        reference[:segment_length],
-        mode="valid",
-        method="fft",
-    )
-    lag = int(np.argmax(correlation))
-    return decoded[lag : lag + length].astype(np.float32), lag
+    result = normalized_cross_correlation_align(reference, decoded, MAX_LAG)
+    return result.audio, result.lag_samples
 
 
 def _baseline_result(task: EvaluationTask, audio: np.ndarray) -> dict[str, object]:
@@ -263,11 +260,16 @@ def _baseline_result(task: EvaluationTask, audio: np.ndarray) -> dict[str, objec
         "bitrate_kbps": audio.size * BIT_DEPTH / CLIP_SECONDS / 1000,
         "compression_ratio": 1.0,
         "lag": 0,
+        "lag_samples": 0,
+        "lag_seconds": 0.0,
+        "alignment_score": 1.0,
         "snr_db": float("inf"),
         "mel_mae_db": 0.0,
         "mel_rmse_db": 0.0,
         "mel_ssim": 1.0,
         "mel_cosine": 1.0,
+        "raw_snr_db": float("inf"),
+        "raw_mel_rmse_db": 0.0,
         **acoustic_indices_v1(audio),
     }
 
@@ -292,7 +294,14 @@ def _metric_worker(work: MetricWork) -> MetricOutcome:
                     del mapped
                 if reference is None or decoded is None or work.nbytes is None:
                     raise RuntimeError("Reconstrucao ENCODEC incompleta para as metricas.")
-                aligned, lag = _align_to_reference(reference, decoded)
+                raw = decoded[: len(reference)]
+                if len(raw) < len(reference):
+                    raw = np.pad(raw, (0, len(reference) - len(raw)))
+                raw_metrics = reconstruction_metrics(reference, raw)
+                alignment = normalized_cross_correlation_align(
+                    reference, decoded, MAX_LAG
+                )
+                aligned, lag = alignment.audio, alignment.lag_samples
                 result = {
                     "dataset": work.task.dataset,
                     "clip_id": work.task.clip_id,
@@ -304,6 +313,11 @@ def _metric_worker(work: MetricWork) -> MetricOutcome:
                         reference.size * BIT_DEPTH // 8
                     ) / work.nbytes,
                     "lag": lag,
+                    "lag_samples": lag,
+                    "lag_seconds": lag / SAMPLE_RATE,
+                    "alignment_score": alignment.score,
+                    "raw_snr_db": raw_metrics["snr_db"],
+                    "raw_mel_rmse_db": raw_metrics["mel_rmse_db"],
                     **reconstruction_metrics(reference, aligned),
                 }
             return MetricOutcome(
@@ -342,11 +356,18 @@ def _encodec_chunk(
     references = [_load_task_clip(task) for task in tasks]
     batch = np.stack(references)
     input_values = torch_module.from_numpy(batch)[:, None, :]
-    input_values = input_values.repeat(1, channels, 1).pin_memory()
-    torch_module.cuda.reset_peak_memory_stats(device)
-    base_allocated = torch_module.cuda.memory_allocated(device)
-    free_before, total_memory = torch_module.cuda.mem_get_info(device)
-    input_values = input_values.to(device, non_blocking=True)
+    input_values = input_values.repeat(1, channels, 1)
+    is_cuda = getattr(device, "type", str(device).split(":")[0]) == "cuda"
+    if is_cuda:
+        input_values = input_values.pin_memory()
+        torch_module.cuda.reset_peak_memory_stats(device)
+        base_allocated = torch_module.cuda.memory_allocated(device)
+        free_before, total_memory = torch_module.cuda.mem_get_info(device)
+    else:
+        base_allocated = 0
+        free_before = psutil.virtual_memory().available
+        total_memory = psutil.virtual_memory().total
+    input_values = input_values.to(device, non_blocking=is_cuda)
     with torch_module.inference_mode():
         encoded = model.encode(
             input_values,
@@ -371,14 +392,17 @@ def _encodec_chunk(
         )
         nbytes = int(math.ceil(code_bits / 8)) + 4 * scale_values
         items.append((task, references[index], decoded[index], nbytes))
+    allocated = torch_module.cuda.memory_allocated(device) if is_cuda else 0
+    reserved = torch_module.cuda.memory_reserved(device) if is_cuda else 0
+    peak = torch_module.cuda.max_memory_allocated(device) if is_cuda else 0
     statistics = {
-        "allocated_gib": torch_module.cuda.memory_allocated(device) / 1024**3,
-        "reserved_gib": torch_module.cuda.memory_reserved(device) / 1024**3,
-        "peak_gib": torch_module.cuda.max_memory_allocated(device) / 1024**3,
+        "allocated_gib": allocated / 1024**3,
+        "reserved_gib": reserved / 1024**3,
+        "peak_gib": peak / 1024**3,
         "total_gib": total_memory / 1024**3,
         "base_bytes": float(base_allocated),
         "free_before_bytes": float(free_before),
-        "peak_bytes": float(torch_module.cuda.max_memory_allocated(device)),
+        "peak_bytes": float(peak),
     }
     del decoded, encoded, codes, scales, input_values, batch
     return items, statistics
@@ -599,10 +623,13 @@ def _select_clips(
     datasets: Sequence[str] | None,
     max_per_dataset: int | None,
     seed: int,
+    split: str | None = None,
 ) -> pd.DataFrame:
     table = baseline.table.to_pandas()
     if datasets is not None:
         table = table[table["dataset"].isin(datasets)].copy()
+    if split is not None:
+        table = table[table["split"] == split].copy()
     selected = table[table["audio_available"].astype(bool)].copy()
     if selected.empty:
         raise ValueError("Nenhum clipe disponivel.")
@@ -894,11 +921,83 @@ def _clear_spool_directory(path: Path, remove_directory: bool = False) -> None:
 def _cuda_device_count() -> int:
     import torch
 
-    if not torch.cuda.is_available() or torch.cuda.device_count() < 1:
-        raise RuntimeError(
-            "Nenhuma GPU CUDA esta disponivel. A fase ENCODEC nao usa fallback para CPU."
-        )
-    return int(torch.cuda.device_count())
+    return int(torch.cuda.device_count()) if torch.cuda.is_available() else 0
+
+
+def _run_cpu_pipeline(
+    connection: sqlite3.Connection,
+    fingerprint: str,
+    tasks: Sequence[EvaluationTask],
+    completed_keys: set[tuple[str, str, str, str]],
+    model_name: str,
+    batch_size: int,
+) -> PipelineStats:
+    """Portable EnCodec fallback for hosts without CUDA.
+
+    It deliberately favors traceability over throughput. Checkpoint semantics
+    and output rows are identical to the CUDA path.
+    """
+    import torch
+    from transformers import EncodecModel
+
+    pending = [task for task in tasks if task.key not in completed_keys]
+    started = time.perf_counter()
+    model = EncodecModel.from_pretrained(model_name).to("cpu").eval()
+    startup = time.perf_counter() - started
+    codebook_bits = int(math.ceil(math.log2(model.config.codebook_size)))
+    channels = int(model.config.audio_channels)
+    outcomes: list[MetricOutcome] = []
+    processing_started = time.perf_counter()
+    baseline = [task for task in pending if task.bandwidth_kbps is None]
+    for task in baseline:
+        outcomes.append(_metric_worker(MetricWork(task=task)))
+    effective_batch = max(1, min(batch_size, 4))
+    for bandwidth in tuple(float(value) for value in _ENCODEC_CONFIG["bitrates_kbps"]):
+        condition = [task for task in pending if task.bandwidth_kbps == bandwidth]
+        for start in tqdm(
+            range(0, len(condition), effective_batch),
+            desc=f"EnCodec CPU {bandwidth:g} kbps",
+            unit="batch",
+            dynamic_ncols=True,
+        ):
+            chunk = condition[start : start + effective_batch]
+            items, _ = _encodec_chunk(
+                model, torch, torch.device("cpu"), chunk, codebook_bits, channels
+            )
+            for task, reference, decoded, nbytes in items:
+                outcomes.append(
+                    _metric_worker(
+                        MetricWork(
+                            task=task,
+                            reference=reference,
+                            decoded=decoded,
+                            nbytes=nbytes,
+                        )
+                    )
+                )
+            if len(outcomes) >= CHECKPOINT_SIZE:
+                failed = [outcome for outcome in outcomes if outcome.error]
+                if failed:
+                    _checkpoint_failure(
+                        connection, fingerprint, [item.task for item in failed], failed[0].error or "unknown"
+                    )
+                    raise RuntimeError(failed[0].error)
+                _checkpoint_results(connection, fingerprint, outcomes)
+                outcomes.clear()
+    if outcomes:
+        failed = [outcome for outcome in outcomes if outcome.error]
+        if failed:
+            _checkpoint_failure(
+                connection, fingerprint, [item.task for item in failed], failed[0].error or "unknown"
+            )
+            raise RuntimeError(failed[0].error)
+        _checkpoint_results(connection, fingerprint, outcomes)
+    return PipelineStats(
+        model_startup_seconds=startup,
+        processing_seconds=time.perf_counter() - processing_started,
+        metric_cpu_seconds=0.0,
+        gpu_rows=(),
+    )
 
 
 def _start_gpu_workers(
@@ -1459,6 +1558,7 @@ def run(
     datasets: Sequence[str] | None = None,
     max_clips_per_dataset: int | None = DEFAULT_MAX_CLIPS_PER_DATASET,
     seed: int = DEFAULT_SEED,
+    split: str | None = None,
     batch_size: int = DEFAULT_BATCH_SIZE,
     gpu_memory_fraction: float = DEFAULT_GPU_MEMORY_FRACTION,
     gpu_prefetch_batches: int = DEFAULT_GPU_PREFETCH_BATCHES,
@@ -1489,6 +1589,7 @@ def run(
         datasets,
         max_clips_per_dataset,
         seed,
+        split,
     )
     tasks = _build_tasks(clips)
     persisted_selection = clips[
@@ -1510,6 +1611,7 @@ def run(
         "manifest_sha256": baseline.manifest_sha256,
         "selection_sha256": _sha256_json(selection_records),
         "datasets": list(dict.fromkeys(clips["dataset"].astype(str))),
+        "split": split,
         "max_clips_per_dataset": max_clips_per_dataset,
         "seed": seed,
         "conditions": [asdict(condition) for condition in CONDITIONS],
@@ -1594,19 +1696,33 @@ def run(
             len(tasks) - len(completed),
         )
         if len(completed) < len(tasks):
-            pipeline_stats = _run_pipeline(
-                connection,
-                fingerprint,
-                tasks,
-                completed,
-                gpu_count,
-                batch_size,
-                gpu_memory_fraction,
-                gpu_prefetch_batches,
-                spool_directory,
-                model_name,
-                metric_workers,
-            )
+            if gpu_count:
+                pipeline_stats = _run_pipeline(
+                    connection,
+                    fingerprint,
+                    tasks,
+                    completed,
+                    gpu_count,
+                    batch_size,
+                    gpu_memory_fraction,
+                    gpu_prefetch_batches,
+                    spool_directory,
+                    model_name,
+                    metric_workers,
+                )
+            else:
+                LOGGER.warning(
+                    "CUDA indisponivel; executando EnCodec em CPU. "
+                    "O resultado e equivalente, mas a execucao sera mais lenta."
+                )
+                pipeline_stats = _run_cpu_pipeline(
+                    connection,
+                    fingerprint,
+                    tasks,
+                    completed,
+                    model_name,
+                    batch_size,
+                )
         else:
             _clear_spool_directory(spool_directory, remove_directory=True)
         export_started = time.perf_counter()

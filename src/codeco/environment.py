@@ -16,11 +16,12 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from codeco.codeco_path import CodecoPath
+from codeco.protocol import PROTOCOL
 
 
 RECOMMENDED_FFMPEG_VERSION = "9.0.2"
-REQUIRED_ENCODERS = frozenset({"aac", "flac", "libmp3lame", "libopus", "liblc3"})
-REQUIRED_DECODERS = frozenset({"liblc3"})
+REQUIRED_ENCODERS = frozenset({"aac", "flac", "libmp3lame", "libopus"})
+REQUIRED_DECODERS = frozenset()
 LOGGER = logging.getLogger("codeco.environment")
 
 
@@ -57,7 +58,7 @@ def _section(name: str) -> None:
 
 
 class SystemDependencyError(RuntimeError):
-    """A required Linux or Windows dependency is missing or incompatible."""
+    """A required system dependency is missing or incompatible."""
 
 
 class VirtualEnvironmentError(RuntimeError):
@@ -68,6 +69,8 @@ class VirtualEnvironmentError(RuntimeError):
 class FFmpegInstallation:
     executable: Path
     version: str
+    lc3_executable: Path
+    lc3_version: str
     encoders: frozenset[str]
     decoders: frozenset[str]
 
@@ -109,6 +112,11 @@ def _installation_request(operating_system: str, detail: str) -> SystemDependenc
             f"Instale FFmpeg {RECOMMENDED_FFMPEG_VERSION} para Windows com AAC, FLAC, "
             "LAME, Opus e Google liblc3 e adicione o diretorio do executavel ao PATH."
         )
+    elif operating_system == "Darwin":
+        instruction = (
+            f"Instale FFmpeg {RECOMMENDED_FFMPEG_VERSION} para macOS com AAC, FLAC, "
+            "LAME, Opus e Google liblc3, ou execute scripts/install_ffmpeg_lc3.sh."
+        )
     else:
         instruction = (
             f"Instale FFmpeg {RECOMMENDED_FFMPEG_VERSION} para Linux com AAC, FLAC, "
@@ -119,9 +127,9 @@ def _installation_request(operating_system: str, detail: str) -> SystemDependenc
 
 def _supported_operating_system() -> str:
     observed = platform.system()
-    if observed not in {"Linux", "Windows"}:
+    if observed not in {"Darwin", "Linux", "Windows"}:
         raise SystemDependencyError(
-            f"Sistema operacional nao suportado: {observed}. Use Linux ou Windows."
+            f"Sistema operacional nao suportado: {observed}."
         )
     return observed
 
@@ -153,14 +161,35 @@ def _uv_installation_instruction(version: str) -> str:
 
 def _uv_executable(paths: CodecoPath) -> tuple[Path, str]:
     required_version = _required_uv_version(paths)
-    candidate = shutil.which("uv")
+    executable_name = "uv.exe" if platform.system() == "Windows" else "uv"
+    virtual_environment_bin = (
+        "Scripts" if platform.system() == "Windows" else "bin"
+    )
+    candidates = [
+        shutil.which("uv"),
+        str(
+            paths.root
+            / ".venv"
+            / virtual_environment_bin
+            / executable_name
+        ),
+        str(Path.home() / ".local" / "bin" / executable_name),
+    ]
+    candidate = next(
+        (
+            Path(value).expanduser()
+            for value in dict.fromkeys(candidates)
+            if value is not None and Path(value).expanduser().is_file()
+        ),
+        None,
+    )
     if candidate is None:
         raise SystemDependencyError(
-            f"uv {required_version} nao foi encontrado no PATH. Instale a versao "
-            "fixada pelo projeto e tente novamente.\n"
+            f"uv {required_version} nao foi encontrado no PATH, em .venv ou em "
+            "~/.local/bin. Instale a versao fixada pelo projeto e tente novamente.\n"
             f"{_uv_installation_instruction(required_version)}"
         )
-    executable = Path(candidate).resolve()
+    executable = candidate.resolve()
     try:
         process = subprocess.run(
             [str(executable), "--version"],
@@ -179,10 +208,14 @@ def _uv_executable(paths: CodecoPath) -> tuple[Path, str]:
             f"{process.stdout.strip()!r}"
         )
     observed_version = match.group(1)
-    if observed_version != required_version:
+    def version_tuple(value: str) -> tuple[int, ...]:
+        numbers = re.match(r"(\d+(?:\.\d+)*)", value)
+        return tuple(int(part) for part in numbers.group(1).split(".")) if numbers else ()
+
+    if version_tuple(observed_version) < version_tuple(required_version):
         raise SystemDependencyError(
             f"uv {observed_version} encontrado em {executable}; o projeto requer "
-            f"uv {required_version}.\n{_uv_installation_instruction(required_version)}"
+            f"uv >= {required_version}.\n{_uv_installation_instruction(required_version)}"
         )
     return executable, observed_version
 
@@ -202,7 +235,11 @@ def _ffmpeg_output(executable: Path, option: str) -> str:
     return process.stdout
 
 
-def _ffmpeg_version(executable: Path, operating_system: str) -> str:
+def _ffmpeg_version(
+    executable: Path,
+    operating_system: str,
+    required_version: str | None = None,
+) -> str:
     try:
         process = subprocess.run(
             [str(executable), "-version"],
@@ -223,11 +260,11 @@ def _ffmpeg_version(executable: Path, operating_system: str) -> str:
             f"Nao foi possivel identificar a versao do FFmpeg em {executable}.",
         )
     version = match.group(1)
-    if version != RECOMMENDED_FFMPEG_VERSION:
+    if required_version is not None and version != required_version:
         raise _installation_request(
             operating_system,
-            f"FFmpeg {version} encontrado em {executable}; a versao recomendada e "
-            f"{RECOMMENDED_FFMPEG_VERSION}.",
+            f"FFmpeg {version} encontrado em {executable}; esta instalacao requer "
+            f"a versao fixada {required_version}.",
         )
     return version
 
@@ -253,9 +290,9 @@ def _round_trip(
                 str(executable),
                 "-v", "error",
                 "-f", "lavfi",
-                "-i", "sine=frequency=1000:sample_rate=48000:duration=0.1",
+                "-i", f"sine=frequency=1000:sample_rate={PROTOCOL.sample_rate_hz}:duration=0.1",
                 "-ac", "1",
-                "-ar", "48000",
+                "-ar", str(PROTOCOL.sample_rate_hz),
                 *encoder_arguments,
                 "-y", str(encoded),
             ],
@@ -264,7 +301,7 @@ def _round_trip(
                 "-v", "error",
                 "-i", str(encoded),
                 "-ac", "1",
-                "-ar", "48000",
+                "-ar", str(PROTOCOL.sample_rate_hz),
                 "-y", str(decoded),
             ],
         )
@@ -284,13 +321,13 @@ def _round_trip(
             )
 
 
-def _validate_round_trips(executable: Path, operating_system: str) -> None:
-    conditions = (
-        ("flac", ("-c:a", "flac", "-compression_level", "5")),
-        ("mp3", ("-c:a", "libmp3lame", "-b:a", "32k")),
-        ("m4a", ("-c:a", "aac", "-profile:a", "aac_low", "-b:a", "64k")),
-        ("opus", ("-c:a", "libopus", "-b:a", "12k", "-vbr", "on", "-application", "audio")),
-        (
+def _validate_round_trips(
+    executable: Path,
+    operating_system: str,
+    include_lc3: bool = False,
+) -> None:
+    if include_lc3:
+        conditions = [(
             "lc3",
             (
                 "-c:a", "liblc3",
@@ -298,8 +335,14 @@ def _validate_round_trips(executable: Path, operating_system: str) -> None:
                 "-frame_duration", "10",
                 "-high_resolution", "0",
             ),
-        ),
-    )
+        )]
+    else:
+        conditions = [
+            ("flac", ("-c:a", "flac", "-compression_level", "5")),
+            ("mp3", ("-c:a", "libmp3lame", "-b:a", "32k")),
+            ("m4a", ("-c:a", "aac", "-profile:a", "aac_low", "-b:a", "64k")),
+            ("opus", ("-c:a", "libopus", "-b:a", "12k", "-vbr", "on", "-application", "audio")),
+        ]
     for extension, arguments in conditions:
         LOGGER.info("Testando codificacao e decodificacao FFmpeg: %s", extension)
         _round_trip(executable, extension, arguments, operating_system)
@@ -307,24 +350,46 @@ def _validate_round_trips(executable: Path, operating_system: str) -> None:
 
 
 def _ffmpeg_installation(operating_system: str) -> FFmpegInstallation:
-    local = Path.home() / ".local" / "ffmpeg-lc3" / RECOMMENDED_FFMPEG_VERSION / "bin" / "ffmpeg"
-    discovered = str(local) if operating_system == "Linux" and local.is_file() else shutil.which("ffmpeg")
+    paths = CodecoPath.discover()
+    discovered = shutil.which("ffmpeg")
     if discovered is None:
-        raise _installation_request(
-            operating_system,
-            "FFmpeg nao foi encontrado no PATH.",
-        )
-
+        raise _installation_request(operating_system, "FFmpeg nao foi encontrado no PATH.")
     executable = Path(discovered).resolve()
     version = _ffmpeg_version(executable, operating_system)
+
+    local_candidates = (
+        paths.root / ".tools" / "ffmpeg-lc3" / RECOMMENDED_FFMPEG_VERSION / "bin" / "ffmpeg",
+        Path.home() / ".local" / "ffmpeg-lc3" / RECOMMENDED_FFMPEG_VERSION / "bin" / "ffmpeg",
+    )
+    lc3_executable = None
+    lc3_version = None
+    for candidate in local_candidates:
+        if not candidate.is_file():
+            continue
+        try:
+            candidate_version = _ffmpeg_version(
+                candidate,
+                operating_system,
+                required_version=RECOMMENDED_FFMPEG_VERSION,
+            )
+            encoders = _ffmpeg_output(candidate, "-encoders")
+            decoders = _ffmpeg_output(candidate, "-decoders")
+        except SystemDependencyError:
+            continue
+        if "liblc3" in encoders and "liblc3" in decoders:
+            lc3_executable = candidate.resolve()
+            lc3_version = candidate_version
+            break
+    if lc3_executable is None or lc3_version is None:
+        raise _installation_request(
+            operating_system,
+            "FFmpeg local com encoder/decoder liblc3 nao foi encontrado.",
+        )
     encoders = _available_names(
         _ffmpeg_output(executable, "-encoders"),
         REQUIRED_ENCODERS,
     )
-    decoders = _available_names(
-        _ffmpeg_output(executable, "-decoders"),
-        REQUIRED_DECODERS,
-    )
+    decoders = _available_names(_ffmpeg_output(executable, "-decoders"), REQUIRED_DECODERS)
     missing_encoders = sorted(REQUIRED_ENCODERS - encoders)
     missing_decoders = sorted(REQUIRED_DECODERS - decoders)
     if missing_encoders or missing_decoders:
@@ -339,11 +404,14 @@ def _ffmpeg_installation(operating_system: str) -> FFmpegInstallation:
             f"({'; '.join(details)}).",
         )
     _validate_round_trips(executable, operating_system)
+    _validate_round_trips(lc3_executable, operating_system, include_lc3=True)
     return FFmpegInstallation(
         executable=executable,
         version=version,
-        encoders=encoders,
-        decoders=decoders,
+        lc3_executable=lc3_executable,
+        lc3_version=lc3_version,
+        encoders=encoders | frozenset({"liblc3"}),
+        decoders=decoders | frozenset({"liblc3"}),
     )
 
 
@@ -363,7 +431,12 @@ def _cuda() -> tuple[bool, str, tuple[GPUDevice, ...]]:
         )
         for index in range(torch.cuda.device_count() if available else 0)
     )
-    return available, "cuda" if available else "cpu", devices
+    mps_available = bool(
+        getattr(torch.backends, "mps", None)
+        and torch.backends.mps.is_available()
+    )
+    device = "cuda" if available else "mps" if mps_available else "cpu"
+    return available, device, devices
 
 
 def configure_model_environment(paths: CodecoPath) -> dict[str, str]:
@@ -474,9 +547,11 @@ def _system_environment(
     LOGGER.info("Verificando a versao do Python...")
     expected_python = (paths.root / ".python-version").read_text(encoding="utf-8").strip()
     observed_python = platform.python_version()
-    if observed_python != expected_python:
+    expected_series = ".".join(expected_python.split(".")[:2])
+    observed_series = ".".join(observed_python.split(".")[:2])
+    if observed_series != expected_series:
         raise SystemDependencyError(
-            f"Python {observed_python} esta ativo; o projeto requer Python {expected_python}."
+            f"Python {observed_python} esta ativo; o projeto requer Python {expected_series}.x."
         )
     LOGGER.info("Python compativel: %s", observed_python)
 
@@ -492,6 +567,11 @@ def _system_environment(
     LOGGER.info("Procurando FFmpeg no PATH do sistema...")
     ffmpeg = _ffmpeg_installation(operating_system)
     LOGGER.info("FFmpeg validado: %s (%s)", ffmpeg.version, ffmpeg.executable)
+    LOGGER.info(
+        "FFmpeg LC3 validado: %s (%s)",
+        ffmpeg.lc3_version,
+        ffmpeg.lc3_executable,
+    )
 
     LOGGER.info("Verificando disponibilidade de GPU CUDA...")
     cuda_available, device, gpu_devices = _cuda()
@@ -530,10 +610,43 @@ def _sync_environment(paths: CodecoPath) -> None:
     LOGGER.info("uv %s validado: %s", uv_version, uv)
     LOGGER.info("Sincronizando os pacotes fixados em uv.lock...")
     subprocess.run(
-        [str(uv), "sync", "--project", str(paths.root), "--locked"],
+        [
+            str(uv),
+            "sync",
+            "--project",
+            str(paths.root),
+            "--locked",
+            "--inexact",
+        ],
         check=True,
     )
     LOGGER.info("Pacotes do ambiente sincronizados.")
+
+
+def _check_environment(paths: CodecoPath) -> None:
+    """Validate the active environment without mutating a running kernel."""
+    uv, uv_version = _uv_executable(paths)
+    LOGGER.info("uv %s validado: %s", uv_version, uv)
+    LOGGER.info("Conferindo os pacotes fixados em uv.lock sem alterar o ambiente...")
+    command = [
+        str(uv),
+        "sync",
+        "--project",
+        str(paths.root),
+        "--locked",
+        "--inexact",
+        "--check",
+    ]
+    try:
+        subprocess.run(command, check=True)
+    except subprocess.CalledProcessError as exc:
+        raise VirtualEnvironmentError(
+            "O ambiente ativo nao corresponde ao uv.lock. Feche ou reinicie o "
+            "kernel depois de executar no terminal:\n"
+            f"cd {paths.root}\n"
+            "uv sync --locked --inexact"
+        ) from exc
+    LOGGER.info("Ambiente ativo compativel com uv.lock.")
 
 
 def _virtual_environment(paths: CodecoPath) -> Path:
@@ -600,7 +713,7 @@ def virtual_env() -> EnvironmentState:
             LOGGER.info("%s: %s", name, value if value is not None else "dinamico")
 
     _section("Pacotes do ambiente")
-    _sync_environment(paths)
+    _check_environment(paths)
 
     _section("Dependencias do sistema")
     system = _system_environment(paths, variables)

@@ -21,16 +21,28 @@ import numpy as np
 import psutil
 import pyarrow as pa
 import pyarrow.compute as compute
+import pandas as pd
 import pyarrow.parquet as parquet
 from tqdm import tqdm
 
 from codeco.codeco_path import CodecoPath
+from codeco.protocol import PROTOCOL
+from codeco.corpora import (
+    CORPUS_MANIFESTS,
+    SelectionRule,
+    class_distribution,
+    corpus_summary,
+    deterministic_balanced_training_sample,
+    freeze_selection,
+    load_manifest_windows,
+    select_classes,
+)
 
 
-CLIP_SECONDS = 4.0
+CLIP_SECONDS = PROTOCOL.window_seconds
 WINDOW_SECONDS = CLIP_SECONDS
-SAMPLE_RATE = 48_000
-BIT_DEPTH = 16
+SAMPLE_RATE = PROTOCOL.sample_rate_hz
+BIT_DEPTH = PROTOCOL.bit_depth
 CACHE_SCHEMA_VERSION = "2"
 CACHE_FILE_NAME = "clip_table.parquet"
 PCM_CACHE_SCHEMA_VERSION = "1"
@@ -43,17 +55,6 @@ CACHE_METADATA = {
     b"codeco_cache_schema_version": CACHE_SCHEMA_VERSION.encode("ascii"),
 }
 LOGGER = logging.getLogger("codeco.prepare_table")
-WINDOW_COLUMNS = (
-    "dataset",
-    "resource_type",
-    "window_id",
-    "source_file_name",
-    "source_audio_relative_path",
-    "window_start_s",
-    "source_split",
-    "target_labels",
-    "source_group_id",
-)
 CLIP_TABLE_SCHEMA = pa.schema(
     [
         pa.field("dataset", pa.string(), nullable=False),
@@ -172,6 +173,45 @@ def _manifest_sha256(path: Path) -> str:
     with path.open("rb") as stream:
         for block in iter(lambda: stream.read(8 * 1024 * 1024), b""):
             digest.update(block)
+    return digest.hexdigest()
+
+
+CLASS_SELECTION_CONFIG_FILE_NAME = "prepare_baseline_class_selection.json"
+
+
+def _class_selection_config_path(paths: CodecoPath) -> Path:
+    return paths.config / CLASS_SELECTION_CONFIG_FILE_NAME
+
+
+def _class_selection_config(paths: CodecoPath) -> dict:
+    path = _class_selection_config_path(paths)
+    data = json.loads(path.read_text(encoding="utf-8"))
+    selection = data.get("class_selection", {})
+    missing = {"k_sigma", "minimum_groups", "seed", "fit_split"} - set(selection)
+    if missing:
+        raise ValueError(
+            f"Configuracao de selecao de classes incompleta em {path}: "
+            f"{', '.join(sorted(missing))}"
+        )
+    return selection
+
+
+def _source_definition_sha256(paths: CodecoPath) -> str:
+    """Hash the manifest and selection configuration as one definition."""
+    sources = (
+        paths.manifest,
+        _class_selection_config_path(paths),
+    )
+    digest = hashlib.sha256()
+    for path in sources:
+        if not path.is_file():
+            raise FileNotFoundError(f"Definicao experimental ausente: {path}")
+        digest.update(paths.project_relative(path).encode("utf-8"))
+        digest.update(b"\0")
+        with path.open("rb") as stream:
+            for block in iter(lambda: stream.read(8 * 1024 * 1024), b""):
+                digest.update(block)
+        digest.update(b"\0")
     return digest.hexdigest()
 
 
@@ -413,7 +453,7 @@ def baseline_pcm_cache_status(
         expected_protocol = {
             "cache_kind": "baseline_pcm",
             "schema_version": PCM_CACHE_SCHEMA_VERSION,
-            "manifest_sha256": _manifest_sha256(locations.manifest),
+            "manifest_sha256": _source_definition_sha256(locations),
             "sample_rate": SAMPLE_RATE,
             "clip_seconds": CLIP_SECONDS,
             "bit_depth": BIT_DEPTH,
@@ -652,21 +692,51 @@ def _refresh_audio_available(table: pa.Table) -> tuple[pa.Table, int]:
 
 
 def _read_windows(paths: CodecoPath) -> pa.Table:
+    """Rebuild the auditable selected slice from the frozen manifest."""
     if not paths.manifest.is_file():
         raise FileNotFoundError(f"Manifesto nao encontrado: {paths.manifest}")
-    windows = parquet.read_table(
-        paths.manifest,
-        columns=list(WINDOW_COLUMNS),
-        filters=[("resource_type", "=", "window")],
+    records: list[dict[str, object]] = []
+    selection = _class_selection_config(paths)
+    rule = SelectionRule(
+        k_sigma=float(selection["k_sigma"]),
+        minimum_groups=int(selection["minimum_groups"]),
+        seed=int(selection["seed"]),
+        fit_split=str(selection["fit_split"]),
     )
-    missing = set(WINDOW_COLUMNS) - set(windows.column_names)
-    if missing:
-        raise ValueError(
-            f"Colunas ausentes no manifesto: {', '.join(sorted(missing))}"
+    for corpus in CORPUS_MANIFESTS:
+        frozen = load_manifest_windows(corpus, paths.manifest)
+        _, metadata = select_classes(frozen, rule)
+        frame, _ = deterministic_balanced_training_sample(
+            frozen,
+            metadata["selected_classes"],
+            quota=int(metadata["count_cutoff"]),
+            seed=rule.seed,
         )
-    if windows.num_rows == 0:
-        raise ValueError(f"Nenhuma janela congelada encontrada em {paths.manifest}")
-    return windows
+        for row in frame.to_dict(orient="records"):
+            dataset = corpus
+            start = (
+                float(row.get("window_start_s", 0.0) or 0.0)
+                if dataset == "pteroset_ppa1"
+                else 0.0
+            )
+            records.append(
+                {
+                    "dataset": dataset,
+                    "resource_type": "window",
+                    "window_id": str(row["window_id"]),
+                    "source_file_name": str(row["source_file_name"]),
+                    "source_audio_relative_path": str(
+                        row.get("source_audio_relative_path", "") or ""
+                    ),
+                    "window_start_s": start,
+                    "source_split": str(row["split"]),
+                    "target_labels": str(row.get("labels", "") or ""),
+                    "source_group_id": str(row["source_group_id"]),
+                }
+            )
+    if not records:
+        raise ValueError("Os manifests congelados nao contem janelas liberadas.")
+    return pa.Table.from_pylist(records)
 
 
 def _dataset_names(windows: pa.Table) -> tuple[str, ...]:
@@ -776,7 +846,7 @@ def _prepare_table(
     cache_file = _cache_path(paths)
     LOGGER.info("Cache: %s", cache_file)
     hash_started = time.perf_counter()
-    manifest_sha256 = _manifest_sha256(paths.manifest)
+    manifest_sha256 = _source_definition_sha256(paths)
     LOGGER.info(
         "SHA-256 do manifesto: %s (%.3f s).",
         manifest_sha256,
@@ -866,11 +936,50 @@ def _prepare_table(
     return result
 
 
+def _write_corpus_records(paths: CodecoPath) -> None:
+    """Persist the corpus audit (notebook 01) and the frozen class selection (notebook 02)."""
+    selection = _class_selection_config(paths)
+    rule = SelectionRule(
+        k_sigma=float(selection["k_sigma"]),
+        minimum_groups=int(selection["minimum_groups"]),
+        seed=int(selection["seed"]),
+        fit_split=str(selection["fit_split"]),
+    )
+    manifests = {
+        corpus: load_manifest_windows(corpus, paths.manifest) for corpus in CORPUS_MANIFESTS
+    }
+    paths.tables.mkdir(parents=True, exist_ok=True)
+    pd.DataFrame([corpus_summary(df) for df in manifests.values()]).to_csv(
+        paths.tables / "corpus_summary.csv", index=False
+    )
+    distribution_rows = []
+    for corpus, df in manifests.items():
+        dist = class_distribution(df)
+        dist.insert(0, "corpus", corpus)
+        distribution_rows.append(dist)
+    pd.concat(distribution_rows, ignore_index=True).to_csv(
+        paths.tables / "natural_class_distributions.csv", index=False
+    )
+    for corpus, df in manifests.items():
+        table, metadata = select_classes(df, rule)
+        sampled, balance = deterministic_balanced_training_sample(
+            df,
+            metadata["selected_classes"],
+            quota=int(metadata["count_cutoff"]),
+            seed=rule.seed,
+        )
+        freeze_selection(
+            corpus, table, metadata, sampled, balance, paths.tables / "selections"
+        )
+    LOGGER.info("Registros do corpus e do recorte: %s", paths.tables)
+
+
 def prepare_baseline() -> BaselineState:
     """Prepare the canonical baseline once for the integrated pipeline."""
     paths = CodecoPath.discover()
+    _write_corpus_records(paths)
     table = _prepare_table()
-    manifest_sha256 = _manifest_sha256(paths.manifest)
+    manifest_sha256 = _source_definition_sha256(paths)
     pcm_cache_dir, pcm_index = _prepare_pcm_cache(
         table,
         paths,

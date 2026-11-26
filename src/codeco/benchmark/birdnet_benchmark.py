@@ -34,13 +34,14 @@ from tqdm import tqdm
 
 from codeco.codeco_path import CodecoPath
 from codeco.environment import configure_model_environment
+from codeco.protocol import PROTOCOL
 from codeco.prepare_table import TqdmLoggingHandler, prepare_table
 
 
 LOGGER = logging.getLogger("codeco.birdnet_benchmark")
-SAMPLE_RATE = 48_000
-CLIP_SECONDS = 4.0
-MODEL_SECONDS = 3.0
+SAMPLE_RATE = PROTOCOL.sample_rate_hz
+CLIP_SECONDS = PROTOCOL.window_seconds
+MODEL_SECONDS = PROTOCOL.birdnet_seconds
 CLIP_SAMPLES = round(SAMPLE_RATE * CLIP_SECONDS)
 MODEL_SAMPLES = round(SAMPLE_RATE * MODEL_SECONDS)
 DEFAULT_CLIPS_PER_DATASET = 50

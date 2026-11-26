@@ -31,6 +31,11 @@ class Codeco:
 
         state = download_datasets()
         self.context["datasets"] = state
+        from codeco.provenance import write_run_metadata
+
+        self.context["provenance"] = write_run_metadata(
+            self.context.get("environment")
+        )
         return self
 
     def prepare_baseline(self) -> "Codeco":
@@ -61,12 +66,16 @@ class Codeco:
             raise RuntimeError("environment() deve ser concluido antes de ffmpeg().")
         if "baseline" not in self.context:
             raise RuntimeError("prepare_baseline() deve ser concluido antes de ffmpeg().")
+        from codeco.codec_config import codec_evaluation_config
         from codeco.ffmpeg import run
 
+        evaluation = codec_evaluation_config()
         output = run(
             baseline=self.context["baseline"],
             environment=self.context["environment"],
-            max_clips_per_dataset=None,
+            max_clips_per_dataset=evaluation["max_clips_per_dataset"],
+            seed=int(evaluation["seed"]),
+            split=evaluation["split"],
         )
         self.context["ffmpeg"] = output
         return self
@@ -79,12 +88,16 @@ class Codeco:
             raise RuntimeError("prepare_baseline() deve ser concluido antes de encodec().")
         if "ffmpeg" not in self.context:
             raise RuntimeError("ffmpeg() deve ser concluido antes de encodec().")
+        from codeco.codec_config import codec_evaluation_config
         from codeco.encodec import run
 
+        evaluation = codec_evaluation_config()
         output = run(
             baseline=self.context["baseline"],
             environment=self.context["environment"],
-            max_clips_per_dataset=None,
+            max_clips_per_dataset=evaluation["max_clips_per_dataset"],
+            seed=int(evaluation["seed"]),
+            split=evaluation["split"],
         )
         self.context["encodec"] = output
         return self
@@ -112,12 +125,14 @@ class Codeco:
         return self
 
     def classify(self) -> "Codeco":
-        """Classify BirdNET and Perch embeddings with the original MLP protocol."""
+        """Classify BirdNET and Perch embeddings with every configured head."""
         if "embeddings" not in self.context:
             raise RuntimeError("embeddings() deve ser concluido antes de classify().")
-        from codeco.classify import run
+        from codeco.classify import classification_heads, run
 
-        outputs = run(embeddings_indices=self.context["embeddings"])
+        outputs = []
+        for head in classification_heads():
+            outputs.extend(run(head=head, embeddings_indices=self.context["embeddings"]))
         self.context["classification"] = outputs
         return self
 

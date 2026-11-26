@@ -7,9 +7,10 @@ import numpy as np
 from skimage.metrics import structural_similarity
 
 from codeco.acoustic_indices import acoustic_indices_v1
+from codeco.protocol import PROTOCOL
 
 
-SR = 48_000
+SR = PROTOCOL.sample_rate_hz
 N_FFT = 2048
 HOP_LENGTH = 512
 N_MELS = 128

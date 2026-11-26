@@ -1,0 +1,5 @@
+{
+  "classification": {
+    "heads": ["mlp", "linear"]
+  }
+}
