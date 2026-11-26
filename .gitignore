@@ -4,6 +4,9 @@ __pycache__/
 *.egg-info/
 build/
 dist/
+# FFmpeg with liblc3 built locally by scripts/install_ffmpeg_lc3.sh; it links
+# against the host's system libraries, so each machine builds its own copy.
+.tools/
 
 data/datasets/
 data/downloads/
